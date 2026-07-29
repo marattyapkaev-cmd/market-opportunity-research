@@ -1,0 +1,480 @@
+import {
+  Card,
+  CardBody,
+  CardHeader,
+  Callout,
+  Divider,
+  Grid,
+  H1,
+  H2,
+  H3,
+  Link,
+  Pill,
+  Row,
+  Select,
+  Stack,
+  Stat,
+  Table,
+  Text,
+  TextInput,
+  useCanvasState,
+  useHostTheme,
+} from "cursor/canvas";
+
+type Region = "США" | "Европа" | "СНГ" | "MENA" | "LatAm" | "India" | "SEA";
+type Confidence = "Высокая" | "Средняя" | "Низкая";
+
+type RegionCase = {
+  region: Region;
+  revenue: number;
+  year: "2024" | "2025";
+  tam: number;
+  sam: number;
+  cagr: number;
+  stage: string;
+  leaders: string;
+  gap: string;
+  barriers: string;
+  importScore: number;
+  exportScore: number;
+  confidence: Confidence;
+  method: string;
+  sourceIds: string[];
+};
+
+type Market = {
+  id: string;
+  category: string;
+  name: string;
+  boundary: string;
+  wedge: string;
+  whyNow: string;
+  regions: RegionCase[];
+};
+
+const sources: Record<string, { label: string; url: string }> = {
+  ehrUS: { label: "Grand View Research — US EHR $12.87B (2024)", url: "https://www.grandviewresearch.com/industry-analysis/us-electronic-health-records-market-report" },
+  ehrShare: { label: "Fierce Healthcare / KLAS — Epic 42.3%, Oracle 22.9% (2024)", url: "https://www.fiercehealthcare.com/health-tech/epic-gaining-more-ground-hospital-ehr-market-share-widens-its-lead-over-oracle-health" },
+  ehrGlobal: { label: "Grand View Research — global EHR", url: "https://www.grandviewresearch.com/industry-analysis/electronic-health-records-ehr-market" },
+  hipaa: { label: "HHS — HIPAA Security Rule", url: "https://www.hhs.gov/hipaa/for-professionals/security/index.html" },
+  ehds: { label: "European Commission — European Health Data Space", url: "https://health.ec.europa.eu/ehealth-digital-health-and-care/european-health-data-space_en" },
+  gdpr: { label: "EU — GDPR legal text", url: "https://eur-lex.europa.eu/eli/reg/2016/679/oj" },
+  dental: { label: "Fortune Business Insights — dental practice management software", url: "https://www.fortunebusinessinsights.com/dental-practice-management-software-market-106841" },
+  constructionEU: { label: "Grand View Research — Europe construction & design $2.90B (2024)", url: "https://www.grandviewresearch.com/horizon/outlook/construction-and-design-software-market/europe" },
+  constructionGlobal: { label: "Apps Run The World — construction software $14.7B; top-10 46.5%", url: "https://www.appsruntheworld.com/top-10-construction-software-vendors-market-size-and-market-forecast/" },
+  procore: { label: "SEC — Procore 2024 revenue $1.152B", url: "https://www.sec.gov/Archives/edgar/data/1611052/000162828025008121/pcor-20241231.htm" },
+  property: { label: "Global Market Monitor — PMS $3.895B; top-3 45.1% (2024)", url: "https://www.globalmarketmonitor.com/report_blog/1861821.html" },
+  appfolio: { label: "AppFolio FY2024 — $794M revenue", url: "https://ir.appfolioinc.com/news-releases/news-release-details/appfolio-inc-announces-fourth-quarter-and-fiscal-year-2024" },
+  fleet: { label: "Berg Insight — Americas fleet systems and vendor concentration", url: "https://media.berginsight.com/2024/12/03204201/bi-fmam14-ps.pdf" },
+  telematics: { label: "Grand View Research — commercial telematics $61.52B incl. hardware/services", url: "https://www.grandviewresearch.com/industry-analysis/commercial-vehicle-telematics-market-report" },
+  samsara: { label: "Samsara FY2025 Form 10-K", url: "https://investors.samsara.com/financials/sec-filings/default.aspx" },
+  lastMile: { label: "Growth Market Reports — Europe last-mile software $620M (2024)", url: "https://growthmarketreports.com/report/last-mile-delivery-software-market" },
+  lastMileGrowth: { label: "FMI — last-mile software country CAGR", url: "https://www.futuremarketinsights.com/reports/last-mile-delivery-software-market" },
+  hotel: { label: "Mordor Intelligence — Hotel PMS; top-5 ≈45%", url: "https://www.mordorintelligence.com/industry-reports/hospitality-property-management-software-market" },
+  hotelRegional: { label: "Data Horizon — Hotel PMS regional estimates", url: "https://datahorizzonresearch.com/hotel-pms-market-49767" },
+  restaurant: { label: "Houlihan Lokey — global restaurant software ≈$6.6B (2024)", url: "https://cdn.hl.com/pdf/2024/restaurant-technology-market-update-hl-2024.pdf" },
+  toast: { label: "SEC — Toast FY2024: $706M subscription, $4.96B total", url: "https://www.sec.gov/Archives/edgar/data/1650164/000165016425000066/tost-20241231xexhibit991.htm" },
+  horecaRU: { label: "TAdviser — Russian HoReCa digitalization; iiko ₽4.2B", url: "https://tadviser.com/index.php/Article:Russian_HoReCa_digitalization_market._TAdviser_Overview" },
+  fsm: { label: "Verdantix — FSM software $4.7B (2024), NA 40%", url: "https://www.verdantix.com/venture/report/market-size-and-forecast--field-service-management-software-2024-2030-global" },
+  fsmDeck: { label: "Vista Point — FSM $4.9B, 11.7% CAGR", url: "https://cms.vistapointadvisors.com/system/uploads/fae/file/asset/721/FSM___Construction_Tech_Quarterly_Report_Q4_24.pdf" },
+  mesNA: { label: "MarketsandMarkets — North America MES $4.55B (2024)", url: "https://www.marketsandmarkets.com/Market-Reports/north-america-manufacturing-execution-system-market-109283913.html" },
+  mesEU: { label: "MarketsandMarkets — Europe MES $3.56B (2024)", url: "https://www.marketsandmarkets.com/Market-Reports/europe-manufacturing-execution-system-mes-market-258685760.html" },
+  farm: { label: "MarketsandMarkets — farm management software $3.4B (2024)", url: "https://www.marketsandmarkets.com/Market-Reports/farm-management-software-market-217016636.html" },
+  farmRegional: { label: "Grand View Research — North America FMS $1.60B (2024)", url: "https://www.grandviewresearch.com/horizon/outlook/farm-management-software-market/north-america" },
+  legal: { label: "GlobeNewswire / ResearchAndMarkets — LPMS $2.06B (2024)", url: "https://www.globenewswire.com/news-release/2024/06/25/2903904/28124/en/Legal-Practice-Management-Software-LPMS-Market-Report-2024-2030-Growing-Usage-of-Legal-Billing-Software-Across-Solo-Practitioners-and-Small-to-Mid-Size-Firms.html" },
+  legalShare: { label: "Intel Market Research — Clio ≈18%, top-5 ≈42%", url: "https://www.intelmarketresearch.com/legal-practice-management-software-market-21415" },
+  saasRU: { label: "TAdviser — Russia SaaS ₽200.9B (2024)", url: "https://tadviser.com/index.php/Article:SaaS_(Russian_market)" },
+  softwareRU: { label: "TAdviser — Russian enterprise software spending by industry", url: "https://tadviser.com/index.php/Article:Enterprise_Software_(Russian_Market)" },
+  verticalEU: { label: "Grand View Research — Europe vertical software $36.64B (2024)", url: "https://www.grandviewresearch.com/horizon/outlook/vertical-software-market/europe" },
+  dataRU: { label: "Roskomnadzor — personal-data localization guidance", url: "https://rkn.gov.ru/personal-data/" },
+  fz152: { label: "Russian personal data law 152-FZ", url: "https://www.consultant.ru/document/cons_doc_LAW_61801/" },
+};
+
+const usdFromRub = "Bottom-up: доля вертикали в ₽200.9B SaaS + публичные выручки лидеров; FX ≈92 RUB/USD. Не включает заказную разработку и hardware.";
+
+const markets: Market[] = [
+  {
+    id: "clinic",
+    category: "Healthcare operations",
+    name: "Амбулаторные и specialty-clinic operations",
+    boundary: "EHR/practice management, scheduling, intake, billing/RCM workflow и patient engagement для независимых амбулаторных клиник. Исключены inpatient HIS, imaging hardware, payer core systems и клинические услуги.",
+    wedge: "Одна специальность с дорогой административной болью: prior authorization + intake + coding QA для PT/behavioral health/дерматологии; начинать как overlay к EHR, не как новая медкарта.",
+    whyNow: "AI-documentation снижает switching friction, но сертификация и интеграции оставляют место specialty workflow.",
+    regions: [
+      { region: "США", revenue: 6.2, year: "2024", tam: 13.0, sam: 2.4, cagr: 8, stage: "Зрелый, замена legacy", leaders: "Epic 42.3% и Oracle 22.9% acute-care; ambulatory фрагментирован: athenahealth, eClinicalWorks, ModMed. Epic private; точная ambulatory revenue не раскрыта.", gap: "Общий EHR насыщен; незакрыты specialty RCM, prior auth, fax/referral intake и малые multi-site группы.", barriers: "HIPAA, ONC certification при записи в chart, state privacy, BAAs, clearinghouse/payer integrations; высокий CAC доверия.", importScore: 2, exportScore: 2, confidence: "Средняя", method: "Revenue = 48% US EHR base, относимая к ambulatory/operations. TAM = весь US EHR + adjacent PM; SAM = независимые specialty practices × $8–20k ACV.", sourceIds: ["ehrUS", "ehrShare", "hipaa"] },
+      { region: "Европа", revenue: 4.4, year: "2024", tam: 9.2, sam: 1.3, cagr: 6, stage: "Фрагментирован по странам", leaders: "CompuGroup Medical, Dedalus, Tietoevry, Epic; панъевропейской доли нет, country incumbents сильны.", gap: "Частные клиники, cross-border patient intake, referral coordination, specialty workflow поверх национальных EHR.", barriers: "GDPR, EHDS, medical-device status для decision support, data residency/procurement, язык и reimbursement по стране.", importScore: 2, exportScore: 2, confidence: "Средняя", method: "Revenue = ≈48% Europe EHR estimate attributable to outpatient/ops. TAM includes full regional EHR; SAM = private ambulatory clusters in UK/DACH/Benelux/CEE.", sourceIds: ["ehrGlobal", "ehds", "gdpr"] },
+      { region: "СНГ", revenue: 0.24, year: "2024", tam: 0.85, sam: 0.18, cagr: 16, stage: "Растущий, import substitution", leaders: "1С отраслевые решения, БАРС, РТ МИС, Medesk/Archimed; доли не раскрываются.", gap: "Private-clinic unit economics, call-center QA, lab/referral routing, offline/mobile workflows вне Москвы.", barriers: "152-ФЗ/локализация, национальные медреестры и интеграции, лицензирование, on-prem demand; различия по странам СНГ.", importScore: 5, exportScore: 2, confidence: "Низкая", method: usdFromRub + " SAM = частные клиники РФ/Казахстана/Беларуси с облачным бюджетом.", sourceIds: ["saasRU", "softwareRU", "fz152", "dataRU"] },
+    ],
+  },
+  {
+    id: "dental",
+    category: "Healthcare operations",
+    name: "Dental practice OS",
+    boundary: "Chair scheduling, charting, imaging workflow integration, treatment plans, insurance claims, recall/CRM and inventory for dental groups. Excludes imaging devices, labs and consumer marketplaces.",
+    wedge: "Treatment-plan acceptance + insurance eligibility/claims QA for 3–30 chair groups; integrate with incumbent PMS and imaging first.",
+    whyNow: "DSO consolidation and staff shortages create measurable ROI in case acceptance and front-desk automation.",
+    regions: [
+      { region: "США", revenue: 1.45, year: "2024", tam: 3.1, sam: 0.72, cagr: 10, stage: "Зрелый, DSO consolidation", leaders: "Henry Schein Dentrix, Patterson Eaglesoft, Open Dental, Curve; top vendors entrenched, segment revenue not separately disclosed.", gap: "Eligibility, claims follow-up, call QA, specialist referral loops and multi-location procurement remain stitched together.", barriers: "HIPAA, X-ray integrations, payer EDI, dental coding, state consent; incumbent APIs vary.", importScore: 2, exportScore: 3, confidence: "Средняя", method: "Triangulation of global dental PMS reports × North America share; TAM adds payments/RCM workflow, SAM targets independent groups/DSOs under 50 sites.", sourceIds: ["dental", "hipaa"] },
+      { region: "Европа", revenue: 0.82, year: "2024", tam: 1.9, sam: 0.42, cagr: 9, stage: "Country-fragmented", leaders: "CompuGroup, Software of Excellence, Carestream, local PMS; no reliable cross-Europe shares.", gap: "Private chains need centralized treatment-plan, recall and stock workflows across languages and tax regimes.", barriers: "GDPR, national dental reimbursement, e-invoicing, MDR if clinical recommendations, language.", importScore: 3, exportScore: 3, confidence: "Низкая", method: "Global dental PMS × estimated 26–30% Europe share; SAM = private practices in UK/DACH/CEE where cloud penetration is practical.", sourceIds: ["dental", "gdpr"] },
+      { region: "СНГ", revenue: 0.10, year: "2024", tam: 0.32, sam: 0.08, cagr: 15, stage: "Early cloud transition", leaders: "IDENT, 1С-based dental products, Dental4Windows/local products; public shares absent.", gap: "Recall/CRM, treatment plan conversion, stock/sterilization audit and owner dashboards for small chains.", barriers: "152-ФЗ, medical data localization, fiscalization, messaging integrations and low SMB ARPU.", importScore: 5, exportScore: 3, confidence: "Низкая", method: usdFromRub + " Bottom-up practices × $400–2,000 annual software spend.", sourceIds: ["saasRU", "fz152"] },
+    ],
+  },
+  {
+    id: "construction",
+    category: "Construction / property",
+    name: "Construction project & field operations",
+    boundary: "Project controls, RFIs/submittals, document control, field QA/safety, estimating and subcontractor coordination. Excludes CAD authoring, equipment hardware and general ERP.",
+    wedge: "Document/compliance OS for one subcontractor trade (MEP/fireproofing/facade): daily logs, photo evidence, material certificates, handover pack.",
+    whyNow: "Top-10 vendors hold only 46.5% globally; field workflows and local compliance remain fragmented.",
+    regions: [
+      { region: "США", revenue: 5.3, year: "2024", tam: 9.6, sam: 1.4, cagr: 11, stage: "Scale-up / consolidation", leaders: "Procore ≈7.4% global construction software, Autodesk, Oracle, Bentley, Trimble; Procore FY2024 revenue $1.152B.", gap: "Specialty subcontractors, closeout, lien/insurance certificates, material procurement and owner handover are still email-heavy.", barriers: "State lien/prevailing wage rules, OSHA, insurance, union workflows, Procore/ERP integrations; high channel CAC.", importScore: 4, exportScore: 4, confidence: "Высокая", method: "Global $14.7B construction software × estimated 36% US share; TAM excludes CAD-heavy revenue; SAM = specialty contractors × $3–15k ACV.", sourceIds: ["constructionGlobal", "procore"] },
+      { region: "Европа", revenue: 2.90, year: "2024", tam: 6.0, sam: 1.0, cagr: 10.2, stage: "Growing, fragmented", leaders: "Autodesk, Nemetschek, RIB/Schneider, Oracle, Procore; project management is 19.1% of broad construction/design category.", gap: "Country-specific safety, e-signatures, product passports, subcontractor compliance and multilingual handover.", barriers: "GDPR, eIDAS, national building codes, public procurement/BIM mandates, many languages.", importScore: 4, exportScore: 4, confidence: "Высокая", method: "Published Europe construction/design software revenue; TAM adds adjacent contractor ERP/document control; SAM = UK/DACH/CEE specialty trades.", sourceIds: ["constructionEU", "gdpr"] },
+      { region: "СНГ", revenue: 0.29, year: "2024", tam: 1.0, sam: 0.24, cagr: 19, stage: "Import substitution / early cloud", leaders: "1С, Аскон, Нанософт, Gectaro, PlanRadar/local clones; exact vertical shares unavailable.", gap: "SMB contractor job costing, исполнительная документация, photo QA, supplier certificates and mobile offline.", barriers: "Local standards/GOST, ЭДО/ЭП, 152-ФЗ, 1С integration, on-prem requests and sanctions-driven components.", importScore: 5, exportScore: 4, confidence: "Низкая", method: "Russia SaaS × 11.9% construction-consumption share, then isolate vertical workflow software; SAM = cloud-ready contractors.", sourceIds: ["saasRU", "softwareRU", "fz152"] },
+      { region: "MENA", revenue: 0.75, year: "2024", tam: 2.3, sam: 0.55, cagr: 15, stage: "Fast digitization", leaders: "Oracle Aconex/Primavera, Autodesk, Procore, Trimble; megaproject enterprise layer concentrated, subcontractor layer open.", gap: "Arabic/English field QA, workforce credentials, material approvals, subcontractor payment evidence.", barriers: "Saudi/UAE data rules, Arabic, government procurement, local hosting and sponsor/channel relationships.", importScore: 3, exportScore: 5, confidence: "Низкая", method: "Bottom-up GCC construction IT spend and global regional-share triangulation; SAM = subcontractors on Saudi/UAE megaproject supply chains.", sourceIds: ["constructionGlobal"] },
+    ],
+  },
+  {
+    id: "property",
+    category: "Construction / property",
+    name: "Residential property management",
+    boundary: "Leasing, tenant portal, rent collection workflow, maintenance, inspections, owner accounting and compliance for rental housing/HOA. Excludes brokerage marketplaces, smart-home hardware and pure payment revenue.",
+    wedge: "Maintenance coordination + vendor SLA + inspection evidence for 300–5,000 unit managers; overlay incumbent accounting.",
+    whyNow: "Cloud is ≈67% globally, but local tenant law and fragmented service vendors preserve country niches.",
+    regions: [
+      { region: "США", revenue: 1.45, year: "2024", tam: 3.6, sam: 0.75, cagr: 10, stage: "Mature, consolidating", leaders: "Yardi ≈18%, AppFolio ≈17%, RealPage ≈11% in one 2024 estimate; AppFolio FY2024 total revenue $794M.", gap: "Small/mid managers still need maintenance ops, affordable-housing compliance, inspections and vendor procurement.", barriers: "State landlord-tenant law, Fair Housing, payments/KYC, rent-control rules, accounting integrations; antitrust sensitivity in pricing.", importScore: 4, exportScore: 4, confidence: "Высокая", method: "Published North America $1.418B adjusted to US; TAM adds resident services but excludes transaction GMV; SAM = 50–5,000 unit managers.", sourceIds: ["property", "appfolio"] },
+      { region: "Европа", revenue: 1.19, year: "2024", tam: 3.2, sam: 0.72, cagr: 12, stage: "Fragmented growth", leaders: "MRI, Yardi, Aareon, Reapit, country specialists; no pan-European leader above low-teens estimate.", gap: "Germany/CEE fragmented managers need energy/ESG, maintenance procurement, owner reporting and tenant communication.", barriers: "GDPR, national leases/deposit schemes, e-invoicing, rent control, energy-performance reporting and language.", importScore: 4, exportScore: 4, confidence: "Средняя", method: "Published global $3.895B × 30.65% Europe; TAM adds compliance/energy ops; SAM = professional managers in selected countries.", sourceIds: ["property", "gdpr"] },
+      { region: "СНГ", revenue: 0.16, year: "2024", tam: 0.55, sam: 0.14, cagr: 18, stage: "Early / local platforms", leaders: "1С ЖКХ, Домиленд, Doma.ai, Бурмистр; shares/revenue not consistently public.", gap: "Developer-to-manager handover, contractor SLA, meter/inspection evidence, debt workflow and resident service marketplaces.", barriers: "Housing codes, GIS ЖКХ integration in Russia, fiscalization/payments, 152-ФЗ and local messaging channels.", importScore: 5, exportScore: 3, confidence: "Низкая", method: usdFromRub + " Unit-count × $1–5 per unit/month for professionally managed stock.", sourceIds: ["saasRU", "fz152"] },
+    ],
+  },
+  {
+    id: "fleet",
+    category: "Logistics / fleet",
+    name: "Commercial fleet telematics software",
+    boundary: "Recurring software/platform revenue for tracking, ELD/tachograph, safety, maintenance and fuel analytics. Hardware, connectivity pass-through, leasing and freight brokerage excluded.",
+    wedge: "Maintenance + tire/fuel anomaly + compliance workflow for mixed 50–500 vehicle fleets; hardware-agnostic connectors.",
+    whyNow: "Americas top-10 account for only 50% of installed base; OEM data opens an asset-light software layer.",
+    regions: [
+      { region: "США", revenue: 3.0, year: "2025", tam: 7.2, sam: 1.2, cagr: 12, stage: "Scaled growth", leaders: "Geotab >3M North America subscribers; Verizon Connect and Samsara next. Top-10 Americas ≈50% installed base; Samsara FY2025 revenue ≈$1.25B across connected operations.", gap: "Mixed hardware, maintenance parts, insurance evidence, small fleets and specialty assets.", barriers: "FMCSA ELD, state privacy/biometrics, hardware certification, OEM APIs, 24/7 reliability and channel economics.", importScore: 4, exportScore: 4, confidence: "Высокая", method: "Telematics-software-only estimate, cross-checked by installed units × $15–40/month; TAM = all commercial vehicles at mature ARPU.", sourceIds: ["fleet", "telematics", "samsara"] },
+      { region: "Европа", revenue: 2.25, year: "2024", tam: 5.3, sam: 0.95, cagr: 11, stage: "Mature but fragmented", leaders: "Webfleet, Geotab, Verizon Connect, Michelin Connected Fleet, Eurowag; country/fleet niches remain.", gap: "Tachograph compliance, cross-border driver docs, EV charging/fuel reconciliation and SME maintenance.", barriers: "GDPR/worker monitoring, EU Mobility Package, smart tachograph, eFTI, country labor rules and languages.", importScore: 4, exportScore: 4, confidence: "Средняя", method: "Software share of Europe commercial telematics, normalized against installed base and ARPU; SAM = 20–500 vehicle fleets.", sourceIds: ["fleet", "telematics", "gdpr"] },
+      { region: "СНГ", revenue: 0.31, year: "2024", tam: 0.95, sam: 0.25, cagr: 14, stage: "Mature tracking, open operations layer", leaders: "Wialon/Gurtam, Omnicomm, Fort Monitor, GLONASS/1С ecosystem; subscriber counts exist, revenue shares do not.", gap: "Tracking commoditized; maintenance, tire/fuel fraud, route economics, driver documents and offline field workflows underbuilt.", barriers: "Hardware fragmentation, GLONASS mandates, 152-ФЗ, local maps/SIMs, sanctions and low ARPU.", importScore: 5, exportScore: 5, confidence: "Средняя", method: "Installed fleet units × blended $6–15/month software ARPU; excludes terminals and connectivity.", sourceIds: ["fleet", "saasRU", "fz152"] },
+      { region: "LatAm", revenue: 0.65, year: "2024", tam: 2.5, sam: 0.55, cagr: 15, stage: "High-growth, low penetration", leaders: "Sascar/Michelin, Geotab, Omnilink, Cobli, Samsara; regional top shares not public.", gap: "Cargo theft, offline coverage, driver cash/expense, tire/fuel and maintenance for SME fleets.", barriers: "Brazil LGPD, Spanish/Portuguese, local maps/SIM/tax docs, hardware financing and reseller channel.", importScore: 3, exportScore: 5, confidence: "Средняя", method: "6.5M active systems (2023) × regional ARPU, grown to 2024; SAM = cloud-upgradeable SME fleets in Brazil/Mexico/Andean markets.", sourceIds: ["fleet"] },
+    ],
+  },
+  {
+    id: "lastmile",
+    category: "Logistics / fleet",
+    name: "Last-mile delivery orchestration",
+    boundary: "Dispatch, route optimization, driver app, proof of delivery, customer ETA and carrier management. Excludes delivery labor, marketplace commissions, warehousing and generic TMS.",
+    wedge: "Failed-delivery and cash-on-delivery reconciliation for pharmacy/FMCG distributors in one city/vertical.",
+    whyNow: "India/SEA/LatAm growth is stronger than mature markets and incumbent enterprise suites underserve local address/payment realities.",
+    regions: [
+      { region: "США", revenue: 0.92, year: "2024", tam: 2.2, sam: 0.52, cagr: 10, stage: "Growth / crowded", leaders: "Bringg, Onfleet, Descartes, FarEye, DispatchTrack; shares and pure last-mile revenue not disclosed.", gap: "Vertical delivery for healthcare, bulky goods, field inventory, returns and independent carriers.", barriers: "Driver classification, state privacy, maps/SMS costs, retailer integrations, seasonal reliability.", importScore: 3, exportScore: 4, confidence: "Средняя", method: "North America published share triangulation, then US allocation; SAM = mid-market vertical fleets excluding gig marketplaces.", sourceIds: ["lastMile", "lastMileGrowth"] },
+      { region: "Европа", revenue: 0.62, year: "2024", tam: 1.65, sam: 0.40, cagr: 9, stage: "Growth, sustainability-led", leaders: "Descartes, PTV, Bringg, Stuart tech, FarEye; fragmented by parcel/retail/country.", gap: "Low-emission-zone routing, e-cargo fleets, returns, subcontractor proof and urban delivery windows.", barriers: "GDPR, worker monitoring, low-emission zones, eCMR/eFTI, country postal/address rules.", importScore: 4, exportScore: 4, confidence: "Высокая", method: "Published Europe last-mile delivery software revenue; SAM = non-parcel mid-market vertical delivery.", sourceIds: ["lastMile", "gdpr"] },
+      { region: "СНГ", revenue: 0.13, year: "2024", tam: 0.46, sam: 0.12, cagr: 17, stage: "Growing / marketplace-shaped", leaders: "Яндекс Маршрутизация, ШЕДЕКС, Maxoptra/local TMS, marketplace in-house stacks; no public shares.", gap: "Regional distributors, pharmacy cold-chain, returns/COD, offline proof and outsourced-driver reconciliation.", barriers: "Local maps, fiscal receipts, 152-ФЗ, platform competition, low ARPU and custom 1С integration.", importScore: 5, exportScore: 4, confidence: "Низкая", method: usdFromRub + " Delivery fleet count × $20–100/driver/month for addressable operators.", sourceIds: ["saasRU", "softwareRU"] },
+      { region: "India", revenue: 0.48, year: "2024", tam: 1.8, sam: 0.42, cagr: 13.9, stage: "Fast growth", leaders: "FarEye, Locus, Shipsy, LogiNext, fleetx; strong local vendors but fragmented vertical demand.", gap: "Tier-2/3 addresses, COD/UPI reconciliation, multilingual driver UX and distributor-owned fleets.", barriers: "DPDP Act, GST/e-way bill, maps/address quality, extreme price sensitivity and mobile/offline performance.", importScore: 2, exportScore: 4, confidence: "Средняя", method: "Country growth and regional share triangulation; SAM = healthcare/FMCG/industrial distributors rather than e-commerce giants.", sourceIds: ["lastMileGrowth"] },
+      { region: "SEA", revenue: 0.34, year: "2024", tam: 1.4, sam: 0.30, cagr: 16, stage: "Fast growth / fragmented", leaders: "Grab enterprise tools, Ninja Van tech, FarEye, Locus, Anchanto; country-specific ecosystems.", gap: "Inter-island handoffs, COD, motorbike fleets, SME distributor routing and returns.", barriers: "Country data laws, Bahasa/Thai/Vietnamese, maps, payments, cross-border customs and reseller support.", importScore: 2, exportScore: 4, confidence: "Низкая", method: "APAC software estimate allocated by e-commerce/logistics spend; SAM = Indonesia/Vietnam/Thailand vertical distributors.", sourceIds: ["lastMile", "lastMileGrowth"] },
+    ],
+  },
+  {
+    id: "hotel",
+    category: "Hospitality / restaurants",
+    name: "Hotel PMS for independents",
+    boundary: "Cloud PMS, reservations, housekeeping, channel/rate workflow and guest operations. Excludes OTA commissions, payment processing, hotel ERP and hardware.",
+    wedge: "Housekeeping/maintenance + WhatsApp guest workflow for 20–150 room independents, integrated with local PMS/channel managers.",
+    whyNow: "Top-5 are ≈45%; cloud-native challengers prove switching, while local fiscal/ID workflows remain under-served.",
+    regions: [
+      { region: "США", revenue: 1.10, year: "2024", tam: 2.4, sam: 0.48, cagr: 8, stage: "Mature cloud migration", leaders: "Oracle, Agilysys, Infor; Cloudbeds/Mews among independents. Top-5 global ≈45%; product-line revenue mostly undisclosed.", gap: "Independent hotel labor ops, maintenance, group sales and fragmented guest messaging.", barriers: "PCI, state privacy, OTA/channel certifications, 24/7 support and property migration.", importScore: 3, exportScore: 4, confidence: "Средняя", method: "Narrow PMS global base × North America share, US allocation; SAM = independent/boutique properties.", sourceIds: ["hotel", "hotelRegional"] },
+      { region: "Европа", revenue: 0.88, year: "2024", tam: 2.2, sam: 0.55, cagr: 9, stage: "Fragmented cloud transition", leaders: "Mews, Oracle, Protel, Guestline, Cloudbeds, Apaleo; independents highly fragmented.", gap: "Country fiscal reporting, ID registration, housekeeping and multi-property independents.", barriers: "GDPR, fiscalization/e-invoicing, guest registration, city taxes, language and OTA contracts.", importScore: 4, exportScore: 4, confidence: "Средняя", method: "Narrow global PMS × 26–29% Europe share; SAM = independent hotels in Southern/CEE Europe.", sourceIds: ["hotel", "hotelRegional", "gdpr"] },
+      { region: "СНГ", revenue: 0.075, year: "2024", tam: 0.28, sam: 0.075, cagr: 16, stage: "Import substitution", leaders: "1С:Отель, Shelter, Bnovo, TravelLine, HRS; public vertical revenue incomplete.", gap: "Mini-hotels and regional resorts: housekeeping, direct booking, dynamic pricing, guest registration and maintenance.", barriers: "Migration from foreign PMS, local booking channels, fiscalization, guest ID reporting, 152-ФЗ and seasonality.", importScore: 5, exportScore: 3, confidence: "Низкая", method: "Hotel counts × $500–5,000 annual PMS ARPU, cross-checked with public HoReCa vendor revenue.", sourceIds: ["horecaRU", "saasRU", "fz152"] },
+      { region: "MENA", revenue: 0.23, year: "2024", tam: 0.75, sam: 0.20, cagr: 14, stage: "Fast supply growth", leaders: "Oracle, Infor, Shiji, Cloudbeds, Hotelogix; chain segment concentrated, independents open.", gap: "Arabic guest messaging, serviced apartments, pilgrimage/group operations and local ID/tax reporting.", barriers: "Arabic, tourism-authority integrations, data residency, local payments and enterprise hotel relationships.", importScore: 3, exportScore: 4, confidence: "Низкая", method: "Published MEA share adjusted upward for GCC hotel software spend; SAM = independents/serviced apartments in UAE/KSA.", sourceIds: ["hotelRegional"] },
+    ],
+  },
+  {
+    id: "restaurant",
+    category: "Hospitality / restaurants",
+    name: "Restaurant back-office OS",
+    boundary: "POS subscription, inventory/recipe costing, labor scheduling, procurement, accounting workflow, loyalty and delivery orchestration. Payment volume, hardware and food-delivery commissions excluded.",
+    wedge: "Invoice capture + recipe/food-cost variance + supplier ordering for 3–50 location concepts; integrate with incumbent POS.",
+    whyNow: "Global restaurant software ≈$6.6B and growing; payments dominate headline vendor revenue but back-office remains fragmented.",
+    regions: [
+      { region: "США", revenue: 3.0, year: "2024", tam: 7.0, sam: 0.95, cagr: 14, stage: "Scaled growth / consolidation", leaders: "Toast, NCR, Oracle MICROS, Square, Lightspeed; Toast $706M subscription and $4.96B total FY2024, so total revenue is not comparable to software TAM.", gap: "Food cost, invoice/AP, multi-unit labor, catering and franchisee compliance outside all-in-one POS.", barriers: "PCI, state labor/tip rules, sales tax, POS integrations, support at meal peaks and payments bundling.", importScore: 4, exportScore: 4, confidence: "Высокая", method: "Global $6.6B × estimated US share, excluding fintech/hardware; SAM = 3–100 location operators for back-office modules.", sourceIds: ["restaurant", "toast"] },
+      { region: "Европа", revenue: 1.25, year: "2024", tam: 3.2, sam: 0.62, cagr: 12, stage: "Fragmented growth", leaders: "Lightspeed, Oracle, SumUp, Zonal, Deliverect, country POS vendors; no pan-region dominant share.", gap: "E-invoicing, allergen/recipe traceability, labor scheduling and delivery-channel reconciliation.", barriers: "Fiscalization per country, VAT/e-invoicing, GDPR, labor agreements, languages and acquiring partnerships.", importScore: 4, exportScore: 4, confidence: "Средняя", method: "Global restaurant software × 19% Europe estimate; SAM = multi-site independents in 4–5 launch countries.", sourceIds: ["restaurant", "gdpr"] },
+      { region: "СНГ", revenue: 0.11, year: "2024", tam: 0.38, sam: 0.12, cagr: 20, stage: "Strong local incumbents", leaders: "iiko ₽4.207B HoReCa IT revenue, r_keeper, Saby, 1С-Рарус, Quick Resto; iiko is clear disclosed leader.", gap: "Supplier network, invoice OCR, food-cost forecast, franchise QA and regional cloud migration.", barriers: "Online cash registers/marking systems, ЕГАИС/Меркурий in Russia, 1С, delivery aggregators, low SMB survival.", importScore: 5, exportScore: 5, confidence: "Средняя", method: "Public HoReCa vendor revenue + long-tail estimate; TAM = restaurants × mature-market software intensity adjusted for ARPU.", sourceIds: ["horecaRU", "saasRU"] },
+      { region: "MENA", revenue: 0.32, year: "2024", tam: 1.1, sam: 0.30, cagr: 18, stage: "Fast growth", leaders: "Foodics, Oracle, Syrve/iiko ecosystem, Sapaad, POSRocket; local champions strong but back-office fragmented.", gap: "Arabic invoice/recipe, supplier procurement, multi-brand cloud kitchens and VAT/e-invoice compliance.", barriers: "Saudi ZATCA, UAE VAT, Arabic, local acquiring, food authority rules and reseller support.", importScore: 3, exportScore: 5, confidence: "Низкая", method: "Outlet count × $600–3,000 annual software spend; SAM = Saudi/UAE 3–50 outlet groups.", sourceIds: ["restaurant", "horecaRU"] },
+    ],
+  },
+  {
+    id: "fsm",
+    category: "Manufacturing / field service",
+    name: "Field service for skilled trades",
+    boundary: "Scheduling/dispatch, estimates, work orders, technician mobile, parts, service agreements and invoicing for HVAC/plumbing/electrical/equipment service. Excludes general CRM/ERP and IoT hardware.",
+    wedge: "One regulated trade: fire-safety inspection certificates or commercial refrigeration maintenance; mobile offline evidence + recurring compliance.",
+    whyNow: "Global FSM software $4.7–4.9B with 12% CAGR; horizontal enterprise suites leave trade-specific compliance.",
+    regions: [
+      { region: "США", revenue: 1.85, year: "2024", tam: 5.0, sam: 0.95, cagr: 12, stage: "Scaled growth", leaders: "ServiceTitan, Salesforce, IFS, ServiceNow, Jobber; exact FSM-derived revenues mostly not reported separately.", gap: "Commercial subcontractors, inspection-heavy trades, parts warranty and small operators below ServiceTitan economics.", barriers: "Trade licensing by state, payroll/overtime, payments, QuickBooks/ERP, call-center and high SMB churn.", importScore: 4, exportScore: 5, confidence: "Высокая", method: "Verdantix $4.7B × 40% North America, US allocation; SAM = selected trades among 2.7M providers.", sourceIds: ["fsm", "fsmDeck"] },
+      { region: "Европа", revenue: 1.18, year: "2024", tam: 3.1, sam: 0.65, cagr: 11, stage: "Fragmented", leaders: "IFS, SAP, Salesforce, Praxedo, BigChange, local trade products; enterprise strong, SMB fragmented.", gap: "Heat-pump/solar installers, fire/lift inspection, refrigerant compliance and subcontractor evidence.", barriers: "GDPR/worker monitoring, country certifications, e-invoicing, collective labor rules and language.", importScore: 4, exportScore: 5, confidence: "Средняя", method: "Global FSM × ≈25% Europe; SAM = regulated service trades in UK/DACH/CEE.", sourceIds: ["fsm", "gdpr"] },
+      { region: "СНГ", revenue: 0.15, year: "2024", tam: 0.55, sam: 0.14, cagr: 18, stage: "Early verticalization", leaders: "1С:ТОИР/Управление сервисным центром, HubEx, Okdesk, Planado; fragmented, shares unavailable.", gap: "Offline technician app, regulated inspection acts, spare-parts traceability and contractor SLA.", barriers: "1С/ЭДО, local certificate forms, 152-ФЗ, remote connectivity and custom enterprise deployments.", importScore: 5, exportScore: 5, confidence: "Низкая", method: usdFromRub + " Technician seats × $5–20/month in addressable service companies.", sourceIds: ["saasRU", "softwareRU"] },
+      { region: "MENA", revenue: 0.26, year: "2024", tam: 0.95, sam: 0.24, cagr: 16, stage: "Early fast growth", leaders: "IFS, Oracle, Salesforce, Microsoft/Dynamics partners; local CAFM/FM vendors fragmented.", gap: "HVAC/FM subcontractor SLA, asset handover, Arabic technician UX and evidence for property owners.", barriers: "Arabic, labor/subcontractor records, data residency, ERP tenders and local implementation partners.", importScore: 3, exportScore: 5, confidence: "Низкая", method: "Regional share of global FSM plus facility-management workforce bottom-up; SAM = KSA/UAE commercial trades.", sourceIds: ["fsm"] },
+    ],
+  },
+  {
+    id: "mes",
+    category: "Manufacturing / field service",
+    name: "MES/QMS for mid-market manufacturing",
+    boundary: "Production execution, work instructions, genealogy/traceability, non-conformance, quality and OEE for plants. Excludes PLC/SCADA hardware, broad ERP/PLM and systems-integration services where separable.",
+    wedge: "Cloud/edge QMS + traceability for one regulated niche: food co-packers, cosmetics, medical-device suppliers or metal job shops.",
+    whyNow: "Reshoring and traceability drive spend, but monolithic MES implementations remain too expensive for mid-market plants.",
+    regions: [
+      { region: "США", revenue: 3.55, year: "2024", tam: 8.0, sam: 1.1, cagr: 10, stage: "Mature modernization", leaders: "Rockwell/Plex, Siemens, Honeywell, Emerson, GE Vernova, Dassault; top tier fragmented, product revenue not separately disclosed.", gap: "50–500 employee plants, supplier quality, digital work instructions and fast ERP connectors.", barriers: "OT cybersecurity, validation (FDA/GxP where relevant), ISA-95, plant uptime and long integration cycles.", importScore: 3, exportScore: 3, confidence: "Высокая", method: "North America published $4.55B allocated to US; TAM adds adjacent QMS/connected-worker software; SAM = selected mid-market niches.", sourceIds: ["mesNA"] },
+      { region: "Европа", revenue: 3.56, year: "2024", tam: 7.2, sam: 1.2, cagr: 9.1, stage: "Mature / Industry 4.0", leaders: "Siemens, SAP, Dassault, Schneider, ABB; named leaders, exact shares not public.", gap: "Supplier traceability, energy/carbon evidence, food/pharma quality and brownfield mid-market plants.", barriers: "GDPR if worker data, NIS2/cybersecurity, machinery/sector rules, works councils, OT protocols and languages.", importScore: 4, exportScore: 3, confidence: "Высокая", method: "Published Europe MES market; SAM = mid-market discrete/process plants in DACH/CEE/Italy.", sourceIds: ["mesEU", "gdpr"] },
+      { region: "СНГ", revenue: 0.42, year: "2024", tam: 1.5, sam: 0.33, cagr: 22, stage: "Import substitution", leaders: "1С/MES partners, Галактика, Аскон/Лоцман, Цифра, local integrators; custom projects blur product revenue.", gap: "Light MES/QMS, offline edge, digital work instructions, genealogy and local equipment connectors.", barriers: "On-prem/air-gap, industrial security, GOST/EAEU traceability, legacy OT, long sales and systems integration.", importScore: 5, exportScore: 3, confidence: "Низкая", method: "Manufacturing software spend from public Russia totals, isolating product/platform share; SAM = mid-market plants avoiding mega-MES.", sourceIds: ["softwareRU", "saasRU"] },
+      { region: "India", revenue: 0.55, year: "2024", tam: 2.1, sam: 0.48, cagr: 15, stage: "Fast digitization", leaders: "Siemens, SAP, Rockwell, Dassault plus local integrators/startups; SME layer open.", gap: "Pharma/food/auto suppliers need affordable traceability, audit, OEE and multilingual work instructions.", barriers: "Plant-by-plant integration, GST/e-invoice, data/cyber rules, price sensitivity and implementation partner quality.", importScore: 2, exportScore: 4, confidence: "Низкая", method: "APAC MES regional allocation by manufacturing value added and digital intensity; SAM = regulated/export supplier SMEs.", sourceIds: ["mesNA", "mesEU"] },
+    ],
+  },
+  {
+    id: "farm",
+    category: "Agriculture",
+    name: "Farm management & traceability",
+    boundary: "Crop/livestock planning, field records, inputs, compliance, cost/yield, work orders and buyer traceability. Excludes machinery, sensors, imagery-only services, commodity marketplaces and lending.",
+    wedge: "Offline-first field records + input/harvest traceability for one crop chain (berries, grapes, greenhouse vegetables, dairy). Sell through agronomists/buyers.",
+    whyNow: "Global FMS ≈$3.4B, 11% CAGR; fragmented vendors and buyer-driven traceability create narrow wedges.",
+    regions: [
+      { region: "США", revenue: 1.35, year: "2024", tam: 3.3, sam: 0.58, cagr: 14, stage: "Growth / ecosystem consolidation", leaders: "Trimble, Granular/Corteva, Climate FieldView, Conservis, Agworld; fragmented and often bundled with inputs/machinery.", gap: "Specialty crops, contractor labor, food-safety records and grower-to-buyer traceability.", barriers: "USDA/EPA records, integrations with equipment/input platforms, rural offline UX, seasonality and channel trust.", importScore: 4, exportScore: 4, confidence: "Средняя", method: "North America $1.60B published, US allocation; TAM includes all farm records, SAM = specialty/livestock operators with $1–10k ACV.", sourceIds: ["farm", "farmRegional"] },
+      { region: "Европа", revenue: 0.82, year: "2024", tam: 2.2, sam: 0.52, cagr: 13, stage: "Growth / compliance-driven", leaders: "365FarmNet, AGRIVI, xFarm, eAgronom, Akkerweb; fragmented by country/crop.", gap: "CAP evidence, input logs, carbon/ESG, cooperative workflows and exporter traceability.", barriers: "CAP/national subsidy reporting, GDPR, pesticide rules, language, cadastral maps and farm fragmentation.", importScore: 5, exportScore: 5, confidence: "Средняя", method: "Global $3.4B × estimated Europe share; SAM = specialty growers/cooperatives in CEE/Southern Europe.", sourceIds: ["farm", "gdpr"] },
+      { region: "СНГ", revenue: 0.13, year: "2024", tam: 0.55, sam: 0.13, cagr: 17, stage: "Early, offline-heavy", leaders: "ExactFarming, АгроСигнал, 1С:ERP АПК, Cognitive/other local systems; shares unavailable.", gap: "Field evidence, fuel/work orders, seed/chemical inventory, satellite-to-task workflow and export traceability.", barriers: "Offline connectivity, 1С, cadastral data, EAEU/vet/traceability systems, long seasonal sales and low SMB ARPU.", importScore: 5, exportScore: 5, confidence: "Низкая", method: usdFromRub + " Addressable hectares/farms × $0.3–2/hectare/year software spend.", sourceIds: ["saasRU", "softwareRU"] },
+      { region: "LatAm", revenue: 0.40, year: "2025", tam: 1.45, sam: 0.36, cagr: 17, stage: "Fast growth", leaders: "Aegro, Solinftec, Auravant, xFarm/AGRIVI, Climate; crop/country fragmentation.", gap: "Coffee/fruit/sugar/soy contractor ops, input traceability, offline mobile and exporter compliance.", barriers: "Portuguese/Spanish, connectivity, local agronomy/tax, farm ownership complexity and distributor channels.", importScore: 3, exportScore: 5, confidence: "Средняя", method: "Published LatAm FMS estimate and regional farm-spend triangulation; SAM = commercial growers/export chains.", sourceIds: ["farm"] },
+      { region: "India", revenue: 0.28, year: "2024", tam: 1.2, sam: 0.25, cagr: 18, stage: "Early high growth", leaders: "Cropin, DeHaat tech, Fasal, FarmERP, agribusiness in-house platforms; many hybrid service models.", gap: "Buyer-led smallholder records, input advice audit, collection-center quality and offline vernacular UX.", barriers: "Tiny farms, vernacular languages, DPDP, weak direct willingness-to-pay and need B2B2F distribution.", importScore: 2, exportScore: 4, confidence: "Низкая", method: "APAC FMS allocated to India via agri value and digital adoption; SAM assumes agribusiness/buyer pays, not farmer.", sourceIds: ["farm"] },
+    ],
+  },
+  {
+    id: "legal",
+    category: "Legal / professional services",
+    name: "Legal practice management",
+    boundary: "Matter/case management, time/billing, calendaring, documents, client intake and trust accounting for law firms. Excludes legal research, e-discovery, courts and broad CLM.",
+    wedge: "One practice area with deadline/document intensity: immigration, PI intake, insolvency or debt collection; overlay document automation first.",
+    whyNow: "Global LPMS ≈$2.06B and 15% CAGR; top-5 ≈42%, but law and billing remain jurisdiction-specific.",
+    regions: [
+      { region: "США", revenue: 1.12, year: "2024", tam: 2.7, sam: 0.60, cagr: 14, stage: "Scaled growth", leaders: "Clio ≈18% global estimate; MyCase, Filevine, PracticePanther, Thomson Reuters. Top-5 ≈42%; private revenues mostly undisclosed.", gap: "Practice-specific intake, deadline rules, medical-record workflow, settlement accounting and small firms.", barriers: "State ethics/trust accounting, court e-filing, confidentiality, payments, malpractice risk and bar-by-bar workflow.", importScore: 3, exportScore: 4, confidence: "Средняя", method: "Global $2.06B × estimated North America share and US allocation; SAM = selected high-volume practices.", sourceIds: ["legal", "legalShare"] },
+      { region: "Европа", revenue: 0.50, year: "2024", tam: 1.5, sam: 0.40, cagr: 13, stage: "Country-fragmented", leaders: "The Access Group, Thomson Reuters, Wolters Kluwer, Clio, Actionstep and local bar-specific vendors.", gap: "Small firms need e-invoicing, deadline automation, client portals and AI document intake in local law.", barriers: "GDPR, professional secrecy, court/eID integrations, local accounting/VAT and language/legal corpus.", importScore: 4, exportScore: 3, confidence: "Низкая", method: "Global LPMS × estimated 24% Europe share; SAM = UK plus 2–3 CEE jurisdictions, not all Europe.", sourceIds: ["legal", "gdpr"] },
+      { region: "СНГ", revenue: 0.085, year: "2024", tam: 0.30, sam: 0.07, cagr: 16, stage: "Early cloud / local workflow", leaders: "Право.ru Casebook ecosystem, XSUD, Jeffit, 1С-based products, local document systems; no audited shares.", gap: "Deadline/court monitoring, debt recovery, client intake, fee profitability and secure document AI for boutiques.", barriers: "Court-system integrations, адвокатская тайна, 152-ФЗ, local signatures/accounting and low seat ARPU.", importScore: 5, exportScore: 3, confidence: "Низкая", method: usdFromRub + " Legal firms/professionals × $100–1,000 annual addressable spend.", sourceIds: ["softwareRU", "saasRU", "fz152"] },
+    ],
+  },
+];
+
+const topOpportunities = [
+  { rank: 1, market: "Field service: regulated trades", launch: "СНГ → Европа/MENA", thesis: "Одинаковое ядро: offline work order, evidence, recurring inspection; экспорт 5/5 в трех регионах.", first: "Fire-safety или commercial refrigeration certificates." },
+  { rank: 2, market: "Farm traceability", launch: "СНГ/CEE → LatAm", thesis: "Низкая digitization, buyer-led sales, offline expertise; экспорт 5/5 для Europe/CIS/LatAm.", first: "Один crop chain: berries/grapes/greenhouse." },
+  { rank: 3, market: "Construction subcontractor compliance", launch: "СНГ → MENA/Europe", thesis: "Документы и handover локальны, но data model универсален; MENA export 5/5.", first: "MEP/fireproofing material certificates + closeout." },
+  { rank: 4, market: "Fleet maintenance/compliance", launch: "СНГ → LatAm/MENA", thesis: "Сильная инженерная база СНГ и зрелые telematics connectors; LatAm export 5/5.", first: "Tires/fuel/maintenance anomaly for mixed fleets." },
+  { rank: 5, market: "Restaurant food-cost/procurement", launch: "СНГ → MENA/Europe", thesis: "Не конкурировать с POS: invoice/recipe/supplier layer переносим и дает быстрый ROI.", first: "3–50 outlets, Arabic/Russian invoice OCR." },
+];
+
+const regionOptions = ["Все", "США", "Европа", "СНГ", "MENA", "LatAm", "India", "SEA"];
+const categoryOptions = ["Все", ...Array.from(new Set(markets.map((m) => m.category)))];
+
+function scoreTone(score: number) {
+  if (score >= 5) return "success" as const;
+  if (score >= 4) return "info" as const;
+  if (score <= 2) return "danger" as const;
+  return "warning" as const;
+}
+
+function bn(value: number) {
+  return value < 0.1 ? `$${Math.round(value * 1000)}M` : `$${value.toFixed(value >= 1 ? 2 : 2)}B`;
+}
+
+function Score({ value, label }: { value: number; label: string }) {
+  return <Stat value={`${value}/5`} label={label} tone={scoreTone(value)} />;
+}
+
+function App() {
+  const theme = useHostTheme();
+  const [region, setRegion] = useCanvasState("vertical-region", "Все");
+  const [category, setCategory] = useCanvasState("vertical-category", "Все");
+  const [query, setQuery] = useCanvasState("vertical-query", "");
+  const [selectedId, setSelectedId] = useCanvasState("vertical-selected", "construction");
+
+  const visibleMarkets = markets.filter((market) => {
+    const matchesCategory = category === "Все" || market.category === category;
+    const matchesQuery = `${market.name} ${market.category} ${market.boundary} ${market.wedge}`.toLowerCase().includes(query.toLowerCase());
+    const matchesRegion = region === "Все" || market.regions.some((r) => r.region === region);
+    return matchesCategory && matchesQuery && matchesRegion;
+  });
+  const pairs = visibleMarkets.flatMap((m) =>
+    m.regions.filter((r) => region === "Все" || r.region === region).map((r) => ({ market: m, region: r })),
+  );
+  const selected = markets.find((m) => m.id === selectedId) ?? markets[0];
+  const selectedRegions = selected.regions.filter((r) => region === "Все" || r.region === region);
+  const totalRevenue = pairs.reduce((sum, p) => sum + p.region.revenue, 0);
+  const avgCagr = pairs.length ? pairs.reduce((sum, p) => sum + p.region.cagr, 0) / pairs.length : 0;
+  const avgExport = pairs.length ? pairs.reduce((sum, p) => sum + p.region.exportScore, 0) / pairs.length : 0;
+
+  return (
+    <Stack gap={20} style={{ padding: 24, background: theme.bg.editor, color: theme.text.primary, minHeight: "100vh" }}>
+      <Stack gap={8}>
+        <Text tone="tertiary" size="small">INVESTMENT LANDSCAPE · JULY 2026</Text>
+        <H1>Международные vertical B2B software-рынки</H1>
+        <Text tone="secondary" style={{ maxWidth: 980 }}>
+          12 узких операционных рынков для российского независимого стартапа. Денежные оценки — annual software/platform net revenue 2024/2025, без GMV, hardware и pass-through; TAM/SAM нормализованы одной методикой.
+        </Text>
+      </Stack>
+
+      <Callout tone="warning" title="Как читать цифры">
+        Публичные отчеты используют разные boundaries. Здесь опубликованные значения пересчитаны к software/platform net revenue. США/Европа чаще top-down; СНГ и дополнительные регионы чаще bottom-up. Это screening-модель, а не substitute for paid market diligence.
+      </Callout>
+
+      <Grid columns={4} gap={16}>
+        <Stat value="12" label="Вертикальных рынков" />
+        <Stat value={pairs.length} label="Market-region пар в фильтре" />
+        <Stat value={bn(totalRevenue)} label="Сумма текущей net revenue*" />
+        <Stat value={`${avgCagr.toFixed(1)}% / ${avgExport.toFixed(1)}`} label="Средний CAGR / export score" />
+      </Grid>
+      <Text tone="quaternary" size="small">* Сумма используется только как навигационный индикатор: рынки частично пересекаются, поэтому это не агрегированный TAM.</Text>
+
+      <Grid columns="minmax(180px, 0.8fr) minmax(180px, 0.8fr) minmax(240px, 1.4fr)" gap={12}>
+        <Select value={region} onChange={setRegion} options={regionOptions.map((x) => ({ value: x, label: `Регион: ${x}` }))} />
+        <Select value={category} onChange={setCategory} options={categoryOptions.map((x) => ({ value: x, label: `Вертикаль: ${x}` }))} />
+        <TextInput value={query} onChange={setQuery} placeholder="Поиск по рынку, boundary или wedge…" />
+      </Grid>
+
+      <Stack gap={10}>
+        <H2>Карта рынков</H2>
+        <Table
+          stickyHeader
+          striped
+          headers={["Рынок", "Регион", "Net revenue", "TAM / SAM", "CAGR", "Stage", "Import / Export", "Confidence"]}
+          rows={pairs.map(({ market, region: r }) => [
+            <Pill active={selected.id === market.id} onClick={() => setSelectedId(market.id)}>{market.name}</Pill>,
+            r.region,
+            `${bn(r.revenue)} · ${r.year}`,
+            `${bn(r.tam)} / ${bn(r.sam)}`,
+            `${r.cagr}%`,
+            r.stage,
+            `${r.importScore} / ${r.exportScore}`,
+            r.confidence,
+          ])}
+          columnAlign={["left", "left", "right", "right", "right", "left", "center", "left"]}
+          rowTone={pairs.map(({ region: r }) => r.exportScore >= 5 ? "success" : r.exportScore <= 2 ? "danger" : undefined)}
+          style={{ maxHeight: 520 }}
+        />
+      </Stack>
+
+      <Divider />
+
+      <Stack gap={14}>
+        <Row justify="space-between" align="center" wrap>
+          <Stack gap={3}>
+            <Text tone="tertiary" size="small">{selected.category}</Text>
+            <H2>{selected.name}</H2>
+          </Stack>
+          <Row gap={6} wrap>
+            {markets.map((m) => <Pill size="sm" active={m.id === selected.id} onClick={() => setSelectedId(m.id)}>{m.name}</Pill>)}
+          </Row>
+        </Row>
+
+        <Grid columns="1.3fr 1fr" gap={18}>
+          <Stack gap={10}>
+            <H3>Boundary</H3>
+            <Text>{selected.boundary}</Text>
+            <H3>Startup wedge</H3>
+            <Text>{selected.wedge}</Text>
+          </Stack>
+          <Card>
+            <CardHeader>Почему сейчас</CardHeader>
+            <CardBody>
+              <Text>{selected.whyNow}</Text>
+            </CardBody>
+          </Card>
+        </Grid>
+
+        {selectedRegions.map((r) => (
+          <Card collapsible defaultOpen={r.region === "СНГ" || r.region === "Европа"}>
+            <CardHeader trailing={<Pill size="sm" active>{r.confidence}</Pill>}>{r.region} · {bn(r.revenue)} net revenue ({r.year})</CardHeader>
+            <CardBody>
+              <Stack gap={14}>
+                <Grid columns={5} gap={12}>
+                  <Stat value={bn(r.revenue)} label={`Annual net revenue ${r.year}`} />
+                  <Stat value={bn(r.tam)} label="TAM" />
+                  <Stat value={bn(r.sam)} label="Practical SAM" />
+                  <Stat value={`${r.cagr}%`} label={`CAGR · ${r.stage}`} />
+                  <Stat value={r.confidence} label="Confidence" />
+                </Grid>
+                <Grid columns="1.25fr 1fr" gap={18}>
+                  <Stack gap={10}>
+                    <H3>Leaders / share / revenue</H3>
+                    <Text>{r.leaders}</Text>
+                    <H3>Unallocated capacity</H3>
+                    <Text>{r.gap}</Text>
+                    <H3>Barriers, localization, regulation</H3>
+                    <Text>{r.barriers}</Text>
+                  </Stack>
+                  <Stack gap={12}>
+                    <Grid columns={2} gap={12}>
+                      <Score value={r.importScore} label="Import to Russia" />
+                      <Score value={r.exportScore} label="Export from Russia" />
+                    </Grid>
+                    <H3>TAM / SAM методика</H3>
+                    <Text tone="secondary">{r.method}</Text>
+                    <H3>Public sources</H3>
+                    <Stack gap={5}>
+                      {r.sourceIds.map((id) => (
+                        <Link href={sources[id].url}>{sources[id].label}</Link>
+                      ))}
+                    </Stack>
+                  </Stack>
+                </Grid>
+              </Stack>
+            </CardBody>
+          </Card>
+        ))}
+      </Stack>
+
+      <Divider />
+
+      <Stack gap={12}>
+        <H2>Top opportunities для независимого стартапа</H2>
+        <Text tone="secondary">
+          Приоритет учитывает не только TAM: важнее переносимое workflow-ядро, достижимый narrow SAM, короткая доказуемая ценность и возможность продавать без госзакупок или замены system of record.
+        </Text>
+        <Table
+          headers={["#", "Opportunity", "Маршрут", "Почему", "Первый wedge"]}
+          rows={topOpportunities.map((o) => [o.rank, o.market, o.launch, o.thesis, o.first])}
+          columnAlign={["right", "left", "left", "left", "left"]}
+          rowTone={topOpportunities.map((o) => o.rank <= 3 ? "success" : "info")}
+        />
+      </Stack>
+
+      <Grid columns={3} gap={16}>
+        <Card>
+          <CardHeader>Go-to-market правило</CardHeader>
+          <CardBody><Text>Начать с overlay, который дает ROI за 30–90 дней; не заменять ERP/POS/EHR/MES на первой продаже.</Text></CardBody>
+        </Card>
+        <Card>
+          <CardHeader>Географическое правило</CardHeader>
+          <CardBody><Text>Выбрать одну регуляторную семью и 1–2 языка. «Европа» не единый SAM: UK, DACH, CEE и Nordics — разные рынки.</Text></CardBody>
+        </Card>
+        <Card>
+          <CardHeader>Риск российского происхождения</CardHeader>
+          <CardBody><Text>Для экспорта заранее нужны non-Russian entity/hosting, прозрачный cap table, security review, sanctions screening и локальная поддержка.</Text></CardBody>
+        </Card>
+      </Grid>
+
+      <Divider />
+
+      <Stack gap={8}>
+        <H2>Методология и ограничения</H2>
+        <Text tone="secondary">
+          Revenue — фактические расходы клиентов на лицензии/subscriptions/platform fees; платежная выручка включена только в публичной выручке лидера и явно отделена от market size. TAM — весь нормализованный адресуемый software spend при зрелом проникновении. SAM — достижимый сегмент для узкого продукта в 3–5 лет: выбранные размеры клиентов, workflow и страны. CAGR — published forecast либо midpoint близких источников.
+        </Text>
+        <Text tone="secondary">
+          Confidence: высокая — есть региональная market figure и/или audited leader revenue; средняя — надежная глобальная база с региональным allocation; низкая — bottom-up proxy, особенно СНГ/MENA/SEA. Unallocated capacity означает workflow whitespace, а не «свободную» выручку: она требует distribution, integrations и compliance.
+        </Text>
+        <Text tone="tertiary" size="small">
+          Scope date: 2024 actual / 2025 estimate, проверено по публичным страницам к июлю 2026. Все суммы USD, округлены; российские оценки используют ориентир 92 RUB/USD для сопоставимости.
+        </Text>
+      </Stack>
+    </Stack>
+  );
+}
+
+export default App;

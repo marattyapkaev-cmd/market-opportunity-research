@@ -1,0 +1,1371 @@
+import {
+  Button,
+  Callout,
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Grid,
+  H1,
+  H2,
+  H3,
+  Link,
+  Pill,
+  Row,
+  Stack,
+  Stat,
+  Table,
+  Text,
+  TextInput,
+  useCanvasState,
+  useHostTheme,
+} from "cursor/canvas";
+
+type Category = "Finance" | "Health & care" | "Media & learning" | "Consumer tech" | "Commerce & services" | "Travel & mobility";
+type Confidence = "High" | "Medium" | "Low";
+type Market = {
+  id: string;
+  name: string;
+  category: Category;
+  current: string;
+  tam: string;
+  sam: string;
+  growth: string;
+  stage: string;
+  regions: string;
+  leaders: string;
+  whitespace: string;
+  barriers: string;
+  wedge: string;
+  wtp: string;
+  substitutes: string;
+  importScore: number;
+  exportScore: number;
+  confidence: Confidence;
+  sources: [string, string][];
+};
+
+type MarketRu = {
+  name: string;
+  essence: string;
+  growth: string;
+  stage: string;
+  regions: string;
+  leaders: string;
+  whitespace: string;
+  barriers: string;
+  wedge: string;
+  wtp: string;
+  substitutes: string;
+};
+
+const markets: Market[] = [
+  {
+    id: "pfm", name: "Family PFM, bills & debt", category: "Finance",
+    current: "$1.1–1.6B (2024/25 product revenue)", tam: "$1.2–1.6B narrow software/services", sam: "$0.55–0.75B paid US + Europe + affluent CIS",
+    growth: "8–11%", stage: "Mature, fragmented",
+    regions: "US $0.42–0.62B, high WTP; Europe $0.30–0.42B, PSD2 but fragmented; CIS $25–60M est., bank-led.",
+    leaders: "Quicken, YNAB, Rocket Money; private revenue undisclosed; bank apps dominate distribution.",
+    whitespace: "Couples, irregular income, debt payoff and subscription leakage—not another dashboard.",
+    barriers: "Medium-high CAC; bank connectors, consent, uptime and advice boundary. Data history is the moat.",
+    wedge: "Shared cash-flow copilot with CSV/manual fallback and weekly actions.",
+    wtp: "$6–15/mo US; €4–10 EU; ₽199–499/mo with provable savings.", substitutes: "Bank apps, spreadsheets, free aggregators, Telegram bots.",
+    importScore: 4, exportScore: 3, confidence: "Medium",
+    sources: [["TBRC PFM", "https://www.giiresearch.com/report/tbrc1823056-personal-finance-management-global-market-report.html"], ["Fortune PFM", "https://www.fortunebusinessinsights.com/personal-finance-software-market-112683"]],
+  },
+  {
+    id: "investing", name: "Guided retail investing intelligence", category: "Finance",
+    current: "$12–18B est. global platform revenue; leaders: Robinhood $2.95B, eToro $931M commission income (2024)", tam: "$12–18B platform revenue, not AUM/trade value", sam: "$3–5B non-custodial guidance / self-directed layer",
+    growth: "10–18%, cyclical", stage: "Scaled, regulated",
+    regions: "US $6–9B est.; Europe $2–4B; CIS $0.7–1.2B, bank-broker concentrated and sanctions-exposed.",
+    leaders: "Robinhood, eToro, Trade Republic, Revolut, Scalable; revenue share varies with interest/crypto cycles.",
+    whitespace: "Tax lots, concentration, employee equity and household view across existing accounts.",
+    barriers: "Very high regulation, trust and CAC; market-data licenses, KYC/AML and sanctions.",
+    wedge: "Read-only multi-broker portfolio health and tax-action SaaS before execution.",
+    wtp: "$8–30/mo when tax/risk value is measurable.", substitutes: "Broker analytics, TradingView, spreadsheets, free model portfolios.",
+    importScore: 2, exportScore: 2, confidence: "High",
+    sources: [["Robinhood FY24", "https://investors.robinhood.com/news-releases/news-release-details/robinhood-reports-fourth-quarter-and-full-year-2024-results"], ["eToro FY24", "https://www.financemagnates.com/fintech/etoros-2024-profits-soared-13x-with-crypto-contributing-96-of-revenue/"]],
+  },
+  {
+    id: "insurance", name: "Coverage & claims copilot", category: "Finance",
+    current: "$18–28B est. digital distribution/platform revenue; Root $1.18B, Lemonade $526.5M (2024)", tam: "$18–28B commissions + platform revenue, not premiums", sam: "$4–7B personal-lines audit, distribution and service",
+    growth: "10–16%", stage: "Maturing",
+    regions: "US $6–10B est.; Europe $4–7B aggregator-led; CIS $0.3–0.6B bank/marketplace-led.",
+    leaders: "Lemonade, Root, Policygenius, Check24; shares are line- and country-specific.",
+    whitespace: "Coverage-gap detection, renewal audit and claims preparation across policies.",
+    barriers: "Licensing, carrier integrations, sensitive data, expensive intent CAC and commission conflicts.",
+    wedge: "Policy upload → coverage map, renewal calendar and claim evidence pack.",
+    wtp: "Low for quotes; $30–100 one-off for audit/claim help.", substitutes: "Agents, insurer portals, comparison sites, free reviews.",
+    importScore: 3, exportScore: 2, confidence: "Medium",
+    sources: [["Root FY24", "https://ir.joinroot.com/static-files/3266b776-fdf9-4d17-8390-5134628a5548"], ["Lemonade FY24", "https://www.sec.gov/Archives/edgar/data/1691421/000169142125000021/lmndshareholderletterq42.htm"]],
+  },
+  {
+    id: "tax", name: "Event-driven consumer tax help", category: "Finance",
+    current: "$9–13B consumer tax-prep/services; H&R Block $3.61B, DIY $350M (FY24)", tam: "$9–13B revenue", sam: "$2.5–4B digital self-file and assisted-lite niches",
+    growth: "4–8%", stage: "US oligopoly; country-local",
+    regions: "US $6–8B; Europe $1.5–2.5B, Germany/UK strongest; CIS $40–100M est., government portals suppress WTP.",
+    leaders: "TurboTax, H&R Block, TaxAct; Taxfix/TaxScouts in Europe.",
+    whitespace: "Cross-border workers, creators, stock/crypto, deductions and notice response.",
+    barriers: "Liability, annual rule changes, identity/security, seasonal CAC and zero-price state products.",
+    wedge: "Document-to-checklist for one taxpayer persona with human review exceptions.",
+    wtp: "$50–200/event US/EU; ₽1k–5k complex RU cases.", substitutes: "Government e-file, accountants, employer withholding, free tiers.",
+    importScore: 2, exportScore: 1, confidence: "High",
+    sources: [["H&R Block FY24", "https://investors.hrblock.com/news-releases/news-release-details/hr-block-reports-fy24-results-announces-17-dividend-increase-15b"], ["IRS Direct File", "https://www.irs.gov/filing/irs-direct-file"]],
+  },
+  {
+    id: "remittance", name: "Migrant finance & family obligations", category: "Finance",
+    current: "$27–29B digital-remittance product revenue (2025 reports); Remitly $1.264B (2024)", tam: "$28B platform revenue, not transfer volume", sam: "$5–8B selected corridors + migrant services",
+    growth: "12–18%", stage: "Scaled, corridor-fragmented",
+    regions: "US send-side $7–10B est.; Europe $6–8B; CIS $0.4–0.8B disrupted; UAE→India/Philippines is a strong window.",
+    leaders: "Western Union, Wise Personal, Remitly, Ria/Xe; corridor shares matter more than global share.",
+    whitespace: "Onboarding, recurring obligations, documentation, credit portability and recipient budgeting.",
+    barriers: "Highest AML/KYC/sanctions burden, licenses, prefunding, fraud and thin take rates.",
+    wedge: "Non-custodial corridor comparison + shared obligation tracker; licensed rails partner.",
+    wtp: "Fee/spread; subscription only with tangible transfer savings.", substitutes: "Banks, cash, stablecoins, Wise/Revolut, local wallets.",
+    importScore: 3, exportScore: 4, confidence: "High",
+    sources: [["Remitly FY24", "https://ir.remitly.com/node/9921/pdf"], ["C2C 2025", "https://www.fxcintel.com/research/reports/ct-remittances-2025-roundup"]],
+  },
+  {
+    id: "telehealth", name: "Specialty direct telehealth", category: "Health & care",
+    current: "$90–130B broad care/platform revenue proxy; Teladoc $2.57B, Hims $1.48B (2024)", tam: "$90–130B broad; includes some B2B care delivery", sam: "$8–15B cash-pay repeatable B2C specialties",
+    growth: "18–24%", stage: "Consolidating; specialty growth",
+    regions: "US $35–45B; Europe $30–37B broad; CIS ~$0.17B Russia; MENA/India $3–6B est. with lower ARPU.",
+    leaders: "Teladoc, Hims & Hers, Kry/Livi, ZAVA; SberHealth/Doktis in Russia.",
+    whitespace: "Longitudinal diagnostics, medication, monitoring and outcomes; video visits are commodity.",
+    barriers: "Clinical licenses, prescribing, malpractice, health-data localization and clinician supply.",
+    wedge: "One low-acuity, high-frequency specialty with async triage and a 90-day outcome.",
+    wtp: "$30–100/mo US; €15–60 EU; ₽500–2,500/episode.", substitutes: "Public care, insurer telehealth, clinic chat, pharmacy advice.",
+    importScore: 4, exportScore: 2, confidence: "High",
+    sources: [["Teladoc FY24", "https://ir.teladochealth.com/news-and-events/investor-news/press-release-details/2025/Teladoc-Health-Reports-Full-Year-and-Fourth-Quarter-2024-Results/default.aspx"], ["Hims FY24", "https://www.sec.gov/Archives/edgar/data/1773751/000177375125000059/hims-20241231x8xkearningsr.htm"]],
+  },
+  {
+    id: "mental", name: "Guided mental-health programs", category: "Health & care",
+    current: "$8–10B app/platform revenue (2025); BetterHelp $1.04B, Talkspace $188M (2024)", tam: "$9.6B apps + therapy-platform revenue", sam: "$2.5–4B paid self-help, coaching and async therapy",
+    growth: "12–17%", stage: "Crowded B2C; payer shift",
+    regions: "US ~$3.9B apps est.; Europe $1.7–2.2B; CIS $80–180M; Spanish/Arabic LatAm/MENA underserved.",
+    leaders: "BetterHelp, Talkspace, Headspace, Calm; Yasno/Alter in Russia.",
+    whitespace: "Condition/life-event programs, therapist augmentation and between-session adherence.",
+    barriers: "Trust, crisis handling, clinical claims, licensing, health data and paid-social CAC.",
+    wedge: "Therapist-supported six-week protocol for one acute life event.",
+    wtp: "$15–70/mo guided; $200–400/mo therapy US; lower in CIS.", substitutes: "YouTube, podcasts, ChatGPT, hotlines, EAP, offline therapy.",
+    importScore: 4, exportScore: 4, confidence: "High",
+    sources: [["BetterHelp segment", "https://www.sec.gov/Archives/edgar/data/1477449/000147744925000005/R48.htm"], ["Talkspace FY24", "https://investors.talkspace.com/news-releases/news-release-details/talkspace-announces-fourth-quarter-and-full-year-2024-results"]],
+  },
+  {
+    id: "fitness", name: "Fitness adherence & recovery clubs", category: "Health & care",
+    current: "$2.7B app revenue (2024 est.); Peloton subscriptions $1.71B FY24", tam: "$3.4–6B direct app/subscription revenue", sam: "$1.2–2B independent paid apps",
+    growth: "17–25% apps", stage: "Mature, high churn",
+    regions: "US $1.4–1.8B; Europe $0.8–1.1B; CIS $60–130M est.; India/SEA $0.3–0.5B, user-rich/low ARPU.",
+    leaders: "Apple Fitness, Strava, Peloton, MyFitnessPal, BetterMe, Oura.",
+    whitespace: "Accountability for narrow cohorts and sensor-informed recovery without hardware.",
+    barriers: "Retention, app-store tax, creator/content costs and free video competition.",
+    wedge: "Paid cohort club for one goal, coach-in-loop, wearable-agnostic readiness.",
+    wtp: "$8–25/mo West; ₽300–1,000/mo with coaching.", substitutes: "YouTube, Nike Training Club, OS health, gyms, run clubs.",
+    importScore: 3, exportScore: 4, confidence: "High",
+    sources: [["Fitness app revenue", "https://www.businessofapps.com/data/fitness-app-market/"], ["Peloton FY24", "https://investor.onepeloton.com/static-files/7598c64a-bc5d-43c0-84a4-7016549587d3"]],
+  },
+  {
+    id: "femtech", name: "Women’s longitudinal care", category: "Health & care",
+    current: "$2–4B est. digital/app/platform revenue (2024)", tam: "$4–7B narrow digital services; excludes devices/clinics/products", sam: "$1–2B subscriptions, telehealth, employer benefits",
+    growth: "14–20%", stage: "Growth; midlife underbuilt",
+    regions: "US $1.5–2.5B est.; Europe $0.8–1.3B; CIS $60–140M; privacy-first MENA/India is a window.",
+    leaders: "Flo, Clue, Maven Clinic, Natural Cycles; private revenue largely undisclosed.",
+    whitespace: "Perimenopause, endometriosis, postpartum recovery and care navigation.",
+    barriers: "Sensitive data, device classification, evidence, trust and reproductive-policy exposure.",
+    wedge: "Symptom timeline + evidence-based visit prep; partner clinicians, no diagnosis at launch.",
+    wtp: "$8–25/mo West; ₽300–1,200/mo with clinician access.", substitutes: "Free trackers, forums, generic telehealth, public gynecology.",
+    importScore: 5, exportScore: 4, confidence: "Medium",
+    sources: [["Europe digital health", "https://www.databridgemarketresearch.com/reports/europe-digital-health-market"], ["Digital health 2025", "https://www.cbinsights.com/research/report/digital-health-trends-2025/"]],
+  },
+  {
+    id: "nutrition", name: "Metabolic & GLP-1 adherence", category: "Health & care",
+    current: "$2.14B diet/nutrition apps (2024); MyFitnessPal ~$329M", tam: "$2.4–4B software/platform revenue", sam: "$0.9–1.5B tracking, coaching, medication companion",
+    growth: "13–18%", stage: "Mature tracking; medication reset",
+    regions: "US $0.9–1.2B; Europe $0.5–0.7B; CIS $40–100M; MENA/LatAm $0.2–0.4B est.",
+    leaders: "MyFitnessPal, Noom, WeightWatchers, Yazio, Lifesum; telehealth bundles medication.",
+    whitespace: "Post-GLP-1 muscle preservation, side effects, maintenance and local cuisine.",
+    barriers: "Clinical risk, drug rules, eating-disorder safety, food data and post-plateau churn.",
+    wedge: "Medication-agnostic protein/fiber, side-effect and resistance-training companion.",
+    wtp: "$10–40/mo; clinic/payer channel improves CAC.", substitutes: "Free calorie counters, AI photo logs, social content, clinic handouts.",
+    importScore: 5, exportScore: 4, confidence: "High",
+    sources: [["Nutrition apps", "https://www.grandviewresearch.com/industry-analysis/diet-nutrition-apps-market-report"], ["MyFitnessPal", "https://www.businessofapps.com/data/myfitnesspal-statistics/"]],
+  },
+  {
+    id: "pet-lifecycle", name: "Pet health record & trusted care", category: "Health & care",
+    current: "$1.5–4.2B app/platform revenue est.; pet-service platforms $0.7–1.2B subset", tam: "$2.2–5.4B digital platform/app revenue; excludes care GMV", sam: "$0.8–1.8B records, triage and high-trust recurring care",
+    growth: "12–15% digital", stage: "Early growth, fragmented",
+    regions: "US strongest WTP; Europe growing; CIS open with fragmented supply; LatAm/SEA pet adoption rising.",
+    leaders: "PetDesk, Tractive, Rover (~$230M 2023 revenue), PetBacker; no integrated lifecycle leader.",
+    whitespace: "One timeline across vaccines, labs, meds and trusted sitters/groomers; senior/medical pet care.",
+    barriers: "Vet fragmentation, liability, local supply density, incidents and off-platform repeat.",
+    wedge: "Document inbox → pet passport + vet brief; add medication-capable care network city by city.",
+    wtp: "$5–20/mo West; ₽200–700/mo; 18–25% care take.", substitutes: "Paper passport, clinic systems, notes, forums, classifieds.",
+    importScore: 5, exportScore: 5, confidence: "Medium",
+    sources: [["Pet records apps", "https://www.researchandmarkets.com/reports/6254952/pet-health-records-apps-market-report"], ["Rover filing", "https://www.sec.gov/Archives/edgar/data/1826018/000182601823000053/ex991_20231106.htm"]],
+  },
+  {
+    id: "family-care", name: "Family care OS & verified support", category: "Health & care",
+    current: "$4–7B combined care-app/platform revenue est.; Care.com $369.6M (2024)", tam: "$4–7B digital revenue; excludes labor/childcare spend", sam: "$1–2B coordination, matching fees and employer benefits",
+    growth: "8–16%", stage: "Fragmented; coordination early",
+    regions: "US $1.8–3B est.; Europe $1–1.8B; CIS $60–160M; India/SEA mobile coordination window.",
+    leaders: "Care.com, BabyCenter, Cozi, Ovia; classifieds and family chat dominate CIS.",
+    whitespace: "Multi-adult meds, appointments, records, expenses, tasks and handoffs.",
+    barriers: "Trust/safety, checks, child/health data and marketplace chicken-and-egg.",
+    wedge: "Private eldercare workspace for remote adult children; navigator upsell later.",
+    wtp: "$10–30/mo family; ₽300–1,500/mo; employer-paid works best.", substitutes: "WhatsApp/Telegram, calendars, paper folders, public nurses, classifieds.",
+    importScore: 5, exportScore: 5, confidence: "Medium",
+    sources: [["Parenting apps", "https://www.thebusinessresearchcompany.com/report/parenting-apps-global-market-report"], ["Care.com FY24", "https://www.sec.gov/Archives/edgar/data/1800227/000180022725000031/R36.htm"]],
+  },
+  {
+    id: "niche-svod", name: "Niche SVOD & fandom", category: "Media & learning",
+    current: "$6–11B est. focused-service revenue (2025)", tam: "$157B total subscription streaming revenue", sam: "$6–11B niche services, midpoint ~$8.5B",
+    growth: "12–18% niche", stage: "Mature core; fragmented niches",
+    regions: "US ~$4B; Europe ~$2.2B; CIS ~$0.25B; India/SEA ~$0.9B; LatAm/MENA ~$0.5B.",
+    leaders: "Crunchyroll, BritBox, Shudder, MUBI, Viki; Netflix $39B is broad benchmark only.",
+    whitespace: "Diaspora, genre/fandom, expert curation, dubbing and FAST-to-paid.",
+    barriers: "Territorial rights, minimum guarantees, churn and device distribution; catalog moat.",
+    wedge: "One exportable fandom, 100–300 exclusive/localized hours and community premieres.",
+    wtp: "$5–12/mo; annual plans for superfans.", substitutes: "YouTube, piracy, broad SVOD bundles, free FAST.",
+    importScore: 2, exportScore: 3, confidence: "Medium",
+    sources: [["Ampere 2025", "https://thestreamable.com/global-streaming-revenue-passes-150-billion-ampere"], ["Russia VoD 2024", "https://www.vedomosti.ru/media/news/2025/03/04/1095902-rost-rinka-videoservisov"]],
+  },
+  {
+    id: "audiobooks", name: "Audiobooks & serial audio", category: "Media & learning",
+    current: "$8.7B consumer revenue (2024)", tam: "$8.7B current; $35.5B forecast 2030", sam: "$2–3.5B reachable local-language subscription",
+    growth: "10.6–26.2%, scope-sensitive", stage: "Scaling, consolidating",
+    regions: "North America 45–52%; Europe ~25%; CIS <3%; APAC fastest.",
+    leaders: "Audible ~41–63% depending scope; Spotify, Storytel, Apple/Kobo/Google.",
+    whitespace: "Genre serials, kids co-listening, local nonfiction, backlist localization.",
+    barriers: "Rights, windowing, narrator consent and royalties; catalog/history retention moat.",
+    wedge: "Regional backlists + serialized proven genre fiction; text/audio family profiles.",
+    wtp: "$8–18/mo West; local plans need lower price or bundles.", substitutes: "Libraries, podcasts, YouTube, piracy, ebooks.",
+    importScore: 3, exportScore: 4, confidence: "High",
+    sources: [["Grand View 2024", "https://www.grandviewresearch.com/industry-analysis/audiobooks-market"], ["Mordor share", "https://www.mordorintelligence.com/industry-reports/audiobook-market"]],
+  },
+  {
+    id: "podcast-membership", name: "Paid podcasts & audio membership", category: "Media & learning",
+    current: "$2–4B est. listener-paid revenue (2024)", tam: "$2–4B premium feeds/memberships; broad podcast economy excluded", sam: "$0.8–1.5B mid-tail creator monetization",
+    growth: "~20%", stage: "Early scaling",
+    regions: "North America 38–46%; Europe 25–30%; LatAm high listening/lower ARPU; CIS/MENA under-monetized.",
+    leaders: "Spotify/Apple/YouTube distribution; Patreon/Substack/Supporting Cast monetization.",
+    whitespace: "Local business/education shows, private communities and multilingual repackaging.",
+    barriers: "Platform discovery and creator portability; audience trust, not software, is the moat.",
+    wedge: "Revenue-share OS for 20–50 creators: paywall, community, transcripts, clips, local payments.",
+    wtp: "$3–15/mo per creator/bundle.", substitutes: "Free ad-supported feeds, YouTube, Telegram communities.",
+    importScore: 4, exportScore: 4, confidence: "Low",
+    sources: [["Podcast market", "https://www.grandviewresearch.com/industry-analysis/podcast-market"], ["Revenue models", "https://www.mordorintelligence.com/industry-reports/podcast-market"]],
+  },
+  {
+    id: "games", name: "Game subscriptions & cloud play", category: "Media & learning",
+    current: "$19B game-subscription revenue; $3.7B cloud subset (2024)", tam: "$19B subscriptions", sam: "$3–6B independent cloud/family/retro/regional",
+    growth: "~9%; cloud ~12%", stage: "Mature subs; cloud emerging",
+    regions: "US/Europe/Japan/Korea monetize best; India/SEA/LatAm device-light window; CIS constrained by rights/payments.",
+    leaders: "Microsoft + Sony 82M library subscribers; Nvidia leads pure-cloud mindshare.",
+    whitespace: "Family co-play, retro/local catalogs, PC-café cloud and telco bundles.",
+    barriers: "Rights, compute, latency and platform rules; identity/multiplayer network effects.",
+    wedge: "One genre/region on low-spec devices through telco prepaid billing.",
+    wtp: "$5–20/mo; emerging-market prepaid/day passes.", substitutes: "Free-to-play games, owned library, cafés, piracy.",
+    importScore: 2, exportScore: 3, confidence: "High",
+    sources: [["Omdia 2024", "https://www.digitimes.com/news/a20240906PD206/omdia-2028-market-revenue-2024.html"], ["Sensor Tower games", "https://www.prnewswire.com/news-releases/sensor-tower-mobile-gaming-rebounds-in-2024-as-player-engagement-and-spending-reach-new-highs-302398268.html"]],
+  },
+  {
+    id: "creator", name: "Creator memberships & digital goods", category: "Media & learning",
+    current: "$1–2B platform net-revenue pool (2024 est.); OnlyFans $1.41B net revenue", tam: "$1–2B platform revenue, explicitly not $10–13B creator GMV", sam: "$0.4–0.9B expert creators, local payments and tools",
+    growth: "9–20%", stage: "Proven; format consolidation",
+    regions: "US/UK/Europe lead ARPU; LatAm/CIS/SEA creator supply strong; MENA content rules constrain.",
+    leaders: "OnlyFans $1.41B; Patreon ~$140M est.; Substack >4M paid subs by 2025.",
+    whitespace: "Non-US payments, CRM/ownership, bundles, expert niches, migration/tax tooling.",
+    barriers: "Payments, moderation, chargebacks and app-store rules; meaningful two-sided effects.",
+    wedge: "Telegram/community import + recurring payments + goods + tax receipts + audience export.",
+    wtp: "Fans $5–30/mo; platform take 8–20%.", substitutes: "Telegram donations, direct bank links, YouTube memberships, free social.",
+    importScore: 5, exportScore: 5, confidence: "Medium",
+    sources: [["OnlyFans metrics", "https://sacra.com/c/onlyfans/"], ["Patreon estimates", "https://sacra.com/c/patreon/"]],
+  },
+  {
+    id: "language", name: "AI speaking & language outcomes", category: "Media & learning",
+    current: "$22.1B online-language revenue (2024)", tam: "$22.1B current; $54.8B 2030", sam: "$14.2B self-learning; $2–4B AI-speaking wedge",
+    growth: "16.6%", stage: "Scaled, fast-growing",
+    regions: "North America ~$8B; Europe material; MEA $2.78B; LatAm $1.37B; APAC fastest.",
+    leaders: "Duolingo $748M FY24 (+41%); Babbel ~€352M reported; Busuu, Preply, Speak.",
+    whitespace: "Profession-specific English, pronunciation by L1, migrants, offline and exam-to-job.",
+    barriers: "CAC and excellent free substitutes; habit/outcome data moat, not model access.",
+    wedge: "One native-language × profession pair with human calibration and interview outcome.",
+    wtp: "$8–30/mo; higher for interview/exam cohorts.", substitutes: "Duolingo free, YouTube, ChatGPT voice, language exchange.",
+    importScore: 5, exportScore: 5, confidence: "High",
+    sources: [["Global regions", "https://www.grandviewresearch.com/industry-analysis/online-language-learning-market-report"], ["Duolingo FY24", "https://investors.duolingo.com/static-files/99006c40-d8cf-41ca-b5b1-c5cb1fa5ba88"]],
+  },
+  {
+    id: "k12", name: "K–12 small-group tutoring", category: "Media & learning",
+    current: "$7.8–10.6B K–12 online revenue (2024)", tam: "$7.8–10.6B narrow K–12 online", sam: "$2–4B focused STEM/literacy outside China",
+    growth: "8–14.5%", stage: "Large, fragmented",
+    regions: "APAC ~40%; North America >35% broad tutoring; Europe smaller; Russia kids EdTech +32% in 2024.",
+    leaders: "TAL/New Oriental, Varsity Tutors, Preply, GoStudent, Vedantu.",
+    whitespace: "Special needs, reading fluency, parent reporting, migrant children and teacher copilots.",
+    barriers: "Tutor supply, safeguarding, curriculum, CAC and seasonality; outcome data compounds.",
+    wedge: "Small-group math/reading for one grade band with parent-visible mastery.",
+    wtp: "$40–200/mo group; $15–60/session 1:1, region-sensitive.", substitutes: "School, YouTube, homework forums, family help, generic AI.",
+    importScore: 4, exportScore: 4, confidence: "Medium",
+    sources: [["Global tutoring", "https://www.grandviewresearch.com/industry-analysis/online-tutoring-services-market"], ["Russia EdTech", "https://marketing.rbc.ru/articles/15521/"]],
+  },
+  {
+    id: "test-prep", name: "Digital exam preparation", category: "Media & learning",
+    current: "$2.2–7.7B online-only revenue; ~$4.9B midpoint (2024)", tam: "$2.2–7.7B digital scope", sam: "$1–3B IELTS/TOEFL, admissions, professional credentials",
+    growth: "5.9–15.3%", stage: "Mature demand; AI reset",
+    regions: "North America largest; India fastest; Europe strong; CIS local state exams; MENA/LatAm outbound study.",
+    leaders: "Pearson, Kaplan, Princeton Review, Magoosh, UWorld, Quizlet; shares undisclosed.",
+    whitespace: "Speaking/writing feedback, adaptive error diagnosis and credential micro-verticals.",
+    barriers: "Exam-body dependence, question IP, seasonality and score-claim rules.",
+    wedge: "One exam’s hardest subjective section + cohort accountability + score-linked guarantee.",
+    wtp: "$30–300/course; higher for high-stakes credentials.", substitutes: "Free past papers, YouTube, school, generic AI feedback.",
+    importScore: 5, exportScore: 4, confidence: "Medium",
+    sources: [["Narrow online", "https://www.grandviewresearch.com/horizon/statistics/online-tutoring-services-market/tutoring-style/test-preparation-service/global"], ["Broad online", "https://www.wiseguyreports.com/reports/online-test-preparatory-services-market"]],
+  },
+  {
+    id: "hobby", name: "Outcome-based hobby learning", category: "Media & learning",
+    current: "$2.6–3.8B paid-knowledge revenue (2025 est.)", tam: "$2.6–3.8B narrow paid knowledge", sam: "$0.8–1.5B hobby/creative share",
+    growth: "~8%", stage: "Mature niche; AI disruption",
+    regions: "US/Europe lead paid subs; LatAm creator supply; CIS/India/SEA strong supply, lower ARPU.",
+    leaders: "MasterClass, Skillshare (~$78M est.), Domestika; reliable shares unavailable.",
+    whitespace: "Project clubs, kits, local crafts, AI-era workflows and parent+child formats.",
+    barriers: "YouTube substitution, completion/churn and instructor dependence.",
+    wedge: "Six-week project club with kit, critique and showcase—not library access.",
+    wtp: "$40–250/cohort or $10–25/mo.", substitutes: "YouTube, Pinterest, local clubs, free creator courses.",
+    importScore: 4, exportScore: 4, confidence: "Low",
+    sources: [["Paid knowledge", "https://reports.valuates.com/market-reports/QYRE-Auto-18B5845/global-online-paid-knowledge"], ["Skillshare estimate", "https://geo.sig.ai/brands/skillshare"]],
+  },
+  {
+    id: "consumer-ai", name: "Consumer AI vertical agents", category: "Consumer tech",
+    current: "$3.7–4B mobile GenAI annualized run-rate (2025); web higher but excluded", tam: "$3.7–4B observable mobile consumer revenue", sam: "$0.9–1.5B non-generalist vertical apps",
+    growth: ">100% YoY H1 2025", stage: "Hypergrowth, pre-consolidation",
+    regions: "US revenue lead; Europe privacy/AI rules; India/SEA/LatAm usage growth/lower ARPU; CIS access gaps.",
+    leaders: "ChatGPT 41% of Q4 2024 AI-app spend; vertical winners fluid.",
+    whitespace: "Life admin, immigration, eldercare, home maintenance, benefits and job execution.",
+    barriers: "Model commoditization, inference cost, trust, hallucinations and platform bundling.",
+    wedge: "One recurring high-anxiety job with permissioned execution and human escalation.",
+    wtp: "$10–50/mo when priced against saved service cost.", substitutes: "ChatGPT free, search, spreadsheets, human assistants.",
+    importScore: 5, exportScore: 5, confidence: "Medium",
+    sources: [["Sensor Tower 2024", "https://techcrunch.com/2025/01/22/ai-apps-saw-over-1-billion-in-consumer-spending-in-2024/"], ["Appfigures 2025", "https://resources-cdn.appfigures.com/industry-reports/appfigures-rise-of-ai-apps-key-trends-shaping-2025-report-v2.2.pdf"]],
+  },
+  {
+    id: "family-safety", name: "Family digital safety", category: "Consumer tech",
+    current: "$1.5B parental-control software revenue (2024)", tam: "$1.5B current; $3B forecast 2030", sam: "$0.4–0.8B premium cross-platform family plans",
+    growth: "12.1%", stage: "Established; AI-safety transition",
+    regions: "North America ~$0.4–0.5B; Europe privacy-sensitive; CIS Kaspersky legacy; MENA need high/legal variance.",
+    leaders: "Qustodio ~16% in one estimate; Norton, Bark, Kaspersky, Google/Microsoft free defaults.",
+    whitespace: "Grooming/bullying, teen consent, scams for children+elders and response workflows.",
+    barriers: "iOS sandboxing, encryption, child privacy and false positives; threat graph compounds.",
+    wedge: "Consent-based scam/harmful-contact response sold through telco/bank/insurer.",
+    wtp: "$5–20/mo family; B2B2C subsidy improves conversion.", substitutes: "Apple/Google family controls, router settings, family rules.",
+    importScore: 4, exportScore: 4, confidence: "High",
+    sources: [["Market 2024", "https://www.giiresearch.com/report/go1644138-parental-control-software.html"], ["Landscape", "https://www.futuremarketinsights.com/reports/parental-control-software-market"]],
+  },
+  {
+    id: "life-os", name: "Personal productivity & life OS", category: "Consumer tech",
+    current: "$9.65B productivity-app revenue (2024; mixed B2C/B2B)", tam: "$9.65B broad apps", sam: "$2–4B personal note/task/calendar/focus",
+    growth: "9%; AI add-ons faster", stage: "Mature; AI re-bundling",
+    regions: "North America >40%/~$3.86B; Europe privacy/offline; CIS/India/SEA lower-priced mobile.",
+    leaders: "Microsoft/Google bundles; Notion ~$500M mixed ARR Sep-2025; Todoist, TickTick, Obsidian.",
+    whitespace: "Household admin, neurodivergent workflows, local AI and proactive execution.",
+    barriers: "Free suites, switching, trust and integration permissions; personal history lock-in.",
+    wedge: "Inbox/messages → completed tasks and shared household workflows for one persona.",
+    wtp: "$5–25/mo; family plan $10–40.", substitutes: "OS reminders/calendar, Notion free, spreadsheets, ChatGPT.",
+    importScore: 5, exportScore: 5, confidence: "Medium",
+    sources: [["Market 2024", "https://www.cognitivemarketresearch.com/productivity-apps-market-report"], ["Notion ARR", "https://sacra.com/c/notion/"]],
+  },
+  {
+    id: "vpn", name: "Consumer privacy & travel security", category: "Consumer tech",
+    current: "$5.9B VPN app revenue (2024)", tam: "$5.9B observable app/subscription scope", sam: "$1–2B challenger privacy/security bundles",
+    growth: "15.6% YoY 2024", stage: "Mature, highly competitive",
+    regions: "US high paid adoption; Europe privacy-led; MENA/restricted markets high usage; CIS/India legal/payment risk.",
+    leaders: "NordVPN, Surfshark, ExpressVPN; Nord ~27% of US consumer users in one estimate.",
+    whitespace: "Family privacy, scam/identity protection, travel eSIM and transparent jurisdiction.",
+    barriers: "Trust, regulation, server capex and search/app-store CAC; brand moat, weak network effect.",
+    wedge: "VPN + eSIM + breach/scam alerts via travel, bank or telecom partner.",
+    wtp: "$3–12/mo; annual discount is standard.", substitutes: "Free VPNs, iCloud Private Relay, browser VPN, corporate access.",
+    importScore: 2, exportScore: 3, confidence: "Medium",
+    sources: [["VPN app revenue", "https://www.businessofapps.com/data/vpn-app-market/"], ["B2C scope", "https://www.researchandmarkets.com/reports/6094442/b2c-vpn-market-global-strategic-business-report"]],
+  },
+  {
+    id: "resale", name: "Managed resale & recommerce", category: "Commerce & services",
+    current: "$4.5–6.5B net platform revenue (2024/25 est.)", tam: "$4.5–6.5B current online platform revenue, not resale GMV", sam: "$1.2–2.5B managed non-luxury/category plays",
+    growth: "10%; online US 13%", stage: "Scale-up; Europe leads",
+    regions: "Europe largest, Vinted €813M revenue; US fragmented; CIS classifieds strong; LatAm/SEA logistics fragmented.",
+    leaders: "Vinted €813M (+36%); Vestiaire €200M; Etsy $2.81B group includes Depop.",
+    whitespace: "Managed non-luxury, brand trade-in and tooling for grading/pricing/returns.",
+    barriers: "Category/city liquidity, counterfeit, reverse logistics and low-SKU processing cost.",
+    wedge: "One category—kids, outdoor or premium electronics—with pickup, grading and payout.",
+    wtp: "Seller take 10–30%; buyers pay for trust/returns.", substitutes: "Avito/eBay classifieds, local groups, consignment stores.",
+    importScore: 4, exportScore: 3, confidence: "Medium",
+    sources: [["Vinted 2024", "https://company.vinted.com/newsroom/Vinted-delivers-strong-profitable-growth-while-investing"], ["ThredUp 2025", "https://ir.thredup.com/news-releases/news-release-details/thredups-13th-resale-report-shows-online-resale-saw-accelerated"]],
+  },
+  {
+    id: "beauty", name: "Beauty & wellness booking OS", category: "Commerce & services",
+    current: "$1.2–1.9B net platform/SaaS/payment revenue est.", tam: "$1.2–1.9B current digital platform revenue", sam: "$0.4–0.8B one-profession OS + payments",
+    growth: "12–18%", stage: "Growth; POS/payments consolidation",
+    regions: "US high ARPU/CAC; Europe country-by-country; CIS strong merchant SaaS; GCC/SEA growing.",
+    leaders: "Fresha ~$140M revenue run-rate; Mindbody, Vagaro, Booksy, Treatwell private.",
+    whitespace: "Deposits, no-show protection, dynamic slots, repeat visits and financing.",
+    barriers: "Local supply density, switching costs, payment licenses and off-platform leakage.",
+    wedge: "Free OS for one profession + mandatory deposit; discovery after supply density.",
+    wtp: "Merchant $20–150/mo + 1–3% payments; consumer convenience fee limited.", substitutes: "Instagram/WhatsApp booking, Google Maps, spreadsheets, local directories.",
+    importScore: 4, exportScore: 4, confidence: "Medium",
+    sources: [["Fresha economics", "https://techfundingnews.com/beauty-techs-quiet-giant-just-became-a-unicorn-fresha-raises-80m-from-kkr-at-1b-valuation/"], ["Avito context", "https://www.onlinemarketplaces.com/articles/avito-owner-signals-ipo-readiness-as-russian-rate-cuts-reopen-market/"]],
+  },
+  {
+    id: "home", name: "Fixed-outcome home maintenance", category: "Commerce & services",
+    current: "$4–6B platform revenue est.; Angi $1.185B (2024)", tam: "$4–6B current digital platform revenue, not job value", sam: "$1–2B repeatable managed categories",
+    growth: "8–17%", stage: "Lead-gen mature → managed",
+    regions: "US $2.5–3.5B; Europe $0.9–1.4B; CIS $0.4–0.8B; India/SEA/LatAm $0.8–1.4B.",
+    leaders: "Angi $1.185B; Thumbtack, Taskrabbit, Urban Company; shares local.",
+    whitespace: "Recurring plans, video triage, parts+labor bundles and home service record.",
+    barriers: "Hyperlocal supply, checks, insurance, licenses, quality and claims; local network effect.",
+    wedge: "One pain: video diagnosis → fixed quote → parts-ready technician + warranty.",
+    wtp: "10–25% take; $10–30/mo maintenance plan.", substitutes: "Classifieds, referrals, DIY YouTube, building management.",
+    importScore: 5, exportScore: 3, confidence: "Medium",
+    sources: [["Angi 2024", "https://www.sec.gov/Archives/edgar/data/1705110/000170511025000018/angi-20241231.htm"], ["Digital home services", "https://www.grandviewresearch.com/industry-analysis/online-on-demand-home-services-market-report"]],
+  },
+  {
+    id: "dating", name: "Intent-led dating & offline outcomes", category: "Commerce & services",
+    current: "$6.5–7.5B subscription/IAP/ad revenue (2024/25)", tam: "~$7B 2025 service revenue", sam: "$4–5B paying US + Europe + select APAC",
+    growth: "~12% category; leaders 0–5%", stage: "Mature; product reset",
+    regions: "US $1.4–1.7B; Europe $1.2–1.6B; CIS $0.25–0.45B; APAC/LatAm/MENA $2.2–3B.",
+    leaders: "Match Group $3.48B, Tinder ~$2B; Bumble and Grindr add concentration.",
+    whitespace: "Verified intent, women-first safety, diaspora/faith, group dating and date planning.",
+    barriers: "Very strong two-sided network, safety/moderation, fraud, app-store fees and CAC.",
+    wedge: "One high-intent cohort + verified introductions + curated offline events.",
+    wtp: "$15–50/mo; events $20–100.", substitutes: "Instagram, friends, offline events, free dating tiers.",
+    importScore: 3, exportScore: 2, confidence: "High",
+    sources: [["Match FY24", "https://www.sec.gov/Archives/edgar/data/891103/000089110325000018/mtch8-k20250204ex991.htm"], ["Dating TAM", "https://www.mordorintelligence.com/industry-reports/global-online-dating-services-market"]],
+  },
+  {
+    id: "legal", name: "Consumer legal workflows", category: "Commerce & services",
+    current: "$2–3.5B digital platform/service revenue est.; LegalZoom $681.9M (2024)", tam: "$2–3.5B current digital revenue; broad legal spend excluded", sam: "$0.8–1.5B standardizable cases",
+    growth: "5–10%", stage: "Growth; AI repricing",
+    regions: "US $1.2–1.8B; Europe $0.5–0.9B; CIS $0.15–0.3B; India/LatAm/MENA $0.3–0.6B.",
+    leaders: "LegalZoom $681.9M, 64% subscriptions; Rocket Lawyer, JustAnswer; traditional firms dominate.",
+    whitespace: "Divorce, inheritance, consumer debt, landlord/tenant and travel claims.",
+    barriers: "Unauthorized-practice rules, jurisdiction licenses, liability, sensitive data and trust.",
+    wedge: "One repeatable claim: fixed price + success fee where legal; lawyer at exceptions.",
+    wtp: "$50–500 matter; success fee for recovered value.", substitutes: "Government templates, forums, ChatGPT, legal aid, traditional lawyer.",
+    importScore: 5, exportScore: 3, confidence: "Medium",
+    sources: [["LegalZoom FY24", "https://investors.legalzoom.com/news-releases/news-release-details/legalzoom-reports-fourth-quarter-and-full-year-2024-financial"], ["US B2C legal", "https://www.emergenresearch.com/industry-report/us-b2c-legal-service-market"]],
+  },
+  {
+    id: "niche-commerce", name: "Niche replenishment commerce", category: "Commerce & services",
+    current: "$12–17B accounting/net platform revenue pool est.; HelloFresh €7.66B (2024)", tam: "$12–17B current digital revenue, not merchandise GMV", sam: "$3–6B selected high-repeat verticals",
+    growth: "8–14%; meal kits mature", stage: "Mature core; vertical reinvention",
+    regions: "US $6–8B; Europe $4–5.5B; CIS $1–2B; MENA/India/SEA/LatAm $1.5–2.5B.",
+    leaders: "HelloFresh €7.66B; Etsy $2.81B; Chewy Autoship; scope mixes inventory-led and platform models.",
+    whitespace: "Condition-specific food, pet health, hobby replenishment and refill/repair loops.",
+    barriers: "Inventory, working capital, fulfillment, perishability, churn and promotional CAC.",
+    wedge: "One recurring outcome; pre-order/marketplace supply before inventory ownership.",
+    wtp: "Gross margin 20–40% or membership $5–20/mo.", substitutes: "Supermarkets, marketplaces, recurring calendar reminders, local shops.",
+    importScore: 3, exportScore: 3, confidence: "High",
+    sources: [["HelloFresh 2024", "https://ir.hellofreshgroup.com/media/document/29b0f8fe-8de7-4e8b-bc37-b07943f143e3/assets/Annual_Report_2024.pdf?disposition=inline"], ["Etsy 2024", "https://www.sec.gov/Archives/edgar/data/1370637/000137063725000017/etsy-20241231.htm"]],
+  },
+  {
+    id: "experiences", name: "Travel experiences operator OS", category: "Travel & mobility",
+    current: "$3.5–5B net platform revenue; Viator $840M (2024), GetYourGuide >€1B (2025)", tam: "$3.5–5B current platform revenue, not experience GMV", sam: "$1–2B long-tail operator software/distribution",
+    growth: "9–13%", stage: "Scale-up",
+    regions: "US $1–1.4B; Europe $1.2–1.7B; CIS $0.15–0.3B; SEA/India/MENA/LatAm $1–1.5B.",
+    leaders: "Viator $840M; GetYourGuide >€1B; Klook APAC leader.",
+    whitespace: "Dynamic small groups, last-minute supply, accessibility and operator yield/CRM.",
+    barriers: "Fragmented supply, weather/cancellations, integrations, permits and refunds.",
+    wedge: "Operator OS for one activity, then API distribution to hotels/airlines/super-apps.",
+    wtp: "Operator SaaS $30–300/mo + 10–25% booking fee.", substitutes: "Walk-up purchase, hotel concierge, Google Maps, direct operator booking.",
+    importScore: 5, exportScore: 4, confidence: "High",
+    sources: [["Viator 2024", "https://www.sec.gov/Archives/edgar/data/1526520/000095017025023736/R45.htm"], ["GetYourGuide 2025", "https://www.webintravel.com/getyourguide-first-experiences-platform-to-hit-e1b-in-revenue/"]],
+  },
+  {
+    id: "intercity", name: "Intercity mobility orchestration", category: "Travel & mobility",
+    current: "$4–6B operator/platform revenue est.; Flix €2B (2023)", tam: "$4–6B current digitally enabled revenue proxy", sam: "$1–2B ticketing/OS for fragmented fleets",
+    growth: "6–17% online", stage: "Europe mature; emerging digitization",
+    regions: "US $0.8–1.2B; Europe $2–2.8B; CIS $0.5–0.9B; India/LatAm/MENA/SEA $1.2–2B.",
+    leaders: "Flix €2B; BlaBlaCar 92M passengers in 2024; redBus strong in India.",
+    whitespace: "Rural feeders, guaranteed connections, disruption rebooking and fleet pricing.",
+    barriers: "Permits, station access, reliability, low AOV, refunds and network density.",
+    wedge: "Fleet OS for 20–100 vehicles + pooled inventory on underserved corridors.",
+    wtp: "1–8% ticket fee + fleet SaaS $50–500/mo.", substitutes: "Station counters, WhatsApp operators, Google transit, private car.",
+    importScore: 4, exportScore: 5, confidence: "Medium",
+    sources: [["Flix results", "https://corporate.flix.com/press_releases/another-record-year-flix-reports-eur-2-billion-total-revenue-in-2023/"], ["BlaBlaCar 2024", "https://newsroom.blablacar.com/news/sustainability-report-2024"]],
+  },
+  {
+    id: "auto", name: "Auto ownership & service passport", category: "Travel & mobility",
+    current: "$8–12B platform gross-profit/net-revenue proxy; Carvana $2.88B gross profit (2024)", tam: "$8–12B comparable platform economics, not vehicle sales", sam: "$2–4B asset-light inspection/repair/data",
+    growth: "8–15%, cyclical", stage: "Scaled; capital-heavy models tested",
+    regions: "US $4–6B; Europe $2–3B; CIS $1–1.8B; MENA/LatAm/India/SEA $1–2B.",
+    leaders: "Carvana $2.88B gross profit, ~1% US share; AutoScout24, mobile.de, Avito Auto.",
+    whitespace: "Portable service history, remote diagnosis, EV battery health and warranty.",
+    barriers: "Titles, fraud, inspection accuracy, logistics and lending regulation; avoid inventory.",
+    wedge: "Verified inspection + maintenance passport + repair marketplace for one cohort.",
+    wtp: "$50–300 inspection; shop lead/take; $5–20/mo ownership plan.", substitutes: "Dealer record, paper receipts, classifieds, independent mechanic.",
+    importScore: 5, exportScore: 4, confidence: "Medium",
+    sources: [["Carvana FY24", "https://investors.carvana.com/news-releases/2025/02-19-2025-211012996"], ["Yandex FY24", "https://yastatic.net/s3/ir-docs/docs/2024/q4/cbf2d1c3ff32ff65da6l438h44902945/MKPAO_Q4_2024_press_release_ENG.pdf"]],
+  },
+  {
+    id: "immigration", name: "Relocation & immigration case OS", category: "Travel & mobility",
+    current: "$0.8–1.4B digital-first platform/service revenue est. (2024/25)", tam: "$0.8–1.4B current digital revenue; broad agency/legal spend excluded", sam: "$0.3–0.7B standardizable corridor cases",
+    growth: "7–9%", stage: "Early growth; regulation-heavy",
+    regions: "US $0.35–0.6B; Europe $0.25–0.45B; CIS $0.08–0.18B; India/GCC corridors strong.",
+    leaders: "Boundless est. $42–75M; LegalZoom, Localyze, Jobbatical; traditional firms dominate.",
+    whitespace: "Post-arrival OS, family cases, document provenance and emerging-market corridors.",
+    barriers: "Legal-advice boundary, country rules, document fraud, PII, policy and payments.",
+    wedge: "One corridor + persona; checklist, document workspace and vetted partners.",
+    wtp: "$200–2,000/case; partner referral and employer sponsorship.", substitutes: "Government sites, Telegram groups, lawyers, relocation agents, spreadsheets.",
+    importScore: 5, exportScore: 5, confidence: "Medium",
+    sources: [["Boundless estimate", "https://growjo.com/company/Boundless_Immigration"], ["Immigration market", "https://datahorizzonresearch.com/global-immigration-service-market-48310"]],
+  },
+];
+
+const marketRu: Record<Market["id"], MarketRu> = {
+  pfm: {
+    name: "Семейные финансы, счета и долги",
+    essence: "Сервис помогает семье совместно управлять денежным потоком, обязательными платежами и погашением долгов. Ценность создают конкретные действия и экономия, а не ещё одна диаграмма расходов.",
+    growth: "Умеренный рост 8–11% в год",
+    stage: "Зрелый, но раздробленный рынок",
+    regions: "В США рынок оценивается в $0,42–0,62 млрд и готовность платить высока; Европа — $0,30–0,42 млрд, открытый банкинг PSD2 развит, но рынок раздроблен; СНГ — около $25–60 млн, дистрибуция контролируется банками.",
+    leaders: "Quicken, YNAB и Rocket Money; частные компании не раскрывают выручку, а основным каналом остаются банковские приложения.",
+    whitespace: "Совместные финансы пары, нерегулярный доход, план погашения долгов и поиск забытых подписок.",
+    barriers: "Средне-высокая стоимость привлечения (CAC), банковские подключения, согласия пользователей, стабильность сервиса и граница финансовой консультации. История данных создаёт защиту продукта.",
+    wedge: "Совместный помощник по денежному потоку с импортом CSV или ручным вводом и еженедельными рекомендациями.",
+    wtp: "$6–15 в месяц в США; €4–10 в Европе; ₽199–499 в месяц при доказуемой экономии.",
+    substitutes: "Банковские приложения, таблицы, бесплатные агрегаторы и Telegram-боты.",
+  },
+  investing: {
+    name: "Помощник для самостоятельного инвестора",
+    essence: "Некастодиальный сервис объединяет портфели из разных брокеров, показывает концентрацию и налоговые действия. Он помогает принимать решения, не принимая на хранение деньги клиента.",
+    growth: "Рост 10–18%, заметно зависит от рыночного цикла",
+    stage: "Масштабированный и жёстко регулируемый рынок",
+    regions: "США — около $6–9 млрд; Европа — $2–4 млрд; СНГ — $0,7–1,2 млрд, рынок сосредоточен у банков-брокеров и уязвим к санкциям.",
+    leaders: "Robinhood, eToro, Trade Republic, Revolut и Scalable; доля выручки меняется вместе с процентными ставками и криптоциклами.",
+    whitespace: "Налоговые лоты, риск концентрации, акции работодателя и единый семейный обзор уже открытых счетов.",
+    barriers: "Очень высокие регуляторные требования, недоверие и CAC; нужны лицензии на рыночные данные, KYC/AML и санкционный контроль.",
+    wedge: "Read-only анализ здоровья мультиброкерного портфеля и налоговых действий до добавления сделок.",
+    wtp: "$8–30 в месяц, если налоговая или риск-экономия измерима.",
+    substitutes: "Аналитика брокера, TradingView, таблицы и бесплатные модельные портфели.",
+  },
+  insurance: {
+    name: "Помощник по страховому покрытию и выплатам",
+    essence: "Сервис собирает полисы в одном месте, находит пробелы в покрытии и готовит документы для страхового случая. Пользователь платит за ясность и помощь в сложном событии, а не за обычное сравнение цен.",
+    growth: "Рост 10–16% в год",
+    stage: "Рынок переходит к зрелости",
+    regions: "США — около $6–10 млрд; Европа — $4–7 млрд с сильными агрегаторами; СНГ — $0,3–0,6 млрд, где лидируют банки и маркетплейсы.",
+    leaders: "Lemonade, Root, Policygenius и Check24; доли зависят от страхового продукта и страны.",
+    whitespace: "Поиск пробелов в покрытии, проверка продления и подготовка страхового требования по всем полисам.",
+    barriers: "Лицензирование, интеграции со страховщиками, чувствительные данные, дорогой CAC по горячему спросу и конфликт комиссий.",
+    wedge: "Загрузка полисов превращается в карту покрытия, календарь продлений и пакет доказательств для выплаты.",
+    wtp: "За котировки платят мало; за разовый аудит или помощь с выплатой — $30–100.",
+    substitutes: "Агенты, кабинеты страховщиков, сайты сравнения и бесплатные проверки.",
+  },
+  tax: {
+    name: "Налоговая помощь по жизненным событиям",
+    essence: "Продукт ведёт человека через конкретный сложный налоговый сценарий: переезд, инвестиции, криптоактивы или письмо от налоговой. Узкая специализация позволяет сочетать автоматизацию с точечной проверкой экспертом.",
+    growth: "Невысокий рост 4–8% в год",
+    stage: "Олигополия в США; в каждой стране рынок локален",
+    regions: "США — $6–8 млрд; Европа — $1,5–2,5 млрд, особенно Германия и Великобритания; СНГ — около $40–100 млн, где государственные сервисы снижают готовность платить.",
+    leaders: "TurboTax, H&R Block и TaxAct; в Европе — Taxfix и TaxScouts.",
+    whitespace: "Работники между странами, создатели контента, акции и криптоактивы, вычеты и ответы на уведомления.",
+    barriers: "Ответственность за ошибки, ежегодные изменения правил, безопасность личности, сезонный CAC и бесплатные государственные продукты.",
+    wedge: "Преобразование документов в чек-лист для одного типа налогоплательщика с участием человека только в исключениях.",
+    wtp: "$50–200 за событие в США и Европе; ₽1–5 тыс. за сложный случай в России.",
+    substitutes: "Государственная подача деклараций, бухгалтеры, удержание работодателем и бесплатные тарифы.",
+  },
+  remittance: {
+    name: "Финансы мигрантов и семейные обязательства",
+    essence: "Сервис помогает мигранту выбрать маршрут перевода и управлять регулярной поддержкой семьи. Безопасный старт — сравнение и учёт обязательств поверх лицензированной платёжной инфраструктуры.",
+    growth: "Быстрый рост 12–18% в год",
+    stage: "Масштабированный рынок, раздробленный по коридорам",
+    regions: "Отправления из США — около $7–10 млрд; Европа — $6–8 млрд; СНГ — $0,4–0,8 млрд и переживает перестройку; коридор ОАЭ → Индия/Филиппины особенно перспективен.",
+    leaders: "Western Union, Wise Personal, Remitly и Ria/Xe; важнее доля в конкретном коридоре, чем глобальная доля.",
+    whitespace: "Онбординг, регулярные семейные обязательства, документы, переносимость кредитной истории и бюджет получателя.",
+    barriers: "Максимальная нагрузка AML/KYC и санкционного контроля, лицензии, предфинансирование, мошенничество и низкая комиссия.",
+    wedge: "Некастодиальное сравнение коридоров и общий трекер обязательств; денежный перевод выполняет лицензированный партнёр.",
+    wtp: "Комиссия или валютный спред; подписка оправдана только заметной экономией на переводах.",
+    substitutes: "Банки, наличные, стейблкоины, Wise/Revolut и местные кошельки.",
+  },
+  telehealth: {
+    name: "Специализированная телемедицина напрямую пациенту",
+    essence: "Продукт ведёт пациента по одному повторяющемуся состоянию от первичного обращения до терапии и контроля результата. Обычный видеозвонок уже стал товаром, поэтому ценность — в длительном маршруте лечения.",
+    growth: "Высокий рост 18–24% в год",
+    stage: "Консолидация основного рынка и рост специализаций",
+    regions: "США — $35–45 млрд; Европа — $30–37 млрд в широком определении; Россия — около $0,17 млрд; MENA и Индия — $3–6 млрд при более низкой выручке на пользователя.",
+    leaders: "Teladoc, Hims & Hers, Kry/Livi и ZAVA; в России — SberHealth и Doktis.",
+    whitespace: "Продольная диагностика, лекарства, мониторинг и измеримый результат; отдельные видеоконсультации уже не уникальны.",
+    barriers: "Медицинские лицензии, правила назначения препаратов, ответственность, локализация медданных и доступность врачей.",
+    wedge: "Одна частая и низкорисковая специализация с асинхронным триажем и измеримым результатом за 90 дней.",
+    wtp: "$30–100 в месяц в США; €15–60 в Европе; ₽500–2 500 за эпизод.",
+    substitutes: "Государственная медицина, телемедицина страховщика, чат клиники и совет в аптеке.",
+  },
+  mental: {
+    name: "Программы психологической помощи с сопровождением",
+    essence: "Структурированная программа помогает пройти конкретный жизненный кризис и удерживает человека между сессиями. Сочетание протокола и поддержки специалиста защищает продукт от бесплатного контента.",
+    growth: "Рост 12–17% в год",
+    stage: "Переполненный B2C-рынок смещается к оплате страховщиками и работодателями",
+    regions: "США — около $3,9 млрд только в приложениях; Европа — $1,7–2,2 млрд; СНГ — $80–180 млн; испано- и арабоязычные рынки LatAm/MENA обслужены слабее.",
+    leaders: "BetterHelp, Talkspace, Headspace и Calm; в России — Yasno и Alter.",
+    whitespace: "Программы под конкретное состояние или событие, усиление терапевта и соблюдение плана между сессиями.",
+    barriers: "Доверие, кризисные случаи, медицинские обещания, лицензирование, медданные и дорогой CAC в соцсетях.",
+    wedge: "Шестинедельный протокол с поддержкой терапевта для одного острого жизненного события.",
+    wtp: "$15–70 в месяц за программу; $200–400 за терапию в США; ниже в СНГ.",
+    substitutes: "YouTube, подкасты, ChatGPT, горячие линии, EAP и очная терапия.",
+  },
+  fitness: {
+    name: "Фитнес-привычки и клубы восстановления",
+    essence: "Клуб для узкой аудитории поддерживает регулярность тренировок и восстановление с помощью группы, тренера и данных носимых устройств. Главная задача — удержание, а не создание ещё одной библиотеки упражнений.",
+    growth: "Приложения растут на 17–25% в год",
+    stage: "Зрелый рынок с высоким оттоком",
+    regions: "США — $1,4–1,8 млрд; Европа — $0,8–1,1 млрд; СНГ — около $60–130 млн; Индия и SEA — $0,3–0,5 млрд с большой аудиторией, но низкой ARPU.",
+    leaders: "Apple Fitness, Strava, Peloton, MyFitnessPal, BetterMe и Oura.",
+    whitespace: "Ответственность перед группой для узких сегментов и восстановление по данным сенсоров без собственного устройства.",
+    barriers: "Удержание, комиссия магазинов приложений, стоимость авторов и контента, конкуренция бесплатного видео.",
+    wedge: "Платный клуб под одну цель: группа, тренер и оценка готовности независимо от бренда носимого устройства.",
+    wtp: "$8–25 в месяц на Западе; ₽300–1 000 в месяц с участием тренера.",
+    substitutes: "YouTube, Nike Training Club, системные приложения здоровья, спортзалы и беговые клубы.",
+  },
+  femtech: {
+    name: "Непрерывная забота о женском здоровье",
+    essence: "Сервис собирает историю симптомов и помогает подготовиться к приёму по недооценённым состояниям, не ставя диагноз самостоятельно. Доверие, приватность и доказательная база важнее количества функций.",
+    growth: "Рост 14–20% в год",
+    stage: "Растущий рынок; решения для среднего возраста развиты слабо",
+    regions: "США — около $1,5–2,5 млрд; Европа — $0,8–1,3 млрд; СНГ — $60–140 млн; приватные решения востребованы в MENA и Индии.",
+    leaders: "Flo, Clue, Maven Clinic и Natural Cycles; частные компании в основном не раскрывают выручку.",
+    whitespace: "Перименопауза, эндометриоз, восстановление после родов и навигация по лечению.",
+    barriers: "Чувствительные данные, классификация медизделий, доказательность, доверие и влияние репродуктивной политики.",
+    wedge: "Лента симптомов и доказательная подготовка к визиту; врачи-партнёры без диагностики на старте.",
+    wtp: "$8–25 в месяц на Западе; ₽300–1 200 в месяц с доступом к врачу.",
+    substitutes: "Бесплатные трекеры, форумы, универсальная телемедицина и государственная гинекология.",
+  },
+  nutrition: {
+    name: "Метаболическое здоровье и поддержка при GLP-1",
+    essence: "Помощник поддерживает питание, силовые тренировки и контроль побочных эффектов во время и после приёма препаратов для снижения веса. Он не привязан к конкретному лекарству и фокусируется на сохранении результата.",
+    growth: "Рост 13–18% в год",
+    stage: "Зрелый трекинг; лекарства заново меняют категорию",
+    regions: "США — $0,9–1,2 млрд; Европа — $0,5–0,7 млрд; СНГ — $40–100 млн; MENA и LatAm — около $0,2–0,4 млрд.",
+    leaders: "MyFitnessPal, Noom, WeightWatchers, Yazio и Lifesum; телемедицинские сервисы включают препараты в пакет.",
+    whitespace: "Сохранение мышц после GLP-1, побочные эффекты, удержание результата и локальная кухня.",
+    barriers: "Клинический риск, правила обращения лекарств, безопасность при расстройствах питания, справочники еды и отток после плато.",
+    wedge: "Независимый от препарата помощник по белку, клетчатке, побочным эффектам и силовым тренировкам.",
+    wtp: "$10–40 в месяц; канал через клинику или плательщика снижает CAC.",
+    substitutes: "Бесплатные счётчики калорий, AI-фото-дневники, соцсети и памятки клиник.",
+  },
+  "pet-lifecycle": {
+    name: "Паспорт здоровья питомца и проверенный уход",
+    essence: "Единая история прививок, анализов, лекарств и ухода сопровождает питомца всю жизнь. Сначала продукт решает проблему документов, затем добавляет проверенную локальную сеть помощников.",
+    growth: "Цифровой сегмент растёт на 12–15% в год",
+    stage: "Ранняя стадия роста, рынок раздроблен",
+    regions: "Самая высокая готовность платить в США; Европа растёт; в СНГ предложение раздроблено; в LatAm и SEA увеличивается число домашних животных.",
+    leaders: "PetDesk, Tractive, Rover и PetBacker; единого лидера полного жизненного цикла нет.",
+    whitespace: "Одна история прививок, анализов, лекарств, ситтеров и грумеров; уход за пожилыми и больными животными.",
+    barriers: "Раздробленность ветеринаров, ответственность, локальная плотность исполнителей, инциденты и уход сделок мимо платформы.",
+    wedge: "Входящие документы превращаются в паспорт питомца и справку для врача; сеть помощников с лекарствами строится город за городом.",
+    wtp: "$5–20 в месяц на Западе; ₽200–700 в месяц; комиссия за уход 18–25%.",
+    substitutes: "Бумажный паспорт, системы клиник, заметки, форумы и объявления.",
+  },
+  "family-care": {
+    name: "Семейная система ухода и проверенная помощь",
+    essence: "Закрытое пространство координирует лекарства, визиты, документы, расходы и передачи дел между родственниками. Особенно ценен сценарий, когда взрослые дети удалённо заботятся о родителе.",
+    growth: "Рост 8–16% в год",
+    stage: "Рынок раздроблен; координационные продукты ещё ранние",
+    regions: "США — около $1,8–3 млрд; Европа — $1–1,8 млрд; СНГ — $60–160 млн; в Индии и SEA есть окно для мобильной координации.",
+    leaders: "Care.com, BabyCenter, Cozi и Ovia; в СНГ доминируют объявления и семейные чаты.",
+    whitespace: "Лекарства, приёмы, документы, расходы, задачи и передача ответственности между несколькими взрослыми.",
+    barriers: "Доверие и безопасность, проверки исполнителей, данные детей и здоровья, проблема запуска двустороннего маркетплейса.",
+    wedge: "Приватное пространство ухода за пожилым родителем для удалённых взрослых детей; позже — платный навигатор.",
+    wtp: "$10–30 в месяц на семью; ₽300–1 500; лучше всего работает оплата работодателем.",
+    substitutes: "WhatsApp/Telegram, календари, бумажные папки, государственные медсёстры и объявления.",
+  },
+  "niche-svod": {
+    name: "Нишевое подписное видео и сообщества фанатов",
+    essence: "Стриминг для конкретного жанра, диаспоры или фан-сообщества выигрывает за счёт кураторства, локализации и эксклюзивов. Массовый каталог здесь менее важен, чем глубина одной темы.",
+    growth: "Нишевый сегмент растёт на 12–18% в год",
+    stage: "Основной рынок зрелый, ниши раздроблены",
+    regions: "США — около $4 млрд; Европа — $2,2 млрд; СНГ — $0,25 млрд; Индия и SEA — $0,9 млрд; LatAm и MENA — $0,5 млрд.",
+    leaders: "Crunchyroll, BritBox, Shudder, MUBI и Viki; Netflix с $39 млрд служит только широким ориентиром.",
+    whitespace: "Диаспоры, жанры и фандомы, экспертное кураторство, дубляж и перевод аудитории из FAST в подписку.",
+    barriers: "Территориальные права, минимальные гарантии, отток и доступ на устройства; защищает каталог.",
+    wedge: "Один экспортируемый фандом, 100–300 часов эксклюзивного или локализованного контента и совместные премьеры.",
+    wtp: "$5–12 в месяц; годовые планы для самых вовлечённых фанатов.",
+    substitutes: "YouTube, пиратство, широкие SVOD-пакеты и бесплатные FAST-каналы.",
+  },
+  audiobooks: {
+    name: "Аудиокниги и сериальный аудиоконтент",
+    essence: "Локальный сервис строит каталог на региональных правах, жанровых сериалах и совместном семейном прослушивании. Удержание создают привычка и накопленная библиотека.",
+    growth: "Рост 10,6–26,2%; результат сильно зависит от границ оценки",
+    stage: "Масштабирование и консолидация",
+    regions: "Северная Америка — 45–52%; Европа — около 25%; СНГ — менее 3%; быстрее всего растёт APAC.",
+    leaders: "Audible занимает примерно 41–63% в зависимости от методики; также Spotify, Storytel, Apple, Kobo и Google.",
+    whitespace: "Жанровые сериалы, совместное прослушивание с детьми, локальный нон-фикшн и локализация старого каталога.",
+    barriers: "Права, окна выпуска, согласие дикторов и роялти; удержание создают каталог и история пользователя.",
+    wedge: "Региональные архивы и сериализация уже проверенной жанровой прозы; семейные профили для текста и аудио.",
+    wtp: "$8–18 в месяц на Западе; локальным тарифам нужна более низкая цена или пакет.",
+    substitutes: "Библиотеки, подкасты, YouTube, пиратство и электронные книги.",
+  },
+  "podcast-membership": {
+    name: "Платные подкасты и аудиосообщества",
+    essence: "Платформа помогает группе авторов продавать закрытые ленты, сообщество и дополнительные материалы. Ценность — в владении отношениями с аудиторией и локальных платежах.",
+    growth: "Около 20% в год",
+    stage: "Раннее масштабирование",
+    regions: "Северная Америка — 38–46%; Европа — 25–30%; в LatAm много слушателей, но ниже ARPU; СНГ и MENA монетизируются слабее.",
+    leaders: "Spotify, Apple и YouTube отвечают за дистрибуцию; Patreon, Substack и Supporting Cast — за монетизацию.",
+    whitespace: "Локальные деловые и образовательные шоу, закрытые сообщества и переупаковка на несколько языков.",
+    barriers: "Поиск внутри платформ и переносимость автора; защиту создаёт доверие аудитории, а не технология.",
+    wedge: "Система с разделением выручки для 20–50 авторов: paywall, сообщество, расшифровки, клипы и локальные платежи.",
+    wtp: "$3–15 в месяц за одного автора или пакет.",
+    substitutes: "Бесплатные ленты с рекламой, YouTube и Telegram-сообщества.",
+  },
+  games: {
+    name: "Игровые подписки и облачный гейминг",
+    essence: "Сервис даёт доступ к играм на слабых устройствах через локальный каталог и оплату у оператора связи. Наиболее реалистичен узкий жанр или регион, а не прямой конкурент глобальным библиотекам.",
+    growth: "Около 9% в подписках; около 12% в облачном сегменте",
+    stage: "Подписки зрелые, облачный гейминг ещё формируется",
+    regions: "Лучше всего платят США, Европа, Япония и Корея; Индия, SEA и LatAm дают окно для слабых устройств; СНГ ограничен правами и платежами.",
+    leaders: "Microsoft и Sony вместе имеют 82 млн подписчиков библиотек; Nvidia лидирует по узнаваемости чистого облачного гейминга.",
+    whitespace: "Совместная семейная игра, ретро- и локальные каталоги, облако для компьютерных клубов и пакеты операторов.",
+    barriers: "Права, вычислительные мощности, задержка и правила платформ; защищают идентичность и сетевые эффекты мультиплеера.",
+    wedge: "Один жанр или регион на слабых устройствах с предоплаченной тарификацией через оператора.",
+    wtp: "$5–20 в месяц; в развивающихся странах — предоплата или дневные пропуска.",
+    substitutes: "Free-to-play игры, купленная библиотека, компьютерные клубы и пиратство.",
+  },
+  creator: {
+    name: "Подписки и цифровые товары авторов",
+    essence: "Инструмент переносит аудиторию автора из социальных платформ в собственную базу с регулярными платежами и товарами. Особенно важны локальные способы оплаты, налоговые документы и экспорт контактов.",
+    growth: "Рост 9–20% в год",
+    stage: "Модель доказана; форматы консолидируются",
+    regions: "США, Великобритания и Европа лидируют по ARPU; в LatAm, СНГ и SEA много авторов; правила контента ограничивают MENA.",
+    leaders: "OnlyFans — $1,41 млрд чистой выручки; Patreon — около $140 млн; у Substack более 4 млн платных подписок к 2025 году.",
+    whitespace: "Платежи вне США, владение CRM и аудиторией, пакеты, экспертные ниши, миграционные и налоговые инструменты.",
+    barriers: "Платежи, модерация, возвраты и правила магазинов приложений; заметны двусторонние сетевые эффекты.",
+    wedge: "Импорт аудитории из Telegram/сообщества, регулярные платежи, товары, налоговые чеки и экспорт аудитории.",
+    wtp: "Фанаты платят $5–30 в месяц; комиссия платформы 8–20%.",
+    substitutes: "Пожертвования в Telegram, прямые банковские ссылки, подписки YouTube и бесплатные соцсети.",
+  },
+  language: {
+    name: "Разговорный язык с AI и измеримым результатом",
+    essence: "Тренажёр готовит носителя конкретного языка к рабочим интервью и профессиональным ситуациям. Узкая пара «родной язык × профессия» даёт измеримый результат и лучшую локализацию.",
+    growth: "Высокий рост 16,6% в год",
+    stage: "Масштабированный и быстрорастущий рынок",
+    regions: "Северная Америка — около $8 млрд; Европа существенна; MEA — $2,78 млрд; LatAm — $1,37 млрд; быстрее всего растёт APAC.",
+    leaders: "Duolingo — $748 млн в 2024 году (+41%); Babbel — около €352 млн; также Busuu, Preply и Speak.",
+    whitespace: "Профессиональный английский, произношение с учётом родного языка, мигранты, офлайн-режим и путь от экзамена к работе.",
+    barriers: "CAC и сильные бесплатные альтернативы; защищают данные о привычке и результате, а не доступ к модели.",
+    wedge: "Одна пара «родной язык × профессия» с человеческой калибровкой и результатом на собеседовании.",
+    wtp: "$8–30 в месяц; выше для групп подготовки к интервью или экзамену.",
+    substitutes: "Бесплатный Duolingo, YouTube, голосовой ChatGPT и языковой обмен.",
+  },
+  k12: {
+    name: "Школьные занятия K–12 в малых группах",
+    essence: "Онлайн-занятия в небольших группах фокусируются на одном возрасте и навыке, а родителям показывают прогресс. Групповой формат сочетает доступную цену и человеческую поддержку.",
+    growth: "Рост 8–14,5% в год",
+    stage: "Большой и раздробленный рынок",
+    regions: "APAC — около 40%; Северная Америка — более 35% широкого репетиторства; Европа меньше; российский детский EdTech вырос на 32% в 2024 году.",
+    leaders: "TAL/New Oriental, Varsity Tutors, Preply, GoStudent и Vedantu.",
+    whitespace: "Особые образовательные потребности, беглость чтения, отчёты родителям, дети мигрантов и помощники учителя.",
+    barriers: "Наличие преподавателей, безопасность детей, учебная программа, CAC и сезонность; данные о результатах накапливают преимущество.",
+    wedge: "Математика или чтение в малых группах для одного возрастного диапазона с видимым родителю освоением навыка.",
+    wtp: "$40–200 в месяц за группу; $15–60 за индивидуальное занятие, с поправкой на регион.",
+    substitutes: "Школа, YouTube, форумы с домашними заданиями, помощь семьи и универсальный AI.",
+  },
+  "test-prep": {
+    name: "Цифровая подготовка к экзаменам",
+    essence: "Продукт решает самую сложную субъективную часть одного экзамена и даёт адаптивную обратную связь. Группа и гарантия результата повышают дисциплину и готовность платить.",
+    growth: "Рост 5,9–15,3% в зависимости от методики",
+    stage: "Спрос зрелый; AI перезапускает продукт",
+    regions: "Северная Америка крупнейшая; Индия растёт быстрее всего; Европа сильна; в СНГ важны местные госэкзамены; MENA и LatAm ориентированы на обучение за рубежом.",
+    leaders: "Pearson, Kaplan, Princeton Review, Magoosh, UWorld и Quizlet; доли не раскрываются.",
+    whitespace: "Обратная связь по речи и письму, адаптивная диагностика ошибок и микрониши профессиональных сертификатов.",
+    barriers: "Зависимость от экзаменационных организаций, права на вопросы, сезонность и правила обещаний по баллам.",
+    wedge: "Самая сложная субъективная часть одного экзамена, ответственность перед группой и гарантия, связанная с баллом.",
+    wtp: "$30–300 за курс; выше для критически важных профессиональных сертификатов.",
+    substitutes: "Бесплатные задания прошлых лет, YouTube, школа и универсальная AI-проверка.",
+  },
+  hobby: {
+    name: "Обучение хобби с готовым результатом",
+    essence: "Короткий клуб доводит участника до законченного проекта через набор материалов, обратную связь и показ результата. Это сильнее бесплатной библиотеки уроков, которую большинство не заканчивает.",
+    growth: "Около 8% в год",
+    stage: "Зрелая ниша под давлением AI",
+    regions: "США и Европа лидируют по платным подпискам; в LatAm много авторов; СНГ, Индия и SEA дают сильное предложение при более низкой ARPU.",
+    leaders: "MasterClass, Skillshare и Domestika; надёжных данных о долях нет.",
+    whitespace: "Проектные клубы, наборы материалов, местные ремёсла, процессы эпохи AI и форматы «родитель + ребёнок».",
+    barriers: "Замена YouTube, низкая завершаемость и отток, зависимость от преподавателя.",
+    wedge: "Шестинедельный проектный клуб с набором, разбором работ и выставкой результата — не доступ к библиотеке.",
+    wtp: "$40–250 за поток или $10–25 в месяц.",
+    substitutes: "YouTube, Pinterest, местные клубы и бесплатные курсы авторов.",
+  },
+  "consumer-ai": {
+    name: "Вертикальные AI-агенты для повседневных задач",
+    essence: "Агент выполняет одну повторяющуюся тревожную задачу: переезд, уход, льготы или обслуживание дома. Платят за безопасное доведение дела до результата, а не за ещё один чат.",
+    growth: "Гиперрост свыше 100% год к году в первом полугодии 2025",
+    stage: "До консолидации; лидеры ещё не закрепились",
+    regions: "США лидируют по выручке; в Европе важны приватность и AI-регулирование; Индия, SEA и LatAm растут по использованию при низкой ARPU; в СНГ есть проблемы доступа.",
+    leaders: "ChatGPT получил 41% расходов на AI-приложения в IV квартале 2024; лидеры вертикалей быстро меняются.",
+    whitespace: "Бытовые дела, иммиграция, уход за пожилыми, обслуживание дома, льготы и выполнение задач по поиску работы.",
+    barriers: "Обесценивание моделей, стоимость инференса, доверие, галлюцинации и включение функций в крупные платформы.",
+    wedge: "Одна регулярная тревожная задача с разрешённым выполнением действий и передачей человеку.",
+    wtp: "$10–50 в месяц, если цена ниже сэкономленной стоимости услуги.",
+    substitutes: "Бесплатный ChatGPT, поиск, таблицы и человеческие помощники.",
+  },
+  "family-safety": {
+    name: "Цифровая безопасность семьи",
+    essence: "Сервис помогает семье реагировать на мошенничество, травлю и опасные контакты с согласия подростков и пожилых. Реакция и сценарии помощи полезнее тотального наблюдения.",
+    growth: "Рост 12,1% в год",
+    stage: "Сложившийся рынок переходит к защите от AI-угроз",
+    regions: "Северная Америка — около $0,4–0,5 млрд; Европа чувствительна к приватности; в СНГ сильное наследие Kaspersky; в MENA высокий спрос, но разные законы.",
+    leaders: "Qustodio — около 16% по одной оценке; также Norton, Bark и Kaspersky, а Google/Microsoft дают бесплатные базовые функции.",
+    whitespace: "Груминг и травля, согласие подростка, мошенничество против детей и пожилых, сценарии реагирования.",
+    barriers: "Ограничения iOS, шифрование, приватность детей и ложные срабатывания; преимущество накапливает граф угроз.",
+    wedge: "Реагирование на мошенничество и вредные контакты с согласия семьи, продаваемое через оператора, банк или страховщика.",
+    wtp: "$5–20 в месяц на семью; субсидия B2B2C повышает конверсию.",
+    substitutes: "Семейные настройки Apple/Google, настройки роутера и семейные правила.",
+  },
+  "life-os": {
+    name: "Личная продуктивность и система управления жизнью",
+    essence: "Помощник превращает входящие сообщения и заметки в выполненные личные и семейные задачи. Ценность возникает из проактивного исполнения и накопленной истории, а не из отдельного списка дел.",
+    growth: "Около 9% в год; AI-дополнения растут быстрее",
+    stage: "Зрелый рынок заново объединяется вокруг AI",
+    regions: "Северная Америка — более 40%, около $3,86 млрд; Европе важны приватность и офлайн; СНГ, Индия и SEA предпочитают недорогой мобильный продукт.",
+    leaders: "Microsoft и Google включают функции в пакеты; Notion достиг около $500 млн смешанного ARR к сентябрю 2025; также Todoist, TickTick и Obsidian.",
+    whitespace: "Семейная администрация, нейроотличные процессы, локальный AI и проактивное выполнение.",
+    barriers: "Бесплатные пакеты, сложность перехода, доверие и разрешения интеграций; удерживает личная история.",
+    wedge: "Входящие и сообщения превращаются в завершённые задачи и общие семейные процессы для одной персоны.",
+    wtp: "$5–25 в месяц; семейный тариф $10–40.",
+    substitutes: "Системные напоминания и календарь, бесплатный Notion, таблицы и ChatGPT.",
+  },
+  vpn: {
+    name: "Личная приватность и безопасность в поездках",
+    essence: "Пакет объединяет VPN, eSIM и предупреждения об утечках или мошенничестве. Дистрибуция через туристического, банковского или телеком-партнёра снижает дорогой прямой CAC.",
+    growth: "Рост 15,6% год к году в 2024",
+    stage: "Зрелый рынок с очень высокой конкуренцией",
+    regions: "В США высока платная установка; Европа покупает из-за приватности; в MENA и ограниченных рынках высоко использование; СНГ и Индия несут правовые и платёжные риски.",
+    leaders: "NordVPN, Surfshark и ExpressVPN; Nord занимает около 27% потребительских пользователей США по одной оценке.",
+    whitespace: "Семейная приватность, защита от мошенничества и кражи личности, туристическая eSIM и прозрачная юрисдикция.",
+    barriers: "Доверие, регулирование, затраты на серверы и поисковый/магазинный CAC; защищает бренд, сетевой эффект слаб.",
+    wedge: "VPN + eSIM + оповещения об утечках и мошенничестве через туристического, банковского или телеком-партнёра.",
+    wtp: "$3–12 в месяц; годовая скидка стала стандартом.",
+    substitutes: "Бесплатные VPN, iCloud Private Relay, VPN браузера и корпоративный доступ.",
+  },
+  resale: {
+    name: "Управляемая перепродажа и recommerce",
+    essence: "Сервис берёт на себя приём, оценку, проверку, возвраты и выплату продавцу в одной товарной категории. Управляемый опыт повышает доверие по сравнению с обычными объявлениями.",
+    growth: "Около 10% в год; онлайн-сегмент США — 13%",
+    stage: "Масштабирование; Европа впереди",
+    regions: "Европа крупнейшая, Vinted имеет €813 млн выручки; США раздроблены; в СНГ сильны объявления; в LatAm и SEA сложна логистика.",
+    leaders: "Vinted — €813 млн (+36%); Vestiaire — €200 млн; групповая выручка Etsy $2,81 млрд включает Depop.",
+    whitespace: "Управляемая перепродажа не-люкса, trade-in брендов, инструменты оценки состояния, цены и возвратов.",
+    barriers: "Ликвидность категории и города, подделки, обратная логистика и высокая себестоимость обработки уникальной вещи.",
+    wedge: "Одна категория — детские товары, outdoor или премиальная электроника — с забором, оценкой и выплатой.",
+    wtp: "Комиссия продавца 10–30%; покупатель платит за доверие и возврат.",
+    substitutes: "Объявления Avito/eBay, местные группы и комиссионные магазины.",
+  },
+  beauty: {
+    name: "Запись и операционная система для beauty/wellness",
+    essence: "Бесплатная система для одной профессии управляет расписанием, депозитами и повторными визитами. Потребительский discovery имеет смысл только после набора плотного предложения.",
+    growth: "Рост 12–18% в год",
+    stage: "Рост с консолидацией касс и платежей",
+    regions: "США дают высокие ARPU и CAC; Европа требует запуска по странам; в СНГ силён SaaS для мастеров; GCC и SEA растут.",
+    leaders: "Fresha — около $140 млн годового темпа выручки; Mindbody, Vagaro, Booksy и Treatwell — частные компании.",
+    whitespace: "Депозиты, защита от неявок, динамические слоты, повторные визиты и финансирование.",
+    barriers: "Плотность местного предложения, стоимость перехода, платёжные лицензии и уход записей мимо платформы.",
+    wedge: "Бесплатная система для одной профессии с обязательным депозитом; поиск услуг — после плотности предложения.",
+    wtp: "Мастер платит $20–150 в месяц и 1–3% за платежи; комиссия удобства для клиента ограничена.",
+    substitutes: "Запись через Instagram/WhatsApp, Google Maps, таблицы и местные каталоги.",
+  },
+  home: {
+    name: "Домашний ремонт с фиксированным результатом",
+    essence: "Видеодиагностика превращается в фиксированную смету, визит мастера с нужными деталями и гарантию. Продукт продаёт предсказуемый результат, а не контакт исполнителя.",
+    growth: "Рост 8–17% в год",
+    stage: "Зрелая генерация лидов переходит к управляемой услуге",
+    regions: "США — $2,5–3,5 млрд; Европа — $0,9–1,4 млрд; СНГ — $0,4–0,8 млрд; Индия, SEA, LatAm и MENA — $0,8–1,4 млрд.",
+    leaders: "Angi — $1,185 млрд; также Thumbtack, Taskrabbit и Urban Company; доли локальны.",
+    whitespace: "Регулярные планы, видеодиагностика, пакеты деталей и работ, история обслуживания дома.",
+    barriers: "Гиперлокальное предложение, проверки, страховка, лицензии, качество и претензии; действует местный сетевой эффект.",
+    wedge: "Одна боль: видеодиагностика → фиксированная цена → мастер с деталями → гарантия.",
+    wtp: "Комиссия 10–25%; план обслуживания $10–30 в месяц.",
+    substitutes: "Объявления, рекомендации, DIY-видео YouTube и управляющая компания.",
+  },
+  dating: {
+    name: "Знакомства по намерению и офлайн-результату",
+    essence: "Сервис собирает узкую группу людей с серьёзным намерением, проверяет профили и организует знакомства или события. Сильная безопасность и качество встречи важнее количества свайпов.",
+    growth: "Категория растёт около 12%, лидеры — лишь 0–5%",
+    stage: "Зрелый рынок проходит продуктовый перезапуск",
+    regions: "США — $1,4–1,7 млрд; Европа — $1,2–1,6 млрд; СНГ — $0,25–0,45 млрд; APAC, LatAm и MENA — $2,2–3 млрд.",
+    leaders: "Match Group — $3,48 млрд, Tinder — около $2 млрд; Bumble и Grindr усиливают концентрацию.",
+    whitespace: "Проверенное намерение, безопасность женщин, диаспоры и религии, групповые знакомства и планирование свиданий.",
+    barriers: "Очень сильная двусторонняя сеть, безопасность и модерация, мошенничество, комиссии магазинов и CAC.",
+    wedge: "Одна группа с высоким намерением, проверенные знакомства и курируемые офлайн-события.",
+    wtp: "$15–50 в месяц; события — $20–100.",
+    substitutes: "Instagram, друзья, офлайн-события и бесплатные тарифы приложений знакомств.",
+  },
+  legal: {
+    name: "Юридические процессы для частных лиц",
+    essence: "Сервис ведёт человека через один стандартизируемый юридический случай по фиксированной цене. Юрист подключается только там, где автоматизация выходит за допустимую границу.",
+    growth: "Рост 5–10% в год",
+    stage: "Рынок растёт; AI меняет ценообразование",
+    regions: "США — $1,2–1,8 млрд; Европа — $0,5–0,9 млрд; СНГ — $0,15–0,3 млрд; Индия, LatAm и MENA — $0,3–0,6 млрд.",
+    leaders: "LegalZoom — $681,9 млн, 64% выручки по подписке; Rocket Lawyer и JustAnswer; традиционные фирмы всё ещё доминируют.",
+    whitespace: "Развод, наследство, потребительский долг, аренда жилья и претензии в путешествиях.",
+    barriers: "Запрет нелицензированной юридической практики, локальные лицензии, ответственность, чувствительные данные и доверие.",
+    wedge: "Одна повторяемая претензия: фиксированная цена и success fee там, где разрешено; юрист — для исключений.",
+    wtp: "$50–500 за дело; процент от возвращённой суммы.",
+    substitutes: "Государственные шаблоны, форумы, ChatGPT, бесплатная юридическая помощь и традиционный юрист.",
+  },
+  "niche-commerce": {
+    name: "Нишевая торговля с регулярным пополнением",
+    essence: "Вертикальный магазин или маркетплейс регулярно поставляет товары для конкретного результата: здоровья, питомца или хобби. Начинать безопаснее с предзаказа и партнёрского предложения без собственного склада.",
+    growth: "Рост 8–14%; наборы еды уже зрелые",
+    stage: "Зрелая основа, новые вертикали переизобретают модель",
+    regions: "США — $6–8 млрд; Европа — $4–5,5 млрд; СНГ — $1–2 млрд; MENA, Индия, SEA и LatAm — $1,5–2,5 млрд.",
+    leaders: "HelloFresh — €7,66 млрд; Etsy — $2,81 млрд; Chewy Autoship; сравнение смешивает торговые и платформенные модели.",
+    whitespace: "Питание по состоянию здоровья, здоровье питомцев, расходники для хобби и циклы пополнения или ремонта.",
+    barriers: "Запасы, оборотный капитал, доставка, скоропорт, отток и промо-CAC.",
+    wedge: "Один повторяющийся результат; предзаказ или партнёрский маркетплейс до владения запасами.",
+    wtp: "Валовая маржа 20–40% или членство $5–20 в месяц.",
+    substitutes: "Супермаркеты, маркетплейсы, напоминания в календаре и местные магазины.",
+  },
+  experiences: {
+    name: "Операционная система для туров и впечатлений",
+    essence: "Система помогает небольшому оператору управлять слотами, ценами, клиентами и дистрибуцией. B2B-вход через один тип активности дешевле глобального привлечения туристов.",
+    growth: "Рост 9–13% в год",
+    stage: "Стадия масштабирования",
+    regions: "США — $1–1,4 млрд; Европа — $1,2–1,7 млрд; СНГ — $0,15–0,3 млрд; SEA, Индия, MENA и LatAm — $1–1,5 млрд.",
+    leaders: "Viator — $840 млн; GetYourGuide — более €1 млрд; Klook лидирует в APAC.",
+    whitespace: "Динамические малые группы, предложение в последний момент, доступность и управление доходностью/CRM оператора.",
+    barriers: "Раздробленное предложение, погода и отмены, интеграции, разрешения и возвраты.",
+    wedge: "Система для одного вида активности, затем API-дистрибуция в отели, авиакомпании и super-app.",
+    wtp: "SaaS для оператора $30–300 в месяц и 10–25% комиссии бронирования.",
+    substitutes: "Покупка на месте, консьерж отеля, Google Maps и прямое бронирование у оператора.",
+  },
+  intercity: {
+    name: "Оркестрация междугородней мобильности",
+    essence: "Система объединяет расписания и места небольших перевозчиков, поддерживает пересадки и перебронирование. Сначала она улучшает работу флота, затем создаёт общий инвентарь маршрутов.",
+    growth: "Онлайн-сегмент растёт на 6–17% в год",
+    stage: "Европа зрелая; развивающиеся рынки оцифровываются",
+    regions: "США — $0,8–1,2 млрд; Европа — $2–2,8 млрд; СНГ — $0,5–0,9 млрд; Индия, LatAm, MENA и SEA — $1,2–2 млрд.",
+    leaders: "Flix — €2 млрд; BlaBlaCar перевёз 92 млн пассажиров в 2024; redBus силён в Индии.",
+    whitespace: "Подвоз из малых городов, гарантированные стыковки, перебронирование при сбоях и управление ценами флота.",
+    barriers: "Разрешения, доступ к станциям, надёжность, низкий средний чек, возвраты и плотность сети.",
+    wedge: "Система для флота из 20–100 машин и объединённый инвентарь на недообслуженных направлениях.",
+    wtp: "1–8% от билета и SaaS для флота $50–500 в месяц.",
+    substitutes: "Кассы на станции, операторы в WhatsApp, Google Transit и личный автомобиль.",
+  },
+  auto: {
+    name: "Паспорт владения и обслуживания автомобиля",
+    essence: "Проверка автомобиля и переносимая история ремонта повышают доверие на рынке подержанных машин. Лёгкая модель избегает покупки автомобилей на баланс и зарабатывает на данных и услугах.",
+    growth: "Рост 8–15%, зависит от экономического цикла",
+    stage: "Масштабированный рынок; капиталоёмкие модели уже проверены",
+    regions: "США — $4–6 млрд; Европа — $2–3 млрд; СНГ — $1–1,8 млрд; MENA, LatAm, Индия и SEA — $1–2 млрд.",
+    leaders: "Carvana — $2,88 млрд валовой прибыли и около 1% рынка США; AutoScout24, mobile.de и Avito Auto.",
+    whitespace: "Переносимая сервисная история, удалённая диагностика, здоровье батареи электромобиля и гарантия.",
+    barriers: "Документы собственности, мошенничество, точность проверки, логистика и кредитное регулирование; важно не держать запасы.",
+    wedge: "Проверенная инспекция, паспорт обслуживания и маркетплейс ремонта для одного сегмента владельцев.",
+    wtp: "$50–300 за проверку; лид или комиссия сервиса; $5–20 в месяц за план владения.",
+    substitutes: "История дилера, бумажные чеки, объявления и независимый механик.",
+  },
+  immigration: {
+    name: "Система ведения переезда и иммиграционного дела",
+    essence: "Продукт ведёт одну персону по конкретному миграционному коридору от чек-листа документов до задач после переезда. Проверенные партнёры подключаются там, где нужна лицензированная помощь.",
+    growth: "Рост 7–9% в год",
+    stage: "Ранняя стадия роста с тяжёлым регулированием",
+    regions: "США — $0,35–0,6 млрд; Европа — $0,25–0,45 млрд; СНГ — $0,08–0,18 млрд; сильны коридоры из Индии в GCC.",
+    leaders: "Boundless — около $42–75 млн; LegalZoom, Localyze и Jobbatical; традиционные фирмы доминируют.",
+    whitespace: "Задачи после приезда, семейные дела, происхождение документов и коридоры развивающихся стран.",
+    barriers: "Граница юридической консультации, правила стран, подделка документов, персональные данные, политика и платежи.",
+    wedge: "Один коридор и одна персона: чек-лист, пространство документов и проверенные партнёры.",
+    wtp: "$200–2 000 за дело; партнёрские рекомендации и спонсорство работодателя.",
+    substitutes: "Государственные сайты, Telegram-группы, юристы, релокационные агенты и таблицы.",
+  },
+};
+
+const categories = ["All", "Finance", "Health & care", "Media & learning", "Consumer tech", "Commerce & services", "Travel & mobility"] as const;
+const regionFilters = ["All", "US", "Europe", "CIS", "Expansion"] as const;
+const strategies = ["All", "Import→RF", "Export→world", "Balanced"] as const;
+
+const categoryRu: Record<(typeof categories)[number], string> = {
+  All: "Все",
+  Finance: "Финансы",
+  "Health & care": "Здоровье и забота",
+  "Media & learning": "Медиа и обучение",
+  "Consumer tech": "Потребительские технологии",
+  "Commerce & services": "Торговля и услуги",
+  "Travel & mobility": "Путешествия и мобильность",
+};
+
+const regionRu: Record<(typeof regionFilters)[number], string> = {
+  All: "Все",
+  US: "США",
+  Europe: "Европа",
+  CIS: "СНГ",
+  Expansion: "Рынки расширения",
+};
+
+const strategyRu: Record<(typeof strategies)[number], string> = {
+  All: "Все",
+  "Import→RF": "Импорт → РФ",
+  "Export→world": "Экспорт → мир",
+  Balanced: "Оба направления",
+};
+
+const confidenceRu: Record<Confidence, string> = {
+  High: "Высокая",
+  Medium: "Средняя",
+  Low: "Низкая",
+};
+
+const productTheses = [
+  ["AI speaking for one profession", "Russian-/Arabic-/Spanish-speaking job seekers", "GCC or Germany", "$15–35/mo + cohort", "Voice models improved; employers demand verifiable language outcomes."],
+  ["Pet lifecycle passport", "Urban owners of senior/medical pets", "Russia → Poland/Spain", "$6–15/mo + care take", "Records remain fragmented while pet WTP and travel rise."],
+  ["Remote eldercare workspace", "Adult children managing a parent remotely", "Russia/Serbia → EU diaspora", "$12–30/family/mo + navigator", "Aging and migration turn family chat into an unsafe system of record."],
+  ["Perimenopause visit-prep companion", "Women 38–55 with unresolved symptoms", "Russia → GCC/UK", "$10–25/mo + clinician referral", "Midlife care is underbuilt; start below diagnosis/device boundary."],
+  ["Immigration corridor OS", "Russian-speaking talent and families", "GCC/Serbia/LatAm", "$300–1,500/case + referrals", "Policy complexity and post-arrival fragmentation create high-intent demand."],
+  ["Experiences operator OS", "Small tour/activity operators", "Türkiye/GCC/SEA", "$50–250/mo + booking fee", "Supply remains offline; B2B wedge avoids global consumer CAC."],
+  ["GLP-1 maintenance companion", "Users during/after weight-loss medication", "US/EU via coaches", "$15–40/mo or clinic license", "Medication adoption creates a new adherence and muscle-preservation layer."],
+  ["Family scam-response layer", "Families protecting teens and elders", "CIS → MENA/LatAm", "$5–15/family/mo; B2B2C", "AI scams grow faster than OS parental controls; response beats monitoring."],
+  ["Auto maintenance passport", "Owners of 5–12-year used vehicles", "Russia/Kazakhstan → MENA", "$50 inspection + shop take", "Used-car trust is weak; service data is portable and asset-light."],
+  ["Creator membership stack", "Expert creators with Telegram audiences", "CIS diaspora → LatAm/MENA", "8–12% take + payments", "Creators need ownership, local payments and tax receipts beyond social reach."],
+];
+
+const productThesesRu = [
+  ["Разговорный AI для одной профессии", "AI speaking for one profession", "Русско-, арабо- и испаноязычные соискатели", "GCC или Германия", "$15–35 в месяц + групповой поток", "Голосовые модели стали лучше, а работодателям нужен проверяемый языковой результат."],
+  ["Паспорт жизненного цикла питомца", "Pet lifecycle passport", "Городские владельцы пожилых или больных питомцев", "Россия → Польша/Испания", "$6–15 в месяц + комиссия за уход", "Медицинские записи раздроблены, а готовность тратить на питомцев и путешествовать с ними растёт."],
+  ["Пространство удалённого ухода за пожилыми", "Remote eldercare workspace", "Взрослые дети, которые удалённо помогают родителю", "Россия/Сербия → диаспора в ЕС", "$12–30 на семью в месяц + навигатор", "Старение и миграция превращают семейный чат в ненадёжную систему хранения важных данных."],
+  ["Помощник подготовки к приёму при перименопаузе", "Perimenopause visit-prep companion", "Женщины 38–55 лет с неразрешёнными симптомами", "Россия → GCC/Великобритания", "$10–25 в месяц + направление к врачу", "Помощь женщинам среднего возраста развита слабо; безопасный старт лежит ниже границы диагностики и медизделия."],
+  ["Система для одного иммиграционного коридора", "Immigration corridor OS", "Русскоязычные специалисты и семьи", "GCC/Сербия/LatAm", "$300–1 500 за дело + партнёрские выплаты", "Сложные правила и раздробленные задачи после приезда создают спрос с сильным намерением."],
+  ["Операционная система для организаторов впечатлений", "Experiences operator OS", "Небольшие организаторы туров и активностей", "Турция/GCC/SEA", "$50–250 в месяц + комиссия бронирования", "Предложение всё ещё работает офлайн; B2B-вход позволяет избежать глобального потребительского CAC."],
+  ["Помощник удержания результата после GLP-1", "GLP-1 maintenance companion", "Люди во время или после приёма препаратов для снижения веса", "США/ЕС через тренеров", "$15–40 в месяц или лицензия клинике", "Распространение препаратов создаёт новый слой поддержки привычек и сохранения мышц."],
+  ["Семейный слой реагирования на мошенничество", "Family scam-response layer", "Семьи, защищающие подростков и пожилых", "СНГ → MENA/LatAm", "$5–15 на семью в месяц; B2B2C", "AI-мошенничество растёт быстрее системного родительского контроля; реагирование полезнее наблюдения."],
+  ["Паспорт обслуживания автомобиля", "Auto maintenance passport", "Владельцы подержанных автомобилей возрастом 5–12 лет", "Россия/Казахстан → MENA", "$50 за проверку + комиссия сервиса", "На рынке подержанных машин мало доверия; сервисные данные переносимы, а модель не требует активов на балансе."],
+  ["Стек подписок для авторов", "Creator membership stack", "Экспертные авторы с аудиторией в Telegram", "Диаспора СНГ → LatAm/MENA", "Комиссия 8–12% + платежи", "Авторам нужны владение аудиторией, локальные платежи и налоговые чеки за пределами охвата соцсетей."],
+];
+
+const glossary = [
+  ["TAM / SAM", "TAM — весь теоретический пул выручки; SAM — его достижимая часть для выбранной географии и модели."],
+  ["WTP", "Willingness to pay — сколько клиент действительно готов платить за решение."],
+  ["CAC", "Стоимость привлечения одного платящего клиента."],
+  ["Churn", "Отток: доля клиентов или выручки, потерянная за период."],
+  ["GMV", "Полная стоимость товаров или сделок через платформу; это не выручка платформы."],
+  ["AUM", "Активы под управлением; объём клиентских денег, а не выручка сервиса."],
+  ["Premium", "Страховая премия: сумма, которую клиент платит страховщику за покрытие."],
+  ["Take rate", "Доля оборота сделки, которую платформа удерживает как выручку."],
+  ["Marketplace", "Площадка, соединяющая спрос и предложение и обычно берущая комиссию."],
+  ["Network effect", "Сетевой эффект: продукт становится ценнее с ростом числа участников."],
+  ["Beachhead", "Первый узкий сегмент или регион, где проще доказать ценность продукта."],
+  ["Wedge", "Узкий входной сценарий, который быстро решает острую проблему и открывает путь к расширению."],
+  ["Subscription", "Подписка: регулярная оплата за постоянный доступ к продукту."],
+  ["Usage-based", "Оплата по фактическому использованию: за действие, объём или событие."],
+  ["B2C / B2B2C", "B2C продаёт человеку напрямую; B2B2C приходит к нему через работодателя, банк, клинику или другого партнёра."],
+  ["ARPU", "Средняя выручка на одного пользователя за выбранный период."],
+  ["SVOD / FAST", "SVOD — видео по подписке; FAST — бесплатные потоковые каналы с рекламой."],
+];
+
+function Score({ value }: { value: number }) {
+  const theme = useHostTheme();
+  return <Text as="span" weight="semibold" style={{ color: value >= 4 ? theme.accent.primary : theme.text.secondary }}>{value}/5</Text>;
+}
+
+function rankBy(direction: "import" | "export") {
+  return [...markets]
+    .sort((a, b) => direction === "import"
+      ? b.importScore - a.importScore || b.exportScore - a.exportScore
+      : b.exportScore - a.exportScore || b.importScore - a.importScore)
+    .slice(0, 10);
+}
+
+function MarketDetail({ market }: { market: Market }) {
+  const ru = marketRu[market.id];
+  return (
+    <Card>
+      <CardHeader trailing={<Row gap={6}><Pill>{categoryRu[market.category]}</Pill><Pill tone={market.confidence === "High" ? "success" : market.confidence === "Medium" ? "warning" : "neutral"}>{confidenceRu[market.confidence]}</Pill></Row>}>
+        <Stack gap={2}>
+          <Text weight="semibold">{ru.name}</Text>
+          <Text size="small" tone="tertiary">{market.name}</Text>
+        </Stack>
+      </CardHeader>
+      <CardBody>
+        <Stack gap={13}>
+          <Text>{ru.essence}</Text>
+          <Grid columns="1.15fr 0.85fr" gap={18}>
+            <Stack gap={7}>
+              <H3>Экономика рынка</H3>
+              <Text><Text as="span" weight="semibold">Текущая выручка продукта / платформы: </Text>{market.current}</Text>
+              <Text><Text as="span" weight="semibold">Общий рынок (TAM): </Text>{market.tam}</Text>
+              <Text><Text as="span" weight="semibold">Практически достижимый рынок (SAM): </Text>{market.sam}</Text>
+              <Text><Text as="span" weight="semibold">Рост / стадия: </Text>{ru.growth} · {ru.stage}</Text>
+            </Stack>
+            <Stack gap={7}>
+              <H3>Сравнение регионов</H3>
+              <Text>{ru.regions}</Text>
+              <Text><Text as="span" weight="semibold">Лидеры и данные о долях: </Text>{ru.leaders}</Text>
+            </Stack>
+          </Grid>
+          <Divider />
+          <Grid columns={3} gap={16}>
+            <Stack gap={6}>
+              <H3>Возможность</H3>
+              <Text size="small"><Text as="span" weight="semibold">Незакрытая потребность: </Text>{ru.whitespace}</Text>
+              <Text size="small"><Text as="span" weight="semibold">Точка входа (wedge): </Text>{ru.wedge}</Text>
+            </Stack>
+            <Stack gap={6}>
+              <H3>Проверка спроса</H3>
+              <Text size="small"><Text as="span" weight="semibold">Готовность платить (WTP): </Text>{ru.wtp}</Text>
+              <Text size="small"><Text as="span" weight="semibold">Альтернативы: </Text>{ru.substitutes}</Text>
+            </Stack>
+            <Stack gap={6}>
+              <H3>Защита и риски</H3>
+              <Text size="small">{ru.barriers}</Text>
+              <Row gap={12} wrap>
+                <Text size="small">Импорт <Score value={market.importScore} /></Text>
+                <Text size="small">Экспорт <Score value={market.exportScore} /></Text>
+              </Row>
+            </Stack>
+          </Grid>
+          <Card collapsible defaultOpen={false}>
+            <CardHeader>Оригинальная формулировка (EN)</CardHeader>
+            <CardBody>
+              <Stack gap={6}>
+                <Text size="small"><Text as="span" weight="semibold">Current revenue: </Text>{market.current}</Text>
+                <Text size="small"><Text as="span" weight="semibold">TAM / SAM: </Text>{market.tam} · {market.sam}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Growth / stage: </Text>{market.growth} · {market.stage}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Regions: </Text>{market.regions}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Leaders: </Text>{market.leaders}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Whitespace: </Text>{market.whitespace}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Barriers: </Text>{market.barriers}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Wedge: </Text>{market.wedge}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Willingness to pay: </Text>{market.wtp}</Text>
+                <Text size="small"><Text as="span" weight="semibold">Substitutes: </Text>{market.substitutes}</Text>
+              </Stack>
+            </CardBody>
+          </Card>
+          <Row gap={10} wrap>
+            <Text size="small" tone="tertiary">Публичные источники:</Text>
+            {market.sources.map(([label, url]) => <span key={url}><Link href={url}>{label}</Link></span>)}
+          </Row>
+        </Stack>
+      </CardBody>
+    </Card>
+  );
+}
+
+function Rankings() {
+  const imports = rankBy("import");
+  const exports = rankBy("export");
+  return (
+    <Stack gap={18}>
+      <Grid columns={2} gap={20}>
+        <Stack gap={10}>
+          <H2>Топ-10 · Импорт → Россия</H2>
+          <Table
+            headers={["#", "Рынок", "Категория", "Импорт", "Экспорт", "Уверенность"]}
+            rows={imports.map((m, i) => [String(i + 1), <Stack gap={1}><Text size="small">{marketRu[m.id].name}</Text><Text size="small" tone="tertiary">{m.name}</Text></Stack>, categoryRu[m.category], <Score value={m.importScore} />, <Score value={m.exportScore} />, confidenceRu[m.confidence]])}
+            rowTone={imports.map((_, i) => i < 3 ? "success" : i < 7 ? "info" : "neutral")}
+            striped
+          />
+        </Stack>
+        <Stack gap={10}>
+          <H2>Топ-10 · Экспорт → мир</H2>
+          <Table
+            headers={["#", "Рынок", "Категория", "Экспорт", "Импорт", "Уверенность"]}
+            rows={exports.map((m, i) => [String(i + 1), <Stack gap={1}><Text size="small">{marketRu[m.id].name}</Text><Text size="small" tone="tertiary">{m.name}</Text></Stack>, categoryRu[m.category], <Score value={m.exportScore} />, <Score value={m.importScore} />, confidenceRu[m.confidence]])}
+            rowTone={exports.map((_, i) => i < 3 ? "success" : i < 7 ? "info" : "neutral")}
+            striped
+          />
+        </Stack>
+      </Grid>
+      <Callout tone="info" title="Общий паттерн">
+        Сильнейшие независимые точки входа сначала владеют процессом или продольной историей, а уже потом добавляют регулируемые транзакции либо предложение маркетплейса.
+        Языковые результаты, семейный уход, питомцы, иммиграция и инструменты авторов хорошо переносятся между странами; ремонт, право и впечатления требуют более глубокой локализации.
+      </Callout>
+    </Stack>
+  );
+}
+
+function ProductTheses() {
+  return (
+    <Stack gap={14}>
+      <Stack gap={5}>
+        <H2>Какой продукт строить</H2>
+        <Text tone="secondary">Десять конкретных тезисов для входа небольшой команды — не общие названия категорий.</Text>
+      </Stack>
+      <Table
+        headers={["Продуктовая гипотеза", "Целевой пользователь (ICP)", "Стартовая география (beachhead)", "Монетизация", "Почему сейчас"]}
+        rows={productThesesRu.map(([nameRu, nameEn, user, geography, monetization, rationale]) => [
+          <Stack gap={1}><Text size="small">{nameRu}</Text><Text size="small" tone="tertiary">{nameEn}</Text></Stack>,
+          user,
+          geography,
+          monetization,
+          rationale,
+        ])}
+        striped
+        stickyHeader
+      />
+      <Grid columns={3} gap={14}>
+        <Callout tone="success" title="Начать без лицензируемого действия">Истории, планирование, подготовка к визиту, сравнение и автоматизация процесса могут доказать удержание до хранения денег, постановки диагноза или юридического представительства.</Callout>
+        <Callout tone="info" title="Дистрибуция раньше маркетплейса">Клиники, тренеры, авторы, работодатели, операторы и продавцы помогают избежать дорогого холодного потребительского CAC.</Callout>
+        <Callout tone="warning" title="Критерий остановки">Не продолжать, если точка входа — лишь контент или AI-выжимка, не превосходит бесплатную замену либо требует национальных интеграций до первой ценности.</Callout>
+      </Grid>
+      <Card collapsible defaultOpen={false}>
+        <CardHeader>Оригинальные продуктовые тезисы (EN)</CardHeader>
+        <CardBody>
+          <Table
+            headers={["Product thesis", "Target user", "Beachhead geography", "Monetization", "Why now"]}
+            rows={productTheses}
+            striped
+          />
+        </CardBody>
+      </Card>
+    </Stack>
+  );
+}
+
+function Methodology() {
+  const allSources = markets.flatMap((m) => m.sources.map(([label, url]) => [marketRu[m.id].name, m.name, label, url]));
+  return (
+    <Stack gap={16}>
+      <H2>Методика, ограничения и публичные ссылки</H2>
+      <Grid columns={3} gap={14}>
+        <Stack gap={6}><H3>Нормализация выручки</H3><Text size="small">Доллары США, 2024/25, если не указано иное. «Текущая выручка» — чистая выручка продукта или платформы: подписки, комиссии, реклама, SaaS и платежи. AUM, страховые премии, объём переводов и GMV исключены. Для автомобильных моделей с запасами валовая прибыль явно используется как наиболее сопоставимая proxy-метрика экономики платформы.</Text></Stack>
+        <Stack gap={6}><H3>Общий и достижимый рынок (TAM / SAM)</H3><Text size="small">TAM — узкий пул выручки, для которого есть чистая оценка. SAM — округлённый ориентир: достижимая география × релевантная платящая доля × реализуемая модель. Это не прогноз, не оценка компании и не суммируемый итог портфеля.</Text></Stack>
+        <Stack gap={6}><H3>Уверенность (confidence)</H3><Text size="small">Высокая — границы подтверждены отчётностью или сильными первичными раскрытиями. Средняя — первичные опоры дополнены моделированием частных компаний или регионов. Низкая — преобладают определения вендоров либо расчётная платящая доля. Широкие диапазоны намеренны.</Text></Stack>
+      </Grid>
+      <Callout tone="warning" title="Ограничения сопоставимости">
+        Региональные доли с пометкой «est.» — аналитический синтез, а не раскрытая статистика. Частные лидеры редко публикуют выручку или долю, а определения рынка у исследователей расходятся.
+        Выручка медицинских, торговых и транспортных операторов не полностью сопоставима с комиссией маркетплейса. Перед запуском нужно заново проверить регулирование, санкции, платежи и юнит-экономику.
+      </Callout>
+      <Stack gap={8}>
+        <H3>Правила выставления оценок</H3>
+        <Text size="small"><Text as="span" weight="semibold">Импорт → РФ (1–5): </Text>острота локальной проблемы и WTP, пробел у текущих игроков, устойчивость к санкциям, правовая реализуемость и доступная дистрибуция.</Text>
+        <Text size="small"><Text as="span" weight="semibold">Экспорт → мир (1–5): </Text>универсальность проблемы, независимость от российских лицензий, данных и платёжных рельсов, удалённый выход на рынок (GTM), локализационная защита и международные платежи.</Text>
+        <Text size="small">Оценки ранжируют переносимость, а не размер рынка или вероятность успеха стартапа. При равенстве порядок определяет оценка второго направления; уверенность и барьеры служат фильтром следующего этапа.</Text>
+      </Stack>
+      <Card collapsible defaultOpen={false}>
+        <CardHeader>Словарь терминов</CardHeader>
+        <CardBody>
+          <Table headers={["Термин", "Простое определение"]} rows={glossary} striped />
+        </CardBody>
+      </Card>
+      <Divider />
+      <Table
+        headers={["Рынок", "Название (EN)", "Публичный источник", "URL"]}
+        rows={allSources.map(([market, marketEn, label, url]) => [market, marketEn, label, <Link href={url}>{url}</Link>])}
+        striped
+        stickyHeader
+      />
+    </Stack>
+  );
+}
+
+export default function GlobalB2CEntryOpportunities() {
+  const theme = useHostTheme();
+  const [view, setView] = useCanvasState<"rankings" | "markets" | "products" | "method">("entry-view", "rankings");
+  const [category, setCategory] = useCanvasState<(typeof categories)[number]>("entry-category", "All");
+  const [region, setRegion] = useCanvasState<(typeof regionFilters)[number]>("entry-region", "All");
+  const [strategy, setStrategy] = useCanvasState<(typeof strategies)[number]>("entry-strategy", "All");
+  const [query, setQuery] = useCanvasState("entry-query", "");
+  const [selectedId, setSelectedId] = useCanvasState("entry-selected-market", "consumer-ai");
+
+  const filtered = markets.filter((m) => {
+    const ru = marketRu[m.id];
+    const haystack = [
+      m.name, m.category, m.current, m.tam, m.sam, m.growth, m.stage, m.regions, m.leaders,
+      m.whitespace, m.barriers, m.wedge, m.wtp, m.substitutes,
+      ru.name, ru.essence, ru.growth, ru.stage, ru.regions, ru.leaders,
+      ru.whitespace, ru.barriers, ru.wedge, ru.wtp, ru.substitutes,
+    ].join(" ").toLowerCase();
+    const regionMatch = region === "All"
+      || (region === "US" && /\bUS\b|North America/.test(m.regions))
+      || (region === "Europe" && /Europe|EU\b/.test(m.regions))
+      || (region === "CIS" && /CIS|Russia/.test(m.regions))
+      || (region === "Expansion" && /MENA|MEA|GCC|LatAm|India|SEA|APAC/.test(m.regions));
+    const strategyMatch = strategy === "All"
+      || (strategy === "Import→RF" && m.importScore >= 4)
+      || (strategy === "Export→world" && m.exportScore >= 4)
+      || (strategy === "Balanced" && m.importScore >= 4 && m.exportScore >= 4);
+    return (category === "All" || m.category === category)
+      && regionMatch
+      && strategyMatch
+      && haystack.includes(query.trim().toLowerCase());
+  });
+  const selected = filtered.find((m) => m.id === selectedId) ?? filtered[0];
+
+  return (
+    <Stack gap={22} style={{ padding: 24, maxWidth: 1480, margin: "0 auto", color: theme.text.primary, background: theme.bg.editor }}>
+      <Grid columns="1.5fr 0.8fr" gap={24}>
+        <Stack gap={8}>
+          <Text size="small" tone="tertiary">МЕЖДУНАРОДНАЯ КАРТА ВХОДА B2C · USD 2024/2025 · СРЕЗ ДАННЫХ НА 28 ИЮЛЯ 2026</Text>
+          <H1>Глобальные возможности входа в B2C</H1>
+          <Text tone="secondary">
+            35 непересекающихся рынков: проверенные зарубежные модели для локализации в России и продукты, которые можно строить из России для международных рынков.
+            Текущая выручка — чистая выручка продукта или платформы, а не GMV, AUM, страховые премии или объём транзакций.
+          </Text>
+        </Stack>
+        <Grid columns={2} gap={12}>
+          <Stat value="35" label="уникальных рынков" />
+          <Stat value="6" label="групп категорий" />
+          <Stat value="2×10" label="рейтинги направлений" tone="success" />
+          <Stat value="10" label="продуктовых гипотез" tone="info" />
+        </Grid>
+      </Grid>
+
+      <div style={{ background: theme.accent.primary, color: theme.text.onAccent, borderRadius: 8, padding: 18 }}>
+        <Grid columns="1.15fr 1fr" gap={24}>
+          <Stack gap={6}>
+            <Text weight="bold" style={{ color: theme.text.onAccent }}>Вывод по портфелю</Text>
+            <H2 style={{ color: theme.text.onAccent }}>Сначала владейте историей и процессом, затем транзакцией</H2>
+          </Stack>
+          <Text style={{ color: theme.text.onAccent }}>
+            Лучшие трансграничные точки входа — языковой результат, забота о семье и питомцах, иммиграция, инструменты авторов и вертикальный AI.
+            Для локализации в России особенно подходят домашний ремонт, право для частных лиц, женское здоровье и впечатления: им нужны локальное доверие и операции, а не перевод интерфейса.
+          </Text>
+        </Grid>
+      </div>
+
+      <Row gap={8} wrap>
+        <Button variant={view === "rankings" ? "primary" : "secondary"} onClick={() => setView("rankings")}>Два рейтинга топ-10</Button>
+        <Button variant={view === "markets" ? "primary" : "secondary"} onClick={() => setView("markets")}>35 разборов рынков</Button>
+        <Button variant={view === "products" ? "primary" : "secondary"} onClick={() => setView("products")}>Что строить</Button>
+        <Button variant={view === "method" ? "primary" : "secondary"} onClick={() => setView("method")}>Методика и источники</Button>
+      </Row>
+
+      {view === "rankings" ? <Rankings /> : view === "products" ? <ProductTheses /> : view === "method" ? <Methodology /> : (
+        <Stack gap={16}>
+          <Stack gap={10}>
+            <Grid columns="minmax(260px, 0.8fr) 2fr" gap={14}>
+              <TextInput value={query} onChange={setQuery} placeholder="Поиск по русскому и английскому тексту…" />
+              <Row gap={6} wrap>{categories.map((v) => <span key={v}><Pill active={category === v} onClick={() => setCategory(v)}>{categoryRu[v]}</Pill></span>)}</Row>
+            </Grid>
+            <Row gap={6} wrap>
+              <Text size="small" weight="semibold">Регион:</Text>
+              {regionFilters.map((v) => <span key={v}><Pill active={region === v} onClick={() => setRegion(v)}>{regionRu[v]}</Pill></span>)}
+              <Text size="small" weight="semibold" style={{ marginLeft: 12 }}>Стратегия:</Text>
+              {strategies.map((v) => <span key={v}><Pill active={strategy === v} onClick={() => setStrategy(v)}>{strategyRu[v]}</Pill></span>)}
+            </Row>
+          </Stack>
+          <Row justify="space-between" align="center">
+            <H2>Разборы рынков</H2>
+            <Text size="small" tone="tertiary">{filtered.length} из {markets.length}</Text>
+          </Row>
+          <Table
+            headers={["Рынок", "Категория", "Текущая выручка", "Рост / стадия", "Импорт", "Экспорт", "Уверенность", ""]}
+            rows={filtered.map((m) => [
+              <Stack gap={1}><Text size="small">{marketRu[m.id].name}</Text><Text size="small" tone="tertiary">{m.name}</Text></Stack>,
+              categoryRu[m.category],
+              m.current,
+              `${marketRu[m.id].growth} · ${marketRu[m.id].stage}`,
+              <Score value={m.importScore} />,
+              <Score value={m.exportScore} />,
+              confidenceRu[m.confidence],
+              <Button variant={selected?.id === m.id ? "primary" : "secondary"} onClick={() => setSelectedId(m.id)}>Разбор</Button>,
+            ])}
+            striped
+            stickyHeader
+          />
+          <Text size="small" tone="secondary">Нажмите «Разбор» в таблице, чтобы увидеть ниже сравнение регионов, лидеров и доли, незакрытую потребность, барьеры, точку входа, готовность платить, альтернативы и публичные ссылки.</Text>
+          {selected && <MarketDetail market={selected} />}
+        </Stack>
+      )}
+
+      <Divider />
+      <Text size="small" tone="tertiary">
+        Ориентир по стратегическим направлениям, а не аудированное исследование рынка или инвестиционная рекомендация. Диапазоны намеренно округлены; категории нельзя складывать.
+      </Text>
+    </Stack>
+  );
+}

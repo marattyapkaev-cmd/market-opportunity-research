@@ -1,0 +1,635 @@
+import {
+  Callout,
+  Card,
+  CardBody,
+  CardHeader,
+  Divider,
+  Grid,
+  H1,
+  H2,
+  H3,
+  Link,
+  Pill,
+  Row,
+  Stack,
+  Stat,
+  Table,
+  Text,
+  useCanvasState,
+  useHostTheme,
+} from "cursor/canvas";
+
+type Region = { name: string; revenue: string; state: string; note: string };
+type Market = {
+  id: string;
+  group: "Finance" | "Health" | "Family";
+  title: string;
+  revenue: string;
+  tam: string;
+  sam: string;
+  growth: string;
+  stage: string;
+  leaders: string;
+  regions: Region[];
+  whitespace: string;
+  barriers: string;
+  wedge: string;
+  wtp: string;
+  substitutes: string;
+  localize: number;
+  export: number;
+  confidence: "High" | "Medium" | "Low";
+  sources: { label: string; url: string }[];
+};
+
+const markets: Market[] = [
+  {
+    id: "pfm",
+    group: "Finance",
+    title: "PFM: cash-flow, bills, debt and family budgeting",
+    revenue: "$1.1–1.6B global product revenue (2024–25); broader app figures excluded as they mix banking/payments",
+    tam: "$1.2–1.6B validated software/service TAM",
+    sam: "$0.55–0.75B: paid consumer PFM in US + Europe + affluent CIS",
+    growth: "8–11% CAGR",
+    stage: "Mature, fragmented; post-Mint reset",
+    leaders: "Quicken, YNAB, Rocket Money; private revenue mostly undisclosed. Banks are the largest distribution substitute.",
+    regions: [
+      { name: "US", revenue: "$0.42–0.62B", state: "High WTP", note: "Subscriptions work around debt, bills and cancellation; open-banking access costly." },
+      { name: "Europe", revenue: "$0.30–0.42B narrow", state: "Fragmented", note: "PSD2 helps data access, but bank apps and country fragmentation cap ARPU." },
+      { name: "CIS", revenue: "$25–60M est.", state: "Bank-led", note: "Strong mobile banking, low standalone WTP; sanctions break foreign connectors." },
+    ],
+    whitespace: "Not another dashboard: couples/family cash-flow, irregular income, debt payoff and subscription leakage. AI must execute a workflow, not narrate charts.",
+    barriers: "CAC medium-high; transaction-data access, consent and bank connector uptime; financial-advice boundary.",
+    wedge: "Telegram-first shared family money copilot with manual/CSV fallback, recurring-payment detection and weekly action plan.",
+    wtp: "$6–15/mo US; €4–10 EU; ₽199–499/mo RU only with direct savings proof.",
+    substitutes: "Bank apps, spreadsheets, free aggregators, Telegram bots. Strong substitutes make generic budgeting unattractive.",
+    localize: 4,
+    export: 3,
+    confidence: "Medium",
+    sources: [
+      { label: "TBRC PFM 2025", url: "https://www.giiresearch.com/report/tbrc1823056-personal-finance-management-global-market-report.html" },
+      { label: "Fortune PFM", url: "https://www.fortunebusinessinsights.com/personal-finance-software-market-112683" },
+      { label: "Europe PFM", url: "https://www.htfmarketinsights.com/report/4417421-europe-personal-finance-apps-market" },
+    ],
+  },
+  {
+    id: "investing",
+    group: "Finance",
+    title: "Retail investing: guided portfolios and tax-aware automation",
+    revenue: "Leaders demonstrate multi-$B net revenue: Robinhood $2.95B; Revolut Wealth $647M; eToro commission income $931M (2024)",
+    tam: "$12–18B global consumer platform revenue est.; excludes AUM and trade value",
+    sam: "$3–5B: self-directed/guided users addressable without a full bank",
+    growth: "10–18%, cyclical",
+    stage: "Scaled and regulated; consolidation",
+    leaders: "Robinhood, eToro, Trade Republic, Revolut, Scalable; incumbent brokers dominate CIS.",
+    regions: [
+      { name: "US", revenue: "$6–9B est.", state: "Scaled", note: "High ARPU, brutal CAC; PFOF, net interest and crypto drive economics." },
+      { name: "Europe", revenue: "$2–4B est.", state: "Scaling", note: "Trade Republic/Revolut; MiFID passport helps but tax wrappers differ." },
+      { name: "CIS", revenue: "$0.7–1.2B est.", state: "Concentrated", note: "Bank-brokers own distribution; sanctions and asset access are existential." },
+    ],
+    whitespace: "Portfolio intelligence for existing accounts: tax lots, concentration, employee equity, household view. Avoid custody at launch.",
+    barriers: "Very high regulation/trust/CAC; market-data licenses; suitability, KYC/AML and sanctions; revenue cyclicality.",
+    wedge: "Read-only multi-broker portfolio health and tax-action layer, sold as SaaS before regulated execution.",
+    wtp: "$8–30/mo for measurable tax/risk value; free broker research is a strong substitute.",
+    substitutes: "Broker analytics, TradingView, spreadsheets, social media and free model portfolios.",
+    localize: 2,
+    export: 2,
+    confidence: "High",
+    sources: [
+      { label: "Robinhood FY24", url: "https://investors.robinhood.com/news-releases/news-release-details/robinhood-reports-fourth-quarter-and-full-year-2024-results" },
+      { label: "Revolut FY24", url: "https://www.revolut.com/en-US/news/record_growth_and_diverse_product_offering_drive_revolut_to_1_4bn_profit_in_2024/" },
+      { label: "eToro FY24", url: "https://www.financemagnates.com/fintech/etoros-2024-profits-soared-13x-with-crypto-contributing-96-of-revenue/" },
+    ],
+  },
+  {
+    id: "insurance",
+    group: "Finance",
+    title: "Insurance: consumer distribution and coverage copilot",
+    revenue: "Digital carriers: Root $1.18B and Lemonade $526.5M 2024 revenue; premiums are excluded where possible",
+    tam: "$18–28B global digital distribution/platform revenue est., not premiums",
+    sam: "$4–7B: commissions + SaaS/service revenue in personal lines",
+    growth: "10–16%; funding rebound in 2025",
+    stage: "Maturing; underwriting capital-intensive",
+    leaders: "Lemonade, Root, Policygenius, Clark/Check24, bank ecosystems. Shares are line- and country-specific.",
+    regions: [
+      { name: "US", revenue: "$6–10B est.", state: "Large", note: "High commission pools, state-by-state licensing and expensive intent keywords." },
+      { name: "Europe", revenue: "$4–7B est.", state: "Aggregator-led", note: "Comparison sites strong; IDD/GDPR and product fragmentation." },
+      { name: "CIS", revenue: "$0.3–0.6B est.", state: "Bank/marketplace-led", note: "OSAGO commoditized; ecosystems own traffic." },
+    ],
+    whitespace: "Coverage gap detection, renewal audit and claims preparation across policies; better than another quote form.",
+    barriers: "Licensing, carrier integrations, sensitive data, high Google CAC; conflicts from commissions.",
+    wedge: "Upload policies → plain-language coverage map, renewal calendar and claim evidence pack; referral monetization only after trust.",
+    wtp: "Low for comparison alone; $30–100 one-off for audit/claim help or employer-sponsored.",
+    substitutes: "Agents, insurer portals, comparison marketplaces and free policy reviews.",
+    localize: 3,
+    export: 2,
+    confidence: "Medium",
+    sources: [
+      { label: "Root FY24", url: "https://ir.joinroot.com/static-files/3266b776-fdf9-4d17-8390-5134628a5548" },
+      { label: "Lemonade FY24 SEC", url: "https://www.sec.gov/Archives/edgar/data/1691421/000169142125000021/lmndshareholderletterq42.htm" },
+      { label: "KPMG Fintech 2025", url: "https://kpmg.com/xx/en/what-we-do/industries/financial-services/pulse-of-fintech.html" },
+    ],
+  },
+  {
+    id: "tax",
+    group: "Finance",
+    title: "Tax and refunds: event-driven filing assistance",
+    revenue: "H&R Block $3.61B FY24; DIY tax revenue $350M. Intuit reports Consumer Group, not clean TurboTax-only net revenue.",
+    tam: "$9–13B global consumer tax-prep/service revenue",
+    sam: "$2.5–4B: digital self-file and assisted-lite in complex filer niches",
+    growth: "4–8%; mature, regulation-created demand",
+    stage: "US oligopoly; country-local elsewhere",
+    leaders: "TurboTax, H&R Block, TaxAct; Taxfix/TaxScouts in Europe; state/bank tools in CIS.",
+    regions: [
+      { name: "US", revenue: "$6–8B est.", state: "Oligopoly", note: "High seasonal WTP, IRS Direct File/free filing pressure." },
+      { name: "Europe", revenue: "$1.5–2.5B est.", state: "Country-local", note: "Germany/UK attractive; many countries pre-fill returns, shrinking pain." },
+      { name: "CIS", revenue: "$40–100M est.", state: "Low WTP", note: "Employer withholding and government portals reduce consumer need." },
+    ],
+    whitespace: "Cross-border workers, creators, stock/crypto, deductions and notice response—not generic salary filing.",
+    barriers: "Legal liability, annual rule changes, identity/security, seasonal CAC and zero-price government products.",
+    wedge: "Document-to-checklist and deduction/refund assistant for one narrow taxpayer persona; human review marketplace.",
+    wtp: "$50–200 per event US/EU; ₽1k–5k for complex Russian cases.",
+    substitutes: "Government e-file, accountants, employer withholding, free tiers and bank/accounting software.",
+    localize: 2,
+    export: 1,
+    confidence: "High",
+    sources: [
+      { label: "H&R Block FY24", url: "https://investors.hrblock.com/news-releases/news-release-details/hr-block-reports-fy24-results-announces-17-dividend-increase-15b" },
+      { label: "IRS Direct File", url: "https://www.irs.gov/filing/irs-direct-file" },
+      { label: "EU fintech state", url: "https://www.finchcapital.com/research-reports/State_of_European_Fintech_2025_All.pdf" },
+    ],
+  },
+  {
+    id: "remittance",
+    group: "Finance",
+    title: "Remittance and migrant finance",
+    revenue: "Digital remittance product revenue ~$27–29B (2025 reports); Remitly $1.264B 2024 / $1.6B 2025",
+    tam: "$28B platform revenue; $2T consumer transfer volume is context, not TAM",
+    sam: "$5–8B: selected high-growth corridors and migrant financial services",
+    growth: "12–18%; Remitly +34% in 2024",
+    stage: "Scaled but corridor-fragmented",
+    leaders: "Western Union, Wise Personal, Remitly, Ria/Xe; corridor-level shares matter more than global share.",
+    regions: [
+      { name: "US", revenue: "$7–10B send-side est.", state: "Large", note: "Mexico/LatAm and Asia corridors; CAC and compliance high." },
+      { name: "Europe", revenue: "$6–8B est.", state: "Competitive", note: "Wise/Revolut strong; SEPA lowers some pain." },
+      { name: "CIS", revenue: "$0.4–0.8B est.", state: "Disrupted", note: "$8.3B Russia outflows in 2024; rails/sanctions and cash dominate." },
+      { name: "MENA/India/SEA", revenue: "$7–10B est.", state: "Strong window", note: "UAE send and India/Philippines receive corridors; huge frequency and family needs." },
+    ],
+    whitespace: "Beyond cheaper FX: migrant onboarding, recurring family obligations, documentation, credit history portability and recipient budgeting.",
+    barriers: "Highest AML/KYC/sanctions burden; licenses and prefunding; fraud, bank de-risking and thin take rates.",
+    wedge: "Non-custodial corridor comparison + recipient family wallet/obligation tracker; partner licensed rails.",
+    wtp: "Users pay through spread/fee; subscription works only bundled with tangible FX/transfer savings.",
+    substitutes: "Banks, informal cash, crypto/stablecoins, Wise/Revolut and local wallets.",
+    localize: 3,
+    export: 4,
+    confidence: "High",
+    sources: [
+      { label: "Remitly FY24", url: "https://ir.remitly.com/node/9921/pdf" },
+      { label: "2025 C2C data", url: "https://www.fxcintel.com/research/reports/ct-remittances-2025-roundup" },
+      { label: "Russia fintech stats", url: "https://data.finstatglobe.com/russia" },
+    ],
+  },
+  {
+    id: "telehealth",
+    group: "Health",
+    title: "Telehealth: narrow specialty direct care",
+    revenue: "Global broad telemedicine ~$123B 2024 proxy; Teladoc $2.57B and Hims $1.48B 2024 net revenue",
+    tam: "$90–130B services/platform revenue; broad reports include B2B and care delivery",
+    sam: "$8–15B: cash-pay, repeatable B2C specialties",
+    growth: "18–24%; broad care mature, specialties growing",
+    stage: "Consolidating; GLP-1 renewed growth",
+    leaders: "Teladoc, Hims & Hers, Included Health, Kry/Livi, ZAVA; SberHealth/Doktis in Russia.",
+    regions: [
+      { name: "US", revenue: "$35–45B", state: "Scaled", note: "Reimbursement and employer channels; Hims proves DTC specialty economics." },
+      { name: "Europe", revenue: "$30–37B broad", state: "Fragmented", note: "Country clinical rules; Germany/UK/France have viable reimbursement/cash pay." },
+      { name: "CIS", revenue: "$0.17B Russia", state: "Growing", note: "₽15.8B in 2024, +35%; remote diagnosis/prescribing constraints." },
+      { name: "MENA/India", revenue: "$3–6B est.", state: "Strong window", note: "Doctor scarcity and mobile demand; lower ARPU, local clinical networks essential." },
+    ],
+    whitespace: "Longitudinal specialty pathway with diagnostics, medication, monitoring and outcomes; video visit alone is commodity.",
+    barriers: "Clinical licenses, prescribing, malpractice, health data localization and clinician supply. CAC high in generic care.",
+    wedge: "One low-acuity, high-frequency specialty with asynchronous triage and measurable 90-day outcome.",
+    wtp: "$30–100/mo US; €15–60 EU; ₽500–2,500 per episode RU.",
+    substitutes: "Public care, insurer telehealth, clinic messengers and pharmacy advice.",
+    localize: 4,
+    export: 2,
+    confidence: "High",
+    sources: [
+      { label: "Teladoc FY24", url: "https://ir.teladochealth.com/news-and-events/investor-news/press-release-details/2025/Teladoc-Health-Reports-Full-Year-and-Fourth-Quarter-2024-Results/default.aspx" },
+      { label: "Hims FY24 SEC", url: "https://www.sec.gov/Archives/edgar/data/1773751/000177375125000059/hims-20241231x8xkearningsr.htm" },
+      { label: "Russia telemedicine", url: "https://businesstat.ru/images/demo/telemedicine_russia_demo_businesstat.pdf" },
+      { label: "Europe digital health", url: "https://www.imarcgroup.com/europe-digital-health-market" },
+    ],
+  },
+  {
+    id: "mental",
+    group: "Health",
+    title: "Mental health: guided care between content and therapy",
+    revenue: "$8–10B mental-health app/platform revenue 2025; BetterHelp $1.04B and Talkspace $188M 2024",
+    tam: "$9.6B apps plus therapy-platform revenue; avoids total mental-health spend",
+    sam: "$2.5–4B: paid self-help, coaching and async therapy niches",
+    growth: "12–17%",
+    stage: "Crowded B2C, payer shift",
+    leaders: "BetterHelp, Talkspace, Headspace, Calm; Yasno/Alter in Russia. BetterHelp dwarfs public pure-play peers.",
+    regions: [
+      { name: "US", revenue: "$3.9B apps est.", state: "Crowded", note: "Insurance unlocks scale; consumer Talkspace revenue fell 30% in 2024." },
+      { name: "Europe", revenue: "$1.7–2.2B est.", state: "Growing", note: "Waitlists create demand; language, clinical credentials and GDPR matter." },
+      { name: "CIS", revenue: "$80–180M est.", state: "Growing", note: "Direct-pay therapy normalized in large cities; lower WTP and trust sensitivity." },
+      { name: "LatAm/MENA", revenue: "$0.5–1B est.", state: "Window", note: "Spanish/Arabic supply and culturally matched care remain underbuilt." },
+    ],
+    whitespace: "Condition- and life-event-specific programs, therapist augmentation, between-session adherence and outcomes.",
+    barriers: "Trust, crisis handling, clinical claims, therapist licensing, health data; paid social CAC can exceed contribution margin.",
+    wedge: "Async therapist-supported 6-week program for one acute life event, with escalation and outcome measurement.",
+    wtp: "$15–70/mo self-guided/coached; $200–400/mo therapy US; much lower in CIS.",
+    substitutes: "YouTube/podcasts, ChatGPT, public hotlines, employer EAP and offline therapists.",
+    localize: 4,
+    export: 4,
+    confidence: "High",
+    sources: [
+      { label: "BetterHelp segment", url: "https://www.sec.gov/Archives/edgar/data/1477449/000147744925000005/R48.htm" },
+      { label: "Talkspace FY24", url: "https://investors.talkspace.com/news-releases/news-release-details/talkspace-announces-fourth-quarter-and-full-year-2024-results" },
+      { label: "Mental apps 2025", url: "https://axis-intelligence.com/digital-health-statistics/" },
+    ],
+  },
+  {
+    id: "fitness",
+    group: "Health",
+    title: "Fitness and wellness: adherence, clubs and wearables",
+    revenue: "$2.7B app revenue 2024 est.; $3.4B 2025. Peloton subscriptions $1.71B FY24",
+    tam: "$3.4–6B direct app/subscription revenue; $12B reports include broader services/devices",
+    sam: "$1.2–2B for paid independent apps outside platform bundles",
+    growth: "17–25% direct apps",
+    stage: "Mature, hit-driven; high churn",
+    leaders: "Apple Fitness, Strava, Peloton, MyFitnessPal, Freeletics, BetterMe; Oura demonstrates premium prevention.",
+    regions: [
+      { name: "US", revenue: "$1.4–1.8B", state: "High WTP", note: "Wearables/platform bundles set a high product bar." },
+      { name: "Europe", revenue: "$0.8–1.1B", state: "Healthy", note: "Strong sports culture; localization and VAT/store economics." },
+      { name: "CIS", revenue: "$60–130M est.", state: "Freemium", note: "Global apps/payment exits created room, but piracy/free content dominate." },
+      { name: "India/SEA", revenue: "$0.3–0.5B est.", state: "User-rich", note: "Fast adoption, low ARPU; community and local sports work better than premium content." },
+    ],
+    whitespace: "Accountability and social commitment for a narrow cohort; sensor-informed recovery without manufacturing hardware.",
+    barriers: "Low retention, app-store tax, creator/content costs, Apple/Google ecosystem and free video competition.",
+    wedge: "Small paid cohort club around a specific goal, coach-in-the-loop and wearable-agnostic readiness score.",
+    wtp: "$8–25/mo West; ₽300–1,000/mo RU when coaching/community included.",
+    substitutes: "YouTube, Nike Training Club, Apple/Google health, gyms and free run clubs.",
+    localize: 3,
+    export: 4,
+    confidence: "High",
+    sources: [
+      { label: "Fitness app revenue", url: "https://www.businessofapps.com/data/fitness-app-market/" },
+      { label: "Peloton FY24", url: "https://investor.onepeloton.com/static-files/7598c64a-bc5d-43c0-84a4-7016549587d3" },
+      { label: "Health & fitness report", url: "https://www.businessofapps.com/data/health-fitness-app-report/" },
+    ],
+  },
+  {
+    id: "femtech",
+    group: "Health",
+    title: "Femtech: longitudinal women's health pathways",
+    revenue: "$2–4B est. digital/app/platform revenue 2024; broad $39B figures include devices, clinics and products",
+    tam: "$4–7B narrow digital services; broad femtech spend is not a startup-revenue TAM",
+    sam: "$1–2B: subscriptions, telehealth and employer-paid reproductive health",
+    growth: "14–20%",
+    stage: "Growth; fertility crowded, midlife underbuilt",
+    leaders: "Flo, Clue, Maven Clinic, Natural Cycles; Flo is a top-grossing global health app but private revenue is undisclosed.",
+    regions: [
+      { name: "US", revenue: "$1.5–2.5B est.", state: "Funded", note: "Employer fertility benefits strong; reproductive data politically sensitive." },
+      { name: "Europe", revenue: "$0.8–1.3B est.", state: "Growing", note: "Flo/Clue roots; MDR/GDPR if moving into diagnosis/contraception." },
+      { name: "CIS", revenue: "$60–140M est.", state: "Open", note: "Cycle tracking exists; integrated menopause/endometriosis pathways weak." },
+      { name: "MENA/India", revenue: "$0.3–0.7B est.", state: "Strong window", note: "Privacy-first education and access; cultural localization essential." },
+    ],
+    whitespace: "Perimenopause, endometriosis journey, postpartum recovery and care navigation—not another cycle calendar.",
+    barriers: "Sensitive data, medical-device classification, claims validation, trust and reproductive-policy exposure.",
+    wedge: "Symptom timeline + evidence-based care prep for perimenopause/endometriosis; partner clinicians, no diagnosis at launch.",
+    wtp: "$8–25/mo West; employer benefit stronger. ₽300–1,200/mo with clinician access.",
+    substitutes: "Free period trackers, forums, generic telehealth and public gynecology.",
+    localize: 5,
+    export: 4,
+    confidence: "Medium",
+    sources: [
+      { label: "Europe digital health", url: "https://www.databridgemarketresearch.com/reports/europe-digital-health-market" },
+      { label: "Top-grossing apps", url: "https://www.statista.com/statistics/695697/top-android-health-apps-in-google-play-by-revenue/" },
+      { label: "Digital health funding", url: "https://www.cbinsights.com/research/report/digital-health-trends-2025/" },
+    ],
+  },
+  {
+    id: "nutrition",
+    group: "Health",
+    title: "Nutrition and weight: metabolic adherence",
+    revenue: "$2.14B diet/nutrition apps 2024; $2.43B 2025. MyFitnessPal $329M 2024; Hims weight-loss accelerated $1.48B total revenue",
+    tam: "$2.4–4B software/platform revenue; excludes food, drugs and total weight-loss spend",
+    sam: "$0.9–1.5B for paid tracking/coaching and GLP-1 companion care",
+    growth: "13–18%; GLP-1 reshaping category",
+    stage: "Mature tracking; new medication layer",
+    leaders: "MyFitnessPal, Noom, WeightWatchers, Yazio, Lifesum; telehealth entrants increasingly bundle medication.",
+    regions: [
+      { name: "US", revenue: "$0.9–1.2B", state: "GLP-1 boom", note: "High WTP for outcomes; prescribing and compounding rules volatile." },
+      { name: "Europe", revenue: "$0.5–0.7B", state: "Growing", note: "Lower obesity-drug access and country-specific care pathways." },
+      { name: "CIS", revenue: "$40–100M est.", state: "Open", note: "Calorie trackers commoditized; local food database and clinician bridge matter." },
+      { name: "MENA/LatAm", revenue: "$0.2–0.4B est.", state: "Window", note: "High metabolic burden, local cuisine datasets and affordability gaps." },
+    ],
+    whitespace: "Post-GLP-1 muscle preservation, side-effect support, maintenance and culturally accurate food recognition.",
+    barriers: "Clinical risk, drug regulation, eating-disorder safety, food-data quality and retention after weight plateau.",
+    wedge: "Medication-agnostic metabolic companion: protein/fiber, side effects, resistance training and clinician-ready trends.",
+    wtp: "$10–40/mo without medication; payer/clinic partnership improves CAC.",
+    substitutes: "Free calorie counters, AI photo logging, social content and clinic handouts.",
+    localize: 5,
+    export: 4,
+    confidence: "High",
+    sources: [
+      { label: "Nutrition apps market", url: "https://www.grandviewresearch.com/industry-analysis/diet-nutrition-apps-market-report" },
+      { label: "MyFitnessPal revenue", url: "https://www.businessofapps.com/data/myfitnesspal-statistics/" },
+      { label: "Hims FY24", url: "https://www.sec.gov/Archives/edgar/data/1773751/000177375125000059/finalq42024shareholderle.htm" },
+    ],
+  },
+  {
+    id: "pet",
+    group: "Family",
+    title: "Pet health: preventive record and triage layer",
+    revenue: "$1.2–4.2B 2025 app-market estimates; $1.54B pet health-record apps is the more defensible narrow anchor",
+    tam: "$1.5–4.2B app/platform revenue; excludes pet-commerce GMV and insurance premiums",
+    sam: "$0.5–1B: records, teletriage, monitoring and clinic-connected subscriptions",
+    growth: "12–15%",
+    stage: "Early growth; fragmented",
+    leaders: "PetDesk, Tractive, Whistle, Chewy ecosystem, Rover; Chewy $11.86B sales is not used as app TAM.",
+    regions: [
+      { name: "US", revenue: "$0.6–1.6B est.", state: "Strong WTP", note: "High vet costs and pet humanization; clinic distribution valuable." },
+      { name: "Europe", revenue: "$0.4–1.0B est.", state: "Growing", note: "Wearables and insurance links; country vet rules." },
+      { name: "CIS", revenue: "$25–70M est.", state: "Open", note: "No dominant longitudinal record; lower ARPU but strong urban pet spending." },
+      { name: "LatAm", revenue: "$0.08–0.2B est.", state: "Window", note: "Pet ownership high, access uneven; WhatsApp-first clinic tools." },
+    ],
+    whitespace: "One pet timeline spanning vaccines, labs, symptoms, meds, weight and multi-clinic records; early-warning without diagnostic claims.",
+    barriers: "Vet integration fragmentation, liability, weak standardization, device hardware risk and lower frequency than human health.",
+    wedge: "Photo/document inbox → normalized pet health record, reminders and vet-visit brief; family sharing.",
+    wtp: "$5–20/mo West; ₽200–700/mo RU; clinic/insurer bundles improve conversion.",
+    substitutes: "Clinic systems, paper passports, phone notes, breed forums and free Chewy advice.",
+    localize: 5,
+    export: 5,
+    confidence: "Medium",
+    sources: [
+      { label: "Pet wellness apps", url: "https://dataintelo.com/report/pet-wellness-apps-market" },
+      { label: "Pet records apps", url: "https://www.researchandmarkets.com/reports/6254952/pet-health-records-apps-market-report" },
+      { label: "Chewy FY24", url: "https://investor.chewy.com/news-and-events/news/news-details/2025/Chewy-Announces-Fiscal-Fourth-Quarter-and-Full-Year-2024-Financial-Results/default.aspx" },
+      { label: "Maven product", url: "https://maven.pet/" },
+    ],
+  },
+  {
+    id: "care",
+    group: "Family",
+    title: "Parenting and eldercare: family care operating system",
+    revenue: "Parenting apps $0.55–1.7B credible 2024–25 range; eldercare apps $3–5B est.; Care.com $370M 2024",
+    tam: "$4–7B combined digital platform revenue; excludes childcare/eldercare labor GMV",
+    sam: "$1–2B: paid coordination, records, matching fees and employer benefits",
+    growth: "8–16%",
+    stage: "Fragmented; marketplaces mature, coordination early",
+    leaders: "BabyCenter, Ovia, Kinedu, Cozi, Care.com; local classifieds and clinic ecosystems in CIS.",
+    regions: [
+      { name: "US", revenue: "$1.8–3B est.", state: "Large", note: "Employer care benefits and $370M Care.com validate spend; background checks critical." },
+      { name: "Europe", revenue: "$1.0–1.8B est.", state: "Fragmented", note: "Public services reduce some WTP; aging boosts elder coordination." },
+      { name: "CIS", revenue: "$60–160M est.", state: "Open", note: "Family chat is default; trusted caregivers and shared medical/admin workflow weak." },
+      { name: "India/SEA", revenue: "$0.3–0.7B est.", state: "Window", note: "Multi-generational households, migration and mobile coordination; low subscription ARPU." },
+    ],
+    whitespace: "The durable pain is multi-adult coordination: meds, appointments, documents, expenses, tasks and handoffs—not parenting content.",
+    barriers: "Trust/safety, background checks, child/health data, fragmented supply and marketplace chicken-and-egg.",
+    wedge: "Private family care workspace for an aging parent: shared timeline, meds, documents, tasks and paid local navigator.",
+    wtp: "$10–30/mo family or employer-paid; ₽300–1,500/mo plus concierge upsell.",
+    substitutes: "WhatsApp/Telegram groups, calendars, paper folders, public nurses and classifieds.",
+    localize: 5,
+    export: 5,
+    confidence: "Medium",
+    sources: [
+      { label: "Parenting apps 2025", url: "https://www.thebusinessresearchcompany.com/report/parenting-apps-global-market-report" },
+      { label: "Parenting range", url: "https://www.globalinsightservices.com/reports/parenting-apps-market/" },
+      { label: "Care.com FY24", url: "https://www.sec.gov/Archives/edgar/data/1800227/000180022725000031/R36.htm" },
+    ],
+  },
+];
+
+const topIdeas = [
+  {
+    rank: "1",
+    idea: "Pet health record + vet-visit copilot",
+    why: "Unowned longitudinal record, high emotional WTP, low licensing if positioned as organization/triage.",
+    route: "RU launch → English/Spanish export; partner clinics after consumer proof.",
+    score: "5 / 5",
+  },
+  {
+    rank: "2",
+    idea: "Family eldercare workspace + navigator",
+    why: "WhatsApp is the incumbent, not a capable product; aging is global and workflow is cross-border.",
+    route: "Start with adult children managing a parent remotely; add trusted local services later.",
+    score: "5 / 5",
+  },
+  {
+    rank: "3",
+    idea: "Perimenopause/endometriosis care-prep companion",
+    why: "Clear pain, long journey and weak continuity; can begin below diagnostic/device boundary.",
+    route: "Russian clinical content + symptom timeline, then English/MENA localization.",
+    score: "5 / 4",
+  },
+  {
+    rank: "4",
+    idea: "GLP-1 and post-GLP-1 metabolic companion",
+    why: "Fast-growing spend; medication-agnostic adherence and maintenance travel better than prescribing.",
+    route: "Sell through clinics and coaches; local cuisine and safety layer create moat.",
+    score: "5 / 4",
+  },
+  {
+    rank: "5",
+    idea: "Migrant family obligation and money copilot",
+    why: "Recurring high-intent behavior and corridor fragmentation; avoid custody initially.",
+    route: "One corridor, comparison + family budgeting; licensed transfer partner.",
+    score: "3 / 4",
+  },
+];
+
+function ScoreDots({ value }: { value: number }) {
+  const theme = useHostTheme();
+  return (
+    <Row gap={4}>
+      {[1, 2, 3, 4, 5].map((n) => (
+        <span
+          key={n}
+          style={{
+            width: 9,
+            height: 9,
+            borderRadius: 9,
+            display: "inline-block",
+            background: n <= value ? theme.accent.primary : theme.fill.quaternary,
+            border: `1px solid ${n <= value ? theme.accent.primary : theme.stroke.secondary}`,
+          }}
+        />
+      ))}
+    </Row>
+  );
+}
+
+function MarketCard({ market }: { market: Market }) {
+  const theme = useHostTheme();
+  return (
+    <Card collapsible defaultOpen={false}>
+      <CardHeader trailing={<Pill size="sm">{market.confidence} confidence</Pill>}>
+        {market.title}
+      </CardHeader>
+      <CardBody>
+        <Stack gap={14}>
+          <Grid columns="1.25fr 1fr" gap={16}>
+            <Stack gap={8}>
+              <Text weight="semibold">2024/25 product/platform revenue</Text>
+              <Text>{market.revenue}</Text>
+              <Text size="small" tone="secondary"><Text as="span" weight="semibold">TAM: </Text>{market.tam}</Text>
+              <Text size="small" tone="secondary"><Text as="span" weight="semibold">SAM: </Text>{market.sam}</Text>
+            </Stack>
+            <div style={{ background: theme.fill.tertiary, padding: 12, borderRadius: 6 }}>
+              <Grid columns={2} gap={12}>
+                <Stat value={market.growth} label="CAGR / momentum" />
+                <Stat value={market.stage} label="Stage" />
+              </Grid>
+            </div>
+          </Grid>
+          <Text size="small"><Text as="span" weight="semibold">Leaders / share signal: </Text>{market.leaders}</Text>
+          <Table
+            headers={["Region", "Revenue proxy", "Market state", "What changes locally"]}
+            rows={market.regions.map((r) => [r.name, r.revenue, r.state, r.note])}
+            striped
+            columnAlign={["left", "right", "left", "left"]}
+          />
+          <Grid columns={2} gap={18}>
+            <Stack gap={7}>
+              <H3>Opportunity design</H3>
+              <Text size="small"><Text as="span" weight="semibold">Whitespace: </Text>{market.whitespace}</Text>
+              <Text size="small"><Text as="span" weight="semibold">Wedge: </Text>{market.wedge}</Text>
+              <Text size="small"><Text as="span" weight="semibold">Willingness to pay: </Text>{market.wtp}</Text>
+            </Stack>
+            <Stack gap={7}>
+              <H3>Reality check</H3>
+              <Text size="small"><Text as="span" weight="semibold">CAC / regulatory / data: </Text>{market.barriers}</Text>
+              <Text size="small"><Text as="span" weight="semibold">Free substitutes: </Text>{market.substitutes}</Text>
+              <Row gap={14} wrap>
+                <Stack gap={4}><Text size="small" weight="semibold">Локализовать в РФ</Text><ScoreDots value={market.localize} /></Stack>
+                <Stack gap={4}><Text size="small" weight="semibold">Из РФ за рубеж</Text><ScoreDots value={market.export} /></Stack>
+              </Row>
+            </Stack>
+          </Grid>
+          <Divider />
+          <Row gap={12} wrap>
+            <Text size="small" tone="tertiary">Sources:</Text>
+            {market.sources.map((s) => <Link href={s.url}>{s.label}</Link>)}
+          </Row>
+        </Stack>
+      </CardBody>
+    </Card>
+  );
+}
+
+export default function GlobalB2CMarkets() {
+  const theme = useHostTheme();
+  const [group, setGroup] = useCanvasState<"All" | "Finance" | "Health" | "Family">("market-group", "All");
+  const [sort, setSort] = useCanvasState<"thesis" | "localize" | "export">("market-sort", "thesis");
+  const filtered = markets
+    .filter((m) => group === "All" || m.group === group)
+    .sort((a, b) => sort === "localize" ? b.localize - a.localize : sort === "export" ? b.export - a.export : 0);
+
+  return (
+    <Stack gap={24} style={{ padding: 24, maxWidth: 1320, margin: "0 auto", background: theme.bg.editor }}>
+      <Stack gap={8}>
+        <Text size="small" tone="tertiary">Independent startup market map · July 2026 · monetary values in USD</Text>
+        <H1>Global B2C finance, health and family markets</H1>
+        <Text tone="secondary" style={{ maxWidth: 940 }}>
+          Twelve narrow markets compared across the US, Europe and CIS, with selective expansion windows.
+          Revenue means product/platform net revenue wherever disclosed—not AUM, premiums, GMV or transfer volume.
+        </Text>
+      </Stack>
+
+      <Grid columns="1.55fr 1fr" gap={20}>
+        <div style={{ background: theme.accent.primary, color: theme.text.onAccent, padding: 18, borderRadius: 8 }}>
+          <Stack gap={10}>
+            <Text as="span" weight="bold" style={{ color: theme.text.onAccent }}>Best independent-startup thesis</Text>
+            <H2 style={{ color: theme.text.onAccent }}>Own a family’s longitudinal record, not a regulated transaction</H2>
+            <Text style={{ color: theme.text.onAccent }}>
+              Pet health, eldercare coordination and women’s health combine recurring pain, fragmented data and
+              weak incumbents. They can launch as organization + decision support, then layer clinicians, commerce or insurance.
+            </Text>
+          </Stack>
+        </div>
+        <Grid columns={2} gap={12}>
+          <Stat value="12" label="narrow markets" />
+          <Stat value="3+5" label="core + optional regions" />
+          <Stat value="5" label="top wedges" tone="success" />
+          <Stat value="2024–25" label="revenue basis" />
+        </Grid>
+      </Grid>
+
+      <Callout tone="warning" title="How to read the numbers">
+        TAM uses published category revenue only when scope is clean. SAM is a triangulated range: addressable geographies ×
+        relevant consumer-paid share × realistic channel/model fit. “Est.” marks analyst synthesis, not a reported statistic.
+        Wide ranges are intentional where research vendors disagree or private leaders do not disclose revenue.
+      </Callout>
+
+      <Stack gap={10}>
+        <H2>Priority shortlist</H2>
+        <Table
+          headers={["Rank", "Idea", "Why now", "Entry route", "RU / export"]}
+          rows={topIdeas.map((i) => [i.rank, i.idea, i.why, i.route, i.score])}
+          columnAlign={["right", "left", "left", "left", "center"]}
+          rowTone={["success", "success", "info", "info", "neutral"]}
+          striped
+        />
+      </Stack>
+
+      <Grid columns={3} gap={16}>
+        <Stack gap={6}>
+          <H3>Best localization in Russia</H3>
+          <Text>Pet record, family eldercare, perimenopause/endometriosis, metabolic companion.</Text>
+        </Stack>
+        <Stack gap={6}>
+          <H3>Best export from Russia</H3>
+          <Text>Pet health and family care are least tied to national finance/clinical rails; mental-health programs travel with cultural adaptation.</Text>
+        </Stack>
+        <Stack gap={6}>
+          <H3>Avoid as a first company</H3>
+          <Text>Custodial investing, full-stack insurance, generic tax filing and undifferentiated telehealth: regulation and CAC overwhelm a small team.</Text>
+        </Stack>
+      </Grid>
+
+      <Divider />
+
+      <Row gap={8} wrap align="center">
+        <Text size="small" weight="semibold">Filter:</Text>
+        {(["All", "Finance", "Health", "Family"] as const).map((g) => (
+          <Pill active={group === g} onClick={() => setGroup(g)}>{g}</Pill>
+        ))}
+        <Text size="small" weight="semibold" style={{ marginLeft: 12 }}>Sort:</Text>
+        <Pill active={sort === "thesis"} onClick={() => setSort("thesis")}>Research order</Pill>
+        <Pill active={sort === "localize"} onClick={() => setSort("localize")}>RU score</Pill>
+        <Pill active={sort === "export"} onClick={() => setSort("export")}>Export score</Pill>
+      </Row>
+
+      <Stack gap={10}>
+        <H2>Market dossiers</H2>
+        <Text size="small" tone="secondary">Open a market for regional revenue proxies, leaders, barriers, wedge, pricing and source URLs.</Text>
+        {filtered.map((market) => <MarketCard market={market} />)}
+      </Stack>
+
+      <Divider />
+
+      <Grid columns={2} gap={24}>
+        <Stack gap={8}>
+          <H2>Scoring rubric</H2>
+          <Text size="small"><Text as="span" weight="semibold">Localize in Russia (1–5): </Text>local pain, payment/WTP, incumbent gap, sanctions resilience, legal feasibility.</Text>
+          <Text size="small"><Text as="span" weight="semibold">Export from Russia (1–5): </Text>cross-border universality, low dependence on Russian licenses/data, remote distribution, defensible localization.</Text>
+          <Text size="small"><Text as="span" weight="semibold">Confidence: </Text>High = filings/primary disclosures; Medium = primary anchors plus modeled splits; Low = mostly vendor estimates. No dossier is marked High when its core market size is only an opaque private-vendor estimate.</Text>
+        </Stack>
+        <Stack gap={8}>
+          <H2>Decision rule for a small team</H2>
+          <Text size="small">Prefer a wedge that reaches value before integrations: upload a document, create a family record, prepare a visit, or complete a six-week protocol.</Text>
+          <Text size="small">Demand a free-substitute advantage: save money, reduce a high-stakes mistake, coordinate multiple people, or unlock a professional. Content and generic AI summaries are not enough.</Text>
+          <Text size="small">Delay custody, prescribing, diagnosis, underwriting and marketplace supply until retention and willingness-to-pay are proven.</Text>
+        </Stack>
+      </Grid>
+
+      <Text size="small" tone="quaternary">
+        Research note: regional revenue splits marked “est.” are directional synthesis from reported global/regional shares,
+        public-company disclosures and known category structure. They are suitable for opportunity screening, not investment memoranda or valuation.
+      </Text>
+    </Stack>
+  );
+}

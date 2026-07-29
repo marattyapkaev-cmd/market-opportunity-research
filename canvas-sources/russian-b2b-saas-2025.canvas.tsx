@@ -1,0 +1,260 @@
+const S = {
+  page: { maxWidth: 1240, margin: "0 auto", padding: "28px 30px 64px", fontFamily: "system-ui, sans-serif", lineHeight: 1.45 },
+  header: { display: "grid", gridTemplateColumns: "2fr 1fr", gap: 24, alignItems: "end", marginBottom: 26 },
+  kicker: { fontSize: 12, letterSpacing: "0.08em", textTransform: "uppercase" as const, opacity: 0.68 },
+  h1: { fontSize: 24, lineHeight: 1.15, margin: "7px 0 10px" },
+  lead: { fontSize: 15, margin: 0, maxWidth: 850, opacity: 0.82 },
+  note: { border: "1px solid currentColor", padding: 14, fontSize: 12, opacity: 0.76 },
+  nav: { display: "flex", gap: 8, flexWrap: "wrap" as const, margin: "0 0 30px" },
+  chip: { border: "1px solid currentColor", borderRadius: 18, padding: "5px 10px", fontSize: 12, textDecoration: "none", color: "inherit" },
+  matrix: { display: "grid", gridTemplateColumns: "repeat(6, minmax(0,1fr))", gap: 10, marginBottom: 34 },
+  mini: { borderTop: "3px solid currentColor", paddingTop: 10 },
+  value: { fontSize: 20, fontWeight: 700, margin: "2px 0" },
+  label: { fontSize: 11, opacity: 0.7 },
+  section: { borderTop: "1px solid currentColor", paddingTop: 25, marginTop: 34 },
+  sectionHead: { display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 24, alignItems: "start" },
+  h2: { fontSize: 21, margin: "0 0 6px" },
+  boundary: { fontSize: 13, margin: 0, opacity: 0.78 },
+  metrics: { display: "grid", gridTemplateColumns: "repeat(3, minmax(0,1fr))", gap: 8 },
+  metric: { border: "1px solid currentColor", padding: 11 },
+  metricNum: { fontSize: 18, fontWeight: 700 },
+  metricLab: { fontSize: 11, opacity: 0.7 },
+  body: { display: "grid", gridTemplateColumns: "1.2fr 1fr", gap: 26, marginTop: 22 },
+  h3: { fontSize: 14, margin: "18px 0 7px" },
+  p: { fontSize: 13, margin: "5px 0" },
+  list: { margin: "6px 0 0", paddingLeft: 18, fontSize: 13 },
+  company: { display: "grid", gridTemplateColumns: "1.3fr .8fr .7fr", gap: 8, padding: "7px 0", borderBottom: "1px dotted currentColor", fontSize: 12 },
+  warn: { borderLeft: "4px solid currentColor", paddingLeft: 12, fontSize: 12, opacity: 0.78, marginTop: 15 },
+  sources: { columns: 2, columnGap: 30, fontSize: 12, paddingLeft: 18 },
+  sourceLink: { color: "inherit", textDecoration: "underline" },
+};
+
+function Metric({ n, l }: { n: string; l: string }) {
+  return <div style={S.metric}><div style={S.metricNum}>{n}</div><div style={S.metricLab}>{l}</div></div>;
+}
+function Company({ name, revenue, share }: { name: string; revenue: string; share: string }) {
+  return <div style={S.company}><strong>{name}</strong><span>{revenue}</span><span>{share}</span></div>;
+}
+
+export default function RussianB2BSaaS2025() {
+  return <main style={S.page}>
+    <header style={S.header}>
+      <div>
+        <div style={S.kicker}>Веб-исследование · РФ · итоги 2025 / 2024</div>
+        <h1 style={S.h1}>Российский B2B SaaS: шесть рынков и 15 компаний</h1>
+        <p style={S.lead}>Рыночные объёмы, TAM, доли, незакрытые ниши и инвестиционная привлекательность. Все денежные значения — млн ₽. Факт отделён от расчёта; мировой рынок не используется.</p>
+      </div>
+      <div style={S.note}><strong>Правило сопоставимости.</strong><br/>Доля считается только внутри явно указанной границы. Выручка юрлица может включать другие продукты; такие доли отмечены как верхняя оценка. Данные 2025 используются, если опубликованы, иначе — 2024.</div>
+    </header>
+
+    <nav style={S.nav}>
+      {[
+        ["#kedo","КЭДО"],["#ats","ATS"],["#lms","LMS"],["#pm","Проекты"],["#itsm","Service Desk"],["#vks","ВКС"],["#progress","ProgressMe"],["#sources","Источники"]
+      ].map(x => <a key={x[0]} href={x[0]} style={S.chip}>{x[1]}</a>)}
+    </nav>
+
+    <div style={S.matrix}>
+      <div style={S.mini}><div style={S.label}>КЭДО · 2025</div><div style={S.value}>5 000+</div><div style={S.label}>TAM 25 000 [расчёт]</div></div>
+      <div style={S.mini}><div style={S.label}>ATS · 2024</div><div style={S.value}>4 500</div><div style={S.label}>низкая уверенность</div></div>
+      <div style={S.mini}><div style={S.label}>LMS · 2024</div><div style={S.value}>7 200</div><div style={S.label}>TAM 12 600</div></div>
+      <div style={S.mini}><div style={S.label}>Проекты · 2025</div><div style={S.value}>6 600</div><div style={S.label}>прогноз Naumen</div></div>
+      <div style={S.mini}><div style={S.label}>ITSM · 2024</div><div style={S.value}>10–12 тыс.</div><div style={S.label}>широкая граница</div></div>
+      <div style={S.mini}><div style={S.label}>ВКС · 2024</div><div style={S.value}>24–24,5 тыс.</div><div style={S.label}>ПО + оборудование</div></div>
+    </div>
+
+    <section id="kedo" style={S.section}>
+      <div style={S.sectionHead}>
+        <div><h2 style={S.h2}>1. Кадровый электронный документооборот</h2><p style={S.boundary}><strong>Граница:</strong> лицензии/SaaS и внедрение систем подписания, хранения и маршрутизации кадровых документов. Не включает весь ЭДО, payroll и широкие HRM.</p></div>
+        <div style={S.metrics}><Metric n="5 000+" l="рынок 2025, факт-оценка"/><Metric n="25 000" l="TAM, расчёт"/><Metric n="20 000" l="неосвоено, расчёт"/></div>
+      </div>
+      <div style={S.body}>
+        <div>
+          <h3 style={S.h3}>Размер, TAM и динамика</h3>
+          <p style={S.p}>2024: более 3 000; 2025: более 5 000 (+80%). Прогноз источника: более 15 000 к 2028, среднегодовой рост 50–60%.</p>
+          <p style={S.p}><strong>[Расчёт TAM]</strong> 5 000 / 20% проникновения = 25 000. Потенциал = 25 000 − 5 000 = 20 000. Это верхняя «статическая» ёмкость: предполагает одинаковую среднюю монетизацию ещё не подключённых компаний; у малого бизнеса ARPA будет ниже.</p>
+          <h3 style={S.h3}>Драйверы и риски</h3>
+          <ul style={S.list}><li>377‑ФЗ, удалённый/распределённый персонал, экономия бумаги и HR-времени.</li><li>Интеграция КЭДО в HR-экосистемы; возможная будущая обязательность.</li><li>Риски: ценовая компрессия от 1С/Saby/Контур, сложные интеграции, ИБ и консервативность крупного бизнеса.</li></ul>
+          <p style={S.warn}><strong>Стадия:</strong> быстрый рост, ранний mass market. <strong>Вход: 5/5.</strong> Ниша: «КЭДО для распределённого blue-collar/франчайзингового SMB» — mobile-first, офлайн-подписание, миграция за дни, пакетная цена за юрлицо и коннекторы к 1С ЗУП.</p>
+        </div>
+        <div>
+          <h3 style={S.h3}>Компания · выручка · доля</h3>
+          <Company name="HR-Link (2025)" revenue="1 500" share="≈30,0%"/>
+          <p style={S.p}>2024: 920 по РСБУ (или 950 — прогноз компании), доля от рынка 3 000 ≈30,7%. 2025 — заявленная продуктовая выручка.</p>
+          <h3 style={S.h3}>Основные конкуренты РФ</h3>
+          <p style={S.p}>VK Tech, Saby/Тензор, Контур.КЭДО, Directum HR Pro, 1С:Кабинет сотрудника, BOSS‑Кадровик, ELMA365, СберКорус.</p>
+          <p style={S.warn}>Оценка рынка опубликована самим HR-Link; CNews-рэнкинг отдельных поставщиков использует более широкую проектную выручку, поэтому его нельзя механически складывать с узкими 5 000.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="ats" style={S.section}>
+      <div style={S.sectionHead}>
+        <div><h2 style={S.h2}>2. ATS / автоматизация рекрутмента</h2><p style={S.boundary}><strong>Граница:</strong> ATS, recruiting CRM, скрининг, боты и автоматизация воронки. Исключены job boards (hh.ru/Авито), агентства, gig-платформы и КЭДО. Это критично: широкий сегмент «подбор персонала» Smart Ranking превышает 50 000, но в основном состоит из job boards.</p></div>
+        <div style={S.metrics}><Metric n="≈4 500" l="рынок 2024, расчёт"/><Metric n="≈10 700" l="TAM, расчёт"/><Metric n="≈6 200" l="неосвоено, расчёт"/></div>
+      </div>
+      <div style={S.body}>
+        <div>
+          <h3 style={S.h3}>Метод и уверенность</h3>
+          <p style={S.p}><strong>[Расчёт, низкая уверенность]</strong> Узкий рынок оценён в 4 500: сумма раскрытых/наблюдаемых доходов специализированных ATS и ATS-долей комплексных платформ (Huntflow, Skillaz, Поток, Talantix, E‑Staff, FriendWork, др.) с поправкой на длинный хвост. Публичной независимой оценки именно narrow ATS не найдено.</p>
+          <p style={S.p}><strong>[Расчёт TAM]</strong> 4 500 / 42% компаний, использующих автоматизацию найма = 10 714; gap ≈6 214. Опрос охватывает HR-работодателей, а не всю генеральную совокупность юрлиц — TAM индикативен.</p>
+          <h3 style={S.h3}>Динамика, драйверы, риски</h3>
+          <ul style={S.list}><li>42% используют ATS; 65% крупных против 36% малых. ИИ в найме используют лишь 5%.</li><li>Драйверы: дефицит кадров, массовый найм, cost-per-hire, аналитика и импортозамещение.</li><li>Риски: охлаждение найма, HR-бюджеты уходят в удержание/L&amp;D; bundling от hh.ru, 1С, VK и Skillaz.</li></ul>
+          <p style={S.warn}><strong>Стадия:</strong> growth → ранняя консолидация. <strong>Вход: 3/5.</strong> Ниша: ATS для массового почасового персонала с Telegram/VK-воронкой, антифродом кандидатов, автосменами, прогнозом выхода и оплатой за фактический найм.</p>
+        </div>
+        <div>
+          <h3 style={S.h3}>Компания · выручка 2024 · доля narrow ATS</h3>
+          <Company name="Хантфлоу" revenue="766,3" share="≈17,0%"/>
+          <Company name="Skillaz" revenue="796,5–932,6" share="≈17,7–20,7%*"/>
+          <p style={S.p}>* 796,5 — РСБУ ООО «Скилаз»; 932,6 — отраслевой рэнкинг TAdviser. Skillaz — комплексная HR-платформа, поэтому доля ATS является верхней границей.</p>
+          <h3 style={S.h3}>Основные конкуренты РФ</h3>
+          <p style={S.p}>Поток Рекрутмент, Talantix (hh.ru), E‑Staff/Websoft, FriendWork, СберПодбор, 1С, Битрикс24, VK HR Tek, Robovoice/Naumen (массовый найм), Huntlee.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="lms" style={S.section}>
+      <div style={S.sectionHead}>
+        <div><h2 style={S.h2}>3. HRM / корпоративное обучение / LMS</h2><p style={S.boundary}><strong>Граница:</strong> платформы управления корпоративным обучением и контентом сотрудников; без B2C-курсов, вузовских LMS и всего широкого HRM. Поэтому ProgressMe вынесен отдельно.</p></div>
+        <div style={S.metrics}><Metric n="7 200" l="рынок 2024"/><Metric n="12 600" l="потенциальная ёмкость"/><Metric n="5 400" l="неосвоено"/></div>
+      </div>
+      <div style={S.body}>
+        <div>
+          <h3 style={S.h3}>Размер, TAM и прогноз</h3>
+          <p style={S.p}>Smart Ranking: 7 200 в 2024 (+≈20%); топ‑5 контролируют около 80%. MegaResearch/Nexign: 4 490 в 2023 по более узкой методике и потенциальная ёмкость 12 600; прогноз 6 720 к 2027 по той же узкой методике.</p>
+          <p style={S.p}><strong>[Сопоставление]</strong> gap 5 400 = 12 600 − 7 200. TAM получен источником, а не нашим масштабированием. Из-за отличающихся выборок 7 200 и 12 600 следует воспринимать как рабочий диапазон, не точку.</p>
+          <h3 style={S.h3}>Драйверы и риски</h3>
+          <ul style={S.list}><li>Только около половины компаний используют LMS; проникновение 95% у компаний 5 000+ сотрудников, но лишь 13% в регионах.</li><li>Драйверы: дефицит навыков, onboarding, compliance, импортозамещение, AI-авторинг.</li><li>Риски: встроенные LMS в HRM, бесплатные open-source/внутренние решения, дорогой контент и слабое доказательство ROI.</li></ul>
+          <p style={S.warn}><strong>Стадия:</strong> зрелый enterprise, ранний SMB/регионы. <strong>Вход: 4/5.</strong> Ниша: «операционное обучение frontline» — микроуроки в мобильном приложении, проверка навыка на рабочем месте, сменные задания, офлайн-режим и outcome pricing.</p>
+        </div>
+        <div>
+          <h3 style={S.h3}>Компания · продуктовая выручка 2024 · доля</h3>
+          <Company name="Mirapolis" revenue="577,6" share="8,0%"/>
+          <Company name="Эквио" revenue="560,0" share="7,8%"/>
+          <Company name="Teachbase" revenue="269,4" share="3,7%"/>
+          <p style={S.p}>Проверка РСБУ: Mirapolis 692,3 (всё юрлицо), Эквио 561,8, Teachbase/«Интернет Школа» 237,2. Для долей использованы сопоставимые продуктовые цифры Smart Ranking.</p>
+          <h3 style={S.h3}>Основные конкуренты РФ</h3>
+          <p style={S.p}>iSpring (3 555; ≈49,4%), Websoft (988; 13,7%), Saby HRM, VK HR Tek, Поток Обучение, Neon HRM/Nexign, Unicraft, Motivity, 1С:Электронное обучение.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="pm" style={S.section}>
+      <div style={S.sectionHead}>
+        <div><h2 style={S.h2}>4. Управление проектами и задачами</h2><p style={S.boundary}><strong>Граница:</strong> комплексные project portfolio systems, task trackers и отраслевые PM-решения; без CRM/BPM-компонентов, если они не продаются как PM. Внутри рынка task trackers — 2 400 в 2024.</p></div>
+        <div style={S.metrics}><Metric n="6 000" l="рынок 2024"/><Metric n="6 600" l="рынок 2025, прогноз"/><Metric n="≈8 000" l="TAM, расчёт"/></div>
+      </div>
+      <div style={S.body}>
+        <div>
+          <h3 style={S.h3}>Структура и TAM</h3>
+          <p style={S.p}>2024: 6 000 (+11%); комплексные системы 3 000, task trackers 2 400, отраслевые ≈600. Российские решения — 73% (4 400). 2025 прогноз — 6 600.</p>
+          <p style={S.p}><strong>[Расчёт TAM]</strong> 25% опрошенных компаний ещё только планируют и не внедрили систему. Если текущие 6 000 отражают 75% потенциально платящего спроса, TAM ≈8 000; 2024 gap ≈2 000, 2025 gap ≈1 400. Это консервативный TAM: не включает повышение ARPU и переход с бесплатных инструментов.</p>
+          <h3 style={S.h3}>Драйверы и риски</h3>
+          <ul style={S.list}><li>Импортозамещение Jira/MS Project; 28% всё ещё на иностранном ПО.</li><li>Облако и проникновение в SMB; продажи task trackers выросли кратно.</li><li>Риски: commoditization, Битрикс24/VK/Яндекс экосистемы, высокая стоимость миграции enterprise, функциональные пробелы против Jira/Primavera.</li></ul>
+          <p style={S.warn}><strong>Стадия:</strong> середина роста, насыщение SMB. <strong>Вход: 3/5.</strong> Ниша: вертикальный PM для строительства/инжиниринга и подрядчиков — графики, сметы, акты, мобильный объект, внешние участники и лёгкая миграция из Excel/Primavera.</p>
+        </div>
+        <div>
+          <h3 style={S.h3}>Компания · выручка 2024 · доля</h3>
+          <Company name="Pyrus" revenue="548,0" share="9,1% total / 22,8% task"/>
+          <Company name="Kaiten" revenue="298,6" share="5,0% total / 12,4% task"/>
+          <Company name="YouGile" revenue="208,8" share="3,5% total / 8,7% task"/>
+          <p style={S.p}>Отраслевой обзор приводит несколько более высокие продуктовые оценки: Pyrus 594, Kaiten 308, YouGile 211. Для основной доли взята РСБУ; Pyrus включает workflow/CRM-функции, поэтому task-share — верхняя оценка.</p>
+          <h3 style={S.h3}>Основные конкуренты РФ</h3>
+          <p style={S.p}>Битрикс24, Мегаплан, WEEEK, Shtab, ПланФикс, EvaTeam, TeamStorm, VK WorkSpace, Яндекс Трекер, Naumen Project Ruler, Advanta, 1С:Управление проектами.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="itsm" style={S.section}>
+      <div style={S.sectionHead}>
+        <div><h2 style={S.h2}>5. Service Desk / Help Desk / ITSM–ESM</h2><p style={S.boundary}><strong>Граница:</strong> software + внедрение/поддержка ITSM, ESM и help desk. Широкая оценка 10–12 тыс. не равна рэнкингу 14 поставщиков (5 504) и тем более расширенной оценке 35 000 с Digital Operations.</p></div>
+        <div style={S.metrics}><Metric n="10–12 тыс." l="рынок 2024"/><Metric n="≈29 300" l="TAM, расчёт"/><Metric n="≈18 300" l="gap, midpoint"/></div>
+      </div>
+      <div style={S.body}>
+        <div>
+          <h3 style={S.h3}>Размер и TAM</h3>
+          <p style={S.p}>Экспертный коридор 2024 — 10 000–35 000 в зависимости от включения ESM/Digital Operations; для сопоставимости выбран классический широкий ITSM/ESM 10 000–12 000 (midpoint 11 000). Рэнкинг 14 раскрытых поставщиков — 5 504.</p>
+          <p style={S.p}><strong>[Расчёт TAM]</strong> полноценные ITSM-платформы используют 35–40% среднего/крупного бизнеса; 11 000 / 37,5% = 29 333. Gap ≈18 333. Это сценарная ёмкость, а не прогноз: базовый help desk уже есть ещё примерно у 30%, поэтому переход может монетизироваться как upgrade, не greenfield.</p>
+          <h3 style={S.h3}>Динамика, драйверы, риски</h3>
+          <ul style={S.list}><li>2024 рост порядка 25–30%; 2025 замедление до 15–20%. 90% продаж — on-premise, 76% из них enterprise.</li><li>Драйверы: уход ServiceNow/Jira SM/BMC, реестр ПО, ESM за пределами ИТ, киберустойчивость и AI-агенты.</li><li>Риски: длинные внедрения, нехватка интеграторов, low-code/BPM заменители, высокая кастомизация и сложность миграции.</li></ul>
+          <p style={S.warn}><strong>Стадия:</strong> зрелый enterprise + быстрый replacement cycle. <strong>Вход: 4/5.</strong> Ниша: SaaS-ESM для среднего бизнеса с готовыми каталогами ИТ/АХО/HR/закупок, discovery активов без агентов, российскими LLM и ценой/сроком внедрения «до 30 дней».</p>
+        </div>
+        <div>
+          <h3 style={S.h3}>Компания · выручка 2024 · доля от 11 000</h3>
+          <Company name="ITSM 365" revenue="н/д отдельно" share="в Naumen"/>
+          <Company name="Naumen ITSM всего" revenue="2 291" share="20,8%"/>
+          <Company name="Okdesk" revenue="231" share="2,1%"/>
+          <Company name="HelpDeskEddy" revenue="205" share="1,9%"/>
+          <Company name="Юздеск" revenue="198" share="1,8%"/>
+          <p style={S.p}>ITSM 365 — SaaS-продукт Naumen для SMB; отдельная выручка не раскрыта. 2 291 — верхний предел всего ITSM-направления Naumen, не доля ITSM 365. Для Юздеск РСБУ всего юрлица — 207; для Eddy 2025 РСБУ — 229,5.</p>
+          <h3 style={S.h3}>Основные конкуренты РФ</h3>
+          <p style={S.p}>Naumen Service Desk, SimpleOne, BPMSoft, 1С:ITILIUM, ELMA365 Service Desk, InfraManager, Итилиум/Деснол, Comindware, GreenData/Altevics, vsDesk, IntraService, Omnidesk.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="vks" style={S.section}>
+      <div style={S.sectionHead}>
+        <div><h2 style={S.h2}>6. Видеоконференции / совместная работа</h2><p style={S.boundary}><strong>Граница:</strong> ВКС software, SaaS/on-premise и оборудование. Не весь UC (телефония, почта, ВАТС). Для SaaS-лидерства используется отдельная качественная оценка J’son &amp; Partners.</p></div>
+        <div style={S.metrics}><Metric n="24–24,5 тыс." l="рынок 2024"/><Metric n="44 500" l="ёмкость 2028, прогноз"/><Metric n="≈20 250" l="ростовой потенциал"/></div>
+      </div>
+      <div style={S.body}>
+        <div>
+          <h3 style={S.h3}>Размер, потенциал и прогноз</h3>
+          <p style={S.p}>2023: 19 700; 2024: 24 000–24 500 (+≈25%). Ожидаемый рост 15–18% в год до 2028. J’son &amp; Partners прогнозирует продажи отечественных ВКС (ПО + оборудование) 44 500 к 2028 против 9 800 в 2023.</p>
+          <p style={S.p}><strong>[Расчёт]</strong> midpoint 2024 24 250; дополнительная ёмкость до прогнозного уровня 2028 = 44 500 − 24 250 = 20 250. Это forward capacity, не теоретический TAM. Узкий факт on-premise software: 10 900 в 2024, 13 600 предварительно в 2025, 24 600 прогноз 2028.</p>
+          <h3 style={S.h3}>Драйверы и риски</h3>
+          <ul style={S.list}><li>Импортозамещение Zoom/Teams, госсектор, гибридная работа, переговорные комнаты и sovereign on-prem.</li><li>Конвергенция ВКС + мессенджер + почта + календарь; AI-протоколы, перевод и резюме встреч.</li><li>Риски: капиталоёмкая инфраструктура, бесплатные экосистемные сервисы, ценовая конкуренция бигтеха, консолидация/M&amp;A.</li></ul>
+          <p style={S.warn}><strong>Стадия:</strong> высокий рост, быстрая консолидация. <strong>Вход: 3/5.</strong> Ниша: защищённая межорганизационная ВКС для регулируемых отраслей — федерация между контурами, SIP/legacy rooms, гостевой доступ без установки, транскрибация on-prem и доказуемый SLA на слабых каналах.</p>
+        </div>
+        <div>
+          <h3 style={S.h3}>Компания · выручка 2024 · доля broad ВКС</h3>
+          <Company name="МТС Линк (консол.)" revenue="1 815" share="≈7,5%"/>
+          <p style={S.p}>Включает ООО «Вебинар», дочерние компании и Vinteo с ноября 2024; органический рост без Vinteo — 36%. Поэтому 7,5% — верхняя оценка для core SaaS. В облачном ВКС МТС Линк назван лидером; топ‑5 SaaS-игроков контролируют 54,3%, но точная доля МТС не опубликована.</p>
+          <h3 style={S.h3}>Основные конкуренты РФ</h3>
+          <p style={S.p}>TrueConf, IVA Technologies/IVA MCU/Вкурсе, VK WorkSpace/Teams, Яндекс 360/Телемост, Контур.Толк, Dion, eXpress, VideoMost, SaluteJazz, 1F Teams, Webinar/Вебинары, Ростелеком.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="progress" style={S.section}>
+      <h2 style={S.h2}>Отдельно: ProgressMe — EdTech SMB, не корпоративный LMS</h2>
+      <div style={S.body}>
+        <div>
+          <p style={S.p}>ProgressMe — операционная платформа для репетиторов, языковых школ и авторов курсов: интерактивные уроки, видеосвязь, расписание, платежи, аналитика и white label. Покупатель и unit economics отличаются от HR/L&amp;D-департамента, поэтому включение в корпоративный LMS исказило бы рынок.</p>
+          <p style={S.p}>Выручка ООО «Прогрессми» 2024: <strong>190,28</strong> (+57%); 2025: <strong>254,39</strong> (+34%). Доля корпоративного LMS: <strong>не применяется</strong>.</p>
+        </div>
+        <div>
+          <p style={S.warn}><strong>Отдельная ниша:</strong> вертикальный OS для небольших образовательных бизнесов с CRM, биллингом, AI-авторингом, налоговыми чеками и удержанием учеников. Конкуренты: GetCourse, CoreApp, Антитренинги, Моя школа, Edvibe, Teachbase (частично), iSpring Market.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources" style={S.section}>
+      <h2 style={S.h2}>Источники и контрольные ссылки</h2>
+      <ol style={S.sources}>
+        <li><a style={S.sourceLink} href="https://www.cnews.ru/news/line/2026-01-15_hrlink_v_2025_godu_rynok_kadrovogo">CNews: рынок КЭДО 2025, проникновение и прогноз</a></li>
+        <li><a style={S.sourceLink} href="https://www.cnews.ru/news/line/2026-02-13_hrlink_prodemonstriroval_rost">CNews: HR-Link, выручка 2025</a></li>
+        <li><a style={S.sourceLink} href="https://www.tadviser.ru/index.php/Компания:HRlink_(Инновации_в_управлении_кадрами)">TAdviser: HR-Link, РСБУ 2024</a></li>
+        <li><a style={S.sourceLink} href="https://www.superjob.ru/research/articles/114792/kedo-i-sistemy-avtomatizacii-rekrutinga-chasche-vnedryaet-krupnyj-biznes/">SuperJob: проникновение ATS и КЭДО</a></li>
+        <li><a style={S.sourceLink} href="https://www.tadviser.ru/index.php/Статья:Крупнейшие_поставщики_решений_в_сфере_HR-tech">TAdviser: выручка Huntflow и Skillaz</a></li>
+        <li><a style={S.sourceLink} href="https://www.list-org.com/company/9633956">ФНС/List-Org: ООО «Скилаз» 2024</a></li>
+        <li><a style={S.sourceLink} href="https://smartranking.ru/ru/analytics/hrtech/hrtech-rynok-v-rossii-vyros-na-38/">Smart Ranking: HRtech 2024 и границы подбора</a></li>
+        <li><a style={S.sourceLink} href="https://skillbox.ru/media/corptrain/stali-izvestny-lidery-rossiyskogo-rynka-lms-dlya-korporativnogo-obucheniya/">Smart Ranking/Skillbox: LMS 2024 и компании</a></li>
+        <li><a style={S.sourceLink} href="https://neonhrm.nexign.com/ru/blog/k-2027-godu-rossiyskiy-rynok-lms-sistem-vyrastet-bolee-chem-v-poltora-raza">Nexign/MegaResearch: LMS TAM и проникновение</a></li>
+        <li><a style={S.sourceLink} href="https://www.naumen.ru/events/news/7454/">Naumen: рынок управления проектами 2024/2025</a></li>
+        <li><a style={S.sourceLink} href="https://www.tadviser.ru/index.php/Компания:Pyrus_(Пайрус)">TAdviser: Pyrus 2024</a></li>
+        <li><a style={S.sourceLink} href="https://firmoteka.ru/7714426252">Фирмотека: Kaiten 2024</a></li>
+        <li><a style={S.sourceLink} href="https://smartranking.ru/ru/ranking/company/yougile/">Smart Ranking: YouGile динамика</a></li>
+        <li><a style={S.sourceLink} href="https://www.tadviser.ru/index.php/Статья:Российский_рынок_ITSM-систем">TAdviser: ITSM 2024, рэнкинг поставщиков</a></li>
+        <li><a style={S.sourceLink} href="https://globalcio.ru/news/55670/">Global CIO/STAQ: зрелость и проникновение ITSM</a></li>
+        <li><a style={S.sourceLink} href="https://www.cnews.ru/news/line/2025-03-11_vyruchka_mts_link_v_2024_godu">CNews: МТС Линк 2024</a></li>
+        <li><a style={S.sourceLink} href="https://tehnowar.ru/489582-Rost-rynka-VKS-podderghit-importozameschenie-prognozy-ekspertov.html">Российский рынок ВКС 2024 и темпы</a></li>
+        <li><a style={S.sourceLink} href="https://json.tv/analytic/rossijskij-rynok-po-vks-v-segmente-on-premise-2023-2028-gg/">J’son &amp; Partners: on-premise ВКС 2023–2028</a></li>
+        <li><a style={S.sourceLink} href="https://json.tv/analytic/rossijskij-rynok-oblachnyh-servisov-videokonferenczsvyazi-vks-itogi-2025-g/">J’son &amp; Partners: облачный ВКС и лидерство МТС Линк</a></li>
+        <li><a style={S.sourceLink} href="https://check.tochka.com/company/1177746434150/">ФНС/Точка: ProgressMe 2024</a></li>
+        <li><a style={S.sourceLink} href="https://vc.ru/tribuna/320878-vlozhil-lichnye-dengi-potratil-4-goda-na-zapusk-i-vse-peredelal-kak-ya-zapuskal-obrazovatelnuyu-platformu-progressme">ProgressMe: аудитория и модель продукта</a></li>
+      </ol>
+      <p style={S.warn}><strong>Ограничения:</strong> частные SaaS-компании не раскрывают ARR по продуктам; РСБУ юрлица и продуктовая выручка могут различаться. Где независимого узкого рынка нет (ATS), приведён расчёт с низкой уверенностью. Где методики источников расходятся (LMS, ITSM, ВКС), показаны границы вместо ложной точности.</p>
+    </section>
+  </main>;
+}

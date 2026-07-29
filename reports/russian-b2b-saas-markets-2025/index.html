@@ -1,0 +1,421 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Сопоставимый обзор российских SaaS-категорий с методикой расчёта и источниками.">
+  <title>Российские B2B SaaS-рынки: 2025/2024 — Market Opportunity Research</title>
+  <link rel="stylesheet" href="../../assets/styles.css">
+</head>
+<body>
+  <header class="report-shell">
+    <div class="report-shell-inner">
+      <nav class="report-nav" aria-label="Навигация по отчёту">
+        <a class="report-back" href="../../index.html">← Все отчёты</a>
+        <span class="report-name">Российские B2B SaaS-рынки: 2025/2024</span>
+      </nav>
+      <div class="report-actions">
+        <span class="badge">Россия</span>
+        <span class="badge">B2B</span>
+        <a class="raw-link" href="../../canvas-sources/russian-b2b-saas-markets-2025.canvas.tsx">Исходник .canvas.tsx</a>
+      </div>
+    </div>
+  </header>
+  <div id="report-root" aria-live="polite"></div>
+  <script>window.CANVAS_STATE_NAMESPACE = 'russian-b2b-saas-markets-2025';</script>
+  <script src="../../assets/vendor/react.production.min.js"></script>
+  <script src="../../assets/vendor/react-dom.production.min.js"></script>
+  <script src="../../assets/vendor/babel.min.js"></script>
+  <script src="../../assets/canvas-shim.js"></script>
+  <script type="text/plain" id="report-source">
+const { Button, Callout, Card, CardBody, CardHeader, CollapsibleSection, Divider, Grid, H1, H2, H3, Link, Pill, Row, Select, Stack, Stat, Table, Text, TextInput, BarChart, useCanvasState, useHostTheme, useCanvasAction } = window.CursorCanvas;
+type Market = {
+  name: string;
+  scope: string;
+  actual: string;
+  actualMid: number;
+  tam: string;
+  tamMid: number;
+  confidence: "высокая" | "средняя" | "низкая";
+  listed: string;
+  competitors: string;
+  gap: string;
+  stage: string;
+  barriers: string;
+  opportunity: string;
+  method: string;
+  sources: number[];
+};
+
+const sources = [
+  ["SaaS РФ: 200 900 млн ₽ в 2024; потенциально 670 000 млн ₽", "https://gidmark.ru/news/stabilnyij-rost-i-vyisokij-potenczial-rossijskogo-ryinka-saas-uslug"],
+  ["ERP РФ: около 100 000 млн ₽ в 2024", "https://releases.ict-online.ru/news/Kirill-Semion-ANO-NTSK-rynok-ERP-v-Rossii-v-2024-mozhet-prevysit-100-mlrd-rub-283186"],
+  ["ERP: рост 10–12% в 2024, 60% отечественных решений", "https://www.cnews.ru/news/line/2025-03-05_ano_ntsk_isu_rossijskij"],
+  ["Рейтинг российских SaaS и выручка брендов", "https://saas-rating.ru/"],
+  ["Tilda — 2 423 млн ₽ в 2024", "https://ecomhub.ru/tildas-incredible-revenue-growth-has-received-an-unexpected-continuation-llc-will-be-replaced-by-jsc/"],
+  ["InSales — 707 млн ₽ и GMV 212 000 млн ₽ в 2024", "https://oborot.ru/news/za-schet-chego-vyruchka-insales-vyrosla-na-115-za-god-sellery-marketplejsov-i-sluzhby-dostavki-zaplatili-kompanii-707-millionov-i242206.html"],
+  ["Аналитика маркетплейсов: топ‑9 — 3 960 млн ₽ в 2024", "https://ecomhub.ru/marketplace-analytics-market-2024-mpstat-marketguru-eggsheads-moneyplace-sellematics/"],
+  ["Оценка «Точки»: рынок аналитики МП — 5 500 млн ₽", "https://www.fontanka.ru/2026/02/10/76255971/"],
+  ["Data Insight: 620 тыс. бизнесов на маркетплейсах", "https://datainsight.ru/sites/default/files/DI_SellersMP_Zunami_2024.pdf"],
+  ["Финучёт: ПланФакт, Финтабло, Финансист — результаты 2024", "https://vc.ru/services/1903007-reyting-saas-servisov-dlya-finansovogo-uchyota"],
+  ["OCR/IDP РФ — 3 700 млн ₽ в 2024, +52%", "https://www.cnews.ru/news/top/2025-04-18_obem_rynka_sistem_raspoznavaniya"],
+  ["DMP.one и DaData — выручка в SaaS Rating", "https://saas-rating.ru/"],
+  ["VSaaS — 6 700 млн ₽ в 2024", "https://faceter.cam/ru/blog/isledovanie-rinka-videonabludenia-zifri-segmenti-insiti/"],
+  ["VSaaS — 7 300 млн ₽ в 2024; прогноз 14 100 млн ₽ к 2030", "https://companies.rbc.ru/news/i6iMgcpwaZ/rossijskij-ryinok-oblachnogo-videonablyudeniya-uvelichitsya-vdvoe-k-2030-godu/"],
+  ["Ivideon — 1 540 млн ₽ в 2024; облако >60%", "https://www.cnews.ru/news/line/2025-05-14_vyruchka_ivideon_vyrosla_na_68"],
+  ["Ivideon — 2 080 млн ₽ в 2025; подписка >70%", "https://ru.ivideon.com/blog/vyruchka-ivideon-pereshagnula-2-mlrd-rubley-v-2025-godu/"],
+  ["Музыка для бизнеса: 4 500 млн ₽ в 2020, сервисы около 1 000 млн ₽", "https://www.vedomosti.ru/media/articles/2021/10/05/889836-restoranah-zalah"],
+  ["Звук Бизнес: дневная аудитория 4,5 млн в 2024, +32%", "https://www.cnews.ru/news/line/2025-02-04_audioservis_zvuk_biznes"],
+  ["MD Audit — 169 млн ₽ в 2024", "https://zachestnyibiznes.ru/company/ul/1197746211684_9731034717_OOO-MD-AUDIT"],
+  ["Softline приобрела контроль в MD Audit", "https://www.vedomosti.ru/technology/articles/2024/06/26/1046177-softline-hochet-rasshiritsya-za-schet-sdelok-ma"],
+  ["GetCourse: GMV школ 168 000 млн ₽, около 70% русскоязычного рынка", "https://www.forbes.ru/education/530288-oboroty-rossijskih-onlajn-skol-v-2024-godu-vyrosli-bolee-cem-na-6"],
+  ["LMS РФ — 7 200 млн ₽ в 2024, топ‑5 = 80%", "https://www.e-xecutive.ru/education/ratingsbs/1998688-nazvany-lidery-rynka-lms-dlya-korporativnogo-obucheniya-novosti-obrazovaniya"],
+  ["LMS: потенциальная ёмкость 12 600 млн ₽", "https://neonhrm.nexign.com/ru/blog/k-2027-godu-rossiyskiy-rynok-lms-sistem-vyrastet-bolee-chem-v-poltora-raza"],
+  ["Топвизор — 358 млн ₽", "https://datanewton.ru/contragents/1134726000573/groups/holding"],
+  ["SEO‑агентства: топ‑10 >5 100 млн ₽ в 2024", "https://journal.topvisor.com/ru/money/seo-ratings/"],
+  ["МСП РФ — 6,59 млн на 10.01.2025", "https://opora.ru/site/assets/files/77211/statisticheskie_dannye_po_msp_yanvar_2025g.pdf"],
+  ["Общепит — 202 416 объектов на 01.01.2025", "https://kontur.ru/press/news/83181-obshhepit_rastet_no_ne_tak_bystro_kak_prezhde"],
+  ["JVO — 152 млн ₽ в 2024", "https://ecomhub.ru/jvo-2024-results-and-many-details-about-the-platform/"],
+] as const;
+
+const markets: Market[] = [
+  {
+    name: "Облачная ERP / склад / торговля",
+    scope: "SaaS для товарного учёта, закупок, склада, кассы, маркировки и омниканальной торговли SMB. Не включает крупные on‑prem ERP и основную выручку от кассового оборудования.",
+    actual: "6 000–9 000 (оценка 2025)",
+    actualMid: 7500,
+    tam: "36 000–72 000",
+    tamMid: 54000,
+    confidence: "средняя",
+    listed: "МойСклад ≈1 950 (22–33%); Бизнес.ру ≈340 (4–6%); АТОЛ Sigma ≈280–300 (3–5%). Цифры брендов/юрлиц могут включать смежные модули.",
+    competitors: "1С:Фреш/УНФ/Розница, Saby, Контур.Маркет, LiteBox, CloudShop, RetailCRM, ЕКАМ, Большая Птица.",
+    gap: "≈27 000–66 000 TAM не монетизированы: микробизнес остаётся в Excel/1С «на компьютере», часть кассового рынка покупает только обязательный минимум.",
+    stage: "Рост / консолидация. Драйверы: маркировка, маркетплейсы, API банков и импортозамещение; рост быстрее общей ERP, но CAC и сервисная нагрузка повышаются.",
+    barriers: "Глубокая предметная модель, 54‑ФЗ/ЕГАИС/Честный знак, интеграции с 1С и оборудованием, миграция остатков, локальная поддержка.",
+    opportunity: "Вертикальная ERP для 1–3 отраслей: автозапчасти, малое производство, дистрибуция. Вход через AI‑закупки и маржинальность SKU, затем касса/склад.",
+    method: "Расчёт: 1,2 млн релевантных торгово‑производственных SMB × 30–60 тыс. ₽/год. Текущий рынок — сумма видимых SaaS‑лидеров плюс длинный хвост; проверка сверху: 6–9% широкого ERP‑рынка 2024.",
+    sources: [1, 2, 3, 4, 25],
+  },
+  {
+    name: "Конструкторы сайтов / e‑commerce platforms",
+    scope: "Подписки и комиссии за site builder, CMS‑as‑a‑service и управление собственным интернет‑магазином. Не включает агентскую разработку, рекламу и GMV магазинов.",
+    actual: "5 500–7 500 (оценка 2024)",
+    actualMid: 6500,
+    tam: "36 000–72 000",
+    tamMid: 54000,
+    confidence: "средняя",
+    listed: "Tilda 2 423 (32–44%); InSales 707 (9–13%). Вместе 42–57%.",
+    competitors: "1С‑Битрикс, Nethouse, Craftum, Flexbe, AdvantShop, Ecwid‑наследие, WordPress/WooCommerce, VK/Яндекс‑инструменты.",
+    gap: "≈28 500–66 500. Низкая готовность платить за сайт после миграции спроса на маркетплейсы; многие используют соцсети или разовую студийную разработку.",
+    stage: "Зрелый site‑builder, растущий commerce‑слой. InSales растёт за счёт маркетплейсов и доставки; Tilda — за счёт простоты, экосистемы дизайнеров и высокой маржи.",
+    barriers: "Бренд, шаблоны и community, платёжные/логистические интеграции, SEO‑качество, перенос сайта без потери трафика.",
+    opportunity: "«Owned commerce» для брендов, которые диверсифицируются от маркетплейсов: PIM + сайт + CRM‑маркетинг + доставка + unit‑экономика в одном тарифе.",
+    method: "Расчёт TAM: 2,0 млн SMB с потребностью в собственном web‑канале × 18–36 тыс. ₽/год. Текущий рынок: раскрытая выручка лидеров + оценка Bitrix SaaS/длинного хвоста.",
+    sources: [4, 5, 6, 25],
+  },
+  {
+    name: "Аналитика и управление маркетплейсами",
+    scope: "Внешняя аналитика, внутренняя аналитика кабинетов, repricing, реклама, SEO карточек, P&L и операционное управление селлера. Не включает комиссии площадок и агентские рекламные бюджеты.",
+    actual: "3 960–5 500 (2024)",
+    actualMid: 4730,
+    tam: "14 900–26 000",
+    tamMid: 20450,
+    confidence: "высокая",
+    listed: "MPSTATS 1 750–1 962 (32–50%); MarketGURU 563 (10–14%); EGGHEADS 489 (9–12%); JVO 152 (3–4%); XWAY ≈300–400; Маяк ≈250–320; SellMonitor ≈250–300. Последние три — оценка; суммы могут пересекать услуги.",
+    competitors: "Moneyplace, Sellematics, SellerFox, Selsup, Меркатус, LikeStats, Shopstat, Stat4Market, собственная аналитика WB/Ozon.",
+    gap: "≈9 400–22 000. Из 620 тыс. селлеров платит меньшинство; микроселлеры быстро выбывают, а данные площадок меняются и обесценивают внешние метрики.",
+    stage: "Переход от гиперроста к консолидации: топ‑9 +15,5% в 2024 против намного более быстрого 2023. Банки покупают лидеров; ценность смещается от графиков к действиям.",
+    barriers: "Доступность/легальность данных, антибот‑защита, доверие к оценке продаж, быстрые изменения API и рекламных аукционов, дорогой контент и обучение.",
+    opportunity: "AI‑оператор прибыли: связать закупку, рекламу, цены, поставки и cash‑flow; брать оплату за управляемый GMV или доказанную экономию, а не за дашборд.",
+    method: "Прямые оценки: 3 960 млн ₽ — сумма топ‑9; 5 500 млн ₽ — оценка «Точки». TAM: 620 тыс. бизнесов × 24–42 тыс. ₽/год.",
+    sources: [7, 8, 9, 27],
+  },
+  {
+    name: "Управленческий финансовый учёт",
+    scope: "SaaS для ДДС, ОПиУ, баланса, бюджетов, план‑факта и консолидации юрлиц собственником SMB. Не включает регламентированную бухгалтерию, ERP и услуги финдиректора.",
+    actual: "800–1 200 (оценка 2024)",
+    actualMid: 1000,
+    tam: "15 000–45 000",
+    tamMid: 30000,
+    confidence: "средняя",
+    listed: "PlanFact 222 (18–28%); Финтабло 206 (17–26%); Финансист 147 (12–18%). Тройка вместе 48–72%.",
+    competitors: "Adesk, Seeneco, Финолог, 1С:УНФ, Моё дело, Контур, Google Sheets/Excel, Power BI‑проекты и аутсорс‑финансисты.",
+    gap: "≈13 800–44 200. Большинство собственников не ведёт полноценный P&L; внедрение требует методологии, классификации операций и дисциплины команды.",
+    stage: "Ранний growth: лидеры +31–60% в 2024, но прибыль инвестируется в продукт и внедрение. Категория ещё формирует привычку, а не только отвоёвывает доли.",
+    barriers: "Доверие к банковским данным, качество автокатегоризации, сложные группы компаний, необходимость onboarding с человеком, высокая цена ошибки.",
+    opportunity: "Вертикальный «финансовый автопилот» для агентств, селлеров или ресторанов: ежедневная прибыль, налоги, cash‑gap и сценарии «что делать сегодня».",
+    method: "Текущий рынок: 575 млн ₽ у тройки / предполагаемая концентрация 48–72%. TAM: 250–500 тыс. финансово зрелых SMB × 60–90 тыс. ₽/год.",
+    sources: [10, 25],
+  },
+  {
+    name: "Распознавание документов и data API",
+    scope: "Два соседних, но не единых рынка: (A) OCR/IDP первички и идентификационных документов; (B) очистка, подсказки, обогащение и аудитории данных. Их доли нельзя складывать без оговорки.",
+    actual: "OCR 3 700; data API 800–1 500 (2024, оценка)",
+    actualMid: 4850,
+    tam: "12 000–25 000",
+    tamMid: 18500,
+    confidence: "средняя",
+    listed: "Entera 256 (6,9% OCR); DaData ≈200–300 (13–38% data API); DMP.one ≈300–365 (20–46% data API). DaData/DMP.one не являются прямыми OCR‑аналогами Entera.",
+    competitors: "Content AI 1 200, Smart Engines 838, ITFB 505, Correct 316, Dbrain, Beorg; в data API — Контур.Фокус, Saby, ФНС/ФИАС, HFLabs, GeoCoder, Mindbox/CDP.",
+    gap: "≈6 800–20 500. Документы остаются в email/мессенджерах; интеграция в учёт дороже OCR. В data API открытые госданные снижают willingness‑to‑pay, но не стоимость очистки.",
+    stage: "Быстрый рост IDP (+52% в 2024) на импортозамещении и VLM; data API — зрелее, рост через antifraud, KYC и AI‑ready данные.",
+    barriers: "Точность на редких шаблонах, персональные данные и 152‑ФЗ, on‑prem, human‑in‑the‑loop, лицензии на источники, ответственность за ошибочные реквизиты.",
+    opportunity: "Не «OCR API», а AP‑автоматизация: документ → проверка контрагента → проводка → сверка → платёж. Отдельно — consented first‑party enrichment вместо серых аудиторий.",
+    method: "OCR — прямой замер CNews. Data API — сумма публичных SaaS‑выручек и хвоста. TAM: 2–4 млрд бухгалтерских/логистических документов × 2–4 ₽ + 4–9 млрд ₽ data API.",
+    sources: [11, 12],
+  },
+  {
+    name: "Облачное видеонаблюдение",
+    scope: "VSaaS: облачное хранение, удалённый доступ, управление камерами и видеоаналитика. Оборудование и локальные VMS показаны только как соседний рынок.",
+    actual: "6 700–7 300 (2024); ≈8 500–9 200 (оценка 2025)",
+    actualMid: 8850,
+    tam: "14 100 к 2030; 18 000–30 000 bottom‑up",
+    tamMid: 24000,
+    confidence: "высокая",
+    listed: "Ivideon: облачная подписка >924 в 2024, то есть 13–14% VSaaS; вся группа 1 540 = верхняя граница 21–23%. В 2025 группа 2 080, подписка >70%.",
+    competitors: "Ростелеком, МТС, Билайн, Trassir Cloud, Macroscop, Faceter, IPEYE, WebGlazok, Netris; локальные Hikvision/Dahua‑инсталляции.",
+    gap: "≈5 800–23 300. Локальные регистраторы всё ещё дешевле на горизонте нескольких лет; слабый интернет, CAPEX в камеры и опасения утечки видео тормозят миграцию.",
+    stage: "Устойчивое масштабирование: VSaaS +18–26% в 2024; ПВЗ, франшизы и white label операторов ускоряют дистрибуцию. Следующая волна — операционная аналитика.",
+    barriers: "Видео‑трафик и storage economics, hardware‑канал, инфобез, SLA, совместимость камер, дорогие ложные срабатывания CV.",
+    opportunity: "Вертикальный продукт «камера + событие + workflow»: контроль очереди/выкладки/кассы/качества для ПВЗ, общепита и небольших сетей; канал — ISP и франчайзеры.",
+    method: "Текущий рынок — два профильных исследования. Bottom‑up TAM: 1,0–1,5 млн подходящих объектов × 1,5–2 камеры × 1 000–1 400 ₽/месяц.",
+    sources: [13, 14, 15, 16],
+  },
+  {
+    name: "Музыка для бизнеса",
+    scope: "Лицензионный аудиостриминг, централизованное управление плейлистами и аудиореклама в коммерческих помещениях. Права РАО/ВОИС нужно считать отдельно от SaaS‑сервиса.",
+    actual: "1 500–2 500 сервисы; 6 000–9 000 с правами (оценка 2024)",
+    actualMid: 2000,
+    tam: "6 000–12 000 сервисная часть",
+    tamMid: 9000,
+    confidence: "низкая",
+    listed: "Звук Бизнес ≈300–450 (расчёт), ориентировочно 12–30% сервисной части. Отдельная выручка не раскрыта; аудитория 4,5 млн слушателей/день не равна числу платящих точек.",
+    competitors: "FONMIX, Бубука, Muzlab, Market Music, РадиоПарк, Музкафе, собственные каталоги сетей; нелегальное consumer‑streaming.",
+    gap: "≈3 500–10 500. Низкая правовая грамотность, сложность двойной оплаты сервису и ОКУП, разрозненные независимые точки и пиратское использование.",
+    stage: "Фрагментированный растущий рынок; аудиореклама и управление сетью повышают ARPU. Консолидация вероятна вокруг экосистем и правообладателей.",
+    barriers: "Лицензирование каталога, отчётность перед правообладателями, офлайн‑воспроизведение, доказательство легальности, продажи в длинный хвост SMB.",
+    opportunity: "Compliance‑first пакет «музыка + права + документы» с ценой за точку; добавить retail‑media: локальные ролики, измерение uplift и интеграцию с кассой.",
+    method: "Якорь: в 2020 широкий рынок 4 500 млн ₽, из них около 1 000 млн ₽ сервисы. Экстраполяция сервисов на 2024 по 10–20% CAGR; TAM: 500 тыс. точек × 12–24 тыс. ₽/год.",
+    sources: [17, 18, 26],
+  },
+  {
+    name: "Аудит торговых точек / полевые команды",
+    scope: "SaaS/on‑prem для чек‑листов, фотоаудита, задач, мерчандайзинга, рабочего времени и мобильных field‑force процессов. Не включает оплату труда мерчандайзеров.",
+    actual: "1 500–3 000 (оценка 2024)",
+    actualMid: 2250,
+    tam: "5 000–15 000",
+    tamMid: 10000,
+    confidence: "низкая",
+    listed: "MD Audit 169 (6–11%). После покупки контроля SL Soft продукт получает enterprise‑канал; выручка +29% к 2023.",
+    competitors: "ST‑Mobile, Моби‑С, Planado, Okdesk, SimpleOne, BPMSoft, Naumen, 1С‑мобильные решения, собственные приложения федеральных сетей.",
+    gap: "≈2 000–13 500. Крупные сети часто строят in‑house; SMB не видит ROI, а фотоотчёт без автоматической проверки создаёт новый ручной труд.",
+    stage: "Growth с M&A‑интересом. Компьютерное зрение превращает чек‑лист из фиксации в автоматическое обнаружение нарушений.",
+    barriers: "Enterprise‑продажи и кастомизация, offline‑first, геолокация/антифрод, интеграция HR/WFM, точность CV на полке, сопротивление персонала.",
+    opportunity: "Self‑serve продукт для сетей 20–300 точек с готовыми отраслевыми стандартами и AI‑проверкой фото; цена за активную точку, запуск за день.",
+    method: "Текущий рынок: выручка известных FFA/retail‑audit продуктов с коэффициентом длинного хвоста. TAM: 150–300 тыс. сетевых/франчайзинговых объектов × 36–50 тыс. ₽/год.",
+    sources: [19, 20, 26],
+  },
+  {
+    name: "Платформы создания и продажи онлайн‑обучения",
+    scope: "Creator/merchant platform: лендинги, LMS, платежи, CRM, вебинары и монетизация школы. Не смешивать с выручкой самих школ и корпоративным LMS.",
+    actual: "3 000–5 000 (оценка 2024)",
+    actualMid: 4000,
+    tam: "8 000–15 000",
+    tamMid: 11500,
+    confidence: "средняя",
+    listed: "GetCourse ≈1 648 по SaaS‑рейтингу (33–55% платформенного рынка). GMV школ 168 000, доля около 70% русскоязычного онлайн‑образования — это не выручка GetCourse.",
+    competitors: "Антитренинги, CoreApp, Bizon 365, Stepik, iSpring Market, Skillspace, Prodamus XL, Salebot; корпоративный LMS — отдельный рынок 7 200.",
+    gap: "≈3 000–12 000. Создатели курсов страдают от дорогого трафика, рассрочек и высокой смертности школ; зрелые школы боятся lock‑in и комиссии с оборота.",
+    stage: "Зрелый лидер, рынок школ замедляется; рост смещается в AI‑production, cohort learning, зарубежные платежи и B2B‑обучение.",
+    barriers: "Платежи/чеки/рассрочки, deliverability, видео‑инфраструктура, anti‑piracy, миграция контента и базы, сетевой эффект экспертов и подрядчиков.",
+    opportunity: "Платформа для продуктового обучения компаний и сообществ: usage‑based цена без процента GMV, AI‑создание курса, CRM и доказуемые learning outcomes.",
+    method: "Текущий рынок: выручка GetCourse / предполагаемая доля 33–55%. TAM: GMV независимых школ 240–300 млрд ₽ × 2–4% platform take + подписки.",
+    sources: [4, 21, 22, 23],
+  },
+  {
+    name: "SEO software",
+    scope: "SaaS для позиций, семантики, аудита, конкурентов, контента и enterprise SEO‑аналитики. Не включает оплату SEO‑агентств и рекламные бюджеты. Есть пересечение с marketplace‑SEO.",
+    actual: "1 000–1 800 (оценка 2024)",
+    actualMid: 1400,
+    tam: "4 000–9 000",
+    tamMid: 6500,
+    confidence: "низкая",
+    listed: "Топвизор 358 (20–36%); SEOWORK ≈150–250 (8–25%, оценка). Топвизор — self‑serve/professional, SEOWORK — enterprise e‑commerce.",
+    competitors: "Keys.so, Rush Analytics, Pixel Tools, MegaIndex, Labrika, PR‑CY, Serpstat, PromoPult, Just‑Magic; ручные выгрузки Яндекс Вебмастера.",
+    gap: "≈2 200–8 000. Малый бизнес покупает агентство, а не ПО; часть специалистов использует зарубежные инструменты/VPN; ценность rank tracking снижается из‑за AI‑ответов.",
+    stage: "Зрелый инструментальный рынок перед перестройкой в GEO/AIO. Спрос на классические позиции стабилен, enterprise требует связи SEO с выручкой.",
+    barriers: "Стоимость сбора SERP, антибот поисковиков, качество данных по регионам, коммодитизация функций, необходимость накопленной истории.",
+    opportunity: "GEO‑платформа: видимость бренда в Яндекс/Google/AI‑ответах + рекомендации контента + связь с продажами. Вторая ниша — marketplace‑SEO с P&L.",
+    method: "Текущий рынок: публичная выручка Топвизора и оценка 20–36% доли. TAM: 50–75 тыс. агентств/команд/активных in‑house сайтов × 80–120 тыс. ₽/год.",
+    sources: [24, 25],
+  },
+];
+
+const fmt = (value: number) => new Intl.NumberFormat("ru-RU").format(value);
+
+function RussianB2BSaaSMarkets2025() {
+  const theme = useHostTheme();
+  const observed = markets.reduce((sum, item) => sum + item.actualMid, 0);
+  const tam = markets.reduce((sum, item) => sum + item.tamMid, 0);
+
+  return (
+    <Stack gap={24} style={{ padding: 24, maxWidth: 1480, margin: "0 auto" }}>
+      <Stack gap={10}>
+        <Row justify="space-between" align="start" gap={16}>
+          <Stack gap={6}>
+            <H1>Российские B2B SaaS‑рынки: 2025 / 2024</H1>
+            <Text style={{ color: theme.text.secondary }}>
+              Сопоставимый рыночный срез · все денежные значения в млн ₽ · подготовлено 27 июля 2026
+            </Text>
+          </Stack>
+          <Pill tone="info" active>10 рынков</Pill>
+        </Row>
+        <Callout tone="warning" title="Как читать цифры">
+          «Объём» — годовая выручка поставщиков в узкой границе рынка, не GMV клиентов. Прямая статистика
+          использована там, где она есть; пометка «оценка» означает bottom‑up или вывод из концентрации.
+          TAM — достижимая годовая выручка при полном проникновении в указанную целевую базу, а не прогноз.
+          Доли диапазонные: у брендов могут быть несколько юрлиц и смежная выручка.
+        </Callout>
+      </Stack>
+
+      <Grid columns={4} gap={14}>
+        <Stat value="200 900" label="весь SaaS РФ, 2024, млн ₽" />
+        <Stat value={fmt(Math.round(observed))} label="сумма midpoint 10 ниш, млн ₽" tone="info" />
+        <Stat value={fmt(Math.round(tam))} label="сумма midpoint TAM, млн ₽" />
+        <Stat value="≈4,4×" label="TAM / текущий объём выборки" tone="success" />
+      </Grid>
+
+      <Card>
+        <CardHeader trailing="млн ₽; midpoint диапазона">Карта привлекательности</CardHeader>
+        <CardBody>
+          <Table
+            headers={["Рынок", "Объём", "TAM", "TAM / рынок", "Доверие", "Лучший клин для входа"]}
+            rows={markets.map((m) => [
+              <Text weight="semibold">{m.name}</Text>,
+              fmt(m.actualMid),
+              fmt(m.tamMid),
+              `${(m.tamMid / m.actualMid).toFixed(1)}×`,
+              <Pill tone={m.confidence === "высокая" ? "success" : m.confidence === "средняя" ? "info" : "warning"}>
+                {m.confidence}
+              </Pill>,
+              m.opportunity.split(".")[0],
+            ])}
+            columnAlign={["left", "right", "right", "right", "left", "left"]}
+            striped
+          />
+        </CardBody>
+      </Card>
+
+      <Stack gap={24}>
+        <H2>Рынки: границы, доли и стратегия входа</H2>
+        {markets.map((m, index) => (
+          <div key={m.name}>
+          <Stack
+            gap={12}
+            style={{ paddingBottom: 22, borderBottom: `1px solid ${theme.text.tertiary}` }}
+          >
+            <Row justify="space-between" align="center" gap={12}>
+              <H3>{index + 1}. {m.name}</H3>
+              <Pill tone={m.confidence === "высокая" ? "success" : m.confidence === "средняя" ? "info" : "warning"}>
+                доверие: {m.confidence}
+              </Pill>
+            </Row>
+            <Text>{m.scope}</Text>
+            <Grid columns={3} gap={12}>
+              <Card>
+                <CardBody><Stat value={m.actual} label="объём рынка, млн ₽" /></CardBody>
+              </Card>
+              <Card>
+                <CardBody><Stat value={m.tam} label="TAM, млн ₽" /></CardBody>
+              </Card>
+              <Card>
+                <CardBody><Stat value={`${(m.tamMid / m.actualMid).toFixed(1)}×`} label="midpoint TAM / рынок" /></CardBody>
+              </Card>
+            </Grid>
+            <Grid columns={2} gap={18}>
+              <Stack gap={9}>
+                <Text weight="semibold">Компании списка и доли</Text>
+                <Text>{m.listed}</Text>
+                <Text weight="semibold">Основные конкуренты</Text>
+                <Text>{m.competitors}</Text>
+                <Text weight="semibold">Неосвоенный потенциал</Text>
+                <Text>{m.gap}</Text>
+              </Stack>
+              <Stack gap={9}>
+                <Text weight="semibold">Стадия, динамика, перспектива</Text>
+                <Text>{m.stage}</Text>
+                <Text weight="semibold">Барьеры</Text>
+                <Text>{m.barriers}</Text>
+                <Text weight="semibold">Конкретная возможность новому игроку</Text>
+                <Text>{m.opportunity}</Text>
+              </Stack>
+            </Grid>
+            <Callout tone="info" title="Расчёт и метод">
+              {m.method}
+            </Callout>
+            <Text style={{ color: theme.text.tertiary }}>
+              Источники: {m.sources.map((s, i) => (
+                <span key={s}>{i > 0 ? " · " : ""}<Link href={sources[s - 1][1]}>[{s}]</Link></span>
+              ))}
+            </Text>
+          </Stack>
+          </div>
+        ))}
+      </Stack>
+
+      <Grid columns={2} gap={20}>
+        <Stack gap={8}>
+          <H2>Где окно для нового игрока шире</H2>
+          <Text><b>1. Управленческий финучёт:</b> самый большой разрыв между текущей монетизацией и TAM, но нужен сервисный onboarding.</Text>
+          <Text><b>2. Vertical ERP:</b> крупный TAM и обязательные процессы; выигрывает не универсальность, а отраслевой workflow и миграция «под ключ».</Text>
+          <Text><b>3. IDP → AP automation:</b> быстрый рынок, но чистый OCR коммодитизируется; ценность — в завершённой проводке и контроле.</Text>
+          <Text><b>4. Field audit + CV:</b> низкая прозрачность рынка и высокий enterprise‑чек; self‑serve mid‑market пока слаб.</Text>
+          <Text><b>5. Marketplace ops:</b> рынок уже консолидируется; вход оправдан только через автоматическое действие и outcome‑pricing.</Text>
+        </Stack>
+        <Stack gap={8}>
+          <H2>Главные системные риски</H2>
+          <Text>Смешение выручки бренда и юрлица; услуги, оборудование и SaaS часто находятся в одной строке РСБУ.</Text>
+          <Text>Широкий TAM не равен SAM: платёжеспособный сегмент обычно в 2–5 раз уже из‑за микробизнеса и ручных альтернатив.</Text>
+          <Text>Экосистемы банков, 1С, операторов и маркетплейсов могут субсидировать ПО и снижать самостоятельный ARPU.</Text>
+          <Text>AI повышает ценность workflow‑продукта, но снижает барьер для отдельных функций: OCR, отчёта, rank tracking и генерации курса.</Text>
+        </Stack>
+      </Grid>
+
+      <Stack gap={8}>
+        <H2>Источники</H2>
+        <Text style={{ color: theme.text.secondary }}>
+          Приоритет: профильные исследования, отраслевые СМИ, официальные заявления компаний и бухгалтерские агрегаторы.
+          Коммерческие рейтинги применены только как ориентир выручки, а не как независимый замер рынка.
+        </Text>
+        {sources.map((source, index) => (
+          <div key={source[1]}><Text>
+            [{index + 1}] <Link href={source[1]}>{source[0]}</Link>
+          </Text></div>
+        ))}
+      </Stack>
+    </Stack>
+  );
+}
+
+const portalRoot = ReactDOM.createRoot(document.getElementById("report-root"));
+portalRoot.render(<RussianB2BSaaSMarkets2025 />);
+  </script>
+  <script>
+    try {
+      var source = document.getElementById("report-source").textContent;
+      var compiled = Babel.transform(source, {
+        presets: ["typescript", "react"],
+        filename: "russian-b2b-saas-markets-2025.tsx"
+      }).code;
+      (0, eval)(compiled);
+    } catch (error) {
+      var root = document.getElementById("report-root");
+      if (root) {
+        root.innerHTML = '<div class="report-error"><strong>Не удалось открыть отчёт.</strong><br>' +
+          String(error && (error.stack || error.message) || "Ошибка выполнения") + '</div>';
+      }
+      console.error(error);
+    }
+  </script>
+</body>
+</html>

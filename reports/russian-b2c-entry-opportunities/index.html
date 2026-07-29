@@ -1,0 +1,934 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Сводная карта цифровых B2C-рынков России с фильтрами, оценкой привлекательности и точками входа.">
+  <title>Карта входа в B2C России — Market Opportunity Research</title>
+  <link rel="stylesheet" href="../../assets/styles.css">
+</head>
+<body>
+  <header class="report-shell">
+    <div class="report-shell-inner">
+      <nav class="report-nav" aria-label="Навигация по отчёту">
+        <a class="report-back" href="../../index.html">← Все отчёты</a>
+        <span class="report-name">Карта входа в B2C России</span>
+      </nav>
+      <div class="report-actions">
+        <span class="badge">Россия</span>
+        <span class="badge">B2C</span>
+        <a class="raw-link" href="../../canvas-sources/russian-b2c-entry-opportunities.canvas.tsx">Исходник .canvas.tsx</a>
+      </div>
+    </div>
+  </header>
+  <div id="report-root" aria-live="polite"></div>
+  <script>window.CANVAS_STATE_NAMESPACE = 'russian-b2c-entry-opportunities';</script>
+  <script src="../../assets/vendor/react.production.min.js"></script>
+  <script src="../../assets/vendor/react-dom.production.min.js"></script>
+  <script src="../../assets/vendor/babel.min.js"></script>
+  <script src="../../assets/canvas-shim.js"></script>
+  <script type="text/plain" id="report-source">
+const { Button, Callout, Card, CardBody, CardHeader, CollapsibleSection, Divider, Grid, H1, H2, H3, Link, Pill, Row, Select, Stack, Stat, Table, Text, TextInput, BarChart, useCanvasState, useHostTheme, useCanvasAction } = window.CursorCanvas;
+type Market = {
+  name: string;
+  category: "Финансы и здоровье" | "Медиа и образование" | "Commerce и lifestyle" | "Travel и mobility";
+  volume: number;
+  tam: number;
+  year: string;
+  score: number;
+  confidence: "высокая" | "средняя" | "низкая";
+  stage: string;
+  growth: string;
+  leaders: string;
+  whitespace: string;
+  outlook: string;
+  wedge: string;
+  source: string;
+  url: string;
+};
+
+const markets: Market[] = [
+  {
+    name: "PFM и финансовые ассистенты",
+    category: "Финансы и здоровье",
+    volume: 210,
+    tam: 23400,
+    year: "2025, оценка",
+    score: 3,
+    confidence: "низкая",
+    stage: "зрелая узкая ниша",
+    growth: "+5–12%",
+    leaders: "Дзен‑мани — ориентировочно 14–35%; CoinKeeper, 1Money. Главные заменители — бесплатные PFM банков и таблицы.",
+    whitespace: "Потенциал ≈23,2 млрд ₽, но он завышает SAM: банки уже бесплатно анализируют операции. Не хватает мультибанка, семейного режима и автоматического импорта.",
+    outlook: "Независимый сегмент растёт медленно; AI и семейные финансы дают новый клин, ограничения банковских API остаются риском.",
+    wedge: "Privacy-first семейный финансовый слой: чеки и уведомления, общие цели, прогноз обязательных платежей — без продажи кредитов.",
+    source: "Дзен‑мани / финансовая отчётность",
+    url: "https://reputation.ru/ogrn/1107847013196",
+  },
+  {
+    name: "BNPL / оплата частями",
+    category: "Финансы и здоровье",
+    volume: 42300,
+    tam: 100000,
+    year: "2025, расчёт",
+    score: 1,
+    confidence: "средняя",
+    stage: "гиперрост / регулирование",
+    growth: "GMV ×2,5",
+    leaders: "Яндекс Сплит, Долями, Подели, Частями Wildberries, Мокка и Ozon; рынок контролируют банковские и marketplace‑экосистемы.",
+    whitespace: "Разница TAM ≈57,7 млрд ₽ связана с будущим проникновением: BNPL пока даёт около 1,1% розничных платежей. Это не свободный рынок без капитала.",
+    outlook: "Рост сохранится, но дефолты, фондирование и регулирование ЦБ повышают требования к масштабу.",
+    wedge: "Не выдавать рассрочку на собственном балансе: B2B2C‑оркестратор нескольких BNPL для нишевых продавцов.",
+    source: "Retail.ru: рынок BNPL 2025",
+    url: "https://www.retail.ru/news/v-2025-godu-obem-rynka-servisov-oplaty-pokupok-chastyami-vyros-v-2-5-raza-3-fevralya-2026-274073/",
+  },
+  {
+    name: "Розничные инвестиционные приложения",
+    category: "Финансы и здоровье",
+    volume: 42500,
+    tam: 110000,
+    year: "2025, оценка",
+    score: 1,
+    confidence: "средняя",
+    stage: "зрелость / стагнация",
+    growth: "−10…+8%",
+    leaders: "Т‑Инвестиции, СберИнвестиции, ВТБ, Альфа, БКС и Финам; топ‑10 обслуживает около 95% клиентов.",
+    whitespace: "Потенциал ≈67,5 млрд ₽ зависит от возвращения активности инвесторов. Высокие ставки уводят деньги в депозиты, комиссии снижаются.",
+    outlook: "Core brokerage растёт слабо; перспективнее независимая аналитика облигаций, налогов и портфелей нескольких брокеров.",
+    wedge: "Мультиброкерный portfolio copilot без исполнения сделок: cash-flow облигаций, налоги, риск и ребалансировка.",
+    source: "ЦБ: брокеры, IV квартал 2025",
+    url: "http://cbr.ru/Collection/Collection/File/59712/review_broker_Q4_2025.pdf",
+  },
+  {
+    name: "Цифровое страхование / InsurTech B2C",
+    category: "Финансы и здоровье",
+    volume: 47500,
+    tam: 130000,
+    year: "2025, оценка",
+    score: 2,
+    confidence: "средняя",
+    stage: "рост embedded insurance",
+    growth: "+10–18%",
+    leaders: "Сравни, Банки.ру, Финуслуги, Cherehapa, Mafin; прямые приложения Т‑Страхования, Сбера, ВСК и Ингосстраха.",
+    whitespace: "Потенциал ≈82,5 млрд ₽. Life‑продукты остаются у банков и агентов, покупки редкие, цифровое урегулирование не стандартизировано.",
+    outlook: "Embedded‑модели и микрополисы растут, но CAC, регулирование и конфликт с direct‑каналом ограничивают независимые площадки.",
+    wedge: "API‑страхование арендаторов, путешествий по РФ или питомцев с полностью цифровым урегулированием.",
+    source: "ЦБ: страховой рынок 2025",
+    url: "https://cbr.ru/Collection/Collection/File/59732/review_insure_25Q4.pdf",
+  },
+  {
+    name: "Международные переводы и migrant finance",
+    category: "Финансы и здоровье",
+    volume: 13500,
+    tam: 48000,
+    year: "2025, оценка",
+    score: 2,
+    confidence: "средняя",
+    stage: "рост / высокая волатильность",
+    growth: "+41%",
+    leaders: "KoronaPay может занимать до 80–90% видимого цифрового сегмента; Юнистрим, банки, наличные и криптоканалы.",
+    whitespace: "Потенциал ≈34,5 млрд ₽. Часть потока остаётся в наличных и неформальных каналах; банковская география постоянно меняется.",
+    outlook: "Спрос структурный, но AML/KYC, санкции и ликвидность делают собственный платёжный контур слишком рискованным.",
+    wedge: "Multilingual companion мигранта: документы, налоги, зарплата, страховка и сравнение легальных маршрутов через партнёров.",
+    source: "Smart Ranking: fintech 2025",
+    url: "https://smartranking.ru/ru/analytics/fintech/rossijskij-fintech-sektor-vyros-na-15-za-2025-god/",
+  },
+  {
+    name: "Телемедицина",
+    category: "Финансы и здоровье",
+    volume: 16500,
+    tam: 62500,
+    year: "2025",
+    score: 3,
+    confidence: "высокая",
+    stage: "устойчивый рост",
+    growth: "+17%",
+    leaders: "СберЗдоровье ≈64% широкого сегмента; Доктис ≈6%; Доктор рядом, BestDoctor и приложения клиник.",
+    whitespace: "Потенциал ≈46 млрд ₽. Первичная диагностика ограничена, офлайн остаётся привычным, значительную часть спроса покрывают ОМС и ДМС.",
+    outlook: "Дефицит врачей и хронические заболевания поддержат 15–20% CAGR; ответственность AI и медицинские данные — ключевые риски.",
+    wedge: "Сопровождение одного хронического состояния между очными визитами через клиники-партнёры.",
+    source: "Smart Ranking: MedTech 2025",
+    url: "https://smartranking.ru/ru/researchshop/medtech/medtech-2025/",
+  },
+  {
+    name: "Онлайн‑аптеки / e‑pharma",
+    category: "Финансы и здоровье",
+    volume: 69500,
+    tam: 147000,
+    year: "2025, расчёт",
+    score: 1,
+    confidence: "высокая",
+    stage: "быстрый рост / консолидация",
+    growth: "GMV +34%",
+    leaders: "Apteka.ru 20,8% GMV; Ригла 12,4%; Апрель 11,5%; Ютека 7,8%; Здравсити 6,1%.",
+    whitespace: "Потенциал ≈77,5 млрд ₽. Доставка рецептурных препаратов, локальные остатки, холодовая цепь и низкая маржа требуют офлайн-инфраструктуры.",
+    outlook: "Digital share продолжит расти, но горизонтальный вход закрыт сетями и маркетплейсами.",
+    wedge: "Medication-adherence и availability layer для хронических пациентов с маршрутизацией заказов по партнёрским аптекам.",
+    source: "RNC Pharma: e‑pharma 2025",
+    url: "https://rncph.ru/blog/160226/",
+  },
+  {
+    name: "Mental health / онлайн‑психология",
+    category: "Финансы и здоровье",
+    volume: 4500,
+    tam: 126000,
+    year: "2025, оценка",
+    score: 3,
+    confidence: "средняя",
+    stage: "коррекция после гиперроста",
+    growth: "−7% у зрелых игроков",
+    leaders: "Ясно и SmartMental — примерно по 22–28%; Zigmund и Alter — по 8–10%; YouTalk, Мета и частные специалисты.",
+    whitespace: "Разница TAM огромна, но цена терапии, стигма, слабая измеримость результата и уход клиента с платформы резко сужают SAM.",
+    outlook: "Мобильный спрос растёт, выручка корректируется. AI коммодитизирует self-help, но узкие stepped-care программы сохраняют ценность.",
+    wedge: "Измеримая программа для конкретного события: послеродовой период, развод или caregiver burnout — с клинической эскалацией.",
+    source: "Smart Ranking: онлайн‑психология",
+    url: "https://smartranking.ru/ru/analytics/medicinskie-tehnologii/pokolenie-z-idet-k-psihologu-onlajn/",
+  },
+  {
+    name: "Fitness / wellness apps",
+    category: "Финансы и здоровье",
+    volume: 10700,
+    tam: 63000,
+    year: "2025",
+    score: 2,
+    confidence: "высокая",
+    stage: "рост / высокая конкуренция контента",
+    growth: "+23%",
+    leaders: "FitStars ≈19%; InsideOut, AnyClass, Ревитоника, VK Fitness и приложения фитнес-клубов.",
+    whitespace: "Потенциал ≈52,3 млрд ₽. Бесплатные видео, низкая дисциплина и высокий churn мешают регулярной подписке.",
+    outlook: "Wearables и персонализация поддержат 15–25% CAGR, но контент легко копируется.",
+    wedge: "Короткие адаптивные программы восстановления для женщин 35–50 лет с измеримыми pain/mobility outcomes.",
+    source: "Smart Ranking: онлайн‑фитнес 2025",
+    url: "https://smartranking.ru/ru/analytics/online-fitness/onlajn-fitnes-rastet-za-schet-zhenskoj-auditorii/",
+  },
+  {
+    name: "FemTech / reproductive health",
+    category: "Финансы и здоровье",
+    volume: 2250,
+    tam: 37200,
+    year: "2024–2025, оценка",
+    score: 4,
+    confidence: "средняя",
+    stage: "ранний рост",
+    growth: "+20–35%",
+    leaders: "Clatch/MTS, Clover, Ovobot, Halsa, FIT&ZEN и VK Родители и дети; сопоставимые доли не раскрываются.",
+    whitespace: "Потенциал ≈35 млрд ₽. Бесплатные трекеры не связаны с анализами, врачами и реальным fertility journey.",
+    outlook: "Позднее материнство и персонализация поддерживают рост; чувствительные данные требуют особого доверия.",
+    wedge: "Сопровождение fertility/IVF: исследования, документы для ОМС, лекарства и навигация по клиникам — без собственной клиники.",
+    source: "BURO: российский FemTech",
+    url: "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html",
+  },
+  {
+    name: "Nutrition / weight management",
+    category: "Финансы и здоровье",
+    volume: 1000,
+    tam: 54000,
+    year: "2025, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "формирование категории",
+    growth: "+15–30%",
+    leaders: "FatSecret, YAZIO, MyFitnessPal; российские Halsa, FitStars Nutrition и приложения нутрициологов.",
+    whitespace: "Потенциал ≈53 млрд ₽. Бесплатные счётчики, трудоёмкий ввод еды и слабый долгосрочный результат препятствуют оплате.",
+    outlook: "Медицинское снижение веса создаёт новый workflow, но советы должны быть клинически безопасны.",
+    wedge: "Companion терапии ожирения: рацион, побочные эффекты, белок/мышечная масса и связь с врачом — без назначения препаратов.",
+    source: "FitStars Nutrition",
+    url: "https://www.appbrain.com/app/fitstars-%D0%BF%D0%B8%D1%82%D0%B0%D0%BD%D0%B8%D0%B5/com.app.plate",
+  },
+  {
+    name: "Consumer PetTech",
+    category: "Финансы и здоровье",
+    volume: 3500,
+    tam: 78750,
+    year: "2025, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "ранний рынок",
+    growth: "телеветеринария ≈+21%",
+    leaders: "PetStory, КотЗдоров, ВетЭксперт, Vetsy; приложения клиник, страховых и производителей кормов.",
+    whitespace: "Потенциал ≈75,3 млрд ₽. Ветданные разрознены, клиники не интегрированы, платить готовы прежде всего владельцы дорогого лечения.",
+    outlook: "Большая база питомцев и B2B2C‑дистрибуция через клиники создают окно, но стандартизация медкарт слабая.",
+    wedge: "Единый health passport + послеоперационный мониторинг + triage через независимые ветклиники и страховые.",
+    source: "РБК: рынок PetTech",
+    url: "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3",
+  },
+  {
+    name: "Онлайн‑кинотеатры",
+    category: "Медиа и образование",
+    volume: 128800,
+    tam: 170000,
+    year: "2024",
+    score: 1,
+    confidence: "высокая",
+    stage: "масштабирование / консолидация",
+    growth: "+37–44%",
+    leaders: "Кинопоиск 33,4%; Иви 16,9%; Wink 16,2%; Okko 12,9%; Kion 6,2%.",
+    whitespace: "Потенциал ≈41,2 млрд ₽ в основном относится к будущей монетизации домохозяйств. Права, продакшен и экосистемные bundles закрывают вход.",
+    outlook: "Рост замедлится и будет идти через цены, пакеты и оригинальный контент.",
+    wedge: "Не универсальный OTT: white-label/discovery/retention-инструмент либо узкий агрегатор правообладателей.",
+    source: "TMT Consulting: VoD 2024",
+    url: "http://tmt-consulting.ru/wp-content/uploads/2025/03/%D0%A2%D0%9C%D0%A2-%D1%80%D0%B5%D0%B9%D1%82%D0%B8%D0%BD%D0%B3-VoD-2024-1.pdf",
+  },
+  {
+    name: "Музыкальный стриминг",
+    category: "Медиа и образование",
+    volume: 46200,
+    tam: 100000,
+    year: "2025",
+    score: 2,
+    confidence: "высокая",
+    stage: "поздний рост",
+    growth: "+21–23%",
+    leaders: "Яндекс Музыка 50,9%; VK Музыка 26,5%; Звук 10%; Apple Music 4,5%; МТС Музыка 3,8%.",
+    whitespace: "Потенциал ≈53,8 млрд ₽ относится к новым подпискам и ARPU. Универсальный каталог контролируют экосистемы и правообладатели.",
+    outlook: "CAGR может замедлиться к 15%; перспективны инструменты артистов, superfans и direct-to-fan.",
+    wedge: "Artist CRM и commerce для одного жанрового сообщества: подписки, live, мерч и переносимая fan-база.",
+    source: "TAdviser: музыкальный стриминг",
+    url: "https://www.tadviser.ru/index.php/Статья:Музыкальный_стриминг_в_России",
+  },
+  {
+    name: "Электронные и аудиокниги",
+    category: "Медиа и образование",
+    volume: 23360,
+    tam: 42500,
+    year: "2025",
+    score: 3,
+    confidence: "высокая",
+    stage: "рост с замедлением",
+    growth: "+18,5%",
+    leaders: "Литрес/MyBook, Яндекс Книги, Строки и Bookmate; Литрес контролирует около 62% аудио.",
+    whitespace: "Потенциал ≈19,1 млрд ₽. Слабо освоены аудиосамиздат, жанровый long tail и персонализированная озвучка.",
+    outlook: "Подписка, самиздат и TTS поддерживают рост; discoverability и права остаются барьерами.",
+    wedge: "AI‑production и distribution для long-tail авторов либо жанровая подписка с сообществом.",
+    source: "J’son & Partners: цифровые книги 2025",
+    url: "https://json.tv/analytic/kratkie-rezultaty-issledovaniya-rossijskogo-rynka-czifrovyh-knig-po-itogam-2025-goda/",
+  },
+  {
+    name: "Видеоигры и game services",
+    category: "Медиа и образование",
+    volume: 140500,
+    tam: 255000,
+    year: "2024, оценка net revenue",
+    score: 3,
+    confidence: "средняя",
+    stage: "зрелый hit-driven рынок",
+    growth: "+5–10%",
+    leaders: "Среди российских разработчиков: Леста, Astrum, Krista и Innova; потребительский рынок также включает зарубежные игры.",
+    whitespace: "Потенциал ≈114,5 млрд ₽, но новая игра несёт hit risk. Лучше обслуживать инди: платежи, live-ops, community и UGC.",
+    outlook: "Mobile, GaaS и cloud растут быстрее общего рынка; UA дорожает, платформенные ограничения сохраняются.",
+    wedge: "Game-services или community/UGC layer; собственная игра — только небольшой F2P с доказанной retention‑экономикой.",
+    source: "Strategy Partners: игровой рынок РФ",
+    url: "https://www.it-world.ru/it-news/orku9kg18tckkgo0o8kg80gg0804wsw.html",
+  },
+  {
+    name: "Creator economy: подписки и донаты",
+    category: "Медиа и образование",
+    volume: 750,
+    tam: 2850,
+    year: "2024, оценка net revenue",
+    score: 4,
+    confidence: "низкая",
+    stage: "ранний рост",
+    growth: "выплаты VK Donut ×2",
+    leaders: "Boosty и VK Donut; Sponsr, DonationAlerts, Tribute/Telegram и закрытые Telegram‑каналы.",
+    whitespace: "Потенциал ≈2,1 млрд ₽ net revenue. Не хватает discovery, CRM, churn prevention, bundles и переносимости аудитории.",
+    outlook: "Платёжное поведение формируется, но cold start и зависимость от соцсетей мешают новой закрытой платформе.",
+    wedge: "«Shopify для автора» поверх Telegram/VK: подписки, CRM, аналитика и собственные данные, не новая соцсеть.",
+    source: "VK: итоги для авторов 2024",
+    url: "https://vk.com/press/content-2024",
+  },
+  {
+    name: "Adult online education / reskilling",
+    category: "Медиа и образование",
+    volume: 52500,
+    tam: 200000,
+    year: "2025",
+    score: 3,
+    confidence: "высокая",
+    stage: "зрелость / стагнация",
+    growth: "+6%",
+    leaders: "Skillbox, Яндекс Практикум, Нетология, Ultimate Education и Синергия.",
+    whitespace: "Потенциал ≈147,5 млрд ₽ теоретический; реальный SAM снижают дорогой CAC, охлаждение IT‑найма и недоверие к трудоустройству.",
+    outlook: "Длинные профессии замедляются; растут короткие outcome-based программы и AI-upskilling.",
+    wedge: "Одна узкая профессия с подтверждаемым ROI и оплатой работодателем либо без длинного кредита.",
+    source: "Коммерсантъ: EdTech 2025",
+    url: "https://www.kommersant.ru/doc/8398823",
+  },
+  {
+    name: "Детское онлайн‑образование",
+    category: "Медиа и образование",
+    volume: 49100,
+    tam: 150000,
+    year: "2024",
+    score: 4,
+    confidence: "высокая",
+    stage: "сильный рост / приближение насыщения",
+    growth: "+33%",
+    leaders: "Фоксфорд, Учи.ру, Умскул и Skysmart; лидерство зависит от квартала и подкатегории.",
+    whitespace: "Потенциал ≈100,9 млрд ₽. Недообслужены диагностика пробелов, special needs, регионы и прозрачный контроль результата.",
+    outlook: "Экзаменационная подготовка остаётся драйвером; доверие родителей и стоимость преподавателей ограничивают масштаб.",
+    wedge: "Один возраст/предмет/проблема с измеримым прогрессом и B2B2C‑дистрибуцией через учителей.",
+    source: "Smart Ranking: детское образование",
+    url: "https://smartranking.ru/ru/analytics/edtechs/detskoe-onlajn-obrazovanie-obognalo-vzrosloe-po-vyruchke/",
+  },
+  {
+    name: "Подготовка к ОГЭ / ЕГЭ",
+    category: "Медиа и образование",
+    volume: 19000,
+    tam: 37500,
+    year: "2025",
+    score: 4,
+    confidence: "высокая",
+    stage: "быстрый рост",
+    growth: "+50%",
+    leaders: "Умскул, 100балльный репетитор и Сотка; Умскул занимал около 41% рынка в 2024.",
+    whitespace: "Потенциал ≈18,5 млрд ₽. Слабо закрыты ОГЭ, средние/слабые ученики, адаптивные планы и доказуемый uplift.",
+    outlook: "Миграция от индивидуальных репетиторов продолжается, но influencer CAC и сезонность высоки.",
+    wedge: "Один предмет + teacher-influencer + AI‑проверка заданий и accountability.",
+    source: "Smart Ranking: экзамены 2025",
+    url: "https://smartranking.ru/ru/analytics/edtechs/vyruchka-onlajn-shkol-dlya-podgotovki-k-ekzamenam-vyrosla-na-50/",
+  },
+  {
+    name: "Language learning apps",
+    category: "Медиа и образование",
+    volume: 7200,
+    tam: 45000,
+    year: "2024",
+    score: 3,
+    confidence: "средняя",
+    stage: "стагнация / AI‑перестройка",
+    growth: "+3%",
+    leaders: "Skyeng — подавляющий лидер; Puzzle English, Lingualeo, EWA, Duolingo и AI‑ассистенты.",
+    whitespace: "Потенциал ≈37,8 млрд ₽, но бесплатный AI размывает готовность платить за общий язык.",
+    outlook: "Перспективны speaking‑сценарии для профессии, релокации, азиатских языков и kids bilingual.",
+    wedge: "Вертикальный AI tutor с human escalation и измеримым результатом, а не общая библиотека упражнений.",
+    source: "Smart Ranking: EdTech 2024",
+    url: "http://edtechs.ru/analitika-i-intervyu/luchshie-edtech-kompanii-2024-goda-rezultaty-premii-edtechs-awards-ot-smart-ranking/",
+  },
+  {
+    name: "Hobby / creative learning",
+    category: "Медиа и образование",
+    volume: 10000,
+    tam: 47500,
+    year: "2024, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "зрелый фрагментированный рынок",
+    growth: "+8–15%",
+    leaders: "Skillbox Creative, Bang Bang Education, Contented, Talentsy и тысячи школ на GetCourse.",
+    whitespace: "Потенциал ≈37,5 млрд ₽. Низкий completion и бесплатный контент снижают ценность библиотеки видео.",
+    outlook: "Рост — в cohort/community, регулярной практике и связке физических наборов с digital.",
+    wedge: "Одна творческая вертикаль с community и marketplace результата, а не каталог курсов.",
+    source: "Forbes: рынок школ GetCourse",
+    url: "https://www.forbes.ru/education/530288-oboroty-rossijskih-onlajn-skol-v-2024-godu-vyrosli-bolee-cem-na-6",
+  },
+  {
+    name: "Consumer AI assistants",
+    category: "Медиа и образование",
+    volume: 14000,
+    tam: 140000,
+    year: "2025, расчёт",
+    score: 5,
+    confidence: "средняя",
+    stage: "гиперрост / horizontal commodity",
+    growth: "рынок GenAI ×4,5",
+    leaders: "По web‑трафику: ChatGPT 39,9%, DeepSeek 27,8%, GigaChat 7,3%, Qwen 6,6%, Алиса AI 5,7%.",
+    whitespace: "Потенциал ≈126 млрд ₽. Горизонтальный чат быстро копируется; свободны локальные workflows с платежами и proprietary context.",
+    outlook: "Inference дешевеет, возможности моделей выравниваются. Ценность перемещается из модели в данные, workflow и дистрибуцию.",
+    wedge: "Vertical agent для семьи, права, обучения, налогов или здоровья поверх нескольких моделей; подписка/usage.",
+    source: "Onside / Just AI: GenAI 2025",
+    url: "https://generation-ai.ru/media/rynok-genai-2025-issledovanie",
+  },
+  {
+    name: "Family cybersecurity / anti‑scam",
+    category: "Медиа и образование",
+    volume: 13000,
+    tam: 72500,
+    year: "2024–2025, оценка",
+    score: 4,
+    confidence: "средняя",
+    stage: "рост угроз / bundle‑рынок",
+    growth: "+15–28%",
+    leaders: "Kaspersky, Dr.Web, PRO32, Яндекс Диск, Облако Mail; password managers Apple/Google/Yandex и специализированные продукты.",
+    whitespace: "Потенциал ≈59,5 млрд ₽. Cloud и antivirus уже освоены, но anti‑scam, identity monitoring, recovery и семейный контроль разорваны.",
+    outlook: "Отдельное облако или password manager слабы; bundle безопасности и восстановления имеет структурный спрос.",
+    wedge: "Family protection: anti‑fraud assistant, identity monitoring, secure backup и помощь после взлома.",
+    source: "М.Видео: consumer security 2024",
+    url: "https://www.mvideoeldorado.ru/ru/press-centr/press-relizy/detail/3634",
+  },
+  {
+    name: "Универсальные e‑commerce маркетплейсы",
+    category: "Commerce и lifestyle",
+    volume: 1400000,
+    tam: 2050000,
+    year: "2025, расчёт",
+    score: 1,
+    confidence: "средняя",
+    stage: "поздний рост / консолидация",
+    growth: "GMV +20–40%",
+    leaders: "Wildberries, Ozon и Яндекс Маркет. GMV РВБ ≈6,1 трлн ₽, Ozon ≈4,16 трлн ₽.",
+    whitespace: "Потенциал ≈650 млрд ₽ относится к росту GMV и monetization. Логистика, ПВЗ, реклама и финтех требуют экосистемного капитала.",
+    outlook: "Рост аудитории исчерпан, борьба идёт за частоту и эффективность. Новый универсальный marketplace нереалистичен.",
+    wedge: "Независимый decision layer одной сложной категории: совместимость, диагностика и post-sale, без собственного универсального MP.",
+    source: "Data Insight: e‑commerce 2025",
+    url: "https://datainsight.ru/DI_eCommerce_2026",
+  },
+  {
+    name: "Resale / C2C classifieds",
+    category: "Commerce и lifestyle",
+    volume: 55500,
+    tam: 95000,
+    year: "2025, оценка",
+    score: 2.5,
+    confidence: "низкая",
+    stage: "зрелый монополизирующийся рынок",
+    growth: "+15–25%",
+    leaders: "Avito с сильным сетевым эффектом; Юла, VK‑сообщества и нишевые площадки.",
+    whitespace: "Потенциал ≈39,5 млрд ₽. Не закрыты проверка состояния, честная цена и продажа «под ключ», но ликвидность уже у лидера.",
+    outlook: "Горизонтальный C2C закрыт. Managed resale может работать в узкой категории с гарантией.",
+    wedge: "Managed resale детских товаров, спорта или восстановленной техники: диагностика, instant buyout/consignment и гарантия.",
+    source: "Smart Ranking: classifieds 2024",
+    url: "https://smartranking.ru/ru/analytics/classified/rossijskij-rynok-klassifajdov-vyros-na-14-v-2024-godu/",
+  },
+  {
+    name: "Food delivery",
+    category: "Commerce и lifestyle",
+    volume: 76500,
+    tam: 145000,
+    year: "2025, расчёт",
+    score: 2,
+    confidence: "средняя",
+    stage: "рост / экосистемная олигополия",
+    growth: "+15–25%",
+    leaders: "Яндекс Еда/Деливери доминируют; Чиббис — небольшой независимый игрок, прямые каналы ресторанов.",
+    whitespace: "Потенциал ≈68,5 млрд ₽. Регионы и direct ordering остаются слабее, но курьерская плотность и промосубсидии создают барьер.",
+    outlook: "GMV растёт, маржа ресторанов ограничивает take rate. Независимой платформе сложно конкурировать за consumer demand.",
+    wedge: "SaaS + единая доставка для локальных сетей, переводящий повторные заказы из агрегатора в direct channel.",
+    source: "РБК: рынок доставки еды",
+    url: "https://marketing.rbc.ru/articles/15485/",
+  },
+  {
+    name: "E‑grocery / quick commerce",
+    category: "Commerce и lifestyle",
+    volume: 270000,
+    tam: 485000,
+    year: "2025, расчёт gross-margin pool",
+    score: 2,
+    confidence: "высокая",
+    stage: "масштаб / замедление",
+    growth: "+23%",
+    leaders: "X5 Digital, Самокат, ВкусВилл, Ozon food и Яндекс Лавка.",
+    whitespace: "Потенциал ≈215 млрд ₽. Региональная доставка и диеты не полностью закрыты, но склады, списания, сборка и курьеры капиталоёмки.",
+    outlook: "Рост замедлился с 46% до 23%; retail media и private label повышают экономику лидеров.",
+    wedge: "Software-only replenishment basket: автоматическая корзина и маршрутизация между существующими ритейлерами.",
+    source: "Data Insight: e‑grocery 2025",
+    url: "https://datainsight.ru/DI_eGrocery_january_2026",
+  },
+  {
+    name: "Meal kits / ready-food subscriptions",
+    category: "Commerce и lifestyle",
+    volume: 21500,
+    tam: 42500,
+    year: "2025, оценка",
+    score: 3,
+    confidence: "высокая",
+    stage: "восстановление / высокая концентрация",
+    growth: "+15–25%",
+    leaders: "Performance Group ≈34%; Grow Food ≈31%; Шефмаркет 10%; Justfood 5%; Elementaree 4%.",
+    whitespace: "Потенциал ≈21 млрд ₽. Общая здоровая еда насыщена; недообслужены медицинские и событийные рационы.",
+    outlook: "Топ‑5 контролируют около 83%; логистика и churn ограничивают новый горизонтальный бренд.",
+    wedge: "Рацион на 4–8 недель для диабета/GLP‑1, послеродового восстановления или ЖКТ через клиники.",
+    source: "INFOLine: ready food 2024",
+    url: "https://ecomhub.ru/ready-to-eat-russia-2024-grow-food-performance-group-meal-kit-chefmarket-vkusvill-retail-trend/",
+  },
+  {
+    name: "Local services marketplace",
+    category: "Commerce и lifestyle",
+    volume: 21000,
+    tam: 80000,
+    year: "2025, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "offline-to-online рост",
+    growth: "+20–30%",
+    leaders: "Avito Услуги, Profi.ru, YouDo и Яндекс Услуги; исторически Avito доминировал по аудитории.",
+    whitespace: "Потенциал ≈59 млрд ₽. Платформы продают контакт, но не гарантируют outcome; повторные услуги часто уходят мимо.",
+    outlook: "Общая площадка требует сетевого эффекта, вертикальный managed marketplace может стартовать supply-led.",
+    wedge: "Повторяемая care‑вертикаль — pet care, eldercare errands или занятия для детей — с подпиской и заменой исполнителя.",
+    source: "Profi.ru: отчётность 2025",
+    url: "https://www.testfirm.ru/result/7714396093_ooo-profi-ru",
+  },
+  {
+    name: "Home services / ремонт",
+    category: "Commerce и lifestyle",
+    volume: 17000,
+    tam: 140000,
+    year: "2025, расчёт",
+    score: 3.5,
+    confidence: "низкая",
+    stage: "ранний managed-service рынок",
+    growth: "+20–30%",
+    leaders: "Avito, Profi, Лемана ПРО, Петрович.Дом и Сделано.",
+    whitespace: "Потенциал ≈123 млрд ₽. Смета, этапы, приёмка и гарантия остаются офлайн; но ответственность и региональность сложны.",
+    outlook: "Спрос на цифровой контроль растёт, классический lead marketplace не решает главную боль клиента.",
+    wedge: "Технический заказчик ремонта: AI‑смета, фотофиксация, escrow и независимая приёмка по фиксированной цене.",
+    source: "Лемана ПРО: рынок ремонта",
+    url: "https://www.retail.ru/news/lemana-pro-kazhdyy-vtoroy-pokupatel-privlekaet-masterov-dlya-remonta-i-stroitels-2-aprelya-2025-263015/",
+  },
+  {
+    name: "Dating",
+    category: "Commerce и lifestyle",
+    volume: 6200,
+    tam: 12000,
+    year: "2025",
+    score: 3,
+    confidence: "высокая",
+    stage: "умеренная зрелость",
+    growth: "+25%",
+    leaders: "VK Знакомства и Mamba — примерно по 31%; Twinby ≈12%; Tabor и Loveplanet.",
+    whitespace: "Потенциал ≈5,8 млрд ₽. Пользователи устали от свайпов; не закрыты доверие, безопасность и serious intent 30+.",
+    outlook: "Монетизация растёт, но двусторонняя ликвидность и гендерный баланс остаются главным moat.",
+    wedge: "Paid-intent dating для разведённых родителей/30+: проверенные интро, ограниченный выбор и офлайн‑события.",
+    source: "Smart Ranking: dating 2025",
+    url: "https://smartranking.ru/ru/researchshop/dating/dating-2025/",
+  },
+  {
+    name: "Parenting / family workflows",
+    category: "Commerce и lifestyle",
+    volume: 1400,
+    tam: 4000,
+    year: "2025, оценка",
+    score: 3.5,
+    confidence: "низкая",
+    stage: "зрелый контент / ранний workflow",
+    growth: "+5–15%",
+    leaders: "Baby.ru/Happy Mama, Mom.life, международные trackers и семейные разделы банков.",
+    whitespace: "Потенциал ≈2,6 млрд ₽. Контента много, но задачи родителей, документы, лекарства и handoff няне/врачу не объединены.",
+    outlook: "Standalone pregnancy apps теряют аудиторию; семейная операционная система может удерживать пользователя дольше.",
+    wedge: "Family OS первых трёх лет: задачи, сон/лекарства, документы и передача контекста няне — подписка на семью.",
+    source: "Baby.ru: аудитория",
+    url: "https://www.baby.ru/about/",
+  },
+  {
+    name: "Consumer LegalTech",
+    category: "Commerce и lifestyle",
+    volume: 4000,
+    tam: 15000,
+    year: "2025, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "ранний рост / GenAI‑снижение себестоимости",
+    growth: "+20–35%",
+    leaders: "Правовед, DestraLegal, СберПраво, юристы Avito/Profi.",
+    whitespace: "Потенциал ≈11 млрд ₽. Малые требования экономически неинтересны юристу: возвраты, подписки, курсы, ЖКХ и бытовые споры.",
+    outlook: "GenAI удешевляет первичный разбор, но представительство и ответственность требуют human escalation.",
+    wedge: "Claim automation одной категории с success fee: претензия → суд → исполнение по возвратам за услуги или курсы.",
+    source: "РБК Компании: LegalTech РФ",
+    url: "https://companies.rbc.ru/news/zlMffo8Qzy/mnenie-eksperta-obzor-ryinka-i-landshafta-legaltech-v-rossii/",
+  },
+  {
+    name: "Tax / refund assistants",
+    category: "Commerce и lifestyle",
+    volume: 3000,
+    tam: 7500,
+    year: "2025, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "рост / коммодитизация simple cases",
+    growth: "+15–25%",
+    leaders: "НДФЛка, Налогия, банковские сервисы, РосНалог; главный бесплатный конкурент — ФНС.",
+    whitespace: "Потенциал ≈4,5 млрд ₽. Простые вычеты автоматизирует государство; сложные многолетние и инвестиционные случаи остаются.",
+    outlook: "Разовая подача декларации станет commodity, ценность — в круглогодичном сборе документов и proactive tax planning.",
+    wedge: "Tax copilot семьи/инвестора: вычеты, переплаты, льготы и ошибки работодателя; B2B2C через работодателей.",
+    source: "ФНС: упрощённые вычеты",
+    url: "https://www.nalog.gov.ru/rn77/taxation/taxes/ndfl/nalog_vichet/",
+  },
+  {
+    name: "Отели / краткосрочная аренда",
+    category: "Travel и mobility",
+    volume: 68000,
+    tam: 150000,
+    year: "2025, расчёт",
+    score: 3,
+    confidence: "высокая",
+    stage: "рост / консолидация",
+    growth: "+12–18%",
+    leaders: "Отели: Яндекс, Ostrovok, Bronevik. STR: Avito ≈49%, Суточно ≈27%.",
+    whitespace: "Потенциал ≈82 млрд ₽. Региональный supply плохо стандартизирован; длинные stays и семейные сценарии закрыты слабее.",
+    outlook: "После ухода Booking/Airbnb локальные лидеры укрепились; двусторонний marketplace требует больших инвестиций.",
+    wedge: "Вертикаль семей/длинных поездок/малых городов: верификация, страхование ущерба и SaaS для хозяина.",
+    source: "Суточно.ру: рынок STR",
+    url: "https://corp.sutochno.ru/tpost/x07o0v4jf1-sutochnoru-zanimaet-27-rinka-kratkosroch",
+  },
+  {
+    name: "Экскурсии / experiences",
+    category: "Travel и mobility",
+    volume: 15000,
+    tam: 45000,
+    year: "2025, расчёт",
+    score: 4,
+    confidence: "средняя",
+    stage: "раннее масштабирование",
+    growth: "+18–25%",
+    leaders: "Tripster и Sputnik8; Weatlas, Experience Trip, Avito и travel‑экосистемы.",
+    whitespace: "Потенциал ≈30 млрд ₽. Supply фрагментирован и офлайновый; last-minute, локальные события и гарантии развиты слабо.",
+    outlook: "Внутренний туризм поддерживает двузначный рост. Главный риск — обход платформы после первого контакта.",
+    wedge: "Instant booking досуга «сегодня рядом» + расписание, оплата и налоги для самозанятых гидов.",
+    source: "ГидМаркет: экскурсионный рынок",
+    url: "https://gidmark.ru/news/transformacziya-i-razvitie-ryinka-ekskursionnyih-uslug-v-rossii",
+  },
+  {
+    name: "Межгород: ridesharing / автобусы",
+    category: "Travel и mobility",
+    volume: 3800,
+    tam: 9000,
+    year: "2025, расчёт",
+    score: 4,
+    confidence: "низкая",
+    stage: "растущий цифровой слой",
+    growth: "+15–20%",
+    leaders: "BlaBlaCar/Busfor, Tutu, Ecolines и сайты автовокзалов.",
+    whitespace: "Потенциал ≈5,2 млрд ₽. Тысячи малых перевозчиков без API; остановки, багаж, возвраты и гарантии непрозрачны.",
+    outlook: "Онлайн-проникновение далеко от авиа/жд, но низкий чек и серый supply осложняют экономику.",
+    wedge: "ОС малых перевозчиков + единый B2C‑инвентарь на underserved routes с гарантией пересадки и багажа.",
+    source: "BusinesStat: межгородные автобусы",
+    url: "https://dzen.ru/a/aHFA39l-5Q6KL51Q",
+  },
+  {
+    name: "Relocation / immigration digital",
+    category: "Travel и mobility",
+    volume: 4500,
+    tam: 20000,
+    year: "2025, оценка",
+    score: 4,
+    confidence: "низкая",
+    stage: "до формирования категории",
+    growth: "+20–30%",
+    leaders: "Госуслуги/МВД, банки, миграционные центры и фрагментированные юрфирмы; независимого национального лидера нет.",
+    whitespace: "Потенциал ≈15,5 млрд ₽. Высокая боль, языковой барьер и меняющиеся правила не закрыты единым case tracker.",
+    outlook: "Регуляторная волатильность одновременно создаёт спрос и риск. Нужна human escalation.",
+    wedge: "Multilingual compliance companion одного corridor: checklist, deadlines, document OCR и проверенные специалисты.",
+    source: "Эксперт РА: миграция",
+    url: "https://raexpert.ru/researches/regions/migration_regions_2024/",
+  },
+  {
+    name: "Автосервис / ownership layer",
+    category: "Travel и mobility",
+    volume: 25000,
+    tam: 100000,
+    year: "2025, оценка",
+    score: 5,
+    confidence: "средняя",
+    stage: "ранняя цифровая транзакция",
+    growth: "+20–30%",
+    leaders: "Яндекс Заправки, приложения нефтесетей, FIT Service, Uremont, банки и страховые.",
+    whitespace: "Потенциал ≈75 млрд ₽. 64% хотят онлайн-запись, но используют её лишь 11%; нет нейтральной истории, прозрачной сметы и сквозной гарантии.",
+    outlook: "Старение автопарка поддерживает спрос; фрагментированные СТО и каталоги создают операционный барьер и moat.",
+    wedge: "Digital maintenance passport + fixed-price jobs для 3–5 популярных моделей: диагностика, escrow, запчасти и гарантия.",
+    source: "Движок: цифровая запись в СТО",
+    url: "https://dvizhok.su/business/put-na-servis-lezhit-cherez-czifru-rossijskij-ryinok-posleprodazhnogo-obsluzhivaniya-v-i-kvartale-2024-goda",
+  },
+];
+
+const categories = ["Все", "Финансы и здоровье", "Медиа и образование", "Commerce и lifestyle", "Travel и mobility"] as const;
+const fmt = (value: number) => new Intl.NumberFormat("ru-RU", { maximumFractionDigits: 1 }).format(value);
+const tone = (confidence: Market["confidence"]) =>
+  confidence === "высокая" ? "success" : confidence === "средняя" ? "info" : "warning";
+
+function RussianB2CEntryOpportunities() {
+  const theme = useHostTheme();
+  const [category, setCategory] = useCanvasState<(typeof categories)[number]>("b2c-category", "Все");
+  const [query, setQuery] = useCanvasState("b2c-query", "");
+  const [topOnly, setTopOnly] = useCanvasState("b2c-top-only", false);
+
+  const filtered = markets
+    .filter((m) => category === "Все" || m.category === category)
+    .filter((m) => !topOnly || m.score >= 4)
+    .filter((m) => `${m.name} ${m.leaders} ${m.wedge}`.toLocaleLowerCase("ru").includes(query.toLocaleLowerCase("ru")))
+    .sort((a, b) => b.score - a.score || b.tam / b.volume - a.tam / a.volume);
+
+  return (
+    <Stack gap={24} style={{ padding: 24, maxWidth: 1540, margin: "0 auto" }}>
+      <Stack gap={10}>
+        <Row justify="space-between" align="start" gap={18} wrap>
+          <Stack gap={6} style={{ maxWidth: 1080 }}>
+            <H1>Цифровые B2C‑рынки России: карта возможностей для стартапа</H1>
+            <Text style={{ color: theme.text.secondary }}>
+              40 рынков · net revenue цифрового продукта, TAM, лидеры, свободный потенциал и реалистичная точка входа · 2024–2025
+            </Text>
+          </Stack>
+          <Pill tone="info" active>28.07.2026</Pill>
+        </Row>
+        <Callout tone="warning" title="TAM — не свободная касса">
+          Текущий объём уже распределён между поставщиками. «Неосвоенный потенциал» — разница между зрелой потенциальной
+          выручкой цифрового слоя и текущей монетизацией. В B2C реальный SAM стартапа обычно намного меньше TAM из-за CAC,
+          бесплатных заменителей, сетевых эффектов и низкой готовности платить. GMV товаров, поездок, премий и клиентских активов
+          не выдан за выручку платформ.
+        </Callout>
+      </Stack>
+
+      <Grid columns={4} gap={14}>
+        <Stat value={markets.length} label="рынков в итоговой карте" />
+        <Stat value={markets.filter((m) => m.score >= 4).length} label="рынков с оценкой входа ≥4" tone="success" />
+        <Stat value="105 млн" label="мобильная аудитория РФ, 2025" />
+        <Stat value="62 млн" label="пользователей мультиподписок, 2025" tone="info" />
+      </Grid>
+
+      <Card>
+        <CardHeader trailing={`${filtered.length} рынков`}>Фильтры</CardHeader>
+        <CardBody>
+          <Stack gap={12}>
+            <Row gap={8} wrap>
+              {categories.map((item) => (
+                <Button variant={category === item ? "primary" : "secondary"} onClick={() => setCategory(item)}>
+                  {item}
+                </Button>
+              ))}
+              <Button variant={topOnly ? "primary" : "secondary"} onClick={() => setTopOnly(!topOnly)}>
+                Только привлекательные
+              </Button>
+            </Row>
+            <TextInput
+              value={query}
+              onChange={setQuery}
+              type="search"
+              placeholder="Поиск по рынку, лидеру или продуктовой гипотезе…"
+              style={{ width: "100%" }}
+            />
+          </Stack>
+        </CardBody>
+      </Card>
+
+      <Stack gap={10}>
+        <H2>Сравнительная карта</H2>
+        <Table
+          headers={["Рынок", "Категория", "Net revenue", "TAM", "TAM / рынок", "Стадия", "Динамика", "Вход", "Уверенность"]}
+          rows={filtered.map((m) => [
+            <Text weight="semibold">{m.name}</Text>,
+            m.category,
+            `${fmt(m.volume)} млн ₽`,
+            `${fmt(m.tam)} млн ₽`,
+            `${(m.tam / m.volume).toFixed(1)}×`,
+            m.stage,
+            m.growth,
+            <Text weight="semibold">{m.score}/5</Text>,
+            <Pill tone={tone(m.confidence)}>{m.confidence}</Pill>,
+          ])}
+          columnAlign={["left", "left", "right", "right", "right", "left", "right", "right", "left"]}
+          striped
+          stickyHeader
+          style={{ maxHeight: 720 }}
+        />
+      </Stack>
+
+      <Grid columns={2} gap={20}>
+        <Stack gap={8}>
+          <H2>Лучшие окна для независимого стартапа</H2>
+          <Text><b>1. Vertical consumer AI:</b> модель не является moat; ценность — workflow, данные и distribution.</Text>
+          <Text><b>2. Auto ownership:</b> огромный офлайн‑aftermarket, повторные транзакции и слабая цифровая история автомобиля.</Text>
+          <Text><b>3. FemTech:</b> fertility journey разорван между трекером, анализами, ОМС и клиниками.</Text>
+          <Text><b>4. PetTech:</b> нет единой медкарты и post-care; возможен B2B2C‑канал через клиники.</Text>
+          <Text><b>5. Consumer legal/tax:</b> GenAI удешевляет разбор, а outcome можно монетизировать success fee.</Text>
+          <Text><b>6. Local care services:</b> повторные вертикали позволяют начать без универсального сетевого эффекта.</Text>
+          <Text><b>7. Experiences и межгород:</b> фрагментированный supply ещё не полностью оцифрован.</Text>
+        </Stack>
+        <Stack gap={8}>
+          <H2>Куда не стоит входить фронтально</H2>
+          <Text><b>Маркетплейсы, доставка и e‑grocery:</b> преимущество определяется капиталом, логистикой и субсидиями.</Text>
+          <Text><b>BNPL, брокеридж, e‑pharma:</b> нужны лицензии, фондирование, инфраструктура и экосистемная дистрибуция.</Text>
+          <Text><b>Видео и музыкальный стриминг:</b> права, контент и bundles создают почти непреодолимый барьер.</Text>
+          <Text><b>Горизонтальный AI‑чат:</b> функция быстро копируется глобальными и российскими моделями.</Text>
+          <Text><b>Общие fitness, PFM и productivity apps:</b> бесплатные substitutes и churn съедают большой теоретический TAM.</Text>
+          <Text><b>Travel/transport агрегаторы:</b> билеты, такси и карты уже обладают сильными network effects.</Text>
+        </Stack>
+      </Grid>
+
+      <Stack gap={14}>
+        <H2>Разбор каждого рынка</H2>
+        {filtered.map((m, index) => (
+          <CollapsibleSection
+            defaultOpen={index < 3}
+            title={m.name}
+            trailing={
+              <Row gap={8} align="center">
+                <Text style={{ color: theme.text.tertiary }}>{m.score}/5</Text>
+                <Pill tone={tone(m.confidence)}>{m.confidence}</Pill>
+              </Row>
+            }
+          >
+            <Stack gap={16} style={{ paddingTop: 10 }}>
+              <Grid columns={4} gap={12}>
+                <Stat value={`${fmt(m.volume)} млн ₽`} label={`текущий net revenue · ${m.year}`} />
+                <Stat value={`${fmt(m.tam)} млн ₽`} label="потенциальный TAM" tone="info" />
+                <Stat value={`${fmt(Math.max(m.tam - m.volume, 0))} млн ₽`} label="неосвоенный потенциал" />
+                <Stat value={`${m.score}/5`} label="привлекательность стартапу" tone={m.score >= 4 ? "success" : "warning"} />
+              </Grid>
+              <Grid columns={2} gap={18}>
+                <Stack gap={8}>
+                  <H3>Лидеры и конкуренты</H3>
+                  <Text>{m.leaders}</Text>
+                  <H3>Почему потенциал не монетизирован</H3>
+                  <Text>{m.whitespace}</Text>
+                </Stack>
+                <Stack gap={8}>
+                  <H3>Состояние и перспектива</H3>
+                  <Text><b>{m.stage}; {m.growth}.</b> {m.outlook}</Text>
+                  <Callout tone={m.score >= 4 ? "success" : "info"} title="Реалистичная точка входа">
+                    {m.wedge}
+                  </Callout>
+                  <Text style={{ color: theme.text.secondary }}>
+                    Основной источник: <Link href={m.url}>{m.source}</Link>
+                  </Text>
+                </Stack>
+              </Grid>
+            </Stack>
+          </CollapsibleSection>
+        ))}
+      </Stack>
+
+      <Stack gap={8}>
+        <H2>Методика</H2>
+        <Text>
+          Net revenue — доход цифровой платформы или валовая маржа цифрового сервиса, а не GMV базовой транзакции.
+          Если источник раскрывал только GMV, применён явно указанный отраслевой take rate. TAM рассчитан как достижимая
+          аудитория × зрелый ARPU либо зрелый GMV × net take rate.
+        </Text>
+        <Text>
+          Высокая уверенность означает прямой рыночный замер или несколько сопоставимых источников; средняя — один расчётный
+          компонент; низкая — bottom-up с несколькими допущениями. Перед запуском обязательны problem interviews, проверка
+          willingness-to-pay и расчёт достижимого SAM/SOM.
+        </Text>
+        <Text style={{ color: theme.text.secondary }}>
+          Макроконтекст: <Link href="https://mediascope.net/upload/iblock/719/qj72l2e27uzgi28g1pq43vf4q2svcgiy/Mediascope_%D0%92_%D1%81%D0%BC%D0%B0%D1%80%D1%82%D1%84%D0%BE%D0%BD%D0%B5.pdf">Mediascope</Link>
+          {" "}оценивает мобильную аудиторию РФ в 105 млн человек;{" "}
+          <Link href="https://frankrg.com/news/ne-po-tsene-a-po-tsennosti-kak-rossiyane-vybirali-podpiski-v-2025-godu">Frank RG</Link>
+          {" "}— 62 млн пользователей мультисервисных подписок. Экстенсивный рост аудитории почти завершён: новый продукт должен
+          выигрывать удержанием и доказуемым outcome, а не только установками.
+        </Text>
+      </Stack>
+    </Stack>
+  );
+}
+
+const portalRoot = ReactDOM.createRoot(document.getElementById("report-root"));
+portalRoot.render(<RussianB2CEntryOpportunities />);
+  </script>
+  <script>
+    try {
+      var source = document.getElementById("report-source").textContent;
+      var compiled = Babel.transform(source, {
+        presets: ["typescript", "react"],
+        filename: "russian-b2c-entry-opportunities.tsx"
+      }).code;
+      (0, eval)(compiled);
+    } catch (error) {
+      var root = document.getElementById("report-root");
+      if (root) {
+        root.innerHTML = '<div class="report-error"><strong>Не удалось открыть отчёт.</strong><br>' +
+          String(error && (error.stack || error.message) || "Ошибка выполнения") + '</div>';
+      }
+      console.error(error);
+    }
+  </script>
+</body>
+</html>

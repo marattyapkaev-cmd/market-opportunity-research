@@ -1,0 +1,11462 @@
+import { Button, Callout, Card, CardBody, CardHeader, CollapsibleSection, Divider, Grid, H1, H2, H3, Link, Pill, Row, Select, Stack, Stat, Table, Text, TextInput, useCanvasState, useHostTheme } from "cursor/canvas";
+
+// Все 50 нормализованных объектов встроены ниже; внешних данных нет.
+type Idea = any;
+const ideas: Idea[] = [
+  {
+    "id": "vertical-finance-autopilot",
+    "titleRu": "Финансовый автопилот для ресторанных сетей",
+    "originalTerm": "Vertical management accounting / financial autopilot",
+    "segment": "Finance Ops / HoReCa",
+    "sourceReports": [
+      "russian-b2b-saas-markets-2025",
+      "russian-saas-entry-opportunities",
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Управленческий финансовый учёт: текущий рынок 800–1 200 млн ₽ (оценка, 2024), TAM 15 000–45 000 млн ₽",
+      "AP/AR automation: $5.5–7.2B reported range, SAM $1.6B",
+      "Restaurant software: ≈$6.6B reported, 2024"
+    ],
+    "sourceUrls": [
+      "https://vc.ru/services/1903007-reyting-saas-servisov-dlya-finansovogo-uchyota",
+      "https://www.omrglobal.com/press-release/north-american-account-payable-automation-market-size",
+      "https://cdn.hl.com/pdf/2024/restaurant-technology-market-update-hl-2024.pdf"
+    ],
+    "oneLiner": "Ежедневно закрывает управленческий P&L, ДДС, налоги и кассовые разрывы сети из банков, 1С и POS; не управляет закупками.",
+    "targetCustomer": "Сети общепита 3–30 точек с выручкой 100 млн–3 млрд ₽ и без полноценной FP&A-команды.",
+    "buyer": "Собственник или финансовый директор",
+    "users": [
+      "финансовый менеджер",
+      "операционный директор",
+      "управляющие точек"
+    ],
+    "pain": "CFO получает P&L и ДДС через недели; банковские операции, комиссии агрегаторов и межфирменные обороты классифицируются вручную.",
+    "currentAlternatives": [
+      "Excel/Google Sheets",
+      "1С + ручные выгрузки",
+      "PlanFact/Финтабло",
+      "аутсорс-финдиректор"
+    ],
+    "productScope": [
+      "коннекторы банков, 1С и POS",
+      "управленческий P&L по точке",
+      "ДДС и кассовый разрыв",
+      "налоговый календарь",
+      "сценарные рекомендации CFO"
+    ],
+    "mvp3to6Months": [
+      "3–5 банков",
+      "1С через выгрузку/API",
+      "iiko/r_keeper только как источник выручки",
+      "единый справочник статей",
+      "P&L/ДДС и alert-лента"
+    ],
+    "excludedFromMvp": [
+      "регламентированная бухгалтерия",
+      "платежи",
+      "кредитование",
+      "универсальный ERP",
+      "OCR накладных",
+      "нормализация SKU и техкарт",
+      "рекомендации поставщиков и заказов",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Лидеры финучёта росли на 31–60% в 2024; высокая ставка усиливает цену кассового разрыва, а банковские/POS API снижают стоимость интеграции.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "800–1 200 млн ₽",
+        "note": "рынок управленческого финучёта РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "15 000–45 000 млн ₽",
+        "note": "TAM финучёта РФ"
+      },
+      {
+        "type": "reported",
+        "value": "≈$6.6B",
+        "note": "global restaurant software, 2024"
+      }
+    ],
+    "competitors": [
+      "PlanFact",
+      "Финтабло",
+      "Финансист",
+      "Adesk",
+      "Seeneco",
+      "1С:УНФ"
+    ],
+    "differentiation": "CFO-workflow закрытия периода и cash planning; закупочные цены, SKU, техкарты и draft-заказы относятся к отдельному food-cost продукту.",
+    "distribution": [
+      "партнёры iiko/r_keeper",
+      "ресторанные бухгалтерии",
+      "франчайзинговые сообщества",
+      "контент про food-cost"
+    ],
+    "salesCycle": "4–10 недель",
+    "pricing": "40–150 тыс. ₽/мес. по числу точек + 100–300 тыс. ₽ onboarding",
+    "revenueModel": "SaaS + внедрение",
+    "retentionLoop": "Ежедневная сверка денег и еженедельный управленческий цикл делают продукт частью закрытия периода.",
+    "requiredIntegrations": [
+      "1С",
+      "iiko/r_keeper",
+      "банки",
+      "агрегаторы доставки"
+    ],
+    "dataNeeds": [
+      "транзакции",
+      "продажи и чеки",
+      "закупки",
+      "списания",
+      "справочник юрлиц"
+    ],
+    "regulatory": "152-ФЗ; банковские данные только по согласию, без инициирования платежей.",
+    "localization": "Российский план счетов управленческого учёта, НДС/УСН, ЕГАИС/Меркурий как источники, рублёвые сценарии.",
+    "exportPath": "ОАЭ/КСА как POS-overlay после Arabic invoice OCR и локальных VAT-коннекторов.",
+    "moat": "Накопленная нормализованная модель food-cost и benchmark аномалий по форматам заведений.",
+    "teamNeeded": [
+      "product/финансы",
+      "2 backend/data",
+      "frontend",
+      "integration engineer",
+      "аналитик HoReCa",
+      "sales/onboarding"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7500000,
+      "max": 9800000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "доступ к iiko API",
+      "3 дизайн-партнёра",
+      "стабильная категоризация"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 9,
+      "whitespace": 9,
+      "retention": 9,
+      "growth": 9,
+      "competitionAdvantage": 7,
+      "exportOption": 7,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 84.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: защита от конкурентов 7/10; экспортный потенциал 7/10; качество evidence 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Рестораны уже получают часть аналитики от iiko и не захотят ещё один кабинет",
+        "Нормализация 1С и меню может превратить SaaS в консалтинг",
+        "Низкая маржа и закрытия заведений повышают churn",
+        "Рекомендации без доказанного денежного эффекта быстро игнорируются"
+      ],
+      "failureModes": [
+        "доля ручных корректировок выше 20%",
+        "не удаётся доказать экономию за 60 дней",
+        "CAC партнёрского канала съедает годовой gross profit"
+      ],
+      "hiddenAssumptions": [
+        "POS и банк дают достаточно полные данные",
+        "финансист согласится изменить методологию",
+        "сеть доверит облаку коммерческие показатели"
+      ],
+      "questions": {
+        "problem": [
+          "Какие решения сегодня задерживаются из-за позднего P&L?",
+          "Какова стоимость одной ошибки food-cost?"
+        ],
+        "customer": [
+          "У какого размера сети боль становится бюджетной?",
+          "Кто владеет справочником статей?"
+        ],
+        "product": [
+          "Какой один alert вызывает действие в первую неделю?",
+          "Нужен ли мобильный режим управляющему?"
+        ],
+        "economics": [
+          "Сколько часов onboarding допустимо при этом ACV?",
+          "Как измерять подтверждённую экономию?"
+        ],
+        "gtm": [
+          "Дадут ли дилеры POS доступ к базе?",
+          "Как избежать конфликта с их BI-модулями?"
+        ],
+        "regulation": [
+          "Какие банковские согласия нужны?",
+          "Хранить ли чеки с персональными данными?"
+        ],
+        "data": [
+          "Как обрабатывать расхождения SKU и техкарт?",
+          "Какой процент операций автокатегоризируется?"
+        ],
+        "team": [
+          "Есть ли в команде ресторанный финансист?",
+          "Кто ведёт внедрения одновременно у пяти сетей?"
+        ],
+        "evidence": [
+          "Сколько сетей платят за текущий ручной отчёт?",
+          "Есть ли baseline по потерям до пилота?"
+        ]
+      },
+      "killCriteria": [
+        "менее 3 из 10 интервью подтверждают ущерб ≥100 тыс. ₽/мес",
+        "пилот требует >80 часов ручной настройки",
+        "за 8 недель нет подтверждённой экономии ≥2 месячных тарифов",
+        "менее 2 из 5 пилотов готовы платить ≥50 тыс. ₽/мес"
+      ],
+      "improvements": [
+        "Начать только с food-cost и cash-gap",
+        "Продавать готовую методологию, а не конструктор",
+        "Сделать read-only интеграции и audit trail",
+        "Дать партнёрам долю recurring revenue"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 84.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — защита от конкурентов 7/10; экспортный потенциал 7/10; качество evidence 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "рыночное окно 9/10"
+      ],
+      "penalties": [
+        "защита от конкурентов 7/10",
+        "экспортный потенциал 7/10",
+        "качество evidence 7/10"
+      ]
+    },
+    "rank": 1
+  },
+  {
+    "id": "ar-collections-copilot",
+    "titleRu": "AI-помощник по взысканию дебиторской задолженности",
+    "originalTerm": "AR collections copilot / invoice-to-cash",
+    "segment": "Finance Ops / B2B services",
+    "sourceReports": [
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-entry-opportunities",
+      "russian-b2b-saas-markets-2025"
+    ],
+    "sourceMarkets": [
+      "AP/AR automation: $5.5–7.2B reported range; SAM $1.6B",
+      "Управленческий финансовый учёт РФ: 800–1 200 млн ₽ estimate; TAM 15 000–45 000 млн ₽"
+    ],
+    "sourceUrls": [
+      "https://www.omrglobal.com/press-release/north-american-account-payable-automation-market-size",
+      "https://investor.bill.com/news/news-details/2025/BILL-Reports-Fourth-Quarter-and-Fiscal-Year-2025-Financial-Results-and-Announces-300-Million-Share-Repurchase-Program/default.aspx",
+      "https://vc.ru/services/1903007-reyting-saas-servisov-dlya-finansovogo-uchyota"
+    ],
+    "oneLiner": "Собирает счета, обещания оплаты и банковские поступления, приоритизирует взыскание и ведёт доказуемую переписку, не принимая деньги.",
+    "targetCustomer": "B2B-сервисные компании и дистрибьюторы с 500–5 000 счетов в месяц, 1С и тремя и более банками.",
+    "buyer": "CFO или руководитель казначейства",
+    "users": [
+      "AR-менеджеры",
+      "бухгалтерия",
+      "аккаунт-менеджеры"
+    ],
+    "pain": "Обещания оплаты остаются в почте/Telegram, поступления матчатся вручную, просрочка обнаруживается поздно.",
+    "currentAlternatives": [
+      "1С:Бухгалтерия",
+      "Excel",
+      "банк-клиенты",
+      "ручные обзвоны",
+      "коллекторские услуги"
+    ],
+    "productScope": [
+      "реестр AR",
+      "remittance matching",
+      "promise-to-pay extraction",
+      "dunning playbooks",
+      "приоритет по риску",
+      "аудит коммуникаций"
+    ],
+    "mvp3to6Months": [
+      "1С-коннектор",
+      "3 банка через API/выписки",
+      "email/Telegram ingestion",
+      "правила напоминаний",
+      "дашборд DSO"
+    ],
+    "excludedFromMvp": [
+      "факторинг",
+      "эквайринг",
+      "списание средств",
+      "судебное взыскание",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Доказанный рынок AP/AR растёт двузначно; в РФ платежный UX развит, но workflow между 1С, банками и коммуникациями остаётся ручным.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$5.5–7.2B",
+        "note": "global AP/AR software range"
+      },
+      {
+        "type": "reported",
+        "value": "$1.47B",
+        "note": "North America narrow AP, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "$1.463B",
+        "note": "BILL FY25 vendor revenue, шире узкого wedge"
+      }
+    ],
+    "competitors": [
+      "1С",
+      "банковские reminder-сервисы",
+      "BILL",
+      "HighRadius",
+      "Esker",
+      "PlanFact"
+    ],
+    "differentiation": "Российские банковские/1С-коннекторы и извлечение обещаний из локальных каналов; read-only non-custodial модель.",
+    "distribution": [
+      "1С-франчайзи",
+      "аутсорс-бухгалтерии",
+      "CFO-сообщества",
+      "банки как referral"
+    ],
+    "salesCycle": "6–12 недель",
+    "pricing": "50–250 тыс. ₽/мес. по числу счетов + onboarding",
+    "revenueModel": "SaaS; опционально usage за сопоставленный платёж",
+    "retentionLoop": "Ежедневный AR queue и история контрагентов улучшают приоритеты с каждым циклом.",
+    "requiredIntegrations": [
+      "1С",
+      "банковские выписки/API",
+      "email",
+      "Telegram/CRM"
+    ],
+    "dataNeeds": [
+      "счета",
+      "платежи",
+      "переписка",
+      "контрагенты",
+      "условия договора"
+    ],
+    "regulatory": "152-ФЗ, коммерческая тайна; не инициировать платежи и не выдавать кредитный скоринг.",
+    "localization": "Российские назначения платежей, ИНН/КПП, деловой тон взыскания, локальные праздники.",
+    "exportPath": "Казахстан/Узбекистан, затем CEE с локальными bank feeds и e-invoice статусами.",
+    "moat": "Граф связей счёт—обещание—платёж и обученные правила matching на российских назначениях.",
+    "teamNeeded": [
+      "product/CFO",
+      "2 backend/data",
+      "ML/NLP",
+      "frontend",
+      "integration engineer",
+      "B2B sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7000000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "1С API",
+      "банковские форматы",
+      "доступ к исторической AR-выборке"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 9,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 9,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 7,
+      "competitionAdvantage": 7,
+      "exportOption": 6,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 82.8,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, готовность платить 9/10; штрафы: экспортный потенциал 6/10; рост категории 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "1С и банки могут быстро встроить базовые напоминания",
+        "Крупный чек требует доступа к чувствительной переписке и банкам",
+        "Matching на грязных назначениях может остаться ручным",
+        "Клиенты могут считать просрочку коммерческой, а не программной проблемой"
+      ],
+      "failureModes": [
+        "автоматические письма портят отношения",
+        "точность matching ниже 90%",
+        "сэкономленный DSO нельзя отделить от сезонности"
+      ],
+      "hiddenAssumptions": [
+        "есть единый идентификатор счета",
+        "сотрудники ведут переписку в доступных каналах",
+        "CFO способен изменить процесс взыскания"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько FTE занято matching и напоминаниями?",
+          "Какой DSO и стоимость просрочки?"
+        ],
+        "customer": [
+          "Какие отрасли имеют повторяемые счета?",
+          "Кто отвечает за обещание клиента?"
+        ],
+        "product": [
+          "Нужен автосенд или только draft?",
+          "Как эскалировать спорный платёж?"
+        ],
+        "economics": [
+          "Какой эффект оправдывает 100 тыс. ₽/мес.?",
+          "Можно ли брать outcome fee без спора об attribution?"
+        ],
+        "gtm": [
+          "Какие 1С-партнёры продают казначейство?",
+          "Банк будет каналом или конкурентом?"
+        ],
+        "regulation": [
+          "Можно ли анализировать переписку сотрудников?",
+          "Как реализовать сроки удаления данных?"
+        ],
+        "data": [
+          "Какова доля платежей без номера счёта?",
+          "Есть ли 12 месяцев истории для baseline?"
+        ],
+        "team": [
+          "Есть ли эксперт по казначейству?",
+          "Кто отвечает за безопасность интеграций?"
+        ],
+        "evidence": [
+          "Подтверждён ли ручной расход времени?",
+          "Сколько клиентов согласны на paid pilot?"
+        ]
+      },
+      "killCriteria": [
+        "точность автоматического matching <90% после 4 недель",
+        "ни один из 5 пилотов не сокращает просрочку ≥10%",
+        "onboarding >4 недель",
+        "менее 3 клиентов готовы платить ≥50 тыс. ₽/мес"
+      ],
+      "improvements": [
+        "Начать с read-only queue и draft сообщений",
+        "Выбрать одну отрасль с типовыми счетами",
+        "Считать saved cash-days в продукте",
+        "Добавить human approval для каждого действия"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 82.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — экспортный потенциал 6/10; рост категории 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "готовность платить 9/10",
+        "капиталоэффективность 9/10"
+      ],
+      "penalties": [
+        "экспортный потенциал 6/10",
+        "рост категории 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 2
+  },
+  {
+    "id": "frontline-kedo",
+    "titleRu": "Mobile-first КЭДО для распределённого frontline",
+    "originalTerm": "Frontline KEDO / workforce document workflow",
+    "segment": "HR Tech / Compliance",
+    "sourceReports": [
+      "russian-b2b-saas-2025",
+      "russian-saas-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "КЭДО: рынок 5 000+ млн ₽ в 2025 (факт-оценка), TAM 25 000 млн ₽ (расчёт), прогноз >15 000 млн ₽ к 2028",
+      "Рост 2025: +60–80% / источник также указывает +80% к 2024"
+    ],
+    "sourceUrls": [
+      "https://www.cnews.ru/news/line/2026-01-15_hrlink_v_2025_godu_rynok_kadrovogo",
+      "https://www.superjob.ru/research/articles/114792/kedo-i-sistemy-avtomatizacii-rekrutinga-chasche-vnedryaet-krupnyj-biznes/"
+    ],
+    "oneLiner": "КЭДО для франшиз, складов и выездных команд: подписание со слабого телефона, офлайн-очередь, пакетный запуск юрлиц и готовый 1С ЗУП.",
+    "targetCustomer": "Франчайзинговые сети и работодатели с 300–5 000 blue-collar сотрудников в десятках локаций.",
+    "buyer": "HRD или директор по персоналу",
+    "users": [
+      "кадровики",
+      "линейные руководители",
+      "сотрудники"
+    ],
+    "pain": "Бумажные документы ездят между точками; сотрудники без корпоративной почты не завершают сложное подписание.",
+    "currentAlternatives": [
+      "HR-Link",
+      "Контур.КЭДО",
+      "Saby",
+      "1С:Кабинет сотрудника",
+      "курьеры и бумага"
+    ],
+    "productScope": [
+      "шаблоны кадровых документов",
+      "маршруты",
+      "ПЭП/НЭП через партнёра",
+      "mobile web",
+      "офлайн-очередь",
+      "1С ЗУП"
+    ],
+    "mvp3to6Months": [
+      "20 типовых документов",
+      "mobile web/PWA",
+      "SMS/мессенджер-вход",
+      "пакетная загрузка",
+      "1С файловый обмен",
+      "audit log"
+    ],
+    "excludedFromMvp": [
+      "полный HRM",
+      "payroll",
+      "собственный УЦ",
+      "enterprise BPM-конструктор",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "377-ФЗ, распределённая занятость и проникновение около 20% поддерживают быстрый рынок; большой бизнес уже занят, frontline остаётся неудобным.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "5 000+ млн ₽",
+        "note": "рынок РФ, 2025, оценка источника"
+      },
+      {
+        "type": "estimate",
+        "value": "25 000 млн ₽",
+        "note": "TAM из 20% проникновения"
+      },
+      {
+        "type": "reported",
+        "value": "50–60% CAGR",
+        "note": "прогноз источника до 2028"
+      }
+    ],
+    "competitors": [
+      "HR-Link",
+      "VK HR Tek",
+      "Saby",
+      "Контур.КЭДО",
+      "Directum HR Pro",
+      "1С"
+    ],
+    "differentiation": "Офлайн и shared-device UX для frontline, цена за юрлицо/локацию и запуск без enterprise-проекта.",
+    "distribution": [
+      "1С ЗУП партнёры",
+      "франчайзинговые ассоциации",
+      "аутсорс-кадровики",
+      "региональные интеграторы"
+    ],
+    "salesCycle": "2–5 месяцев",
+    "pricing": "15–80 тыс. ₽/мес. + 150–500 тыс. ₽ внедрение",
+    "revenueModel": "SaaS по активным сотрудникам/юрлицам",
+    "retentionLoop": "Обязательные кадровые события и архив документов создают ежедневную системность.",
+    "requiredIntegrations": [
+      "1С ЗУП",
+      "ЕСИА/подписание через партнёра",
+      "SMS",
+      "S3-совместимое хранилище"
+    ],
+    "dataNeeds": [
+      "персональные данные",
+      "кадровые события",
+      "документы",
+      "согласия"
+    ],
+    "regulatory": "377-ФЗ, 63-ФЗ, ТК РФ, 152-ФЗ; криптография и сертификаты только через лицензированного партнёра.",
+    "localization": "Российские кадровые формы и виды подписи.",
+    "exportPath": "Ограниченный: сначала ЕАЭС как workforce document workflow без переноса российских форм.",
+    "moat": "Библиотека сценариев frontline и безошибочная миграция/сверка с ЗУП.",
+    "teamNeeded": [
+      "product/HR legal",
+      "2 backend",
+      "frontend/PWA",
+      "1С-интегратор",
+      "QA/security",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 8000000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "партнёр электронной подписи",
+      "юридическая экспертиза",
+      "1С-коннектор"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 10,
+      "competitionAdvantage": 7,
+      "exportOption": 5,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 82.1,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: рост категории 10/10, острота боли 9/10; штрафы: экспортный потенциал 5/10; защита от конкурентов 7/10; готовность платить 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Лидеры уже имеют мобильные приложения и ресурсы для копирования",
+        "Цена ошибки в юридической значимости документа высока",
+        "Продажи длиннее заявленного для компаний 1 000+ сотрудников",
+        "Офлайн-подписание может конфликтовать с требованиями идентификации"
+      ],
+      "failureModes": [
+        "сотрудники не активируют аккаунты",
+        "1С-обмен создаёт дубли",
+        "партнёр подписи ухудшает unit economics"
+      ],
+      "hiddenAssumptions": [
+        "frontline сегмент платит отдельно от HR suite",
+        "PWA работает на старых устройствах",
+        "кадровики готовы сменить архивный процесс"
+      ],
+      "questions": {
+        "problem": [
+          "Какие документы чаще всего задерживаются?",
+          "Сколько стоит бумажный цикл на сотрудника?"
+        ],
+        "customer": [
+          "Какая отрасль имеет максимум текучести и локаций?",
+          "Кто подписывает договор и владеет бюджетом?"
+        ],
+        "product": [
+          "Как сотрудник проходит идентификацию без почты?",
+          "Что происходит при потере связи?"
+        ],
+        "economics": [
+          "Какова цена партнёрской подписи?",
+          "Где breakeven по активным сотрудникам?"
+        ],
+        "gtm": [
+          "Как мотивировать 1С-франчайзи?",
+          "Нужен ли отраслевой шаблон внедрения?"
+        ],
+        "regulation": [
+          "Какие документы нельзя подписывать выбранной ЭП?",
+          "Как доказывается вручение?"
+        ],
+        "data": [
+          "Как сверять табельный номер и телефон?",
+          "Как мигрировать архив?"
+        ],
+        "team": [
+          "Есть ли юрист по трудовому праву?",
+          "Кто ведёт сертификацию ИБ?"
+        ],
+        "evidence": [
+          "Каков activation rate у альтернатив?",
+          "Есть ли 3 платных дизайн-партнёра?"
+        ]
+      },
+      "killCriteria": [
+        "activation сотрудников <70%",
+        "первое юрлицо не запускается за 20 рабочих дней",
+        "стоимость подписи >25% выручки",
+        "ни один партнёр 1С не готов продавать продукт"
+      ],
+      "improvements": [
+        "Начать с одной отрасли — франшизы общепита или склады",
+        "Не строить собственную подпись",
+        "Сделать миграционный чек-лист и SLA",
+        "Проверить юридическую модель офлайн до кода"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 82.1; MVP остаётся overlay/HITL в лимите, ключевые ограничения — экспортный потенциал 5/10; защита от конкурентов 7/10; готовность платить 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "рост категории 10/10",
+        "острота боли 9/10",
+        "повторяемость/retention 9/10"
+      ],
+      "penalties": [
+        "экспортный потенциал 5/10",
+        "защита от конкурентов 7/10",
+        "готовность платить 8/10"
+      ]
+    },
+    "rank": 3
+  },
+  {
+    "id": "restaurant-food-cost-autopilot",
+    "titleRu": "Автопилот себестоимости и закупок ресторана",
+    "originalTerm": "Restaurant food-cost / AP overlay",
+    "segment": "Vertical SaaS / HoReCa",
+    "sourceReports": [
+      "russian-vertical-B2B-SaaS-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-vertical-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Автоматизация HoReCa РФ: 6 670–6 840 млн ₽ (расчёт, 2024), TAM 10 700–23 900 млн ₽",
+      "Global restaurant software: ≈$6.6B reported, 2024; SAM model $2.0B"
+    ],
+    "sourceUrls": [
+      "https://www.vedomosti.ru/business/articles/2024/06/14/1043711-rinok-softa-dlya-restorannogo-biznesa-viros",
+      "https://cdn.hl.com/pdf/2024/restaurant-technology-market-update-hl-2024.pdf",
+      "https://www.sec.gov/Archives/edgar/data/1650164/000165016425000066/tost-20241231xexhibit991.htm"
+    ],
+    "oneLiner": "Распознаёт накладные, сравнивает закупочные цены и фактический food-cost с техкартами и предлагает заказ поставщику поверх iiko/r_keeper.",
+    "targetCustomer": "Ресторанные группы 3–50 точек с 20+ поставщиками.",
+    "buyer": "Операционный директор или закупки",
+    "users": [
+      "закупщики",
+      "бухгалтерия",
+      "шефы",
+      "управляющие"
+    ],
+    "pain": "Цена ингредиента и выход блюда меняются быстрее техкарт; счета и заказы сверяются вручную.",
+    "currentAlternatives": [
+      "iiko/r_keeper модули",
+      "DocsInBox",
+      "Excel",
+      "1С",
+      "ручные тендеры"
+    ],
+    "productScope": [
+      "OCR накладных",
+      "нормализация SKU",
+      "variance техкарты",
+      "сравнение поставщиков",
+      "заказ и контроль отклонений"
+    ],
+    "mvp3to6Months": [
+      "email/фото inbox",
+      "iiko API",
+      "2 формата документов",
+      "дашборд отклонений",
+      "draft заказа"
+    ],
+    "excludedFromMvp": [
+      "POS",
+      "касса",
+      "оплата",
+      "складской system of record",
+      "marketplace поставщиков",
+      "управленческий P&L",
+      "ДДС и налоги",
+      "банковская категоризация",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Core POS консолидирован, а рост смещается в данные и закупки; глобальный и российский отчёты одинаково выделяют invoice/food-cost overlay.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "6 670–6 840 млн ₽",
+        "note": "рынок HoReCa software РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "10 700–23 900 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "reported",
+        "value": "≈$6.6B",
+        "note": "global restaurant software, 2024"
+      }
+    ],
+    "competitors": [
+      "iiko",
+      "r_keeper",
+      "DocsInBox",
+      "Saby Presto",
+      "1С-Рарус"
+    ],
+    "differentiation": "Закупочный workflow COO: накладная→SKU→техкарта→draft-заказ; не строит CFO P&L, ДДС или налоговый календарь.",
+    "distribution": [
+      "POS-интеграторы",
+      "ресторанные бухгалтерии",
+      "дистрибьюторы",
+      "профильные конференции"
+    ],
+    "salesCycle": "4–8 недель",
+    "pricing": "8–25 тыс. ₽ за точку/мес.",
+    "revenueModel": "SaaS + setup",
+    "retentionLoop": "Каждая поставка обновляет цены и benchmark; еженедельный заказ проходит через продукт.",
+    "requiredIntegrations": [
+      "iiko/r_keeper",
+      "1С",
+      "email",
+      "ЭДО"
+    ],
+    "dataNeeds": [
+      "накладные",
+      "техкарты",
+      "остатки",
+      "продажи",
+      "поставщики"
+    ],
+    "regulatory": "152-ФЗ минимально; коммерческая тайна, ЕГАИС/Меркурий только read-only.",
+    "localization": "Российские документы, единицы измерения, НДС, ассортиментные справочники.",
+    "exportPath": "ОАЭ/КСА с Arabic OCR, ZATCA e-invoice и локальными POS.",
+    "moat": "Граф соответствий поставщик-SKU-ингредиент-техкарта и benchmark цены/списаний.",
+    "teamNeeded": [
+      "product HoReCa",
+      "2 backend/data",
+      "OCR/ML",
+      "frontend",
+      "integration",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7000000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "POS API",
+      "исторические накладные",
+      "точная нормализация единиц"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 8,
+      "whitespace": 7,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 9,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 81.6,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, повторяемость/retention 9/10; штрафы: рыночное окно 7/10; готовность платить 8/10; реализуемость MVP 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "iiko может встроить функцию и закрыть API",
+        "Справочники поставщиков слишком грязные для быстрого ROI",
+        "Экономия зависит от исполнения закупщика, не только подсказки",
+        "Малые сети могут не иметь дисциплины техкарт"
+      ],
+      "failureModes": [
+        "OCR точен, но matching SKU нет",
+        "alert fatigue",
+        "интегратор требует слишком большую долю"
+      ],
+      "hiddenAssumptions": [
+        "техкарты актуальны",
+        "закупщик может сменить поставщика",
+        "цена экономии выше тарифа"
+      ],
+      "questions": {
+        "problem": [
+          "Где теряется больше: цена, списания или рецептура?",
+          "Как часто пересматривают техкарты?"
+        ],
+        "customer": [
+          "Какие форматы сети имеют зрелые данные?",
+          "Кто получает бонус от экономии?"
+        ],
+        "product": [
+          "Нужна рекомендация или автозаказ?",
+          "Как подтверждать фактическую экономию?"
+        ],
+        "economics": [
+          "Какой процент закупок можно оптимизировать?",
+          "Сколько стоит ручная нормализация?"
+        ],
+        "gtm": [
+          "Почему POS-партнёр не скопирует решение?",
+          "Может ли поставщик быть каналом без конфликта?"
+        ],
+        "regulation": [
+          "Нужен ли доступ к Меркурию?",
+          "Какие документы содержат персональные данные?"
+        ],
+        "data": [
+          "Как матчить кг, упаковки и бренды?",
+          "Как выявлять ошибочную техкарту?"
+        ],
+        "team": [
+          "Есть ли технолог общепита?",
+          "Кто поддерживает POS-релизы?"
+        ],
+        "evidence": [
+          "Есть ли baseline food-cost по 3 сетям?",
+          "Подтверждён ли бюджет вне POS?"
+        ]
+      },
+      "killCriteria": [
+        "менее 1% подтверждённой экономии закупок",
+        "автоматический SKU matching <85%",
+        "интеграция одной сети >4 недель",
+        "платный conversion пилотов <40%"
+      ],
+      "improvements": [
+        "Начать с контроля цен, не прогноза спроса",
+        "Сделать human review очередью исключений",
+        "Доказательство экономии встроить в billing",
+        "Закрепить API договором с двумя POS-партнёрами"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 81.6; MVP остаётся overlay/HITL в лимите, ключевые ограничения — рыночное окно 7/10; готовность платить 8/10; реализуемость MVP 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "повторяемость/retention 9/10",
+        "экспортный потенциал 9/10"
+      ],
+      "penalties": [
+        "рыночное окно 7/10",
+        "готовность платить 8/10",
+        "реализуемость MVP 8/10"
+      ]
+    },
+    "rank": 4
+  },
+  {
+    "id": "ap-document-to-posting",
+    "titleRu": "AP-автоматизация первички до готовой проводки",
+    "originalTerm": "IDP → AP automation",
+    "segment": "Finance Ops / Document AI",
+    "sourceReports": [
+      "russian-b2b-saas-markets-2025",
+      "russian-saas-entry-opportunities",
+      "global-B2B-SMB-commerce-markets"
+    ],
+    "sourceMarkets": [
+      "OCR/IDP РФ: 3 700 млн ₽ в 2024, +52%; data API 800–1 500 млн ₽ estimate",
+      "Совмещённый TAM OCR/data API: 12 000–25 000 млн ₽",
+      "Global AP/AR software: $5.5–7.2B reported range"
+    ],
+    "sourceUrls": [
+      "https://www.cnews.ru/news/top/2025-04-18_obem_rynka_sistem_raspoznavaniya",
+      "https://www.omrglobal.com/press-release/north-american-account-payable-automation-market-size"
+    ],
+    "oneLiner": "Забирает первичку из почты/ЭДО, проверяет контрагента и дубли, предлагает проводку и отправляет исключения бухгалтеру.",
+    "targetCustomer": "Бухгалтерские аутсорсеры и группы SMB с 3 000–50 000 документов в месяц.",
+    "buyer": "Главный бухгалтер или операционный директор аутсорсера",
+    "users": [
+      "бухгалтеры",
+      "AP-операторы",
+      "контролёр"
+    ],
+    "pain": "OCR сам по себе не завершает работу: бухгалтер вручную проверяет реквизиты, дубли, статьи и проводки.",
+    "currentAlternatives": [
+      "Entera",
+      "Content AI",
+      "1С OCR",
+      "ручной ввод",
+      "RPA-проекты"
+    ],
+    "productScope": [
+      "inbox",
+      "OCR/VLM",
+      "проверки ИНН/сумм/дублей",
+      "предложение проводки",
+      "exception queue",
+      "audit trail"
+    ],
+    "mvp3to6Months": [
+      "счёт/акт/УПД",
+      "1С файловый/API-коннектор",
+      "DaData/ФНС",
+      "правила одного плана счетов",
+      "human review"
+    ],
+    "excludedFromMvp": [
+      "платежи",
+      "универсальный OCR API",
+      "налоговая отчётность",
+      "автопроведение без контроля"
+    ],
+    "whyNow": "IDP вырос на 52%, но VLM коммодитизирует распознавание; ценность перемещается в законченный workflow.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "3 700 млн ₽",
+        "note": "OCR/IDP РФ, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "+52%",
+        "note": "рост OCR/IDP РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "12 000–25 000 млн ₽",
+        "note": "TAM OCR+data API"
+      }
+    ],
+    "competitors": [
+      "Entera",
+      "Content AI",
+      "Smart Engines",
+      "Dbrain",
+      "1С",
+      "Saby"
+    ],
+    "differentiation": "Оптимизация по доле документов, завершённых без ручного ввода, а не по символам OCR.",
+    "distribution": [
+      "1С-франчайзи",
+      "бухгалтерские аутсорсеры",
+      "ЭДО-интеграторы"
+    ],
+    "salesCycle": "6–12 недель",
+    "pricing": "5–15 ₽ за завершённый документ, минимум 50 тыс. ₽/мес.",
+    "revenueModel": "usage SaaS + private deployment",
+    "retentionLoop": "Исправления бухгалтеров улучшают правила конкретного клиента и повышают straight-through rate.",
+    "requiredIntegrations": [
+      "1С",
+      "Диадок/Saby",
+      "email",
+      "ФНС/DaData"
+    ],
+    "dataNeeds": [
+      "сканы/XML",
+      "справочник контрагентов",
+      "план счетов",
+      "история проводок"
+    ],
+    "regulatory": "152-ФЗ; финансовые документы, private cloud/on-prem для части ICP.",
+    "localization": "УПД, акты, счета-фактуры, российские реквизиты и НДС.",
+    "exportPath": "CEE/MENA только после отдельных e-invoice country packs; ядро exception workflow переносимо.",
+    "moat": "Корпус исправлений и правила document-to-posting по вертикалям.",
+    "teamNeeded": [
+      "product/accounting",
+      "2 backend",
+      "ML/VLM",
+      "1С engineer",
+      "frontend",
+      "QA/security"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7500000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "доступ к размеченной первичке",
+      "1С-коннектор",
+      "legal data processing"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 9,
+      "competitionAdvantage": 7,
+      "exportOption": 7,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 80.9,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, повторяемость/retention 9/10; штрафы: доступность GTM 7/10; защита от конкурентов 7/10; экспортный потенциал 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "1С и OCR-вендоры уже движутся вниз по workflow",
+        "Редкие исключения создают основную стоимость и требуют человека",
+        "On-prem может не уложиться в бюджет MVP",
+        "Ответственность за неверную проводку ограничит автоматизацию"
+      ],
+      "failureModes": [
+        "straight-through rate не растёт",
+        "каждый клиент требует отдельный план счетов",
+        "unit cost VLM нестабилен"
+      ],
+      "hiddenAssumptions": [
+        "история проводок качественна",
+        "клиент разрешит использовать исправления",
+        "аутсорсер поделится экономией"
+      ],
+      "questions": {
+        "problem": [
+          "Какая доля времени после OCR остаётся ручной?",
+          "Какие 5 исключений дают 80% труда?"
+        ],
+        "customer": [
+          "Лучше аутсорсер или in-house AP?",
+          "Какой минимум документов создаёт ROI?"
+        ],
+        "product": [
+          "Что означает готовая проводка?",
+          "Кто утверждает исключение?"
+        ],
+        "economics": [
+          "Каков cost на документ при VLM?",
+          "Можно ли брать плату за straight-through?"
+        ],
+        "gtm": [
+          "Кто владеет каналом 1С?",
+          "Как избежать кастомного внедрения?"
+        ],
+        "regulation": [
+          "Нужен ли on-prem?",
+          "Как обезличивать обучающие данные?"
+        ],
+        "data": [
+          "Есть ли XML вместе со сканом?",
+          "Как версионировать правила?"
+        ],
+        "team": [
+          "Есть ли сильный 1С-разработчик?",
+          "Кто отвечает за бухгалтерскую методологию?"
+        ],
+        "evidence": [
+          "Сколько документов и FTE у design partner?",
+          "Есть ли acceptance criteria точности?"
+        ]
+      },
+      "killCriteria": [
+        "straight-through rate <60% на топ-3 типах документов",
+        "cost обработки >30% цены",
+        "настройка клиента >15 рабочих дней",
+        "ошибки с финансовым эффектом >0,2%"
+      ],
+      "improvements": [
+        "Стартовать с одного вертикального плана счетов",
+        "Использовать готовый OCR/VLM, не обучать модель с нуля",
+        "Сделать неизменяемый audit trail",
+        "Цена за успешно подготовленный документ"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 80.9; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 7/10; защита от конкурентов 7/10; экспортный потенциал 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "повторяемость/retention 9/10",
+        "рост категории 9/10"
+      ],
+      "penalties": [
+        "доступность GTM 7/10",
+        "защита от конкурентов 7/10",
+        "экспортный потенциал 7/10"
+      ]
+    },
+    "rank": 5
+  },
+  {
+    "id": "regulated-field-service-os",
+    "titleRu": "ОС обязательного выездного сервиса",
+    "originalTerm": "Regulated field-service OS",
+    "segment": "Vertical SaaS / FSM",
+    "sourceReports": [
+      "global-B2B-vertical-markets",
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Global FSM software $4.7–4.9B reported, 2024; CAGR ≈12%; SAM $2.0B",
+      "СНГ FSM proxy $0.15B, growth 18%"
+    ],
+    "sourceUrls": [
+      "https://www.verdantix.com/venture/report/market-size-and-forecast--field-service-management-software-2024-2030-global",
+      "https://cms.vistapointadvisors.com/system/uploads/fae/file/asset/721/FSM___Construction_Tech_Quarterly_Report_Q4_24.pdf"
+    ],
+    "oneLiner": "Наряды, offline-доказательства, запчасти и повторные обязательные осмотры для подрядчиков пожарной безопасности или холодильного оборудования.",
+    "targetCustomer": "Сервисные подрядчики с 10–100 техниками в одной регулируемой специальности.",
+    "buyer": "Собственник или сервисный директор",
+    "users": [
+      "диспетчеры",
+      "техники",
+      "инженеры контроля"
+    ],
+    "pain": "Сертификаты и акты собираются вручную; пропущенный повторный осмотр теряет выручку и создаёт compliance-риск.",
+    "currentAlternatives": [
+      "1С:Управление сервисным центром",
+      "Okdesk",
+      "HubEx",
+      "Planado",
+      "бумага"
+    ],
+    "productScope": [
+      "schedule",
+      "work order",
+      "offline mobile",
+      "asset history",
+      "parts",
+      "certificate",
+      "recurrence"
+    ],
+    "mvp3to6Months": [
+      "одна специальность",
+      "PWA offline",
+      "наряд",
+      "фото/подпись",
+      "PDF акт",
+      "календарь"
+    ],
+    "excludedFromMvp": [
+      "IoT",
+      "платежи",
+      "общая CRM",
+      "marketplace специалистов",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Глобальный FSM растёт около 12%, а горизонтальные suites не окупают локальные формы малых regulated trades.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$4.7–4.9B",
+        "note": "global FSM, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "≈12%",
+        "note": "CAGR"
+      },
+      {
+        "type": "proxy",
+        "value": "$0.15B",
+        "note": "СНГ, 2024"
+      }
+    ],
+    "competitors": [
+      "HubEx",
+      "Okdesk",
+      "Planado",
+      "1С",
+      "ServiceTitan"
+    ],
+    "differentiation": "Одна обязательная специальность, готовый акт и recurring inspection revenue.",
+    "distribution": [
+      "отраслевые СРО/ассоциации",
+      "поставщики оборудования",
+      "1С-партнёры"
+    ],
+    "salesCycle": "1–3 месяца",
+    "pricing": "1 500–4 000 ₽ за техника/мес.",
+    "revenueModel": "SaaS + setup",
+    "retentionLoop": "История актива и обязательные повторные осмотры создают календарный lock-in.",
+    "requiredIntegrations": [
+      "1С export",
+      "email/SMS",
+      "ЭДО позже"
+    ],
+    "dataNeeds": [
+      "активы",
+      "наряды",
+      "сертификаты",
+      "детали",
+      "календарь"
+    ],
+    "regulatory": "Профильные лицензии у клиента, 152-ФЗ; продукт не выполняет инспекцию.",
+    "localization": "Российские формы актов и offline.",
+    "exportPath": "CEE/MENA через country forms и local partners.",
+    "moat": "Asset-service history и библиотека форм одной профессии.",
+    "teamNeeded": [
+      "product/trade expert",
+      "2 full-stack",
+      "mobile",
+      "designer",
+      "sales/CS"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 8000000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "выбор trade",
+      "эксперт форм",
+      "20 design partners"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 80.8,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, повторяемость/retention 9/10; штрафы: доступность GTM 7/10; качество evidence 7/10; готовность платить 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Ниша одной профессии может быть мала",
+        "1С-партнёры уже делают отраслевые конфигурации",
+        "Техники сопротивляются приложению",
+        "Формы меняются по региону/заказчику"
+      ],
+      "failureModes": [
+        "offline потеря",
+        "формальный акт не принимают",
+        "support-heavy rollout"
+      ],
+      "hiddenAssumptions": [
+        "обязательный recurrence реален",
+        "10–100 technicians платят",
+        "одна форма покрывает большинство"
+      ],
+      "questions": {
+        "problem": [
+          "Какие акты задерживают оплату?",
+          "Сколько осмотров пропускают?"
+        ],
+        "customer": [
+          "Пожарка или refrigeration?",
+          "Кто buyer?"
+        ],
+        "product": [
+          "Какие поля обязательны?",
+          "Как работает offline?"
+        ],
+        "economics": [
+          "ARR на техника?",
+          "Стоимость onboarding?"
+        ],
+        "gtm": [
+          "Поставщик оборудования — канал?",
+          "Есть ассоциация?"
+        ],
+        "regulation": [
+          "Какие лицензии у клиента?",
+          "Нужна ЭП?"
+        ],
+        "data": [
+          "Есть asset registry?",
+          "Как версионировать формы?"
+        ],
+        "team": [
+          "Есть trade expert?",
+          "Кто field onboarding?"
+        ],
+        "evidence": [
+          "Есть 20 interviews?",
+          "Примут generated act?"
+        ]
+      },
+      "killCriteria": [
+        "TAM выбранной ниши <1 млрд ₽ bottom-up",
+        "technician D30 <70%",
+        "акт требует >30% ручной доработки",
+        "CAC payback >9 месяцев"
+      ],
+      "improvements": [
+        "Одна профессия",
+        "Revenue reminder как hook",
+        "Offline-first",
+        "Не брать лицензируемую функцию"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 80.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 7/10; качество evidence 7/10; готовность платить 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "повторяемость/retention 9/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "доступность GTM 7/10",
+        "качество evidence 7/10",
+        "готовность платить 8/10"
+      ]
+    },
+    "rank": 6
+  },
+  {
+    "id": "construction-closeout-os",
+    "titleRu": "ОС исполнительной документации для строительного субподрядчика",
+    "originalTerm": "Construction closeout evidence / subcontractor compliance OS",
+    "segment": "Construction Tech",
+    "sourceReports": [
+      "russian-vertical-B2B-SaaS-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-vertical-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Автоматизация строительства РФ: 3 000–5 000 млн ₽ estimate, 2024; TAM 8 000–18 000 млн ₽",
+      "Global construction software: $14.7B reported, 2024; top-10 46.5%",
+      "Europe construction/design software: $2.90B reported, 2024"
+    ],
+    "sourceUrls": [
+      "https://corp.cnews.ru/reviews/tsifrovizatsiya_stroitelnoj_otrasli",
+      "https://www.appsruntheworld.com/top-10-construction-software-vendors-market-size-and-market-forecast/",
+      "https://www.grandviewresearch.com/horizon/outlook/construction-and-design-software-market/europe"
+    ],
+    "oneLiner": "Собирает дневные журналы, фото, сертификаты материалов и акты одной специальности в готовый пакет сдачи и ускоряет оплату.",
+    "targetCustomer": "Субподрядчики MEP, огнезащиты и фасадов с 5–30 параллельными объектами.",
+    "buyer": "Генеральный или производственный директор",
+    "users": [
+      "прорабы",
+      "ПТО",
+      "контроль качества",
+      "сметчики"
+    ],
+    "pain": "Доказательства работ разбросаны по чатам; пакет сдачи собирают постфактум, задерживая закрытие и деньги.",
+    "currentAlternatives": [
+      "Excel",
+      "WhatsApp/Telegram",
+      "1С",
+      "Exon",
+      "общие PM-системы"
+    ],
+    "productScope": [
+      "mobile offline capture",
+      "привязка к зоне/работе",
+      "сертификаты",
+      "версии",
+      "чек-лист closeout",
+      "экспорт пакета"
+    ],
+    "mvp3to6Months": [
+      "Android/PWA",
+      "фото с метаданными",
+      "реестр материалов",
+      "шаблоны актов",
+      "PDF/ZIP handover",
+      "web кабинет ПТО"
+    ],
+    "excludedFromMvp": [
+      "BIM authoring",
+      "сметная система",
+      "закупки",
+      "генподрядная платформа",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Российский рынок растёт на импортозамещении, а глобально top-10 контролируют лишь 46.5%; локальные нормы сохраняют micro-vertical whitespace.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "3 000–5 000 млн ₽",
+        "note": "узкий vertical SaaS строительства РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "8 000–18 000 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "reported",
+        "value": "$14.7B",
+        "note": "global construction software, 2024"
+      }
+    ],
+    "competitors": [
+      "Exon",
+      "Pragmacore",
+      "Adept",
+      "1С",
+      "PlanRadar-подобные решения",
+      "внутренние порталы"
+    ],
+    "differentiation": "Глубина одной специальности и готовый пакет передачи, а не общий task management.",
+    "distribution": [
+      "отраслевые СРО",
+      "поставщики материалов",
+      "ПТО-консультанты",
+      "генподрядчики как sponsor"
+    ],
+    "salesCycle": "1–4 месяца",
+    "pricing": "30–150 тыс. ₽/мес. или 100–500 тыс. ₽ за проект",
+    "revenueModel": "SaaS/project subscription",
+    "retentionLoop": "Каждый новый объект и обязательная сдача требуют повторного использования; шаблоны накапливаются.",
+    "requiredIntegrations": [
+      "1С опционально",
+      "облачное хранилище",
+      "ЭП/ЭДО позже"
+    ],
+    "dataNeeds": [
+      "планы зон",
+      "фото",
+      "сертификаты",
+      "журналы",
+      "акты"
+    ],
+    "regulatory": "Градостроительные нормы, ГОСТ/СП, 152-ФЗ; не брать функцию строительного контроля.",
+    "localization": "Российские формы исполнительной документации и offline на площадке.",
+    "exportPath": "КСА/ОАЭ после Arabic/English forms и local partner; затем CEE по отдельным country packs.",
+    "moat": "Шаблоны и data model конкретной специальности плюс история доказательств, связанная с оплатой.",
+    "teamNeeded": [
+      "product/construction",
+      "2 backend",
+      "mobile",
+      "frontend",
+      "document engineer",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6500000,
+      "max": 9000000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "эксперт ПТО",
+      "3 активных объекта",
+      "юридическая проверка форм"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 8,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 9,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 80.6,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, экспортный потенциал 9/10; штрафы: доступность GTM 7/10; готовность платить 8/10; реализуемость MVP 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Каждый генподрядчик требует свой формат",
+        "Прорабы могут не фиксировать данные своевременно",
+        "Юридическая достаточность фото спорна",
+        "Продажи могут стать проектными и кастомными"
+      ],
+      "failureModes": [
+        "offline sync теряет данные",
+        "пакет всё равно пересобирают вручную",
+        "генподрядчик не принимает экспорт"
+      ],
+      "hiddenAssumptions": [
+        "субподрядчик контролирует процесс сдачи",
+        "ускорение оплаты измеримо",
+        "одна специальность даёт достаточный SAM"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько дней задерживает сбор closeout?",
+          "Какая сумма удерживается?"
+        ],
+        "customer": [
+          "Какая специальность имеет самые типовые документы?",
+          "Кто покупает: ПТО или директор?"
+        ],
+        "product": [
+          "Как доказать неизменность фото?",
+          "Какие формы обязательны в MVP?"
+        ],
+        "economics": [
+          "Какой чек оправдан ускорением оплаты?",
+          "Сколько проектов ведёт один клиент?"
+        ],
+        "gtm": [
+          "Может ли поставщик материалов быть каналом?",
+          "Нужна ли сертификация генподрядчика?"
+        ],
+        "regulation": [
+          "Какие документы требуют ЭП?",
+          "Не становится ли продукт участником контроля?"
+        ],
+        "data": [
+          "Как связать фото с объёмом работ?",
+          "Как хранить версии сертификатов?"
+        ],
+        "team": [
+          "Есть ли эксперт выбранной специальности?",
+          "Кто внедряет на объекте?"
+        ],
+        "evidence": [
+          "Есть ли 3 завершённых проекта для ретроспективы?",
+          "Примет ли заказчик generated pack?"
+        ]
+      },
+      "killCriteria": [
+        "генерация пакета сокращает труд <30%",
+        "полевое заполнение <70% требуемых событий",
+        "более 30% полей уникальны для заказчика",
+        "ни один пилот не ускоряет закрытие ≥7 дней"
+      ],
+      "improvements": [
+        "Выбрать одну специальность и одного генподрядчика-якоря",
+        "Сделать immutable timestamp и журнал версий",
+        "Начать с экспорта, не согласований",
+        "Привязать цену к числу активных объектов"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 80.6; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 7/10; готовность платить 8/10; реализуемость MVP 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "экспортный потенциал 9/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "доступность GTM 7/10",
+        "готовность платить 8/10",
+        "реализуемость MVP 8/10"
+      ]
+    },
+    "rank": 7
+  },
+  {
+    "id": "B2C-17",
+    "titleRu": "Тренажёр беглого чтения 1–2 класса",
+    "originalTerm": "Reading fluency copilot",
+    "segment": "B2B2C K–12",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "Kazakh/Spanish corpora"
+    ],
+    "sourceUrls": [
+      "https://smartranking.ru/ru/analytics/edtechs/detskoe-onlajn-obrazovanie-obognalo-vzrosloe-po-vyruchke/"
+    ],
+    "oneLiner": "voice assessment, 10-min practice, report через teachers/centers.",
+    "targetCustomer": "дети 7–9 с отставанием",
+    "buyer": "teacher/center/school",
+    "users": [
+      "дети 7–9 с отставанием и сотрудник партнёра"
+    ],
+    "pain": "teacher cannot measure frequently",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "voice assessment",
+      "10-min practice",
+      "report"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — voice assessment + 10-min practice + report",
+      "кабинет партнёра teachers/centers и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «child voice consent»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: РФ ≈49,1 млрд ₽, TAM ≈150 млрд ₽; global $7,8–10,6 млрд",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "РФ ≈49,1 млрд ₽, TAM ≈150 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://smartranking.ru/ru/analytics/edtechs/detskoe-onlajn-obrazovanie-obognalo-vzrosloe-po-vyruchke/"
+      },
+      {
+        "type": "reported",
+        "value": "global $7,8–10,6 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Учи.ру",
+      "Фоксфорд"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: voice assessment, 10-min practice, report.",
+    "distribution": [
+      "teachers/centers"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽300–700/child",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→weekly measure",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "child voice consent",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "Kazakh/Spanish corpora",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6300000,
+      "max": 8800000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "teachers/centers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 80.3,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Ошибки распознавания детской речи подрывают доверие учителя к voice assessment.",
+        "Учи.ру / Фоксфорд могут встроить ключевой workflow «voice assessment + 10-min practice + report» и обнулить отдельную готовность платить ₽300–700/child.",
+        "Канал teachers/centers контролирует активацию дети 7–9 с отставанием; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «child voice consent» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «voice assessment + 10-min practice + report» не доводит пользователя до измеримого завершения кейса.",
+        "teachers/centers подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «child voice consent» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "teacher/center/school действительно имеет отдельный бюджет ₽300–700/child именно на этот workflow.",
+        "дети 7–9 с отставанием регулярно создают пригодные данные для «voice assessment + 10-min practice + report», а не возвращаются к чатам.",
+        "teachers/centers даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «child voice consent» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «teacher cannot measure frequently» на 100 пользователей дети 7–9 с отставанием за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «voice assessment + 10-min practice + report» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри teacher/center/school владеет бюджетом ₽300–700/child и KPI завершения «voice assessment»?",
+          "Какой под-сегмент «дети 7–9 с отставанием» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «voice assessment + 10-min practice + report» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «voice assessment» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽300–700/child и 20% ручных исключений?",
+          "Какой CAC payback получается у канала teachers/centers при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли teachers/centers не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет teacher/center/school продвигать «voice assessment», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «voice assessment + 10-min practice + report» запрещены или требуют лицензированного партнёра при режиме «child voice consent»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и teacher/center/school?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «voice assessment» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор teacher/center/school мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «voice assessment + 10-min practice + report» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «child voice consent»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «voice assessment + 10-min practice + report», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров teachers/centers paid pilot по цене ₽300–700/child после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «voice assessment + 10-min practice + report»: F1 <0.9.",
+        "Для «voice assessment + 10-min practice + report»: uplift <15%.",
+        "Paid conversion партнёров teachers/centers ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽300–700/child из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «voice assessment + 10-min practice» и одним сегментом дети 7–9 с отставанием.",
+        "Запускать через одного типа партнёра — teachers/centers — с обязательным activation KPI.",
+        "Оставить human approval для «report» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 80.3; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 8
+  },
+  {
+    "id": "frontline-operational-learning",
+    "titleRu": "Операционное обучение frontline с проверкой навыка",
+    "originalTerm": "Frontline operational learning",
+    "segment": "HR Tech / LMS",
+    "sourceReports": [
+      "russian-b2b-saas-2025",
+      "russian-saas-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "LMS РФ: 7 200 млн ₽ в 2024; потенциальная ёмкость 12 600 млн ₽; gap 5 400 млн ₽",
+      "Рост рынка ≈20% в 2024"
+    ],
+    "sourceUrls": [
+      "https://skillbox.ru/media/corptrain/stali-izvestny-lidery-rossiyskogo-rynka-lms-dlya-korporativnogo-obucheniya/",
+      "https://neonhrm.nexign.com/ru/blog/k-2027-godu-rossiyskiy-rynok-lms-sistem-vyrastet-bolee-chem-v-poltora-raza"
+    ],
+    "oneLiner": "Микроуроки, сменные задания и проверка навыка руководителем для складов, общепита и сервиса, работающие офлайн.",
+    "targetCustomer": "Региональные сети 20–300 точек и 300–5 000 frontline сотрудников.",
+    "buyer": "Директор по обучению/операциям",
+    "users": [
+      "линейные сотрудники",
+      "наставники",
+      "региональные управляющие"
+    ],
+    "pain": "Корпоративная LMS фиксирует просмотр курса, но не подтверждает выполнение операции на рабочем месте.",
+    "currentAlternatives": [
+      "iSpring",
+      "Эквио",
+      "Teachbase",
+      "чаты",
+      "бумажные чек-листы"
+    ],
+    "productScope": [
+      "микроуроки",
+      "offline mobile",
+      "сменные задания",
+      "фото/видео evidence",
+      "чек наставника",
+      "outcome dashboard"
+    ],
+    "mvp3to6Months": [
+      "PWA",
+      "конструктор карточек",
+      "QR-вход",
+      "чек-листы",
+      "уведомления",
+      "1С кадровая выгрузка"
+    ],
+    "excludedFromMvp": [
+      "каталог курсов",
+      "SCORM-совместимость enterprise-класса",
+      "полный HRM",
+      "прокторинг",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Enterprise LMS насыщен, но региональное/frontline проникновение низко; AI снижает стоимость авторинга, повышая ценность проверки действия.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "7 200 млн ₽",
+        "note": "LMS РФ, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "12 600 млн ₽",
+        "note": "потенциальная ёмкость по MegaResearch/Nexign"
+      },
+      {
+        "type": "reported",
+        "value": "≈20%",
+        "note": "рост, 2024"
+      }
+    ],
+    "competitors": [
+      "iSpring",
+      "Websoft",
+      "Эквио",
+      "Mirapolis",
+      "Motivity",
+      "Unicraft"
+    ],
+    "differentiation": "Продаёт доказательство операционного навыка и соблюдения стандарта, а не библиотеку обучения.",
+    "distribution": [
+      "франчайзеры",
+      "операционные консультанты",
+      "HR-интеграторы",
+      "отраслевые ассоциации"
+    ],
+    "salesCycle": "1–3 месяца",
+    "pricing": "120–350 ₽ за активного сотрудника/мес.",
+    "revenueModel": "SaaS + библиотека отраслевых шаблонов",
+    "retentionLoop": "Новые сотрудники, смены и регулярные проверки поддерживают частое использование.",
+    "requiredIntegrations": [
+      "1С ЗУП/HR",
+      "SSO опционально",
+      "push/SMS"
+    ],
+    "dataNeeds": [
+      "оргструктура",
+      "смены",
+      "контент",
+      "результаты проверок"
+    ],
+    "regulatory": "152-ФЗ; согласие на фото/видео работника и правила мониторинга.",
+    "localization": "Русский язык, слабая связь, дешёвые Android-устройства, отраслевые стандарты.",
+    "exportPath": "CEE/MENA через шаблоны франчайзинговых операций и многоязычный контент.",
+    "moat": "Библиотека проверяемых операционных стандартов и связь обучения с KPI точки.",
+    "teamNeeded": [
+      "product/L&D",
+      "2 full-stack",
+      "mobile/PWA",
+      "designer",
+      "customer success",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 8000000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "доступ к frontline пилоту",
+      "простая авторизация",
+      "валидный outcome metric"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "feasibility": 9,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 9,
+      "whitespace": 8,
+      "retention": 8,
+      "growth": 7,
+      "competitionAdvantage": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 80.3,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: реализуемость MVP 9/10, капиталоэффективность 9/10; штрафы: готовность платить 7/10; рост категории 7/10; экспортный потенциал 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "LMS-лидеры могут добавить чек-листы",
+        "Фото не доказывает навык и создаёт ручную проверку",
+        "Линейный персонал сопротивляется ещё одному приложению",
+        "ROI обучения трудно отделить от менеджмента"
+      ],
+      "failureModes": [
+        "низкая weekly activation",
+        "наставники не проверяют задания",
+        "контент становится сервисным бизнесом"
+      ],
+      "hiddenAssumptions": [
+        "есть измеримый операционный KPI",
+        "сотрудник имеет смартфон",
+        "руководитель готов менять onboarding"
+      ],
+      "questions": {
+        "problem": [
+          "Какая ошибка frontline наиболее дорога?",
+          "Как сейчас подтверждают допуск к работе?"
+        ],
+        "customer": [
+          "Какая вертикаль имеет частый onboarding?",
+          "Кто оплачивает контент?"
+        ],
+        "product": [
+          "Как снизить ручную проверку evidence?",
+          "Нужен ли shared-device режим?"
+        ],
+        "economics": [
+          "Как связать тариф с предотвращёнными ошибками?",
+          "Сколько стоит создание одного модуля?"
+        ],
+        "gtm": [
+          "Можно ли продавать через франчайзера?",
+          "Как импортировать из текущей LMS?"
+        ],
+        "regulation": [
+          "Допустима ли фотофиксация работников?",
+          "Как хранить доказательства инструктажа?"
+        ],
+        "data": [
+          "Какой KPI доступен по точке?",
+          "Как сопоставить смену и задание?"
+        ],
+        "team": [
+          "Есть ли instructional designer?",
+          "Кто производит шаблоны отрасли?"
+        ],
+        "evidence": [
+          "Есть ли baseline ошибок до обучения?",
+          "Сколько сотрудников проходят пилот?"
+        ]
+      },
+      "killCriteria": [
+        "weekly active frontline <60%",
+        "проверяется <70% назначенных заданий",
+        "нет улучшения целевого KPI за 8 недель",
+        "контент требует >40% gross margin затрат"
+      ],
+      "improvements": [
+        "Выбрать один compliance-critical сценарий",
+        "QR/shared-device вход",
+        "AI помогает проверять, но финальное решение у наставника",
+        "Продавать пакет готовых стандартов"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 80.3; MVP остаётся overlay/HITL в лимите, ключевые ограничения — готовность платить 7/10; рост категории 7/10; экспортный потенциал 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "реализуемость MVP 9/10",
+        "капиталоэффективность 9/10",
+        "острота боли 8/10"
+      ],
+      "penalties": [
+        "готовность платить 7/10",
+        "рост категории 7/10",
+        "экспортный потенциал 7/10"
+      ]
+    },
+    "rank": 9
+  },
+  {
+    "id": "rag-knowledge-reliability",
+    "titleRu": "Контур надёжности корпоративного RAG",
+    "originalTerm": "Enterprise knowledge reliability layer",
+    "segment": "AI Governance / Knowledge",
+    "sourceReports": [
+      "global-B2B-horizontal-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Enterprise search $5.34B reported, 2025; CAGR 9.1%; North America $2.08B",
+      "Practical SAM $0.7–1.5B; consolidated model $1.1B"
+    ],
+    "sourceUrls": [
+      "https://www.precedenceresearch.com/enterprise-search-market",
+      "https://www.mordorintelligence.com/industry-reports/knowledge-management-software-market"
+    ],
+    "oneLiner": "Тестирует ответы Copilot/частного RAG на права, цитаты и свежесть, создавая задачи владельцам знаний.",
+    "targetCustomer": "Компании 500–10 000 сотрудников с production RAG и чувствительными ACL.",
+    "buyer": "CIO/CISO/Head of AI",
+    "users": [
+      "AI platform team",
+      "knowledge owners",
+      "security",
+      "internal audit"
+    ],
+    "pain": "RAG отвечает убедительно из устаревшего или недоступного источника, а regression после смены модели не виден.",
+    "currentAlternatives": [
+      "ручные evals",
+      "LangSmith",
+      "Glean controls",
+      "скрипты"
+    ],
+    "productScope": [
+      "eval sets",
+      "permission diff",
+      "citation verification",
+      "stale detection",
+      "owner workflow",
+      "regression"
+    ],
+    "mvp3to6Months": [
+      "API proxy/offline test",
+      "AD/ACL import",
+      "golden set",
+      "citation checks",
+      "dashboard"
+    ],
+    "excludedFromMvp": [
+      "enterprise search UI",
+      "vector DB",
+      "foundation model",
+      "all connectors",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "GenAI reset увеличивает search adoption, но provenance/permissions остаются hard problem независимо от модели.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$5.34B",
+        "note": "enterprise search, 2025"
+      },
+      {
+        "type": "reported",
+        "value": "$2.08B",
+        "note": "North America"
+      },
+      {
+        "type": "estimate",
+        "value": "$0.7–1.5B",
+        "note": "SAM"
+      }
+    ],
+    "competitors": [
+      "Microsoft",
+      "Glean",
+      "LangSmith",
+      "Elastic",
+      "внутренние eval frameworks"
+    ],
+    "differentiation": "Независимый model/search vendor QA с permission correctness и owner remediation.",
+    "distribution": [
+      "AI-интеграторы",
+      "security consultancies",
+      "private RAG vendors"
+    ],
+    "salesCycle": "3–7 месяцев",
+    "pricing": "2–8 млн ₽ ARR",
+    "revenueModel": "subscription by corpora/evals",
+    "retentionLoop": "Каждая модель, индекс и ACL change запускает regression.",
+    "requiredIntegrations": [
+      "AD/LDAP",
+      "RAG API",
+      "document ACL",
+      "ticketing"
+    ],
+    "dataNeeds": [
+      "queries",
+      "answers",
+      "citations",
+      "ACL",
+      "document freshness"
+    ],
+    "regulatory": "152-ФЗ, confidential data; deployment in client contour.",
+    "localization": "Русская морфология, Directum/1С/Bitrix connectors.",
+    "exportPath": "CEE/DACH EU-hosted after security certification.",
+    "moat": "Permission-aware eval corpus и regression history.",
+    "teamNeeded": [
+      "product/AI governance",
+      "2 ML/backend",
+      "security engineer",
+      "frontend",
+      "enterprise sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7500000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "production RAG access",
+      "ACL semantics",
+      "senior ML/security"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 6,
+      "capitalEfficiency": 8,
+      "whitespace": 9,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 10,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 80.2,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: экспортный потенциал 10/10, острота боли 9/10; штрафы: доступность GTM 6/10; реализуемость MVP 7/10; готовность платить 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Пока мало production RAG в РФ",
+        "Platform vendors встроят evals",
+        "ACL semantics трудно нормализовать",
+        "Enterprise sales длинный"
+      ],
+      "failureModes": [
+        "нет ground truth",
+        "false assurance",
+        "connector explosion"
+      ],
+      "hiddenAssumptions": [
+        "buyer платит отдельно за QA",
+        "production logs доступны",
+        "ACL bugs frequent"
+      ],
+      "questions": {
+        "problem": [
+          "Какие RAG incidents были?",
+          "Как тестируют релиз?"
+        ],
+        "customer": [
+          "Сколько corpora/models?",
+          "Кто owns risk?"
+        ],
+        "product": [
+          "Online proxy или offline?",
+          "Как определить stale?"
+        ],
+        "economics": [
+          "ACV vs security effort?",
+          "Usage dimension?"
+        ],
+        "gtm": [
+          "RAG vendor channel?",
+          "Security consultancy?"
+        ],
+        "regulation": [
+          "Можно ли хранить prompts?",
+          "Air-gap required?"
+        ],
+        "data": [
+          "Есть golden set?",
+          "Как читать ACL?"
+        ],
+        "team": [
+          "Security+ML senior?",
+          "Connector owner?"
+        ],
+        "evidence": [
+          "Есть incident cost?",
+          "3 production pilots?"
+        ]
+      },
+      "killCriteria": [
+        "<10 production prospects в pipeline",
+        "не удаётся построить golden set за 2 недели",
+        "permission precision <99%",
+        "sales cycle >9 месяцев"
+      ],
+      "improvements": [
+        "Начать с regression/citations",
+        "Два document stacks",
+        "Deploy in contour",
+        "Не обещать security guarantee"
+      ],
+      "verdict": "оставить в топе",
+      "verdictReason": "Оставить в топе: совместный score 80.2; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 6/10; реализуемость MVP 7/10; готовность платить 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "экспортный потенциал 10/10",
+        "острота боли 9/10",
+        "рыночное окно 9/10"
+      ],
+      "penalties": [
+        "доступность GTM 6/10",
+        "реализуемость MVP 7/10",
+        "готовность платить 8/10"
+      ]
+    },
+    "rank": 10
+  },
+  {
+    "id": "finops-ai-local-clouds",
+    "titleRu": "FinOps для AI, Kubernetes и локальных облаков",
+    "originalTerm": "FinOps for AI & regional clouds",
+    "segment": "Cloud Ops / FinOps",
+    "sourceReports": [
+      "global-B2B-horizontal-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Cloud FinOps software+services $14.39B reported, 2025; report range $9.4–15.6B",
+      "North America derived $5.4B; СНГ software proxy $30–80M"
+    ],
+    "sourceUrls": [
+      "https://www.mordorintelligence.com/industry-reports/cloud-finops-market",
+      "https://www.factmr.com/report/cloud-finops-market",
+      "https://www.finops.org/framework/"
+    ],
+    "oneLiner": "Считает стоимость клиента/процесса по облаку, K8s, GPU и LLM, ловит аномалии и распределяет расходы между командами.",
+    "targetCustomer": "SaaS/AI-компании с расходом 3–100 млн ₽ в месяц на 2+ облака/модели.",
+    "buyer": "CTO/CFO",
+    "users": [
+      "FinOps",
+      "platform engineering",
+      "product finance"
+    ],
+    "pain": "Cloud bills не связываются с клиентом и успешной AI-задачей; native tools раздельны.",
+    "currentAlternatives": [
+      "Excel",
+      "native cloud cost tools",
+      "Apptio",
+      "CloudHealth",
+      "самописные dashboards"
+    ],
+    "productScope": [
+      "billing ingest",
+      "allocation tags",
+      "K8s/LLM unit cost",
+      "budgets",
+      "anomalies",
+      "chargeback"
+    ],
+    "mvp3to6Months": [
+      "Yandex/Selectel + one global cloud",
+      "K8s metrics",
+      "2 LLM APIs",
+      "allocation rules",
+      "alerts"
+    ],
+    "excludedFromMvp": [
+      "cloud reseller",
+      "автозакупка GPU",
+      "carbon accounting",
+      "managed service",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "AI token/GPU spend reopened FinOps; local cloud billing lacks mature independent tooling.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$14.39B",
+        "note": "software+services, 2025"
+      },
+      {
+        "type": "reported",
+        "value": "$9.4–15.6B",
+        "note": "taxonomy range"
+      },
+      {
+        "type": "proxy",
+        "value": "$30–80M",
+        "note": "СНГ software"
+      }
+    ],
+    "competitors": [
+      "Apptio",
+      "CloudHealth",
+      "CloudZero",
+      "native cloud tools",
+      "FinOps dashboards"
+    ],
+    "differentiation": "Cost per successful AI workflow и regional cloud connectors.",
+    "distribution": [
+      "cloud MSP",
+      "Kubernetes integrators",
+      "AI infrastructure partners"
+    ],
+    "salesCycle": "2–5 месяцев",
+    "pricing": "1–3% managed spend, floor 100 тыс. ₽/мес.",
+    "revenueModel": "SaaS usage/spend-based",
+    "retentionLoop": "Ежедневный variable bill и накопленные allocation rules.",
+    "requiredIntegrations": [
+      "cloud billing APIs",
+      "K8s",
+      "LLM APIs",
+      "ERP tags"
+    ],
+    "dataNeeds": [
+      "billing",
+      "usage",
+      "tenant IDs",
+      "workflow outcome"
+    ],
+    "regulatory": "Billing metadata; secrets/security, sanctions for export.",
+    "localization": "Yandex/VK/Selectel/MTS connectors, ₽ invoices.",
+    "exportPath": "EU/MENA AI startups via vendor-neutral connectors.",
+    "moat": "Cross-vendor allocation graph from infrastructure to business outcome.",
+    "teamNeeded": [
+      "product/FinOps",
+      "3 backend/data",
+      "DevOps/K8s",
+      "frontend",
+      "B2B sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7500000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "billing APIs",
+      "tenant tagging",
+      "senior cloud engineer"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 6,
+      "capitalEfficiency": 9,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 10,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 79.9,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: экспортный потенциал 10/10, капиталоэффективность 9/10; штрафы: доступность GTM 6/10; качество evidence 7/10; острота боли 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Native tools бесплатны",
+        "Без тегов allocation невозможен",
+        "CFO не доверит процент экономии",
+        "Локальный SAM мал"
+      ],
+      "failureModes": [
+        "unallocated spend",
+        "billing API drift",
+        "alerts without action"
+      ],
+      "hiddenAssumptions": [
+        "клиент имеет material spend",
+        "tenant IDs доступны",
+        "multi-cloud pain платная"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько spend unallocated?",
+          "Есть AI margin per customer?"
+        ],
+        "customer": [
+          "Minimum cloud bill?",
+          "CTO or CFO buyer?"
+        ],
+        "product": [
+          "Как внедрить tags?",
+          "Что считать successful task?"
+        ],
+        "economics": [
+          "1–3% acceptable?",
+          "API/compute cost?"
+        ],
+        "gtm": [
+          "MSP channel conflict?",
+          "Cloud partner?"
+        ],
+        "regulation": [
+          "Billing data residency?",
+          "Export sanctions?"
+        ],
+        "data": [
+          "Tag coverage?",
+          "K8s tenant mapping?"
+        ],
+        "team": [
+          "FinOps practitioner?",
+          "Cloud connector owner?"
+        ],
+        "evidence": [
+          "Есть overrun incidents?",
+          "Paid pilot?"
+        ]
+      },
+      "killCriteria": [
+        "addressable RU accounts <200",
+        "allocation coverage <80%",
+        "savings <3 тарифов/год",
+        "connector maintenance >25% engineering"
+      ],
+      "improvements": [
+        "AI unit cost first",
+        "Tag remediation workflow",
+        "Two local clouds only",
+        "Price floor, not pure savings fee"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.9; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 6/10; качество evidence 7/10; острота боли 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "экспортный потенциал 10/10",
+        "капиталоэффективность 9/10",
+        "повторяемость/retention 9/10"
+      ],
+      "penalties": [
+        "доступность GTM 6/10",
+        "качество evidence 7/10",
+        "острота боли 8/10"
+      ]
+    },
+    "rank": 11
+  },
+  {
+    "id": "tms-lite-small-fleets",
+    "titleRu": "TMS-lite и маржа рейса для парков 3–20 машин",
+    "originalTerm": "TMS-lite / AI dispatcher",
+    "segment": "Logistics SaaS",
+    "sourceReports": [
+      "russian-vertical-B2B-SaaS-markets",
+      "russian-saas-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "TMS РФ: 3 000–5 500 млн ₽ estimate, 2024; TAM 5 400–14 400 млн ₽",
+      "Умная Логистика: 507 млн ₽ и 6 416 платящих компаний, 2024",
+      "Ожидания вендоров: рост 30–37% в год; наблюдаемый рост опрошенных ≈10%"
+    ],
+    "sourceUrls": [
+      "https://logistics360.ru/issledovanie-rynka-sistem-upravleniya-transportnoj-logistikoj-tms/",
+      "https://www.kommersant.ru/doc/7638774",
+      "https://monopoly.ru/wp-content/uploads/2025/04/klyuchevye_operacionnye_i_finansovye-_pokazateli_ao_monopoliya_za_2024_god.pdf"
+    ],
+    "oneLiner": "Ведёт заявку, ставку, маржу рейса, водителя, ЭТрН и документы малого парка из одного мобильного интерфейса.",
+    "targetCustomer": "Региональные перевозчики с 3–20 машинами и экспедиторы до 15 сотрудников.",
+    "buyer": "Собственник парка",
+    "users": [
+      "диспетчер",
+      "водитель",
+      "бухгалтер"
+    ],
+    "pain": "Ставки и рейсы живут в чатах; собственник узнаёт реальную маржу после закрытия месяца.",
+    "currentAlternatives": [
+      "Excel",
+      "Telegram/WhatsApp",
+      "АТИ",
+      "Умная Логистика",
+      "1С"
+    ],
+    "productScope": [
+      "заявки",
+      "калькулятор маржи",
+      "driver app",
+      "статусы",
+      "документы",
+      "ЭТрН-ready"
+    ],
+    "mvp3to6Months": [
+      "web/PWA",
+      "импорт из чата вручную",
+      "рейс и расходы",
+      "фото документов",
+      "реестр дебиторки"
+    ],
+    "excludedFromMvp": [
+      "биржа грузов",
+      "факторинг",
+      "страхование",
+      "собственная телематика",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Платная база лидера выросла на 43%, а десятки тысяч микропарков остаются в чатах; ЭТрН создаёт обязательный цифровой триггер.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "3 000–5 500 млн ₽",
+        "note": "TMS РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "5 400–14 400 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "reported",
+        "value": "6 416",
+        "note": "платящие клиенты Умной Логистики, 2024"
+      }
+    ],
+    "competitors": [
+      "Умная Логистика",
+      "ATI.SU",
+      "LogistPro",
+      "1С:TMS",
+      "Saby TMS"
+    ],
+    "differentiation": "Сверхлёгкий owner-first UX и прибыль рейса без enterprise внедрения.",
+    "distribution": [
+      "топливные карты",
+      "бухгалтерии перевозчиков",
+      "лизинговые дилеры как referral",
+      "региональные чаты"
+    ],
+    "salesCycle": "1–4 недели",
+    "pricing": "5–15 тыс. ₽/мес. за парк",
+    "revenueModel": "SaaS",
+    "retentionLoop": "История ставок, расходов и дебиторки используется в каждом рейсе.",
+    "requiredIntegrations": [
+      "1С позже",
+      "ЭТрН оператор",
+      "карты",
+      "топливные карты позже"
+    ],
+    "dataNeeds": [
+      "рейсы",
+      "ставки",
+      "расходы",
+      "водители",
+      "документы"
+    ],
+    "regulatory": "ЭПД/ЭТрН, 152-ФЗ; оператор ЭТрН — партнёр.",
+    "localization": "Российские формы перевозки, НДС, суточные и дорожные расходы.",
+    "exportPath": "Казахстан/Узбекистан с локальными ЭПД и картами.",
+    "moat": "История фактической маржи маршрутов и чрезвычайно простой workflow малого перевозчика.",
+    "teamNeeded": [
+      "product/logistics",
+      "2 full-stack",
+      "mobile",
+      "designer",
+      "growth sales",
+      "support"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5000000,
+      "max": 7500000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "20 дизайн-партнёров",
+      "ЭТрН roadmap",
+      "low-touch onboarding"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 7,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 79.6,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, повторяемость/retention 9/10; штрафы: качество evidence 6/10; реализуемость MVP 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Микропарк крайне чувствителен к цене",
+        "Собственник может не вести расходы дисциплинированно",
+        "АТИ/1С/Умная Логистика легко расширят lite-тариф",
+        "Поддержка водителей разрушит gross margin"
+      ],
+      "failureModes": [
+        "низкая активация второго рейса",
+        "данные расходов неполны",
+        "churn после одного сезона"
+      ],
+      "hiddenAssumptions": [
+        "собственнику важнее маржа, чем поиск груза",
+        "PWA достаточно водителю",
+        "ЭТрН не потребует тяжёлой интеграции"
+      ],
+      "questions": {
+        "problem": [
+          "Когда владелец узнаёт прибыль рейса?",
+          "Сколько рейсов закрывается без полного пакета?"
+        ],
+        "customer": [
+          "3–20 машин — единый ICP?",
+          "Кто вводит расходы?"
+        ],
+        "product": [
+          "Можно ли создать рейс из сообщения?",
+          "Как работать без связи?"
+        ],
+        "economics": [
+          "Как удержать support cost <20% ARR?",
+          "Какой churn допустим?"
+        ],
+        "gtm": [
+          "Какие сообщества дают дешёвый CAC?",
+          "Может ли топливная карта быть каналом?"
+        ],
+        "regulation": [
+          "Какой оператор ЭТрН нужен?",
+          "Нужна ли ЭП в MVP?"
+        ],
+        "data": [
+          "Как верифицировать наличные расходы?",
+          "Как считать амортизацию?"
+        ],
+        "team": [
+          "Кто знает перевозочные документы?",
+          "Есть ли mobile/offline компетенция?"
+        ],
+        "evidence": [
+          "Сколько компаний уже платят за аналог?",
+          "Есть ли 20 weekly-active интервьюируемых?"
+        ]
+      },
+      "killCriteria": [
+        "CAC payback >6 месяцев",
+        "D30 retention <50%",
+        "средний тариф <5 тыс. ₽/мес. при high-touch support",
+        "менее 60% рейсов содержат полные расходы"
+      ],
+      "improvements": [
+        "Начать с маржи и документов, не AI-диспетчера",
+        "Telegram bot как вход",
+        "Партнёрская ЭТрН вместо собственного оператора",
+        "Самообслуживание с отраслевым шаблоном"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.6; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; реализуемость MVP 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "повторяемость/retention 9/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "реализуемость MVP 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 12
+  },
+  {
+    "id": "last-mile-distributor-control",
+    "titleRu": "Контроль неуспешной доставки и COD для дистрибьюторов",
+    "originalTerm": "Vertical last-mile orchestration",
+    "segment": "Logistics / Distribution",
+    "sourceReports": [
+      "global-B2B-vertical-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Last-mile software: ≈$2.9B triangulated, 2024; TAM $8.5B; SAM $2.1B",
+      "Europe last-mile software: $620M reported, 2024",
+      "СНГ proxy $0.13B, growth 17%"
+    ],
+    "sourceUrls": [
+      "https://growthmarketreports.com/report/last-mile-delivery-software-market",
+      "https://www.futuremarketinsights.com/reports/last-mile-delivery-software-market"
+    ],
+    "oneLiner": "Оркестрирует доставку фармы/FMCG от маршрута до фото/подписи, возврата и сверки наличных без собственного флота.",
+    "targetCustomer": "Региональные дистрибьюторы с 20–200 водителями и собственной/подрядной доставкой.",
+    "buyer": "Директор логистики",
+    "users": [
+      "диспетчеры",
+      "водители",
+      "кассиры",
+      "клиентский сервис"
+    ],
+    "pain": "Неуспешные доставки, возвраты и COD сверяются вручную; универсальные TMS плохо учитывают отраслевые причины.",
+    "currentAlternatives": [
+      "Яндекс Маршрутизация",
+      "ШЕДЕКС",
+      "Maxoptra",
+      "Excel",
+      "самописные приложения"
+    ],
+    "productScope": [
+      "dispatch",
+      "driver offline app",
+      "ETA",
+      "proof of delivery",
+      "failed-delivery reason",
+      "COD reconciliation"
+    ],
+    "mvp3to6Months": [
+      "импорт заказов CSV/API",
+      "маршруты через готовый map API",
+      "driver PWA",
+      "POD",
+      "реестр COD/возвратов"
+    ],
+    "excludedFromMvp": [
+      "курьеры",
+      "склад",
+      "маркетплейс доставки",
+      "приём денег",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "E-commerce и региональная дистрибуция растут, но локальные адреса/COD сохраняют vertical gap; software-only модель не требует флота.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "≈$2.9B",
+        "note": "global last-mile software, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "$620M",
+        "note": "Europe last-mile software, 2024"
+      },
+      {
+        "type": "proxy",
+        "value": "$0.13B",
+        "note": "СНГ, 2024"
+      }
+    ],
+    "competitors": [
+      "Яндекс Маршрутизация",
+      "ШЕДЕКС",
+      "Maxoptra",
+      "Bringg",
+      "Onfleet"
+    ],
+    "differentiation": "Оптимизация failure/COD workflow одной дистрибуционной вертикали, а не только маршрута.",
+    "distribution": [
+      "1С-дистрибуционные интеграторы",
+      "фарма/FMCG ассоциации",
+      "3PL-партнёры"
+    ],
+    "salesCycle": "2–4 месяца",
+    "pricing": "1 000–2 500 ₽ за водителя/мес. + onboarding",
+    "revenueModel": "SaaS",
+    "retentionLoop": "Каждый день заказов создаёт данные адресов и причин срыва, улучшая правила.",
+    "requiredIntegrations": [
+      "1С/ERP",
+      "карты",
+      "SMS",
+      "кассовые реестры"
+    ],
+    "dataNeeds": [
+      "заказы",
+      "адреса",
+      "окна",
+      "водители",
+      "POD",
+      "COD"
+    ],
+    "regulatory": "152-ФЗ, кассовая дисциплина; не принимать средства.",
+    "localization": "Российские карты/адреса, фискальные статусы, offline.",
+    "exportPath": "Казахстан, затем India/SEA после локальных address/COD packs.",
+    "moat": "Адресная база, причины failure и отраслевые playbooks повторной доставки.",
+    "teamNeeded": [
+      "product/logistics",
+      "2 backend",
+      "mobile",
+      "optimization engineer",
+      "frontend",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7000000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "map API",
+      "ERP-коннектор",
+      "достаточный daily volume"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 79.5,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, повторяемость/retention 9/10; штрафы: реализуемость MVP 7/10; доступность GTM 7/10; качество evidence 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Маршрутизация стала commodity",
+        "Клиент может ожидать 24/7 mission-critical SLA",
+        "COD сокращается с безналичными платежами",
+        "Каждая ERP-интеграция отличается"
+      ],
+      "failureModes": [
+        "водители обходят приложение",
+        "ETA неточен",
+        "снижение failures статистически незначимо"
+      ],
+      "hiddenAssumptions": [
+        "failure rate достаточно высок",
+        "дистрибьютор контролирует водителей",
+        "готовый map API подходит регионам"
+      ],
+      "questions": {
+        "problem": [
+          "Какова цена одной неуспешной доставки?",
+          "Какие причины составляют 80%?"
+        ],
+        "customer": [
+          "Фарма или FMCG имеет лучший WTP?",
+          "Собственный или подрядный парк?"
+        ],
+        "product": [
+          "Что происходит при офлайн?",
+          "Как сверять COD без хранения денег?"
+        ],
+        "economics": [
+          "Сколько заказов на водителя?",
+          "Какой ROI от −1 п.п. failures?"
+        ],
+        "gtm": [
+          "Какой ERP-партнёр имеет вертикальный канал?",
+          "Можно ли начать в одном городе?"
+        ],
+        "regulation": [
+          "Как обрабатывать подпись получателя?",
+          "Какие кассовые данные нужны?"
+        ],
+        "data": [
+          "Насколько чисты адреса?",
+          "Есть ли причина failure в истории?"
+        ],
+        "team": [
+          "Кто отвечает за optimization?",
+          "Как обеспечить поддержку пиков?"
+        ],
+        "evidence": [
+          "Есть 8 недель baseline?",
+          "Пилот охватит контрольную группу?"
+        ]
+      },
+      "killCriteria": [
+        "failure rate снижается <10% относительно baseline",
+        "driver D30 activation <70%",
+        "onboarding >6 недель",
+        "требуемый SLA не покрывается бюджетом"
+      ],
+      "improvements": [
+        "Сфокусироваться на exceptions, используя внешний routing engine",
+        "Начать с одной вертикали/города",
+        "Не трогать денежные средства",
+        "Встроить A/B по маршрутам/напоминаниям"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.5; MVP остаётся overlay/HITL в лимите, ключевые ограничения — реализуемость MVP 7/10; доступность GTM 7/10; качество evidence 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "повторяемость/retention 9/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "реализуемость MVP 7/10",
+        "доступность GTM 7/10",
+        "качество evidence 7/10"
+      ]
+    },
+    "rank": 13
+  },
+  {
+    "id": "vendor-passport-obligations",
+    "titleRu": "Паспорт поставщика и автопилот договорных обязательств",
+    "originalTerm": "Vendor KYB + post-sign obligation autopilot",
+    "segment": "Legal Ops / Procurement Compliance",
+    "sourceReports": [
+      "global-B2B-horizontal-markets",
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "CLM software: $1.78B reported, 2025; CAGR 12.8%",
+      "KYB software: $0.23B estimate, 2025",
+      "Combined normalized CLM+KYB ≈$2.0B; SAM $0.75B"
+    ],
+    "sourceUrls": [
+      "https://www.marketresearchfuture.com/reports/contract-lifecycle-management-software-market-11659",
+      "https://www.congruencemarketinsights.com/report/know-your-business-compliance-software-market"
+    ],
+    "oneLiner": "После загрузки договора проверяет поставщика, извлекает сроки/SLA/цены, назначает владельцев и непрерывно обновляет доказательства риска.",
+    "targetCustomer": "Частные компании 200–2 000 сотрудников с 300+ активными поставщиками.",
+    "buyer": "Директор по закупкам или юридический директор",
+    "users": [
+      "закупщики",
+      "юристы",
+      "владельцы договоров",
+      "внутренний контроль"
+    ],
+    "pain": "Проверка контрагента разовая, а обязательства и продления ведутся в таблицах после подписи.",
+    "currentAlternatives": [
+      "СПАРК",
+      "Контур.Фокус",
+      "Excel",
+      "Диадок/Saby",
+      "enterprise CLM"
+    ],
+    "productScope": [
+      "KYB snapshot",
+      "реестр договоров",
+      "извлечение обязательств",
+      "owners/reminders",
+      "continuous monitoring",
+      "evidence archive"
+    ],
+    "mvp3to6Months": [
+      "загрузка PDF",
+      "ИНН enrichment",
+      "извлечение 8 типов условий",
+      "workflow подтверждения",
+      "calendar/webhooks"
+    ],
+    "excludedFromMvp": [
+      "юридическое заключение",
+      "электронная подпись",
+      "санкционный data provider собственного производства",
+      "полный CLM",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "CLM растёт двузначно, а e-sign заканчивается на подписи; AI удешевляет extraction, но audit trail остаётся дефицитом.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$1.78B",
+        "note": "global CLM, 2025"
+      },
+      {
+        "type": "estimate",
+        "value": "$0.23B",
+        "note": "KYB software, 2025"
+      },
+      {
+        "type": "reported",
+        "value": "12.8%",
+        "note": "CLM CAGR"
+      }
+    ],
+    "competitors": [
+      "Icertis",
+      "Ironclad",
+      "Directum",
+      "ELMA365",
+      "Контур.Фокус",
+      "СПАРК"
+    ],
+    "differentiation": "Не ещё один редактор договора, а evidence workflow поставщика и обязательств поверх ЭДО/ERP.",
+    "distribution": [
+      "закупочные консультанты",
+      "1С/ERP-интеграторы",
+      "юридические фирмы",
+      "CFO communities"
+    ],
+    "salesCycle": "2–5 месяцев",
+    "pricing": "80–300 тыс. ₽/мес. + внедрение",
+    "revenueModel": "SaaS + data pass-through",
+    "retentionLoop": "Продления и непрерывные проверки создают календарный recurring workflow.",
+    "requiredIntegrations": [
+      "СПАРК/Контур API",
+      "Диадок/Saby",
+      "1С/ERP",
+      "email"
+    ],
+    "dataNeeds": [
+      "договоры",
+      "ИНН",
+      "реестровые данные",
+      "owners",
+      "история изменений"
+    ],
+    "regulatory": "63-ФЗ/152-ФЗ; санкционные выводы только как evidence, не юридическое решение.",
+    "localization": "Российские реестры, договорные термины и ЭДО.",
+    "exportPath": "CEE с eIDAS и multi-registry partners после нейтральной структуры.",
+    "moat": "Подтверждённый граф поставщик—договор—обязательство—доказательство и история изменений.",
+    "teamNeeded": [
+      "product/legal ops",
+      "2 backend",
+      "NLP",
+      "frontend",
+      "integration",
+      "enterprise sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7000000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "легальные data APIs",
+      "корпус договоров",
+      "human verification"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 79.3,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: повторяемость/retention 9/10, острота боли 8/10; штрафы: доступность GTM 7/10; экспортный потенциал 7/10; острота боли 8/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Контур/СПАРК могут добавить workflow",
+        "Extraction договора ошибается именно на дорогих условиях",
+        "Юристы не доверят AI без построчной проверки",
+        "Data API могут сделать gross margin низкой"
+      ],
+      "failureModes": [
+        "ложное предупреждение",
+        "пропущенное продление",
+        "каждый договор требует кастомной таксономии"
+      ],
+      "hiddenAssumptions": [
+        "покупатель платит за непрерывность",
+        "есть владелец каждого обязательства",
+        "реестровые лицензии доступны"
+      ],
+      "questions": {
+        "problem": [
+          "Какие пропуски уже стоили денег?",
+          "Как часто обновляют KYB?"
+        ],
+        "customer": [
+          "Закупки или legal владеют бюджетом?",
+          "Каков минимум поставщиков?"
+        ],
+        "product": [
+          "Какие 8 условий критичны?",
+          "Как показывать цитату-основание?"
+        ],
+        "economics": [
+          "Какова data cost на поставщика?",
+          "Какой чек у mid-market?"
+        ],
+        "gtm": [
+          "Кто продаёт вместе с ERP?",
+          "Как пройти security review?"
+        ],
+        "regulation": [
+          "Где проходит граница юрсовета?",
+          "Какие реестры можно кэшировать?"
+        ],
+        "data": [
+          "Какова точность на сканах?",
+          "Как версионировать UBO?"
+        ],
+        "team": [
+          "Есть ли procurement lawyer?",
+          "Кто управляет data contracts?"
+        ],
+        "evidence": [
+          "Есть ли инциденты/штрафы?",
+          "Готовы ли 3 клиента на paid pilot?"
+        ]
+      },
+      "killCriteria": [
+        "recall критичных условий <95%",
+        "data cost >25% ARR",
+        "пилот не находит ≥3 значимых риска",
+        "sales cycle >6 месяцев для ICP"
+      ],
+      "improvements": [
+        "Начать с продлений/SLA, не всех рисков",
+        "Показывать source citation",
+        "Партнёриться с data providers",
+        "Human approval обязателен"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.3; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 7/10; экспортный потенциал 7/10; острота боли 8/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "повторяемость/retention 9/10",
+        "острота боли 8/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "доступность GTM 7/10",
+        "экспортный потенциал 7/10",
+        "острота боли 8/10"
+      ]
+    },
+    "rank": 14
+  },
+  {
+    "id": "fleet-maintenance-anomaly-layer",
+    "titleRu": "Надстройка ремонта и топливных аномалий для смешанного автопарка",
+    "originalTerm": "Fleet maintenance anomaly layer",
+    "segment": "Fleet Tech / Telematics overlay",
+    "sourceReports": [
+      "global-B2B-vertical-markets",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets"
+    ],
+    "sourceMarkets": [
+      "Fleet software-only proxy ≈$6.2B; TAM $16B; SAM $3.0B",
+      "СНГ fleet software proxy $0.31B, growth 14%",
+      "TMS РФ: 3 000–5 500 млн ₽ estimate; TAM 5 400–14 400 млн ₽"
+    ],
+    "sourceUrls": [
+      "https://media.berginsight.com/2024/12/03204201/bi-fmam14-ps.pdf",
+      "https://www.grandviewresearch.com/industry-analysis/commercial-vehicle-telematics-market-report",
+      "https://logistics360.ru/issledovanie-rynka-sistem-upravleniya-transportnoj-logistikoj-tms/"
+    ],
+    "oneLiner": "Объединяет данные разных трекеров, ремонты, шины и топливо и выдаёт объяснимые аномалии с workflow устранения.",
+    "targetCustomer": "Смешанные корпоративные парки 50–500 машин с двумя и более телематическими системами.",
+    "buyer": "Директор автопарка или логистики",
+    "users": [
+      "механики",
+      "диспетчеры",
+      "топливный контролёр"
+    ],
+    "pain": "GPS-трекинг есть, но ремонты, шины и топливо живут отдельно; аномалии не доходят до закрытой задачи.",
+    "currentAlternatives": [
+      "Wialon",
+      "Omnicomm",
+      "1С:УАТ",
+      "Excel",
+      "модули телематики"
+    ],
+    "productScope": [
+      "hardware-agnostic ingestion",
+      "план ТО",
+      "топливные/шинные аномалии",
+      "work orders",
+      "стоимость км",
+      "audit evidence"
+    ],
+    "mvp3to6Months": [
+      "2 телематических API",
+      "CSV 1С",
+      "ТО-календарь",
+      "правила аномалий",
+      "мобильное закрытие задачи"
+    ],
+    "excludedFromMvp": [
+      "собственные трекеры",
+      "страхование",
+      "маршрутизация",
+      "лизинг",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Трекинг стал commodity, OEM/API открывают asset-light слой, а глобальные и СНГ-отчёты выделяют maintenance/fuel gap.",
+    "marketEvidence": [
+      {
+        "type": "proxy",
+        "value": "≈$6.2B",
+        "note": "global software-only fleet layer"
+      },
+      {
+        "type": "proxy",
+        "value": "$0.31B",
+        "note": "СНГ fleet software, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "3 000–5 500 млн ₽",
+        "note": "TMS РФ, 2024"
+      }
+    ],
+    "competitors": [
+      "Wialon",
+      "Omnicomm",
+      "Fort Monitor",
+      "Samsara",
+      "1С:УАТ"
+    ],
+    "differentiation": "Независимость от оборудования и замкнутый цикл alert→work order→подтверждённый эффект.",
+    "distribution": [
+      "телематические интеграторы",
+      "СТО для корпоративных парков",
+      "лизинговые партнёры без риска",
+      "fleet ассоциации"
+    ],
+    "salesCycle": "2–4 месяца",
+    "pricing": "400–1 200 ₽ за машину/мес.",
+    "revenueModel": "SaaS + connector setup",
+    "retentionLoop": "История каждой машины и сезонные циклы ТО повышают switching cost.",
+    "requiredIntegrations": [
+      "Wialon/Omnicomm",
+      "1С:УАТ",
+      "топливные карты"
+    ],
+    "dataNeeds": [
+      "пробег",
+      "топливо",
+      "ремонты",
+      "шины",
+      "водители"
+    ],
+    "regulatory": "152-ФЗ и правила мониторинга работников; без аппаратной сертификации.",
+    "localization": "ГЛОНАСС, российские топливные карты, единицы и каталог запчастей.",
+    "exportPath": "Казахстан, затем Бразилия/Мексика через local telematics resellers.",
+    "moat": "Кросс-вендорная нормализация и benchmark поломок/аномалий по типам машин.",
+    "teamNeeded": [
+      "product/fleet",
+      "2 backend/data",
+      "data scientist",
+      "frontend",
+      "integration",
+      "channel sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7000000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "API телематики",
+      "история ремонтов",
+      "партнёрский канал"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 7,
+      "competitionAdvantage": 8,
+      "exportOption": 9,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 79.2,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, повторяемость/retention 9/10; штрафы: реализуемость MVP 7/10; доступность GTM 7/10; рост категории 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Телематические лидеры уже имеют maintenance modules",
+        "Аномалия без датчика или качественной истории будет ложной",
+        "Интеграторы могут блокировать доступ к API",
+        "Экономию топлива сложно атрибутировать"
+      ],
+      "failureModes": [
+        "ложные alerts",
+        "грязная история ТО",
+        "слишком низкий ARPU малых парков"
+      ],
+      "hiddenAssumptions": [
+        "клиент имеет цифровую телематику",
+        "механики закрывают work orders",
+        "две системы создают достаточную боль"
+      ],
+      "questions": {
+        "problem": [
+          "Какая потеря выше: простой, топливо или шины?",
+          "Сколько систем сверяют вручную?"
+        ],
+        "customer": [
+          "Какой парк имеет бюджет вне телематики?",
+          "Кто владелец KPI?"
+        ],
+        "product": [
+          "Как объяснять каждую аномалию?",
+          "Нужен ли режим механика офлайн?"
+        ],
+        "economics": [
+          "Какова экономия на машину?",
+          "Как оплачиваются API?"
+        ],
+        "gtm": [
+          "Кто из интеграторов согласен на OEM-модель?",
+          "Как избежать канального конфликта?"
+        ],
+        "regulation": [
+          "Как уведомлять водителей о мониторинге?",
+          "Какие данные считать персональными?"
+        ],
+        "data": [
+          "Какой минимум истории нужен?",
+          "Как нормализовать модели датчиков?"
+        ],
+        "team": [
+          "Есть ли fleet data expert?",
+          "Кто поддерживает десятки коннекторов?"
+        ],
+        "evidence": [
+          "Есть ли baseline простоев?",
+          "Подтверждены ли 2 API?"
+        ]
+      },
+      "killCriteria": [
+        "precision полезных alerts <70%",
+        "экономия <2 тарифов за квартал",
+        "API costs >20% выручки",
+        "полевое закрытие задач <60%"
+      ],
+      "improvements": [
+        "Начать с ТО и одной топливной аномалии",
+        "Продавать через одного телематического партнёра",
+        "Всегда показывать объяснение и источник",
+        "Не обещать predictive maintenance без датасета"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.2; MVP остаётся overlay/HITL в лимите, ключевые ограничения — реализуемость MVP 7/10; доступность GTM 7/10; рост категории 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "повторяемость/retention 9/10",
+        "экспортный потенциал 9/10"
+      ],
+      "penalties": [
+        "реализуемость MVP 7/10",
+        "доступность GTM 7/10",
+        "рост категории 7/10"
+      ]
+    },
+    "rank": 15
+  },
+  {
+    "id": "B2C-01",
+    "titleRu": "Паспорт здоровья питомца",
+    "originalTerm": "Pet health record copilot",
+    "segment": "B2B2C PetTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→LatAm"
+    ],
+    "sourceUrls": [
+      "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3",
+      "https://www.researchandmarkets.com/reports/6254952/pet-health-records-apps-market-report"
+    ],
+    "oneLiner": "OCR, timeline, reminders и brief врачу через клиники и страховые.",
+    "targetCustomer": "владельцы питомцев с несколькими клиниками",
+    "buyer": "ветклиника/insurer",
+    "users": [
+      "владельцы питомцев с несколькими клиниками и сотрудник партнёра"
+    ],
+    "pain": "медистория разбросана",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "OCR",
+      "timeline",
+      "reminders и brief врачу"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — OCR + timeline + reminders и brief врачу",
+      "кабинет партнёра клиники и страховые и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «152-ФЗ; no diagnosis»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "клинический post-op triage",
+      "очередь срочных послеоперационных случаев",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈3,5 млрд ₽; TAM ≈78,75 млрд ₽; global $1,5–4,2 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈3,5 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3"
+      },
+      {
+        "type": "estimate",
+        "value": "TAM ≈78,75 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      },
+      {
+        "type": "estimate",
+        "value": "global $1,5–4,2 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "PetStory",
+      "PetDesk",
+      "Tractive"
+    ],
+    "differentiation": "Продольный owner-controlled архив между несколькими клиниками; не мониторинг конкретной операции и не triage.",
+    "distribution": [
+      "клиники и страховые"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽249–499/мес",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "document→visit→record",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "152-ФЗ; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6100000,
+      "max": 8500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "клиники и страховые",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 79.1,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; доступность GTM 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Клиники не обязаны отдавать структурированную историю, а владелец редко платит за паспорт отдельно.",
+        "PetStory / PetDesk могут встроить ключевой workflow «OCR + timeline + reminders и brief врачу» и обнулить отдельную готовность платить ₽249–499/мес.",
+        "Канал клиники и страховые контролирует активацию владельцы питомцев с несколькими клиниками; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «152-ФЗ; no diagnosis» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «OCR + timeline + reminders и brief врачу» не доводит пользователя до измеримого завершения кейса.",
+        "клиники и страховые подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «152-ФЗ; no diagnosis» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "ветклиника/insurer действительно имеет отдельный бюджет ₽249–499/мес именно на этот workflow.",
+        "владельцы питомцев с несколькими клиниками регулярно создают пригодные данные для «OCR + timeline + reminders и brief врачу», а не возвращаются к чатам.",
+        "клиники и страховые даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «152-ФЗ; no diagnosis» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «медистория разбросана» на 100 пользователей владельцы питомцев с несколькими клиниками за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «OCR + timeline + reminders и brief врачу» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри ветклиника/insurer владеет бюджетом ₽249–499/мес и KPI завершения «OCR»?",
+          "Какой под-сегмент «владельцы питомцев с несколькими клиниками» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «OCR + timeline + reminders и brief врачу» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «OCR» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽249–499/мес и 20% ручных исключений?",
+          "Какой CAC payback получается у канала клиники и страховые при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли клиники и страховые не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет ветклиника/insurer продвигать «OCR», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «OCR + timeline + reminders и brief врачу» запрещены или требуют лицензированного партнёра при режиме «152-ФЗ; no diagnosis»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и ветклиника/insurer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «OCR» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор ветклиника/insurer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «OCR + timeline + reminders и brief врачу» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «152-ФЗ; no diagnosis»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «OCR + timeline + reminders и brief врачу», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров клиники и страховые paid pilot по цене ₽249–499/мес после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «OCR + timeline + reminders и brief врачу»: D90 <25%.",
+        "Для «OCR + timeline + reminders и brief врачу»: errors >2%.",
+        "Paid conversion партнёров клиники и страховые ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽249–499/мес из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «OCR + timeline» и одним сегментом владельцы питомцев с несколькими клиниками.",
+        "Запускать через одного типа партнёра — клиники и страховые — с обязательным activation KPI.",
+        "Оставить human approval для «reminders и brief врачу» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.1; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; доступность GTM 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "доступность GTM 7/10"
+      ]
+    },
+    "rank": 16
+  },
+  {
+    "id": "seller-profit-action-os",
+    "titleRu": "ОС действий по прибыли продавца маркетплейсов",
+    "originalTerm": "Marketplace seller profit action OS",
+    "segment": "Commerce Ops",
+    "sourceReports": [
+      "russian-b2b-saas-markets-2025",
+      "russian-saas-entry-opportunities",
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Аналитика маркетплейсов РФ: 3 960–5 500 млн ₽, 2024; TAM 14 900–26 000 млн ₽",
+      "Global seller software proxy $2.19B, 2025; broad TAM $3.2B; SAM $0.72B"
+    ],
+    "sourceUrls": [
+      "https://ecomhub.ru/marketplace-analytics-market-2024-mpstat-marketguru-eggsheads-moneyplace-sellematics/",
+      "https://www.fontanka.ru/2026/02/10/76255971/",
+      "https://marketintelo.com/report/seller-analytics-platform-market"
+    ],
+    "oneLiner": "Сводит реальную маржу, рекламу, остатки и cash-flow WB/Ozon и создаёт подтверждаемые действия, а не ещё один дашборд.",
+    "targetCustomer": "Бренды с GMV 50–500 млн ₽ на 2+ площадках.",
+    "buyer": "Собственник/e-commerce директор",
+    "users": [
+      "категорийные менеджеры",
+      "маркетологи",
+      "закупки",
+      "финансы"
+    ],
+    "pain": "Нативные кабинеты не дают единую contribution margin; решения по рекламе и поставкам разорваны.",
+    "currentAlternatives": [
+      "MPSTATS",
+      "MarketGURU",
+      "Moneyplace",
+      "Selsup",
+      "Excel"
+    ],
+    "productScope": [
+      "true margin",
+      "ad anomalies",
+      "replenishment suggestions",
+      "cash forecast",
+      "action approval"
+    ],
+    "mvp3to6Months": [
+      "WB/Ozon APIs",
+      "SKU mapping",
+      "P&L rules",
+      "3 anomaly types",
+      "draft actions"
+    ],
+    "excludedFromMvp": [
+      "автоторговля без approval",
+      "собственный склад",
+      "кредитование",
+      "внешний scraping",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Рост топ-9 замедлился до 15.5%, native analytics давит dashboards; рынок явно смещается к action/outcome.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "3 960–5 500 млн ₽",
+        "note": "РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "14 900–26 000 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "proxy",
+        "value": "$2.19B",
+        "note": "global software component, 2025"
+      }
+    ],
+    "competitors": [
+      "MPSTATS",
+      "MarketGURU",
+      "Selsup",
+      "Moneyplace",
+      "native WB/Ozon"
+    ],
+    "differentiation": "Finance-grade margin и action queue с attribution результата.",
+    "distribution": [
+      "агентства MP",
+      "банки seller ecosystem",
+      "бухгалтерии",
+      "seller communities"
+    ],
+    "salesCycle": "2–6 недель",
+    "pricing": "30–150 тыс. ₽/мес. по GMV/SKU",
+    "revenueModel": "SaaS + optional savings fee",
+    "retentionLoop": "Ежедневные ads/stock решения и накопленная SKU history.",
+    "requiredIntegrations": [
+      "WB",
+      "Ozon",
+      "1С/МойСклад",
+      "банки позже"
+    ],
+    "dataNeeds": [
+      "заказы",
+      "комиссии",
+      "реклама",
+      "остатки",
+      "закупочная цена"
+    ],
+    "regulatory": "Коммерческие данные; соблюдать API terms, не использовать серый scraping.",
+    "localization": "Комиссии, логистика и рекламные модели российских площадок.",
+    "exportPath": "KZ/UZ, затем MENA с локальными connectors.",
+    "moat": "Нормализованная экономика SKU и журнал action→outcome.",
+    "teamNeeded": [
+      "product/marketplaces",
+      "2 data/backend",
+      "frontend",
+      "integration",
+      "growth"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6000000,
+      "max": 8500000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "официальные APIs",
+      "точная себестоимость",
+      "2 площадки"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 9,
+      "whitespace": 7,
+      "retention": 8,
+      "growth": 7,
+      "competitionAdvantage": 7,
+      "exportOption": 9,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 79.1,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: капиталоэффективность 9/10, экспортный потенциал 9/10; штрафы: рыночное окно 7/10; рост категории 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Площадки ограничат API",
+        "Лидеры аналитики быстро копируют action layer",
+        "Селлеры churn из-за бизнеса, не продукта",
+        "Без достоверной себестоимости маржа ложна"
+      ],
+      "failureModes": [
+        "fake precision",
+        "рекомендации конфликтуют",
+        "API outage"
+      ],
+      "hiddenAssumptions": [
+        "официальных данных достаточно",
+        "клиент ведёт себестоимость",
+        "действия измеримы"
+      ],
+      "questions": {
+        "problem": [
+          "Какое решение сегодня самое ручное?",
+          "Сколько теряют на stockout/ads?"
+        ],
+        "customer": [
+          "Бренд или reseller лучше?",
+          "Какой GMV даёт WTP?"
+        ],
+        "product": [
+          "Какие 3 действия безопасны?",
+          "Как показать attribution?"
+        ],
+        "economics": [
+          "Outcome fee приемлем?",
+          "API cost?"
+        ],
+        "gtm": [
+          "Канал агентств конфликтен?",
+          "Банк может bundle?"
+        ],
+        "regulation": [
+          "Разрешена ли автоматизация API?",
+          "Где хранить токены?"
+        ],
+        "data": [
+          "Как получать себестоимость?",
+          "Как матчить SKU?"
+        ],
+        "team": [
+          "Есть marketplace operator?",
+          "Кто следит за API?"
+        ],
+        "evidence": [
+          "Есть baseline по 10 sellers?",
+          "Готовы платить за action, не dashboard?"
+        ]
+      },
+      "killCriteria": [
+        "<50% рекомендаций принимаются",
+        "API покрывает <80% нужных данных",
+        "D90 retention <60%",
+        "нет uplift ≥2 тарифов"
+      ],
+      "improvements": [
+        "Один ICP — private-label brands",
+        "Только official APIs",
+        "Approval и audit",
+        "Начать с margin+stock, не всех функций"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.1; MVP остаётся overlay/HITL в лимите, ключевые ограничения — рыночное окно 7/10; рост категории 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "капиталоэффективность 9/10",
+        "экспортный потенциал 9/10",
+        "острота боли 8/10"
+      ],
+      "penalties": [
+        "рыночное окно 7/10",
+        "рост категории 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 17
+  },
+  {
+    "id": "B2C-06",
+    "titleRu": "Семейный антискам",
+    "originalTerm": "Family anti-scam response",
+    "segment": "B2B2C Cyber Safety",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "global-B2C-media-education-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "global-B2B-horizontal-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA"
+    ],
+    "sourceUrls": [
+      "https://www.giiresearch.com/report/go1644138-parental-control-software.html"
+    ],
+    "oneLiner": "share check, family alert, recovery через банки/telcos.",
+    "targetCustomer": "семьи с подростками и пожилыми",
+    "buyer": "bank/telco/insurer",
+    "users": [
+      "семьи с подростками и пожилыми и сотрудник партнёра"
+    ],
+    "pain": "непонятно как проверить угрозу",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "share check",
+      "family alert",
+      "recovery"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — share check + family alert + recovery",
+      "кабинет партнёра банки/telcos и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «child privacy, consent»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: parental control $1,5 млрд 2024, forecast $3 млрд",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "parental control $1,5 млрд 2024, forecast $3 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.giiresearch.com/report/go1644138-parental-control-software.html"
+      }
+    ],
+    "competitors": [
+      "Kaspersky",
+      "Bark",
+      "Qustodio"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: share check, family alert, recovery.",
+    "distribution": [
+      "банки/telcos"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽50–150/family B2B",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "checks→threat graph",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "child privacy, consent",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7100000,
+      "max": 9800000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "банки/telcos",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 79.0,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Банк или телеком могут встроить share-check и family alert в существующее приложение.",
+        "Kaspersky / Bark могут встроить ключевой workflow «share check + family alert + recovery» и обнулить отдельную готовность платить ₽50–150/family B2B.",
+        "Канал банки/telcos контролирует активацию семьи с подростками и пожилыми; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «child privacy, consent» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «share check + family alert + recovery» не доводит пользователя до измеримого завершения кейса.",
+        "банки/telcos подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «child privacy, consent» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "bank/telco/insurer действительно имеет отдельный бюджет ₽50–150/family B2B именно на этот workflow.",
+        "семьи с подростками и пожилыми регулярно создают пригодные данные для «share check + family alert + recovery», а не возвращаются к чатам.",
+        "банки/telcos даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «child privacy, consent» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «непонятно как проверить угрозу» на 100 пользователей семьи с подростками и пожилыми за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «share check + family alert + recovery» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри bank/telco/insurer владеет бюджетом ₽50–150/family B2B и KPI завершения «share check»?",
+          "Какой под-сегмент «семьи с подростками и пожилыми» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «share check + family alert + recovery» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «share check» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽50–150/family B2B и 20% ручных исключений?",
+          "Какой CAC payback получается у канала банки/telcos при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли банки/telcos не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет bank/telco/insurer продвигать «share check», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «share check + family alert + recovery» запрещены или требуют лицензированного партнёра при режиме «child privacy, consent»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и bank/telco/insurer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «share check» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор bank/telco/insurer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «share check + family alert + recovery» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «child privacy, consent»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «share check + family alert + recovery», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров банки/telcos paid pilot по цене ₽50–150/family B2B после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «share check + family alert + recovery»: precision <90%.",
+        "Для «share check + family alert + recovery»: no loss reduction.",
+        "Paid conversion партнёров банки/telcos ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽50–150/family B2B из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «share check + family alert» и одним сегментом семьи с подростками и пожилыми.",
+        "Запускать через одного типа партнёра — банки/telcos — с обязательным activation KPI.",
+        "Оставить human approval для «recovery» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "доступность GTM 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "реализуемость MVP 7/10"
+      ]
+    },
+    "rank": 18
+  },
+  {
+    "id": "B2C-08",
+    "titleRu": "Компаньон трудового мигранта",
+    "originalTerm": "Migrant compliance companion",
+    "segment": "B2B2C GovTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "GCC reverse corridor"
+    ],
+    "sourceUrls": [
+      "https://raexpert.ru/researches/regions/migration_regions_2024/"
+    ],
+    "oneLiner": "multilingual checklist, OCR, deadlines через HoReCa/logistics employers.",
+    "targetCustomer": "работники Central Asia→Russia",
+    "buyer": "employer/staffing/bank",
+    "users": [
+      "работники Central Asia→Russia и сотрудник партнёра"
+    ],
+    "pain": "просрочки документов ведут к штрафам",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "multilingual checklist",
+      "OCR",
+      "deadlines"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — multilingual checklist + OCR + deadlines",
+      "кабинет партнёра HoReCa/logistics employers и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «migration law, 152-ФЗ»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈4,5 млрд ₽, TAM ≈20 млрд ₽; global $0,8–1,4 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈4,5 млрд ₽, TAM ≈20 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://raexpert.ru/researches/regions/migration_regions_2024/"
+      },
+      {
+        "type": "estimate",
+        "value": "global $0,8–1,4 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Госуслуги",
+      "МВД",
+      "Localyze"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: multilingual checklist, OCR, deadlines.",
+    "distribution": [
+      "HoReCa/logistics employers"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽150–400/worker",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "monthly renewals",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "migration law, 152-ФЗ",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "GCC reverse corridor",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6300000,
+      "max": 8800000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "HoReCa/logistics employers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 79.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Изменение миграционных правил способно мгновенно сделать checklist устаревшим.",
+        "Госуслуги / МВД могут встроить ключевой workflow «multilingual checklist + OCR + deadlines» и обнулить отдельную готовность платить ₽150–400/worker.",
+        "Канал HoReCa/logistics employers контролирует активацию работники Central Asia→Russia; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «migration law, 152-ФЗ» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «multilingual checklist + OCR + deadlines» не доводит пользователя до измеримого завершения кейса.",
+        "HoReCa/logistics employers подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «migration law, 152-ФЗ» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "employer/staffing/bank действительно имеет отдельный бюджет ₽150–400/worker именно на этот workflow.",
+        "работники Central Asia→Russia регулярно создают пригодные данные для «multilingual checklist + OCR + deadlines», а не возвращаются к чатам.",
+        "HoReCa/logistics employers даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «migration law, 152-ФЗ» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «просрочки документов ведут к штрафам» на 100 пользователей работники Central Asia→Russia за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «multilingual checklist + OCR + deadlines» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри employer/staffing/bank владеет бюджетом ₽150–400/worker и KPI завершения «multilingual checklist»?",
+          "Какой под-сегмент «работники Central Asia→Russia» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «multilingual checklist + OCR + deadlines» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «multilingual checklist» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽150–400/worker и 20% ручных исключений?",
+          "Какой CAC payback получается у канала HoReCa/logistics employers при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли HoReCa/logistics employers не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет employer/staffing/bank продвигать «multilingual checklist», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «multilingual checklist + OCR + deadlines» запрещены или требуют лицензированного партнёра при режиме «migration law, 152-ФЗ»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и employer/staffing/bank?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «multilingual checklist» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор employer/staffing/bank мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «multilingual checklist + OCR + deadlines» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «migration law, 152-ФЗ»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «multilingual checklist + OCR + deadlines», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров HoReCa/logistics employers paid pilot по цене ₽150–400/worker после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «multilingual checklist + OCR + deadlines»: error >0.5%.",
+        "Для «multilingual checklist + OCR + deadlines»: activation <60%.",
+        "Paid conversion партнёров HoReCa/logistics employers ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽150–400/worker из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «multilingual checklist + OCR» и одним сегментом работники Central Asia→Russia.",
+        "Запускать через одного типа партнёра — HoReCa/logistics employers — с обязательным activation KPI.",
+        "Оставить human approval для «deadlines» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "доступность GTM 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "реализуемость MVP 7/10"
+      ]
+    },
+    "rank": 19
+  },
+  {
+    "id": "cloud-compliance-autofix",
+    "titleRu": "Автоисправление облачного compliance для mid-market",
+    "originalTerm": "Cloud security posture & evidence autofix",
+    "segment": "Cybersecurity / CSPM",
+    "sourceReports": [
+      "global-B2B-horizontal-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Cyber security software tools $42.8B proxy, 2025; Europe derived $11.8B",
+      "РФ broad cyber 314 млрд ₽, 2024, +26.3%; cloud security 5 млрд ₽ 2023 → 32 млрд ₽ 2028 forecast"
+    ],
+    "sourceUrls": [
+      "https://dataintelo.com/report/cyber-security-software-tool-market",
+      "https://www.csr.ru/upload/iblock/233/lio2l8p775bu8lhddpaja8f6fto01x8s.pdf",
+      "https://www.cnews.ru/news/line/2024-12-03_sk_capital_i_kod_bezopasnosti"
+    ],
+    "oneLiner": "Строит evidence graph облачных настроек, создаёт безопасные IaC pull requests и пакет доказательств для аудита.",
+    "targetCustomer": "Cloud-active компании 100–2 000 сотрудников с Kubernetes и без большой cloud-security команды.",
+    "buyer": "CISO/CTO",
+    "users": [
+      "cloud engineers",
+      "security",
+      "audit",
+      "MSP"
+    ],
+    "pain": "Сканеры создают сотни alerts без owner/remediation; локальные облака поддерживаются слабо.",
+    "currentAlternatives": [
+      "native security tools",
+      "Wiz/Palo Alto",
+      "ручные scripts",
+      "MSSP"
+    ],
+    "productScope": [
+      "posture ingest",
+      "policy packs",
+      "evidence graph",
+      "owner",
+      "safe PR",
+      "audit export"
+    ],
+    "mvp3to6Months": [
+      "Yandex Cloud + K8s",
+      "20 policies",
+      "read-only scan",
+      "Terraform PR drafts",
+      "evidence report"
+    ],
+    "excludedFromMvp": [
+      "SOC",
+      "EDR",
+      "автоприменение без approval",
+      "сертификация ФСТЭК"
+    ],
+    "whyNow": "NIS2/CRA и рост локальных облаков создают обязательный spend; value смещается от alerts к remediation.",
+    "marketEvidence": [
+      {
+        "type": "proxy",
+        "value": "$42.8B",
+        "note": "global cyber tools"
+      },
+      {
+        "type": "reported",
+        "value": "314 млрд ₽",
+        "note": "broad cyber РФ, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "5→32 млрд ₽",
+        "note": "cloud security РФ forecast 2023–2028"
+      }
+    ],
+    "competitors": [
+      "Wiz",
+      "Palo Alto",
+      "native cloud tools",
+      "российские CSPM/MSSP"
+    ],
+    "differentiation": "Local cloud + remediation PR + audit evidence для mid-market через MSP.",
+    "distribution": [
+      "MSSP/MSP",
+      "cloud integrators",
+      "audit firms"
+    ],
+    "salesCycle": "3–7 месяцев",
+    "pricing": "1.5–6 млн ₽ ARR",
+    "revenueModel": "subscription by accounts/resources",
+    "retentionLoop": "Continuous drift и audit cycles.",
+    "requiredIntegrations": [
+      "Yandex Cloud",
+      "K8s",
+      "Terraform/Git",
+      "ticketing"
+    ],
+    "dataNeeds": [
+      "config metadata",
+      "policies",
+      "owners",
+      "remediation history"
+    ],
+    "regulatory": "ИБ требования; не обещать сертификацию, безопасный read-only default.",
+    "localization": "Российские облака и policy mappings.",
+    "exportPath": "EU through MSP after SOC 2/ISO and neutral entity.",
+    "moat": "Regional cloud policy graph and verified remediation library.",
+    "teamNeeded": [
+      "product/security",
+      "2 cloud security engineers",
+      "backend",
+      "frontend",
+      "DevSecOps",
+      "channel sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 8000000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "senior security team",
+      "cloud APIs",
+      "MSP channel"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 9,
+      "feasibility": 7,
+      "gtmAccessibility": 6,
+      "capitalEfficiency": 7,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 10,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 79.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: экспортный потенциал 10/10, острота боли 9/10; штрафы: доступность GTM 6/10; реализуемость MVP 7/10; капиталоэффективность 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Без бренда безопасности CISO не купит",
+        "Ошибка autofix создаст outage",
+        "Сертификация может превысить бюджет",
+        "Cloud vendors bundle posture"
+      ],
+      "failureModes": [
+        "опасный PR",
+        "alert noise",
+        "долгий security review"
+      ],
+      "hiddenAssumptions": [
+        "MSP даст доверие",
+        "20 policies достаточно",
+        "read-only даёт WTP"
+      ],
+      "questions": {
+        "problem": [
+          "Какие audit findings повторяются?",
+          "Сколько alerts без owner?"
+        ],
+        "customer": [
+          "Какой cloud footprint?",
+          "CISO или MSP buyer?"
+        ],
+        "product": [
+          "Как доказать safety PR?",
+          "Как rollback?"
+        ],
+        "economics": [
+          "Insurance/liability?",
+          "ACV до certification?"
+        ],
+        "gtm": [
+          "Есть anchor MSP?",
+          "Нужен реестр ПО?"
+        ],
+        "regulation": [
+          "ФСТЭК обязательна?",
+          "Какие данные выходят?"
+        ],
+        "data": [
+          "API coverage?",
+          "Policy false positives?"
+        ],
+        "team": [
+          "Есть senior cloud security?",
+          "Кто ведёт incident response?"
+        ],
+        "evidence": [
+          "Есть failed audit cost?",
+          "3 design partners?"
+        ]
+      },
+      "killCriteria": [
+        "нет MSP anchor",
+        "critical false positive >1%",
+        "сертификация обязательна до продажи и >3 млн ₽",
+        "MVP не проходит external pentest"
+      ],
+      "improvements": [
+        "Read-only evidence first",
+        "PR only with approval",
+        "Один cloud/K8s",
+        "Channel-led trust"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 79.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 6/10; реализуемость MVP 7/10; капиталоэффективность 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "экспортный потенциал 10/10",
+        "острота боли 9/10",
+        "готовность платить 9/10"
+      ],
+      "penalties": [
+        "доступность GTM 6/10",
+        "реализуемость MVP 7/10",
+        "капиталоэффективность 7/10"
+      ]
+    },
+    "rank": 20
+  },
+  {
+    "id": "B2C-11",
+    "titleRu": "CRM подписчиков Telegram-эксперта",
+    "originalTerm": "Creator membership CRM",
+    "segment": "B2B2C Creator Economy",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "global-B2C-media-education-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-product-software-companies",
+      "russian-b2b-saas-2025",
+      "russian-b2b-saas-markets-2025",
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-horizontal-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→LatAm/SEA"
+    ],
+    "sourceUrls": [
+      "https://vk.com/press/content-2024"
+    ],
+    "oneLiner": "audience import, CRM, receipts/export через creator agencies.",
+    "targetCustomer": "эксперты с 5k–100k followers",
+    "buyer": "creator/producer",
+    "users": [
+      "эксперты с 5k–100k followers и сотрудник партнёра"
+    ],
+    "pain": "payments/churn fragmented",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "audience import",
+      "CRM",
+      "receipts/export"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — audience import + CRM + receipts/export",
+      "кабинет партнёра creator agencies и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «54-ФЗ, PII, moderation»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ net ≈0,75 млрд ₽, TAM ≈2,85 млрд ₽; global $1–2 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ net ≈0,75 млрд ₽, TAM ≈2,85 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://vk.com/press/content-2024"
+      },
+      {
+        "type": "estimate",
+        "value": "global $1–2 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Boosty",
+      "VK Donut",
+      "Patreon"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: audience import, CRM, receipts/export.",
+    "distribution": [
+      "creator agencies"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1990–9990/month",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "segment→campaign→retained revenue",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "54-ФЗ, PII, moderation",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→LatAm/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5900000,
+      "max": 8200000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "creator agencies",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 78.8,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: капиталоэффективность 9/10, острота боли 8/10; штрафы: качество evidence 6/10; готовность платить 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Telegram ограничивает импорт и платежные сценарии, а creator churn переносится на продукт.",
+        "Boosty / VK Donut могут встроить ключевой workflow «audience import + CRM + receipts/export» и обнулить отдельную готовность платить ₽1990–9990/month.",
+        "Канал creator agencies контролирует активацию эксперты с 5k–100k followers; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «54-ФЗ, PII, moderation» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «audience import + CRM + receipts/export» не доводит пользователя до измеримого завершения кейса.",
+        "creator agencies подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «54-ФЗ, PII, moderation» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "creator/producer действительно имеет отдельный бюджет ₽1990–9990/month именно на этот workflow.",
+        "эксперты с 5k–100k followers регулярно создают пригодные данные для «audience import + CRM + receipts/export», а не возвращаются к чатам.",
+        "creator agencies даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «54-ФЗ, PII, moderation» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «payments/churn fragmented» на 100 пользователей эксперты с 5k–100k followers за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «audience import + CRM + receipts/export» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри creator/producer владеет бюджетом ₽1990–9990/month и KPI завершения «audience import»?",
+          "Какой под-сегмент «эксперты с 5k–100k followers» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «audience import + CRM + receipts/export» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «audience import» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽1990–9990/month и 20% ручных исключений?",
+          "Какой CAC payback получается у канала creator agencies при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли creator agencies не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет creator/producer продвигать «audience import», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «audience import + CRM + receipts/export» запрещены или требуют лицензированного партнёра при режиме «54-ФЗ, PII, moderation»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и creator/producer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «audience import» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор creator/producer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «audience import + CRM + receipts/export» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «54-ФЗ, PII, moderation»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «audience import + CRM + receipts/export», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров creator agencies paid pilot по цене ₽1990–9990/month после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «audience import + CRM + receipts/export»: churn reduction <10%.",
+        "Для «audience import + CRM + receipts/export»: logo churn >5%.",
+        "Paid conversion партнёров creator agencies ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽1990–9990/month из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «audience import + CRM» и одним сегментом эксперты с 5k–100k followers.",
+        "Запускать через одного типа партнёра — creator agencies — с обязательным activation KPI.",
+        "Оставить human approval для «receipts/export» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 78.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "капиталоэффективность 9/10",
+        "острота боли 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 21
+  },
+  {
+    "id": "B2C-21",
+    "titleRu": "Автоповтор заказов ресторанов",
+    "originalTerm": "Direct reorder loyalty",
+    "segment": "B2B2C FoodTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-product-software-companies",
+      "russian-b2b-saas-2025",
+      "russian-b2b-saas-markets-2025",
+      "global-B2B-SMB-commerce-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA"
+    ],
+    "sourceUrls": [
+      "https://www.vedomosti.ru/business/articles/2024/06/14/1043711-rinok-softa-dlya-restorannogo-biznesa-viros"
+    ],
+    "oneLiner": "reorder, margin triggers, holdouts через POS integrators/franchises.",
+    "targetCustomer": "guests of chains 3–30 locations",
+    "buyer": "restaurant chain",
+    "users": [
+      "guests of chains 3–30 locations и сотрудник партнёра"
+    ],
+    "pain": "repeat stays with aggregator",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "reorder",
+      "margin triggers",
+      "holdouts"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — reorder + margin triggers + holdouts",
+      "кабинет партнёра POS integrators/franchises и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «consent, ad marking; no fleet»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ delivery ≈76,5 млрд ₽, TAM ≈145 млрд ₽; software ≈6,75 млрд ₽",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ delivery ≈76,5 млрд ₽, TAM ≈145 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.vedomosti.ru/business/articles/2024/06/14/1043711-rinok-softa-dlya-restorannogo-biznesa-viros"
+      },
+      {
+        "type": "estimate",
+        "value": "software ≈6,75 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "iiko",
+      "r_keeper",
+      "Mindbox"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: reorder, margin triggers, holdouts.",
+    "distribution": [
+      "POS integrators/franchises"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽8k–30k/location",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "order→repeat→holdout",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "consent, ad marking; no fleet",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6500000,
+      "max": 9000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "POS integrators/franchises",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 78.8,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: капиталоэффективность 9/10, острота боли 8/10; штрафы: качество evidence 6/10; готовность платить 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Pos и агрегаторы контролируют данные, а direct reorder может каннибализировать оплаченный трафик.",
+        "iiko / r_keeper могут встроить ключевой workflow «reorder + margin triggers + holdouts» и обнулить отдельную готовность платить ₽8k–30k/location.",
+        "Канал POS integrators/franchises контролирует активацию guests of chains 3–30 locations; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «consent, ad marking; no fleet» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «reorder + margin triggers + holdouts» не доводит пользователя до измеримого завершения кейса.",
+        "POS integrators/franchises подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «consent, ad marking; no fleet» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "restaurant chain действительно имеет отдельный бюджет ₽8k–30k/location именно на этот workflow.",
+        "guests of chains 3–30 locations регулярно создают пригодные данные для «reorder + margin triggers + holdouts», а не возвращаются к чатам.",
+        "POS integrators/franchises даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «consent, ad marking; no fleet» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «repeat stays with aggregator» на 100 пользователей guests of chains 3–30 locations за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «reorder + margin triggers + holdouts» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри restaurant chain владеет бюджетом ₽8k–30k/location и KPI завершения «reorder»?",
+          "Какой под-сегмент «guests of chains 3–30 locations» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «reorder + margin triggers + holdouts» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «reorder» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽8k–30k/location и 20% ручных исключений?",
+          "Какой CAC payback получается у канала POS integrators/franchises при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли POS integrators/franchises не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет restaurant chain продвигать «reorder», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «reorder + margin triggers + holdouts» запрещены или требуют лицензированного партнёра при режиме «consent, ad marking; no fleet»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и restaurant chain?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «reorder» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор restaurant chain мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «reorder + margin triggers + holdouts» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «consent, ad marking; no fleet»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «reorder + margin triggers + holdouts», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров POS integrators/franchises paid pilot по цене ₽8k–30k/location после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «reorder + margin triggers + holdouts»: contribution <3x fee.",
+        "Для «reorder + margin triggers + holdouts»: uplift <5pp.",
+        "Paid conversion партнёров POS integrators/franchises ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽8k–30k/location из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «reorder + margin triggers» и одним сегментом guests of chains 3–30 locations.",
+        "Запускать через одного типа партнёра — POS integrators/franchises — с обязательным activation KPI.",
+        "Оставить human approval для «holdouts» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 78.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "капиталоэффективность 9/10",
+        "острота боли 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 22
+  },
+  {
+    "id": "field-audit-cv",
+    "titleRu": "AI-аудит точек для региональных сетей",
+    "originalTerm": "Self-serve field audit + computer vision",
+    "segment": "Retail Ops / Field Force",
+    "sourceReports": [
+      "russian-b2b-saas-markets-2025",
+      "russian-saas-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Аудит торговых точек: 1 500–3 000 млн ₽ estimate, 2024; TAM 5 000–15 000 млн ₽",
+      "MD Audit 169 млн ₽, 2024; 6–11% estimated share"
+    ],
+    "sourceUrls": [
+      "https://zachestnyibiznes.ru/company/ul/1197746211684_9731034717_OOO-MD-AUDIT",
+      "https://www.vedomosti.ru/technology/articles/2024/06/26/1046177-softline-hochet-rasshiritsya-za-schet-sdelok-ma"
+    ],
+    "oneLiner": "Мобильные чек-листы и AI-проверка фото для сетей 20–300 точек с готовыми стандартами и запуском за день.",
+    "targetCustomer": "Региональные франшизы, ПВЗ и сети общепита/ритейла 20–300 точек.",
+    "buyer": "Операционный директор",
+    "users": [
+      "аудиторы",
+      "управляющие",
+      "франчайзи"
+    ],
+    "pain": "Фотоотчёты создают ручную проверку, а нарушения не превращаются в закрытые задачи.",
+    "currentAlternatives": [
+      "MD Audit",
+      "ST-Mobile",
+      "Planado",
+      "чаты",
+      "самописные приложения"
+    ],
+    "productScope": [
+      "checklists",
+      "geo/time evidence",
+      "AI photo rules",
+      "tasks",
+      "benchmark locations"
+    ],
+    "mvp3to6Months": [
+      "PWA",
+      "шаблоны одной отрасли",
+      "5 CV-проверок",
+      "task loop",
+      "dashboard"
+    ],
+    "excludedFromMvp": [
+      "универсальная shelf recognition",
+      "собственные камеры",
+      "WFM/payroll",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Рынок растёт и привлекает M&A; CV переводит чек-лист из фиксации в обнаружение, а mid-market недообслужен.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "1 500–3 000 млн ₽",
+        "note": "рынок РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "5 000–15 000 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "reported",
+        "value": "169 млн ₽",
+        "note": "MD Audit, 2024"
+      }
+    ],
+    "competitors": [
+      "MD Audit",
+      "ST-Mobile",
+      "Моби-С",
+      "Planado",
+      "внутренние приложения"
+    ],
+    "differentiation": "Self-serve отраслевой пакет и автоматическая проверка ограниченного набора визуальных стандартов.",
+    "distribution": [
+      "франчайзеры",
+      "консультанты розницы",
+      "POS-партнёры"
+    ],
+    "salesCycle": "1–3 месяца",
+    "pricing": "500–2 000 ₽ за точку/мес.",
+    "revenueModel": "SaaS по активным точкам",
+    "retentionLoop": "Регулярные аудиты и сравнительный рейтинг точек.",
+    "requiredIntegrations": [
+      "SSO/HR export",
+      "task webhooks",
+      "POS позже"
+    ],
+    "dataNeeds": [
+      "фото",
+      "чек-листы",
+      "гео",
+      "точки",
+      "результаты"
+    ],
+    "regulatory": "152-ФЗ; минимизировать лица и геомониторинг работников.",
+    "localization": "Offline и российские отраслевые стандарты.",
+    "exportPath": "CEE/CIS через франчайзинговые сети.",
+    "moat": "Размеченная библиотека нарушений одной вертикали.",
+    "teamNeeded": [
+      "product/retail",
+      "2 full-stack",
+      "CV engineer",
+      "mobile",
+      "sales/CS"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6000000,
+      "max": 8500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "размеченные фото",
+      "одна вертикаль",
+      "согласие работников"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 78.7,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: повторяемость/retention 9/10, острота боли 8/10; штрафы: качество evidence 6/10; доступность GTM 7/10; экспортный потенциал 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Пять CV-правил могут не оправдать отдельный продукт",
+        "Крупные сети строят in-house",
+        "Работники будут играть чек-лист",
+        "Разметка разных форматов точек дорога"
+      ],
+      "failureModes": [
+        "ложные нарушения",
+        "фото заранее подготовлены",
+        "задачи не закрываются"
+      ],
+      "hiddenAssumptions": [
+        "стандарты визуально проверяемы",
+        "операционный директор контролирует франчайзи",
+        "точки платят за benchmark"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько часов уходит на проверку фото?",
+          "Какие нарушения повторяются?"
+        ],
+        "customer": [
+          "Какая сеть не строит in-house?",
+          "Кто наказывает/мотивирует точку?"
+        ],
+        "product": [
+          "Как бороться с повторным фото?",
+          "Нужен ли offline?"
+        ],
+        "economics": [
+          "Экономия FTE или uplift?",
+          "Какой ARPA на точку?"
+        ],
+        "gtm": [
+          "Франчайзер станет каналом?",
+          "Есть ли конфликт с POS?"
+        ],
+        "regulation": [
+          "Можно ли снимать сотрудников?",
+          "Нужна ли геолокация?"
+        ],
+        "data": [
+          "Сколько фото для одного правила?",
+          "Как дрейфует интерьер?"
+        ],
+        "team": [
+          "Есть CV owner?",
+          "Кто создаёт standards library?"
+        ],
+        "evidence": [
+          "Есть baseline ручной проверки?",
+          "Сколько нарушений приводит к деньгам?"
+        ]
+      },
+      "killCriteria": [
+        "precision CV <85%",
+        "задачи закрываются <60%",
+        "экономия <2 тарифов",
+        "onboarding сети >20 дней"
+      ],
+      "improvements": [
+        "Одна вертикаль и 3 дорогих нарушения",
+        "Антифрод метаданных",
+        "Human review для low-confidence",
+        "Цена за активную точку"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 78.7; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; доступность GTM 7/10; экспортный потенциал 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "повторяемость/retention 9/10",
+        "острота боли 8/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "доступность GTM 7/10",
+        "экспортный потенциал 7/10"
+      ]
+    },
+    "rank": 23
+  },
+  {
+    "id": "procurement-intake-lite",
+    "titleRu": "Лёгкие закупки от заявки до сверки счёта",
+    "originalTerm": "Lightweight procurement intake-to-PO",
+    "segment": "Procurement Ops",
+    "sourceReports": [
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Procurement software $9.5B reported, 2025; NA $3.82B; Europe $2.73B",
+      "РФ procurement automation services $0.125B reported, 2024"
+    ],
+    "sourceUrls": [
+      "https://www.polarismarketresearch.com/industry-analysis/procurement-software-market",
+      "https://tadviser.com/index.php/Article:Russian_procurement_digitalization_market._TAdviser_2026_Review",
+      "https://companies.rbc.ru/news/Stew7NIt48/b2b-center---lider-rossijskogo-ryinka-onlajn-zakupok-kommercheskih-kompanij/"
+    ],
+    "oneLiner": "Заявка из почты/Bitrix → политика → три КП → PO → сверка счёта для частных компаний 50–500 сотрудников.",
+    "targetCustomer": "Частные сервисные и производственные компании 50–500 сотрудников без S2P.",
+    "buyer": "CFO/директор по закупкам",
+    "users": [
+      "инициаторы",
+      "закупщики",
+      "согласующие",
+      "бухгалтерия"
+    ],
+    "pain": "Заявки и КП теряются в почте, лимиты проверяются вручную, счёт не связан с согласованием.",
+    "currentAlternatives": [
+      "email",
+      "Excel",
+      "1С",
+      "B2B-Center",
+      "enterprise SRM"
+    ],
+    "productScope": [
+      "intake",
+      "policy",
+      "quotes",
+      "approval",
+      "PO",
+      "invoice match"
+    ],
+    "mvp3to6Months": [
+      "email/Bitrix form",
+      "rules",
+      "3 quotes upload",
+      "PDF PO",
+      "1С export",
+      "audit"
+    ],
+    "excludedFromMvp": [
+      "ЭТП",
+      "госзакупки",
+      "supplier marketplace",
+      "платежи",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "SMB slice растёт быстрее enterprise, а full S2P слишком тяжёл; РФ ЭТП зрелы, private intake gap остаётся.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$9.5B",
+        "note": "global procurement software, 2025"
+      },
+      {
+        "type": "reported",
+        "value": "$3.82B",
+        "note": "North America"
+      },
+      {
+        "type": "reported",
+        "value": "$0.125B",
+        "note": "РФ automation services, более узкая/иная граница"
+      }
+    ],
+    "competitors": [
+      "1С",
+      "B2B-Center",
+      "Agora",
+      "Comindware",
+      "email"
+    ],
+    "differentiation": "Запуск без supplier-network migration и привычный intake.",
+    "distribution": [
+      "1С-партнёры",
+      "CFO communities",
+      "аутсорс procurement"
+    ],
+    "salesCycle": "2–4 месяца",
+    "pricing": "50–200 тыс. ₽/мес.",
+    "revenueModel": "SaaS",
+    "retentionLoop": "Каждая незарплатная закупка и policy history.",
+    "requiredIntegrations": [
+      "1С",
+      "Bitrix/email",
+      "ЭДО позже"
+    ],
+    "dataNeeds": [
+      "заявки",
+      "бюджеты",
+      "поставщики",
+      "КП",
+      "счета"
+    ],
+    "regulatory": "Не для 44-ФЗ/223-ФЗ; 152-ФЗ, коммерческая тайна.",
+    "localization": "Российские PO/счета, НДС, роли.",
+    "exportPath": "Ограниченный CEE после accounting connectors.",
+    "moat": "Policy templates и supplier performance history.",
+    "teamNeeded": [
+      "product/procurement",
+      "2 backend",
+      "frontend",
+      "1С integration",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 8000000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "узкий ICP",
+      "1С export",
+      "change management"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 7,
+      "competitionAdvantage": 8,
+      "exportOption": 6,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 78.4,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: повторяемость/retention 9/10, острота боли 8/10; штрафы: экспортный потенциал 6/10; доступность GTM 7/10; рост категории 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "1С/Bitrix workflows достаточно",
+        "Change management выше software value",
+        "Три КП не нужны малым закупкам",
+        "Full value требует budgets/ERP"
+      ],
+      "failureModes": [
+        "инициаторы обходят",
+        "approval bottleneck сохраняется",
+        "кастомные policies"
+      ],
+      "hiddenAssumptions": [
+        "частная закупка стандартизируема",
+        "CFO sponsor",
+        "supplier portal не нужен"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько заявок теряется?",
+          "Какой maverick spend?"
+        ],
+        "customer": [
+          "50–500 где sweet spot?",
+          "Кто owner?"
+        ],
+        "product": [
+          "Какой intake channel?",
+          "Нужен budget check?"
+        ],
+        "economics": [
+          "ACV vs implementation?",
+          "Savings metric?"
+        ],
+        "gtm": [
+          "1С channel?",
+          "Консультанты?"
+        ],
+        "regulation": [
+          "Точно вне 44/223-ФЗ?",
+          "Хранение КП?"
+        ],
+        "data": [
+          "Есть cost centers?",
+          "Supplier IDs?"
+        ],
+        "team": [
+          "Procurement expert?",
+          "1С owner?"
+        ],
+        "evidence": [
+          "Baseline cycle time?",
+          "Paid pilots?"
+        ]
+      },
+      "killCriteria": [
+        "adoption заявок <70%",
+        "cycle time не снижается ≥30%",
+        "onboarding >20 дней",
+        "ACV <500 тыс. ₽ при custom work"
+      ],
+      "improvements": [
+        "Один policy pack",
+        "Email/Bitrix intake",
+        "Не строить network",
+        "Invoice match позже approval"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 78.4; MVP остаётся overlay/HITL в лимите, ключевые ограничения — экспортный потенциал 6/10; доступность GTM 7/10; рост категории 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "повторяемость/retention 9/10",
+        "острота боли 8/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "экспортный потенциал 6/10",
+        "доступность GTM 7/10",
+        "рост категории 7/10"
+      ]
+    },
+    "rank": 24
+  },
+  {
+    "id": "local-reputation-to-revenue",
+    "titleRu": "Репутация и конверсия карт для сетей до 100 точек",
+    "originalTerm": "Local reputation and map data operations",
+    "segment": "Local Commerce / Marketing Ops",
+    "sourceReports": [
+      "russian-saas-entry-opportunities",
+      "russian-b2c-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Репутация и данные на картах РФ: 1 300 млн ₽ estimate, 2024; TAM 12 000 млн ₽; growth 20–25%",
+      "RocketData ≈27%, Поинтер ≈18% estimated shares"
+    ],
+    "sourceUrls": [
+      "https://exlibris.ru/news/kak-menyaetsya-rynok-geoservisov-v-rossii/"
+    ],
+    "oneLiner": "Исправляет карточки, приоритизирует отзывы и связывает маршруты/звонки с продажей в POS для сетей 10–100 точек.",
+    "targetCustomer": "Региональные сети услуг, клиник без медфункций, ресторанов и ритейла 10–100 точек.",
+    "buyer": "Директор по маркетингу",
+    "users": [
+      "локальные маркетологи",
+      "управляющие",
+      "customer care"
+    ],
+    "pain": "Данные и отзывы на Яндекс/2ГИС разъезжаются, а влияние рейтинга на кассу не доказано.",
+    "currentAlternatives": [
+      "RocketData",
+      "Поинтер",
+      "Repometr",
+      "агентства",
+      "кабинеты карт"
+    ],
+    "productScope": [
+      "listing sync",
+      "review triage",
+      "AI drafts",
+      "competitor benchmark",
+      "call/route-to-POS attribution"
+    ],
+    "mvp3to6Months": [
+      "Яндекс/2ГИС доступные API/feeds",
+      "review inbox",
+      "tasks",
+      "promo-code/phone attribution",
+      "dashboard"
+    ],
+    "excludedFromMvp": [
+      "серый scraping",
+      "реклама",
+      "CDP",
+      "call tracking numbers at scale",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Local search перемещается в карты и AI-ответы; сети требуют централизованного качества и измерения офлайн-эффекта.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "1 300 млн ₽",
+        "note": "рынок РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "12 000 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "estimate",
+        "value": "20–25%",
+        "note": "growth"
+      }
+    ],
+    "competitors": [
+      "RocketData",
+      "Поинтер",
+      "Repometr",
+      "Яндекс Бизнес",
+      "2ГИС"
+    ],
+    "differentiation": "Замыкает reputation на измеримую продажу и task для конкретной точки.",
+    "distribution": [
+      "локальные агентства",
+      "POS/CRM партнёры",
+      "франчайзеры"
+    ],
+    "salesCycle": "2–6 недель",
+    "pricing": "1 000–3 000 ₽ за точку/мес.",
+    "revenueModel": "SaaS",
+    "retentionLoop": "Постоянные отзывы/изменения и исторический benchmark.",
+    "requiredIntegrations": [
+      "карты",
+      "POS/CRM",
+      "телефония"
+    ],
+    "dataNeeds": [
+      "listing",
+      "reviews",
+      "calls/routes",
+      "sales"
+    ],
+    "regulatory": "152-ФЗ; соблюдать terms карт, не генерировать фальшивые отзывы.",
+    "localization": "Яндекс/2ГИС, русский sentiment.",
+    "exportPath": "CIS/CEE с local map connectors.",
+    "moat": "Entity matching точек и causal dataset reputation→sales.",
+    "teamNeeded": [
+      "product/local",
+      "2 full-stack",
+      "data analyst",
+      "partnerships",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 4500000,
+      "max": 7000000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "официальный доступ",
+      "POS attribution",
+      "network ICP"
+    ],
+    "scores": {
+      "pain": 7,
+      "willingnessToPay": 7,
+      "feasibility": 9,
+      "gtmAccessibility": 8,
+      "capitalEfficiency": 9,
+      "whitespace": 8,
+      "retention": 8,
+      "growth": 8,
+      "competitionAdvantage": 7,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 78.3,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: реализуемость MVP 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; острота боли 7/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "API карт закрыты",
+        "AI-ответы commoditized",
+        "Attribution маршрута к продаже слаб",
+        "Лидеры уже синхронизируют listings"
+      ],
+      "failureModes": [
+        "нет access",
+        "uplift не доказан",
+        "низкий ARPA"
+      ],
+      "hiddenAssumptions": [
+        "сеть имеет POS data",
+        "точка реагирует на tasks",
+        "reviews влияют на продажи"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько неверных карточек?",
+          "Есть loss от рейтинга?"
+        ],
+        "customer": [
+          "10 или 100 точек minimum?",
+          "Кто отвечает за локальные данные?"
+        ],
+        "product": [
+          "Как связать visit с sale?",
+          "Нужен call tracking?"
+        ],
+        "economics": [
+          "ARPA покрывает API?",
+          "Agency margin?"
+        ],
+        "gtm": [
+          "Агентство канал?",
+          "Франчайзер sponsor?"
+        ],
+        "regulation": [
+          "Terms API?",
+          "Персональные данные отзывов?"
+        ],
+        "data": [
+          "Entity matching точен?",
+          "Есть POS granularity?"
+        ],
+        "team": [
+          "Кто ведёт partnerships?",
+          "Есть causal analyst?"
+        ],
+        "evidence": [
+          "Есть holdout tests?",
+          "Клиенты платят за attribution?"
+        ]
+      },
+      "killCriteria": [
+        "нет официального API/экспорта",
+        "gross margin <70%",
+        "не удаётся показать uplift за 90 дней",
+        "ACV <200 тыс. ₽ при high-touch"
+      ],
+      "improvements": [
+        "Одна вертикаль",
+        "Listing quality first",
+        "Holdout by locations",
+        "Не обещать causal attribution без эксперимента"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 78.3; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; острота боли 7/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "реализуемость MVP 9/10",
+        "капиталоэффективность 9/10",
+        "доступность GTM 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "острота боли 7/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 25
+  },
+  {
+    "id": "property-maintenance-sla",
+    "titleRu": "SLA-платформа обслуживания жилых комплексов",
+    "originalTerm": "Residential property maintenance overlay",
+    "segment": "PropTech / Service Operations",
+    "sourceReports": [
+      "global-B2B-vertical-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Residential property software: $3.9B reported, 2024; TAM $7.4B; SAM $1.6B",
+      "СНГ property operations proxy $0.16B, growth 18%"
+    ],
+    "sourceUrls": [
+      "https://www.globalmarketmonitor.com/report_blog/1861821.html",
+      "https://ir.appfolioinc.com/news-releases/news-release-details/appfolio-inc-announces-fourth-quarter-and-fiscal-year-2024"
+    ],
+    "oneLiner": "Надстройка заявок, подрядчиков, осмотров и SLA для УК на 300–5 000 помещений без замены 1С ЖКХ.",
+    "targetCustomer": "Частные управляющие компании и девелоперские УК с 5–50 домами.",
+    "buyer": "Генеральный/операционный директор УК",
+    "users": [
+      "диспетчеры",
+      "инженеры",
+      "подрядчики",
+      "руководители объектов"
+    ],
+    "pain": "Заявка закрыта в учёте, но качество, фото, срок и ответственность подрядчика не доказаны.",
+    "currentAlternatives": [
+      "1С ЖКХ",
+      "Домиленд",
+      "Doma.ai",
+      "телефония",
+      "чаты"
+    ],
+    "productScope": [
+      "intake",
+      "SLA routing",
+      "contractor portal",
+      "inspection evidence",
+      "repeat issue analytics"
+    ],
+    "mvp3to6Months": [
+      "API/email intake",
+      "mobile contractor PWA",
+      "SLA timer",
+      "photo proof",
+      "dashboard"
+    ],
+    "excludedFromMvp": [
+      "приём коммунальных платежей",
+      "ГИС ЖКХ system of record",
+      "маркетплейс подрядчиков",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Облачное ядро растёт, но maintenance/vendor layer фрагментирован; перенос объекта от девелопера добавляет данные.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$3.895B",
+        "note": "global PMS, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "$1.6B",
+        "note": "practical SAM"
+      },
+      {
+        "type": "proxy",
+        "value": "$0.16B",
+        "note": "СНГ, 2024"
+      }
+    ],
+    "competitors": [
+      "1С ЖКХ",
+      "Домиленд",
+      "Doma.ai",
+      "Бурмистр",
+      "Okdesk"
+    ],
+    "differentiation": "Contractor SLA/evidence overlay с быстрым подключением, не новый resident super-app.",
+    "distribution": [
+      "девелоперы",
+      "эксплуатационные подрядчики",
+      "1С-партнёры"
+    ],
+    "salesCycle": "2–5 месяцев",
+    "pricing": "15–50 ₽ за помещение/мес.",
+    "revenueModel": "SaaS",
+    "retentionLoop": "История актива и подрядчика нужна при каждой повторной заявке.",
+    "requiredIntegrations": [
+      "1С ЖКХ",
+      "телефония/email",
+      "ГИС ЖКХ только ссылочно"
+    ],
+    "dataNeeds": [
+      "объекты",
+      "активы",
+      "заявки",
+      "подрядчики",
+      "SLA/evidence"
+    ],
+    "regulatory": "152-ФЗ, жилищные нормы; без платежей.",
+    "localization": "Российские типы заявок, роли УК и подрядчиков.",
+    "exportPath": "CEE property managers после country tenant-law packs.",
+    "moat": "История дефектов/подрядчиков и benchmark SLA.",
+    "teamNeeded": [
+      "product/property",
+      "2 backend",
+      "frontend/PWA",
+      "integration",
+      "B2B sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 8000000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "1С access",
+      "contractor adoption",
+      "asset taxonomy"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 7,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 78.2,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: повторяемость/retention 9/10, острота боли 8/10; штрафы: качество evidence 6/10; доступность GTM 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Resident/UK platforms bundle tickets",
+        "Contractors refuse separate app",
+        "Low per-unit price demands scale",
+        "1С integration can become bespoke"
+      ],
+      "failureModes": [
+        "двойной ввод",
+        "формальное фото-закрытие",
+        "тендерный sales cycle"
+      ],
+      "hiddenAssumptions": [
+        "УК может заставить подрядчика",
+        "SLA влияет на стоимость",
+        "данные активов доступны"
+      ],
+      "questions": {
+        "problem": [
+          "Какая доля повторных заявок?",
+          "Сколько штрафов подрядчика теряется?"
+        ],
+        "customer": [
+          "Частная УК или девелопер быстрее?",
+          "Каков портфель?"
+        ],
+        "product": [
+          "Нужен resident UI?",
+          "Как проверять качество?"
+        ],
+        "economics": [
+          "ARPA на дом?",
+          "Сколько стоит onboarding?"
+        ],
+        "gtm": [
+          "Канал через девелопера?",
+          "Кто интегрирует 1С?"
+        ],
+        "regulation": [
+          "Какие сроки обязательны?",
+          "Какие данные жильца нужны?"
+        ],
+        "data": [
+          "Есть реестр активов?",
+          "Как кодируют причины?"
+        ],
+        "team": [
+          "Есть proptech expert?",
+          "Кто ведёт enterprise CS?"
+        ],
+        "evidence": [
+          "Есть SLA baseline?",
+          "Готов ли подрядчик к пилоту?"
+        ]
+      },
+      "killCriteria": [
+        "contractor activation <70%",
+        "повторные заявки не снижаются ≥10%",
+        "onboarding >6 недель",
+        "ACV <300 тыс. ₽ при high-touch"
+      ],
+      "improvements": [
+        "Начать с подрядчиков и осмотров",
+        "Не строить resident app",
+        "Шаблон импорта 1С",
+        "Считать cost of repeat visit"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 78.2; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; доступность GTM 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "повторяемость/retention 9/10",
+        "острота боли 8/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "доступность GTM 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 26
+  },
+  {
+    "id": "B2C-05",
+    "titleRu": "Паспорт обслуживания автомобиля",
+    "originalTerm": "Digital maintenance passport",
+    "segment": "B2B2C AutoTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA/LatAm"
+    ],
+    "sourceUrls": [
+      "https://dvizhok.su/business/put-na-servis-lezhit-cherez-czifru-rossijskij-ryinok-posleprodazhnogo-obsluzhivaniya-v-i-kvartale-2024-goda"
+    ],
+    "oneLiner": "works, parts, reminders, evidence через СТО/dealers/insurers.",
+    "targetCustomer": "владельцы авто 3–10 лет",
+    "buyer": "СТО/dealer/insurer",
+    "users": [
+      "владельцы авто 3–10 лет и сотрудник партнёра"
+    ],
+    "pain": "нет переносимой истории",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "works",
+      "parts",
+      "reminders",
+      "evidence"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — works + parts + reminders",
+      "кабинет партнёра СТО/dealers/insurers и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «ПДн; no repair liability»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈25 млрд ₽, TAM ≈100 млрд ₽; global SAM $2–4 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈25 млрд ₽, TAM ≈100 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://dvizhok.su/business/put-na-servis-lezhit-cherez-czifru-rossijskij-ryinok-posleprodazhnogo-obsluzhivaniya-v-i-kvartale-2024-goda"
+      },
+      {
+        "type": "estimate",
+        "value": "global SAM $2–4 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "FIT Service",
+      "Uremont",
+      "Auto.ru"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: works, parts, reminders, evidence.",
+    "distribution": [
+      "СТО/dealers/insurers"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽299/owner или B2B PMPM",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "mileage→service→resale",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "ПДн; no repair liability",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6800000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "СТО/dealers/insurers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.9,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, реализуемость MVP 8/10; штрафы: качество evidence 6/10; готовность платить 7/10; доступность GTM 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Сто не заинтересовано в переносимой истории, которая облегчает уход клиента к конкуренту.",
+        "FIT Service / Uremont могут встроить ключевой workflow «works + parts + reminders» и обнулить отдельную готовность платить ₽299/owner или B2B PMPM.",
+        "Канал СТО/dealers/insurers контролирует активацию владельцы авто 3–10 лет; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «ПДн; no repair liability» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «works + parts + reminders» не доводит пользователя до измеримого завершения кейса.",
+        "СТО/dealers/insurers подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «ПДн; no repair liability» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "СТО/dealer/insurer действительно имеет отдельный бюджет ₽299/owner или B2B PMPM именно на этот workflow.",
+        "владельцы авто 3–10 лет регулярно создают пригодные данные для «works + parts + reminders», а не возвращаются к чатам.",
+        "СТО/dealers/insurers даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «ПДн; no repair liability» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «нет переносимой истории» на 100 пользователей владельцы авто 3–10 лет за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «works + parts + reminders» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри СТО/dealer/insurer владеет бюджетом ₽299/owner или B2B PMPM и KPI завершения «works»?",
+          "Какой под-сегмент «владельцы авто 3–10 лет» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «works + parts + reminders» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «works» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽299/owner или B2B PMPM и 20% ручных исключений?",
+          "Какой CAC payback получается у канала СТО/dealers/insurers при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли СТО/dealers/insurers не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет СТО/dealer/insurer продвигать «works», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «works + parts + reminders» запрещены или требуют лицензированного партнёра при режиме «ПДн; no repair liability»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и СТО/dealer/insurer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «works» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор СТО/dealer/insurer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «works + parts + reminders» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «ПДн; no repair liability»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «works + parts + reminders», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров СТО/dealers/insurers paid pilot по цене ₽299/owner или B2B PMPM после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «works + parts + reminders»: repeat <30%.",
+        "Для «works + parts + reminders»: <5 paid STO.",
+        "Paid conversion партнёров СТО/dealers/insurers ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽299/owner или B2B PMPM из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «works + parts» и одним сегментом владельцы авто 3–10 лет.",
+        "Запускать через одного типа партнёра — СТО/dealers/insurers — с обязательным activation KPI.",
+        "Оставить human approval для «evidence» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.9; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; доступность GTM 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "реализуемость MVP 8/10",
+        "капиталоэффективность 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "доступность GTM 7/10"
+      ]
+    },
+    "rank": 27
+  },
+  {
+    "id": "B2C-02",
+    "titleRu": "Семейный штаб ухода за пожилым",
+    "originalTerm": "Remote eldercare workspace",
+    "segment": "B2B2C Family Care",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CEE→India/SEA"
+    ],
+    "sourceUrls": [
+      "https://www.sec.gov/Archives/edgar/data/1800227/000180022725000031/R36.htm"
+    ],
+    "oneLiner": "роли, задачи, лекарства, документы через HR benefits/private banking.",
+    "targetCustomer": "взрослые дети удалённо ухаживают за родителем",
+    "buyer": "employer/bank/family",
+    "users": [
+      "взрослые дети удалённо ухаживают за родителем и сотрудник партнёра"
+    ],
+    "pain": "handoff и лекарства теряются",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "роли",
+      "задачи",
+      "лекарства",
+      "документы"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — роли + задачи + лекарства",
+      "кабинет партнёра HR benefits/private banking и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «согласия, минимум медданных»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: global $4–7 млрд; SAM $1–2 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "global $4–7 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1800227/000180022725000031/R36.htm"
+      },
+      {
+        "type": "estimate",
+        "value": "SAM $1–2 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Care.com",
+      "Cozi",
+      "чаты"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: роли, задачи, лекарства, документы.",
+    "distribution": [
+      "HR benefits/private banking"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽490–1490/семью",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily handoff→weekly report",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "согласия, минимум медданных",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CEE→India/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5600000,
+      "max": 7800000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "HR benefits/private banking",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.8,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Семьи могут не поддерживать дисциплину handoff, особенно если пожилой человек не пользуется смартфоном.",
+        "Care.com / Cozi могут встроить ключевой workflow «роли + задачи + лекарства» и обнулить отдельную готовность платить ₽490–1490/семью.",
+        "Канал HR benefits/private banking контролирует активацию взрослые дети удалённо ухаживают за родителем; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «согласия, минимум медданных» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «роли + задачи + лекарства» не доводит пользователя до измеримого завершения кейса.",
+        "HR benefits/private banking подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «согласия, минимум медданных» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "employer/bank/family действительно имеет отдельный бюджет ₽490–1490/семью именно на этот workflow.",
+        "взрослые дети удалённо ухаживают за родителем регулярно создают пригодные данные для «роли + задачи + лекарства», а не возвращаются к чатам.",
+        "HR benefits/private banking даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «согласия, минимум медданных» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «handoff и лекарства теряются» на 100 пользователей взрослые дети удалённо ухаживают за родителем за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «роли + задачи + лекарства» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри employer/bank/family владеет бюджетом ₽490–1490/семью и KPI завершения «роли»?",
+          "Какой под-сегмент «взрослые дети удалённо ухаживают за родителем» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «роли + задачи + лекарства» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «роли» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽490–1490/семью и 20% ручных исключений?",
+          "Какой CAC payback получается у канала HR benefits/private banking при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли HR benefits/private banking не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет employer/bank/family продвигать «роли», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «роли + задачи + лекарства» запрещены или требуют лицензированного партнёра при режиме «согласия, минимум медданных»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и employer/bank/family?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «роли» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор employer/bank/family мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «роли + задачи + лекарства» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «согласия, минимум медданных»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «роли + задачи + лекарства», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров HR benefits/private banking paid pilot по цене ₽490–1490/семью после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «роли + задачи + лекарства»: WAU <45%.",
+        "Для «роли + задачи + лекарства»: <2 users/family.",
+        "Paid conversion партнёров HR benefits/private banking ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽490–1490/семью из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «роли + задачи» и одним сегментом взрослые дети удалённо ухаживают за родителем.",
+        "Запускать через одного типа партнёра — HR benefits/private banking — с обязательным activation KPI.",
+        "Оставить human approval для «документы» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "реализуемость MVP 7/10"
+      ]
+    },
+    "rank": 28
+  },
+  {
+    "id": "B2C-03",
+    "titleRu": "Навигатор перименопаузы",
+    "originalTerm": "Perimenopause care-prep",
+    "segment": "B2B2C FemTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "diaspora→MENA/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html"
+    ],
+    "oneLiner": "timeline, forms, visit brief через клиники/employer wellbeing.",
+    "targetCustomer": "женщины 40–52 с длительными симптомами",
+    "buyer": "clinic/DMS/user",
+    "users": [
+      "женщины 40–52 с длительными симптомами и сотрудник партнёра"
+    ],
+    "pain": "симптомы непригодны врачу",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "timeline",
+      "forms",
+      "visit brief"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — timeline + forms + visit brief",
+      "кабинет партнёра клиники/employer wellbeing и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «health data; no diagnosis»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; global $4–7 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html"
+      },
+      {
+        "type": "estimate",
+        "value": "global $4–7 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Flo",
+      "Clue",
+      "Maven"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: timeline, forms, visit brief.",
+    "distribution": [
+      "клиники/employer wellbeing"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽590–1190/мес",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "check-in→visit→trend",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "health data; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "diaspora→MENA/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5200000,
+      "max": 7200000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "клиники/employer wellbeing",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.8,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Симптом-трекер легко становится generic diary без доказанного doctor use.",
+        "Flo / Clue могут встроить ключевой workflow «timeline + forms + visit brief» и обнулить отдельную готовность платить ₽590–1190/мес.",
+        "Канал клиники/employer wellbeing контролирует активацию женщины 40–52 с длительными симптомами; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «health data; no diagnosis» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «timeline + forms + visit brief» не доводит пользователя до измеримого завершения кейса.",
+        "клиники/employer wellbeing подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «health data; no diagnosis» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "clinic/DMS/user действительно имеет отдельный бюджет ₽590–1190/мес именно на этот workflow.",
+        "женщины 40–52 с длительными симптомами регулярно создают пригодные данные для «timeline + forms + visit brief», а не возвращаются к чатам.",
+        "клиники/employer wellbeing даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «health data; no diagnosis» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «симптомы непригодны врачу» на 100 пользователей женщины 40–52 с длительными симптомами за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «timeline + forms + visit brief» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри clinic/DMS/user владеет бюджетом ₽590–1190/мес и KPI завершения «timeline»?",
+          "Какой под-сегмент «женщины 40–52 с длительными симптомами» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «timeline + forms + visit brief» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «timeline» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽590–1190/мес и 20% ручных исключений?",
+          "Какой CAC payback получается у канала клиники/employer wellbeing при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли клиники/employer wellbeing не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет clinic/DMS/user продвигать «timeline», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «timeline + forms + visit brief» запрещены или требуют лицензированного партнёра при режиме «health data; no diagnosis»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и clinic/DMS/user?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «timeline» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор clinic/DMS/user мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «timeline + forms + visit brief» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «health data; no diagnosis»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «timeline + forms + visit brief», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров клиники/employer wellbeing paid pilot по цене ₽590–1190/мес после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «timeline + forms + visit brief»: D30 <35%.",
+        "Для «timeline + forms + visit brief»: doctor use <50%.",
+        "Paid conversion партнёров клиники/employer wellbeing ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽590–1190/мес из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «timeline + forms» и одним сегментом женщины 40–52 с длительными симптомами.",
+        "Запускать через одного типа партнёра — клиники/employer wellbeing — с обязательным activation KPI.",
+        "Оставить human approval для «visit brief» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "реализуемость MVP 7/10"
+      ]
+    },
+    "rank": 29
+  },
+  {
+    "id": "B2C-22",
+    "titleRu": "Депозит и повторная запись массажиста",
+    "originalTerm": "Massage booking deposit OS",
+    "segment": "B2B2C Local Services",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-product-software-companies",
+      "russian-b2b-saas-2025",
+      "russian-b2b-saas-markets-2025",
+      "global-B2B-SMB-commerce-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→GCC/SEA"
+    ],
+    "sourceUrls": [
+      "https://www.cnews.ru/news/top/2024-03-22_vk_potratil_39_milliarda_na"
+    ],
+    "oneLiner": "course plan, deposit, waitlist, reminder через massage schools/acquiring.",
+    "targetCustomer": "self-employed massage therapists",
+    "buyer": "therapist/studio",
+    "users": [
+      "self-employed massage therapists и сотрудник партнёра"
+    ],
+    "pain": "no-shows destroy course revenue",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "course plan",
+      "deposit",
+      "waitlist",
+      "reminder"
+    ],
+    "mvp3to6Months": [
+      "4 месяцев: один workflow — course plan + deposit + waitlist",
+      "кабинет партнёра massage schools/acquiring и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «receipts, PII, no medical claims»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ booking ≈2,5 млрд ₽, TAM ≈18 млрд ₽; global $1,2–1,9 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ booking ≈2,5 млрд ₽, TAM ≈18 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.cnews.ru/news/top/2024-03-22_vk_potratil_39_milliarda_na"
+      },
+      {
+        "type": "estimate",
+        "value": "global $1,2–1,9 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "YClients",
+      "Dikidi",
+      "Fresha"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: course plan, deposit, waitlist, reminder.",
+    "distribution": [
+      "massage schools/acquiring"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1490–3990/month",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "next session→deposit→attendance",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "receipts, PII, no medical claims",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→GCC/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 4700000,
+      "max": 6500000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "2–5 design partners",
+      "massage schools/acquiring",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 7,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.8,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: капиталоэффективность 9/10, острота боли 8/10; штрафы: качество evidence 6/10; готовность платить 7/10; рыночное окно 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Yclients-подобный booking bundle может скопировать deposit и waitlist без отдельной платы.",
+        "YClients / Dikidi могут встроить ключевой workflow «course plan + deposit + waitlist» и обнулить отдельную готовность платить ₽1490–3990/month.",
+        "Канал massage schools/acquiring контролирует активацию self-employed massage therapists; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «receipts, PII, no medical claims» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «course plan + deposit + waitlist» не доводит пользователя до измеримого завершения кейса.",
+        "massage schools/acquiring подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «receipts, PII, no medical claims» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "therapist/studio действительно имеет отдельный бюджет ₽1490–3990/month именно на этот workflow.",
+        "self-employed massage therapists регулярно создают пригодные данные для «course plan + deposit + waitlist», а не возвращаются к чатам.",
+        "massage schools/acquiring даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «receipts, PII, no medical claims» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «no-shows destroy course revenue» на 100 пользователей self-employed massage therapists за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «course plan + deposit + waitlist» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри therapist/studio владеет бюджетом ₽1490–3990/month и KPI завершения «course plan»?",
+          "Какой под-сегмент «self-employed massage therapists» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «course plan + deposit + waitlist» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «course plan» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽1490–3990/month и 20% ручных исключений?",
+          "Какой CAC payback получается у канала massage schools/acquiring при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли massage schools/acquiring не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет therapist/studio продвигать «course plan», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «course plan + deposit + waitlist» запрещены или требуют лицензированного партнёра при режиме «receipts, PII, no medical claims»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и therapist/studio?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «course plan» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор therapist/studio мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «course plan + deposit + waitlist» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «receipts, PII, no medical claims»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «course plan + deposit + waitlist», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров massage schools/acquiring paid pilot по цене ₽1490–3990/month после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «course plan + deposit + waitlist»: no-show reduction <30%.",
+        "Для «course plan + deposit + waitlist»: paid <8%.",
+        "Paid conversion партнёров massage schools/acquiring ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽1490–3990/month из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «course plan + deposit» и одним сегментом self-employed massage therapists.",
+        "Запускать через одного типа партнёра — massage schools/acquiring — с обязательным activation KPI.",
+        "Оставить human approval для «reminder» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; рыночное окно 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "капиталоэффективность 9/10",
+        "острота боли 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "рыночное окно 7/10"
+      ]
+    },
+    "rank": 30
+  },
+  {
+    "id": "B2C-23",
+    "titleRu": "Мониторинг мигрени между визитами",
+    "originalTerm": "Migraine between-visit tracker",
+    "segment": "B2B2C Digital Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE→Spanish"
+    ],
+    "sourceUrls": [
+      "https://businesstat.ru/images/demo/telemedicine_russia_demo_businesstat.pdf"
+    ],
+    "oneLiner": "60-sec log, exact-copy meds, visit brief через neurologists/DMS.",
+    "targetCustomer": "patients with 4+ migraine days",
+    "buyer": "neurology clinic/DMS",
+    "users": [
+      "patients with 4+ migraine days и сотрудник партнёра"
+    ],
+    "pain": "paper diary incomplete",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "60-sec log",
+      "exact-copy meds",
+      "visit brief"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — 60-sec log + exact-copy meds + visit brief",
+      "кабинет партнёра neurologists/DMS и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «health data; no dosage advice»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ telemedicine ≈16,5 млрд ₽, +17%; global broad $90–130 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ telemedicine ≈16,5 млрд ₽, +17%",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://businesstat.ru/images/demo/telemedicine_russia_demo_businesstat.pdf"
+      },
+      {
+        "type": "estimate",
+        "value": "global broad $90–130 млрд",
+        "note": "Контекст широкой категории; узкий SAM для гипотезы не опубликован."
+      }
+    ],
+    "competitors": [
+      "headache diaries",
+      "clinic portals"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: 60-sec log, exact-copy meds, visit brief.",
+    "distribution": [
+      "neurologists/DMS"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽400–900 PMPM",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "episode→trend→review",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "health data; no dosage advice",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE→Spanish",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 7600000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "neurologists/DMS",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.8,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Неполный migraine log не улучшит визит, а приложение не может давать dosage advice.",
+        "headache diaries / clinic portals могут встроить ключевой workflow «60-sec log + exact-copy meds + visit brief» и обнулить отдельную готовность платить ₽400–900 PMPM.",
+        "Канал neurologists/DMS контролирует активацию patients with 4+ migraine days; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «health data; no dosage advice» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «60-sec log + exact-copy meds + visit brief» не доводит пользователя до измеримого завершения кейса.",
+        "neurologists/DMS подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «health data; no dosage advice» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "neurology clinic/DMS действительно имеет отдельный бюджет ₽400–900 PMPM именно на этот workflow.",
+        "patients with 4+ migraine days регулярно создают пригодные данные для «60-sec log + exact-copy meds + visit brief», а не возвращаются к чатам.",
+        "neurologists/DMS даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «health data; no dosage advice» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «paper diary incomplete» на 100 пользователей patients with 4+ migraine days за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «60-sec log + exact-copy meds + visit brief» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри neurology clinic/DMS владеет бюджетом ₽400–900 PMPM и KPI завершения «60-sec log»?",
+          "Какой под-сегмент «patients with 4+ migraine days» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «60-sec log + exact-copy meds + visit brief» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «60-sec log» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽400–900 PMPM и 20% ручных исключений?",
+          "Какой CAC payback получается у канала neurologists/DMS при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли neurologists/DMS не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет neurology clinic/DMS продвигать «60-sec log», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «60-sec log + exact-copy meds + visit brief» запрещены или требуют лицензированного партнёра при режиме «health data; no dosage advice»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и neurology clinic/DMS?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «60-sec log» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор neurology clinic/DMS мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «60-sec log + exact-copy meds + visit brief» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «health data; no dosage advice»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «60-sec log + exact-copy meds + visit brief», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров neurologists/DMS paid pilot по цене ₽400–900 PMPM после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «60-sec log + exact-copy meds + visit brief»: D90 <35%.",
+        "Для «60-sec log + exact-copy meds + visit brief»: doctor use <60%.",
+        "Paid conversion партнёров neurologists/DMS ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽400–900 PMPM из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «60-sec log + exact-copy meds» и одним сегментом patients with 4+ migraine days.",
+        "Запускать через одного типа партнёра — neurologists/DMS — с обязательным activation KPI.",
+        "Оставить human approval для «visit brief» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.8; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "реализуемость MVP 7/10"
+      ]
+    },
+    "rank": 31
+  },
+  {
+    "id": "B2C-10",
+    "titleRu": "Английский для собеседований caregivers",
+    "originalTerm": "Profession-specific AI speaking",
+    "segment": "B2B2C Language EdTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "global-B2C-media-education-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "L1 packs for GCC"
+    ],
+    "sourceUrls": [
+      "https://www.grandviewresearch.com/industry-analysis/online-language-learning-market-report"
+    ],
+    "oneLiner": "voice role-play and assessor calibration через recruiters/colleges.",
+    "targetCustomer": "русскоязычные caregivers/nurses",
+    "buyer": "recruiter/employer/candidate",
+    "users": [
+      "русскоязычные caregivers/nurses и сотрудник партнёра"
+    ],
+    "pain": "general apps miss role scenarios",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "voice role-play and assessor calibration"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — voice role-play and assessor calibration",
+      "кабинет партнёра recruiters/colleges и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «voice consent, no rank»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: online language $22,1 млрд, self-learning SAM $14,2 млрд",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "online language $22,1 млрд, self-learning SAM $14,2 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.grandviewresearch.com/industry-analysis/online-language-learning-market-report"
+      }
+    ],
+    "competitors": [
+      "Duolingo",
+      "Skyeng",
+      "Speak"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: voice role-play and assessor calibration.",
+    "distribution": [
+      "recruiters/colleges"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽2500–7000/cohort",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→assessment→interview",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "voice consent, no rank",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "L1 packs for GCC",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6300000,
+      "max": 8700000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "recruiters/colleges",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 6,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.5,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: повторяемость/retention 6/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Работодатель может предпочесть собственный assessor, а не доверять voice role-play.",
+        "Duolingo / Skyeng могут встроить ключевой workflow «voice role-play and assessor calibration» и обнулить отдельную готовность платить ₽2500–7000/cohort.",
+        "Канал recruiters/colleges контролирует активацию русскоязычные caregivers/nurses; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «voice consent, no rank» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «voice role-play and assessor calibration» не доводит пользователя до измеримого завершения кейса.",
+        "recruiters/colleges подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «voice consent, no rank» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "recruiter/employer/candidate действительно имеет отдельный бюджет ₽2500–7000/cohort именно на этот workflow.",
+        "русскоязычные caregivers/nurses регулярно создают пригодные данные для «voice role-play and assessor calibration», а не возвращаются к чатам.",
+        "recruiters/colleges даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «voice consent, no rank» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «general apps miss role scenarios» на 100 пользователей русскоязычные caregivers/nurses за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «voice role-play and assessor calibration» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри recruiter/employer/candidate владеет бюджетом ₽2500–7000/cohort и KPI завершения «voice role-play and assessor calibration»?",
+          "Какой под-сегмент «русскоязычные caregivers/nurses» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «voice role-play and assessor calibration» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «voice role-play and assessor calibration» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽2500–7000/cohort и 20% ручных исключений?",
+          "Какой CAC payback получается у канала recruiters/colleges при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли recruiters/colleges не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет recruiter/employer/candidate продвигать «voice role-play and assessor calibration», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «voice role-play and assessor calibration» запрещены или требуют лицензированного партнёра при режиме «voice consent, no rank»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и recruiter/employer/candidate?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «voice role-play and assessor calibration» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор recruiter/employer/candidate мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «voice role-play and assessor calibration» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «voice consent, no rank»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «voice role-play and assessor calibration», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров recruiters/colleges paid pilot по цене ₽2500–7000/cohort после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «voice role-play and assessor calibration»: pass uplift <15pp.",
+        "Для «voice role-play and assessor calibration»: completion <60%.",
+        "Paid conversion партнёров recruiters/colleges ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽2500–7000/cohort из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «voice role-play and assessor calibration» и одним сегментом русскоязычные caregivers/nurses.",
+        "Запускать через одного типа партнёра — recruiters/colleges — с обязательным activation KPI.",
+        "Оставить human approval для «voice role-play and assessor calibration» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.5; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 6/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 6/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 32
+  },
+  {
+    "id": "selfhosted-agent-workflows",
+    "titleRu": "Self-hosted конструктор управляемых AI-процессов",
+    "originalTerm": "Self-hosted AI workflow automation",
+    "segment": "AI Automation Platform",
+    "sourceReports": [
+      "global-B2B-SMB-commerce-markets",
+      "global-B2B-horizontal-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "No-code AI platforms $4.28B reported, 2024; CAGR 30.2%; SAM $0.86B",
+      "Enterprise GenAI derived ≈$4.1B, 2025; CAGR 38.4%"
+    ],
+    "sourceUrls": [
+      "https://www.grandviewresearch.com/industry-analysis/no-code-ai-platform-market-report",
+      "https://www.grandviewresearch.com/industry-analysis/enterprise-generative-ai-market-report",
+      "https://www.testfirm.ru/result/7731399880_ooo-albato"
+    ],
+    "oneLiner": "Визуальные LLM-workflows в контуре клиента с approval, replay, audit и локальными 1С/Saby-коннекторами.",
+    "targetCustomer": "Регулируемый mid-market 200–2 000 сотрудников с 5–30 внутренними AI-автоматизациями.",
+    "buyer": "CIO/директор автоматизации",
+    "users": [
+      "бизнес-аналитики",
+      "IT automation",
+      "risk/security"
+    ],
+    "pain": "n8n/скрипты дают действие без управляемого approval и evidence, а cloud automation не проходит data residency.",
+    "currentAlternatives": [
+      "n8n",
+      "Albato",
+      "Power Automate",
+      "самописные агенты"
+    ],
+    "productScope": [
+      "visual DAG",
+      "LLM steps",
+      "secrets",
+      "approvals",
+      "replay",
+      "audit",
+      "private deploy"
+    ],
+    "mvp3to6Months": [
+      "10 connectors",
+      "Docker deployment",
+      "workflow editor",
+      "approval queue",
+      "logs/cost"
+    ],
+    "excludedFromMvp": [
+      "собственная модель",
+      "100+ connectors",
+      "RPA desktop",
+      "agent marketplace",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "No-code AI растёт 30.2%, agentic workflows требуют governance, а РФ имеет локальные connector gaps.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$4.28B",
+        "note": "no-code AI, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "30.2%",
+        "note": "CAGR"
+      },
+      {
+        "type": "estimate",
+        "value": "≈$4.1B",
+        "note": "enterprise GenAI, 2025"
+      }
+    ],
+    "competitors": [
+      "n8n",
+      "Power Automate",
+      "Albato",
+      "Make",
+      "low-code РФ"
+    ],
+    "differentiation": "Private deployment, evidence/replay и локальные connectors; не каталог общего назначения.",
+    "distribution": [
+      "IT-интеграторы",
+      "MSP",
+      "AI-консультанты"
+    ],
+    "salesCycle": "2–5 месяцев",
+    "pricing": "1–5 млн ₽ ARR + usage/support",
+    "revenueModel": "subscription/private deployment",
+    "retentionLoop": "Накопленные workflows и secrets создают switching cost.",
+    "requiredIntegrations": [
+      "1С",
+      "Saby/Диадок",
+      "email",
+      "LLM vendors"
+    ],
+    "dataNeeds": [
+      "workflow payloads",
+      "logs",
+      "policies",
+      "cost"
+    ],
+    "regulatory": "152-ФЗ; security by design, AI decisions with approval.",
+    "localization": "Российские systems of record и private cloud.",
+    "exportPath": "EU regulated SMB через neutral entity/hosting.",
+    "moat": "Governance runtime и reliable local connectors.",
+    "teamNeeded": [
+      "product/platform",
+      "3 backend/platform",
+      "frontend",
+      "DevOps/security",
+      "developer relations"
+    ],
+    "estimatedBudgetRub": {
+      "min": 8000000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "narrow workflows",
+      "security architecture",
+      "channel"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 6,
+      "capitalEfficiency": 8,
+      "whitespace": 8,
+      "retention": 8,
+      "growth": 10,
+      "competitionAdvantage": 7,
+      "exportOption": 10,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 77.3,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: рост категории 10/10, экспортный потенциал 10/10; штрафы: доступность GTM 6/10; реализуемость MVP 7/10; защита от конкурентов 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "n8n бесплатен и расширяем",
+        "Connector burden бесконечен",
+        "Microsoft bundle",
+        "Покупатель хочет готовый workflow, не platform"
+      ],
+      "failureModes": [
+        "platform без use case",
+        "security incident",
+        "support overload"
+      ],
+      "hiddenAssumptions": [
+        "private deploy оплачивается",
+        "10 connectors достаточно",
+        "аналитики строят workflows"
+      ],
+      "questions": {
+        "problem": [
+          "Какие workflows блокирует cloud?",
+          "Почему n8n недостаточен?"
+        ],
+        "customer": [
+          "Кто имеет 5+ agents?",
+          "Кто администрирует?"
+        ],
+        "product": [
+          "Какой approval primitive?",
+          "Как replay безопасен?"
+        ],
+        "economics": [
+          "Support cost on-prem?",
+          "Usage pricing?"
+        ],
+        "gtm": [
+          "Integrator builds solutions?",
+          "Open-core?"
+        ],
+        "regulation": [
+          "Какие действия high risk?",
+          "Audit retention?"
+        ],
+        "data": [
+          "Как маскировать payload?",
+          "Secrets model?"
+        ],
+        "team": [
+          "Platform/security senior?",
+          "Connector ownership?"
+        ],
+        "evidence": [
+          "3 paid workflows?",
+          "n8n replacement reason?"
+        ]
+      },
+      "killCriteria": [
+        "нет 3 платных repeatable workflows",
+        "MVP требует >15 connectors",
+        "on-prem support >30% ARR",
+        "security review не пройден"
+      ],
+      "improvements": [
+        "Продавать 2 готовых regulated workflows",
+        "Не конкурировать каталогом",
+        "Policy/replay first",
+        "Neutral export setup"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.3; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 6/10; реализуемость MVP 7/10; защита от конкурентов 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "рост категории 10/10",
+        "экспортный потенциал 10/10",
+        "острота боли 8/10"
+      ],
+      "penalties": [
+        "доступность GTM 6/10",
+        "реализуемость MVP 7/10",
+        "защита от конкурентов 7/10"
+      ]
+    },
+    "rank": 33
+  },
+  {
+    "id": "mass-hiring-ats",
+    "titleRu": "ATS для массового почасового найма",
+    "originalTerm": "Mass-hiring operations ATS",
+    "segment": "HR Tech",
+    "sourceReports": [
+      "russian-b2b-saas-2025",
+      "russian-saas-entry-opportunities",
+      "global-B2B-horizontal-markets"
+    ],
+    "sourceMarkets": [
+      "Narrow ATS РФ ≈4 500 млн ₽ estimate, 2024; TAM ≈10 700 млн ₽; gap ≈6 200 млн ₽",
+      "42% используют ATS; AI в найме 5%",
+      "Global HR software $23.3B reported, 2025; CAGR 12.4%"
+    ],
+    "sourceUrls": [
+      "https://www.superjob.ru/research/articles/114792/kedo-i-sistemy-avtomatizacii-rekrutinga-chasche-vnedryaet-krupnyj-biznes/",
+      "https://www.fortunebusinessinsights.com/hr-software-market-116228"
+    ],
+    "oneLiner": "Воронка из Telegram/VK для магазинов, складов и HoReCa: скрининг, запись, напоминания, прогноз выхода и антидубли.",
+    "targetCustomer": "Сети с 100+ наймами frontline в месяц.",
+    "buyer": "Руководитель массового подбора",
+    "users": [
+      "рекрутеры",
+      "линейные менеджеры",
+      "кандидаты"
+    ],
+    "pain": "Кандидаты теряются между откликом и сменой; generic ATS плохо работает в мессенджерах и не измеряет фактический выход.",
+    "currentAlternatives": [
+      "Skillaz",
+      "Поток",
+      "Talantix",
+      "Robovoice",
+      "таблицы"
+    ],
+    "productScope": [
+      "messenger funnel",
+      "screening",
+      "slots",
+      "reminders",
+      "duplicate/fraud rules",
+      "hire outcome"
+    ],
+    "mvp3to6Months": [
+      "Telegram/VK",
+      "анкета",
+      "календарь",
+      "handoff менеджеру",
+      "1С CSV",
+      "dashboard"
+    ],
+    "excludedFromMvp": [
+      "black-box ranking",
+      "job board",
+      "payroll",
+      "видеоинтервью",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Дефицит кадров поддерживает боль, но horizontal ATS bundle; outcome layer массового найма остаётся клином.",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "≈4 500 млн ₽",
+        "note": "narrow ATS РФ"
+      },
+      {
+        "type": "estimate",
+        "value": "≈10 700 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "reported",
+        "value": "42%",
+        "note": "penetration survey"
+      }
+    ],
+    "competitors": [
+      "Skillaz",
+      "Хантфлоу",
+      "Поток",
+      "Talantix",
+      "Robovoice"
+    ],
+    "differentiation": "Оптимизация по фактическому выходу и retention D7, не по числу резюме.",
+    "distribution": [
+      "HR-аутсорсеры",
+      "франчайзеры",
+      "job boards integrations"
+    ],
+    "salesCycle": "1–3 месяца",
+    "pricing": "500–2 000 ₽ за подтверждённый выход или SaaS 100–400 тыс. ₽/мес.",
+    "revenueModel": "SaaS/outcome hybrid",
+    "retentionLoop": "Постоянная текучесть и накопленная статистика каналов.",
+    "requiredIntegrations": [
+      "hh/Avito при API",
+      "Telegram/VK",
+      "1С ЗУП"
+    ],
+    "dataNeeds": [
+      "кандидаты",
+      "слоты",
+      "статусы",
+      "выходы"
+    ],
+    "regulatory": "152-ФЗ; избегать автоматического high-impact ranking.",
+    "localization": "Российские каналы и трудовые согласия.",
+    "exportPath": "CIS; ограниченно India/SEA с local channels.",
+    "moat": "Channel-to-shift outcome data и workflow конкретной сети.",
+    "teamNeeded": [
+      "product/recruiting",
+      "2 backend",
+      "frontend",
+      "integrations",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 8000000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "channel APIs",
+      "выход из HRIS",
+      "design partner volume"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 7,
+      "retention": 8,
+      "growth": 7,
+      "competitionAdvantage": 7,
+      "exportOption": 6,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 77.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, готовность платить 8/10; штрафы: экспортный потенциал 6/10; качество evidence 6/10; доступность GTM 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Сети уже покупают suite",
+        "Outcome зависит от зарплаты/менеджера",
+        "Платформы ограничивают сообщения",
+        "Антифрод кандидатов рискован юридически"
+      ],
+      "failureModes": [
+        "низкий show-up",
+        "неполные HRIS статусы",
+        "outcome pricing спорен"
+      ],
+      "hiddenAssumptions": [
+        "есть стабильный hiring volume",
+        "каналы доступны",
+        "рекрутер меняет процесс"
+      ],
+      "questions": {
+        "problem": [
+          "Где главный drop-off?",
+          "Цена no-show?"
+        ],
+        "customer": [
+          "Какая сеть имеет 100 hires?",
+          "Кто owner выхода?"
+        ],
+        "product": [
+          "Какие вопросы допустимы?",
+          "Как фиксировать выход?"
+        ],
+        "economics": [
+          "CAC на кандидата?",
+          "Outcome fee?"
+        ],
+        "gtm": [
+          "HR-аутсорсер канал?",
+          "Нужен hh API?"
+        ],
+        "regulation": [
+          "Есть автоматическое решение?",
+          "Срок хранения consent?"
+        ],
+        "data": [
+          "Дубли по телефону допустимы?",
+          "Есть D7 retention?"
+        ],
+        "team": [
+          "HR ops expert?",
+          "Кто ведёт integrations?"
+        ],
+        "evidence": [
+          "Baseline funnel?",
+          "Paid pilot?"
+        ]
+      },
+      "killCriteria": [
+        "show-up uplift <10%",
+        "HRIS match <90%",
+        "cost per hire не снижается",
+        "нет 3 paid pilots"
+      ],
+      "improvements": [
+        "Не ранжировать, а оркестрировать",
+        "Одна отрасль",
+        "Цена за active location + outcome bonus",
+        "Измерять D7"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 77.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — экспортный потенциал 6/10; качество evidence 6/10; доступность GTM 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "готовность платить 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "экспортный потенциал 6/10",
+        "качество evidence 6/10",
+        "доступность GTM 7/10"
+      ]
+    },
+    "rank": 34
+  },
+  {
+    "id": "B2C-04",
+    "titleRu": "Компаньон сохранения мышц при терапии ожирения",
+    "originalTerm": "GLP-1 adherence companion",
+    "segment": "B2B2C Digital Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA/LatAm"
+    ],
+    "sourceUrls": [
+      "https://www.grandviewresearch.com/industry-analysis/diet-nutrition-apps-market-report"
+    ],
+    "oneLiner": "protein, symptoms, training, clinician report через obesity clinics/DMS.",
+    "targetCustomer": "пациенты на назначенной терапии",
+    "buyer": "clinic/DMS/patient",
+    "users": [
+      "пациенты на назначенной терапии и сотрудник партнёра"
+    ],
+    "pain": "side effects и потеря мышц снижают adherence",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "protein",
+      "symptoms",
+      "training",
+      "clinician report"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — protein + symptoms + training",
+      "кабинет партнёра obesity clinics/DMS и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «no prescribing; ED safety»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: apps $2,14 млрд; TAM $2,4–4 млрд; SAM $0,9–1,5 млрд",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "apps $2,14 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.grandviewresearch.com/industry-analysis/diet-nutrition-apps-market-report"
+      },
+      {
+        "type": "reported",
+        "value": "TAM $2,4–4 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      },
+      {
+        "type": "reported",
+        "value": "SAM $0,9–1,5 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "MyFitnessPal",
+      "Noom",
+      "Yazio"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: protein, symptoms, training, clinician report.",
+    "distribution": [
+      "obesity clinics/DMS"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽990–1990/мес",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→weekly→review",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "no prescribing; ED safety",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6500000,
+      "max": 9000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "obesity clinics/DMS",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 76.6,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 8/10; штрафы: качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Доступность терапии и завершение курса создают внешний churn, который продукт не контролирует.",
+        "MyFitnessPal / Noom могут встроить ключевой workflow «protein + symptoms + training» и обнулить отдельную готовность платить ₽990–1990/мес.",
+        "Канал obesity clinics/DMS контролирует активацию пациенты на назначенной терапии; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «no prescribing; ED safety» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «protein + symptoms + training» не доводит пользователя до измеримого завершения кейса.",
+        "obesity clinics/DMS подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «no prescribing; ED safety» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "clinic/DMS/patient действительно имеет отдельный бюджет ₽990–1990/мес именно на этот workflow.",
+        "пациенты на назначенной терапии регулярно создают пригодные данные для «protein + symptoms + training», а не возвращаются к чатам.",
+        "obesity clinics/DMS даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «no prescribing; ED safety» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «side effects и потеря мышц снижают adherence» на 100 пользователей пациенты на назначенной терапии за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «protein + symptoms + training» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри clinic/DMS/patient владеет бюджетом ₽990–1990/мес и KPI завершения «protein»?",
+          "Какой под-сегмент «пациенты на назначенной терапии» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «protein + symptoms + training» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «protein» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽990–1990/мес и 20% ручных исключений?",
+          "Какой CAC payback получается у канала obesity clinics/DMS при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли obesity clinics/DMS не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет clinic/DMS/patient продвигать «protein», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «protein + symptoms + training» запрещены или требуют лицензированного партнёра при режиме «no prescribing; ED safety»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и clinic/DMS/patient?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «protein» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор clinic/DMS/patient мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «protein + symptoms + training» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «no prescribing; ED safety»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «protein + symptoms + training», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров obesity clinics/DMS paid pilot по цене ₽990–1990/мес после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «protein + symptoms + training»: lift <10 pp.",
+        "Для «protein + symptoms + training»: D90 <30%.",
+        "Paid conversion партнёров obesity clinics/DMS ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽990–1990/мес из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «protein + symptoms» и одним сегментом пациенты на назначенной терапии.",
+        "Запускать через одного типа партнёра — obesity clinics/DMS — с обязательным activation KPI.",
+        "Оставить human approval для «clinician report» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 76.6; MVP остаётся overlay/HITL в лимите, ключевые ограничения — качество evidence 6/10; готовность платить 7/10; реализуемость MVP 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 8/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "качество evidence 6/10",
+        "готовность платить 7/10",
+        "реализуемость MVP 7/10"
+      ]
+    },
+    "rank": 35
+  },
+  {
+    "id": "farm-traceability-crop",
+    "titleRu": "Прослеживаемость одной сельхозкультуры",
+    "originalTerm": "Farm traceability for one crop",
+    "segment": "AgriTech B2B2F",
+    "sourceReports": [
+      "global-B2B-vertical-markets",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Farm management software: $3.4B reported, 2024; TAM $8.2B; SAM $1.8B",
+      "Europe estimate $0.82B; СНГ proxy $0.13B, growth 17%"
+    ],
+    "sourceUrls": [
+      "https://www.marketsandmarkets.com/Market-Reports/farm-management-software-market-217016636.html",
+      "https://www.grandviewresearch.com/horizon/outlook/farm-management-software-market/north-america"
+    ],
+    "oneLiner": "Offline-полевые записи, материалы и партии урожая для одной культуры, оплачиваемые покупателем/кооперативом.",
+    "targetCustomer": "Переработчики, экспортёры и кооперативы, работающие с 50–500 хозяйствами ягод/теплиц/винограда.",
+    "buyer": "Директор по качеству или закупкам покупателя",
+    "users": [
+      "агрономы",
+      "полевые инспекторы",
+      "фермеры"
+    ],
+    "pain": "Покупатель собирает доказательства происхождения и химобработок вручную, а фермер не платит за общую FMS.",
+    "currentAlternatives": [
+      "Excel",
+      "1С АПК",
+      "ExactFarming",
+      "бумажные журналы"
+    ],
+    "productScope": [
+      "offline records",
+      "input lots",
+      "field tasks",
+      "harvest batch",
+      "buyer portal",
+      "audit export"
+    ],
+    "mvp3to6Months": [
+      "Android offline",
+      "одна культура",
+      "5 журналов",
+      "QR партии",
+      "buyer dashboard"
+    ],
+    "excludedFromMvp": [
+      "спутники",
+      "датчики",
+      "кредитование",
+      "marketplace продукции",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Buyer-driven traceability создаёт бюджет и обходит слабый farmer WTP; рынок растёт около 11%.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "$3.4B",
+        "note": "global FMS, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "$0.82B",
+        "note": "Europe"
+      },
+      {
+        "type": "proxy",
+        "value": "$0.13B",
+        "note": "СНГ"
+      }
+    ],
+    "competitors": [
+      "ExactFarming",
+      "АгроСигнал",
+      "1С:ERP АПК",
+      "AGRIVI",
+      "xFarm"
+    ],
+    "differentiation": "B2B2F программа конкретного покупателя и crop-specific audit evidence.",
+    "distribution": [
+      "переработчики",
+      "агрономические консультанты",
+      "кооперативы"
+    ],
+    "salesCycle": "3–6 месяцев с сезонностью",
+    "pricing": "1–4 млн ₽/год за buyer program",
+    "revenueModel": "annual SaaS by farms/hectares",
+    "retentionLoop": "Каждый сезон и партия требуют непрерывной истории.",
+    "requiredIntegrations": [
+      "1С export",
+      "карты/кадастр позже",
+      "QR"
+    ],
+    "dataNeeds": [
+      "поля",
+      "материалы",
+      "обработки",
+      "урожай",
+      "партии"
+    ],
+    "regulatory": "EAEU/экспортная прослеживаемость; не давать агрономические предписания.",
+    "localization": "Offline, crop terms, локальные журналы.",
+    "exportPath": "CEE затем LatAm через экспортёров.",
+    "moat": "История поля-партии и шаблоны доказательств культуры.",
+    "teamNeeded": [
+      "product/agronomy",
+      "2 full-stack",
+      "mobile/offline",
+      "implementation",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 8500000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "buyer sponsor",
+      "одна культура",
+      "сезон пилота"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 6,
+      "capitalEfficiency": 8,
+      "whitespace": 9,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 8,
+      "exportOption": 9,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 76.5,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: рыночное окно 9/10, повторяемость/retention 9/10; штрафы: доступность GTM 6/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Сезон даёт один шанс в год",
+        "Фермеры не будут заполнять данные",
+        "Покупатель может использовать Excel",
+        "Каждая культура требует экспертизы"
+      ],
+      "failureModes": [
+        "offline sync",
+        "fabricated records",
+        "buyer не продлевает"
+      ],
+      "hiddenAssumptions": [
+        "buyer платит",
+        "audit принимает digital evidence",
+        "50 хозяйств достаточно"
+      ],
+      "questions": {
+        "problem": [
+          "Какой аудит проваливался?",
+          "Сколько стоит ручной сбор?"
+        ],
+        "customer": [
+          "Кто sponsor: экспортёр или кооператив?",
+          "Какая культура?"
+        ],
+        "product": [
+          "Какие 5 журналов обязательны?",
+          "Как подтверждать ввод?"
+        ],
+        "economics": [
+          "ACV buyer program?",
+          "Стоимость field onboarding?"
+        ],
+        "gtm": [
+          "Когда закрывается бюджет до сезона?",
+          "Какой агрономический канал?"
+        ],
+        "regulation": [
+          "Какие export certificates?",
+          "Нужна ли ЭП?"
+        ],
+        "data": [
+          "Есть field IDs?",
+          "Как связывать партии?"
+        ],
+        "team": [
+          "Есть агроном?",
+          "Кто работает в поле?"
+        ],
+        "evidence": [
+          "Есть buyer LOI?",
+          "Примет ли аудитор экспорт?"
+        ]
+      },
+      "killCriteria": [
+        "buyer не платит за пилот",
+        "farm weekly completion <70%",
+        "нет accepted audit export",
+        "season onboarding >4 недель"
+      ],
+      "improvements": [
+        "Одна культура/один buyer",
+        "Оплата B2B2F",
+        "QR и offline",
+        "Не добавлять imagery до retention"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 76.5; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 6/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "рыночное окно 9/10",
+        "повторяемость/retention 9/10",
+        "экспортный потенциал 9/10"
+      ],
+      "penalties": [
+        "доступность GTM 6/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 36
+  },
+  {
+    "id": "independent-hotel-ops",
+    "titleRu": "Операции уборки и сервиса малых отелей",
+    "originalTerm": "Independent hotel operations overlay",
+    "segment": "HotelTech",
+    "sourceReports": [
+      "russian-vertical-B2B-SaaS-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "HotelTech РФ 8 100 млн ₽ reported, 2024; TAM 9 940–19 890 млн ₽; growth 25%",
+      "Global narrow PMS ≈$3.4B estimate; SAM $1.3B"
+    ],
+    "sourceUrls": [
+      "https://travelres.ru/reiting-hoteltech-kompanii-2025/",
+      "https://ekec.ru/v-rossii-opyblikovan-pervyi-reiting-tehnologicheskih-reshenii-dlia-gostinichnogo-biznesa-hoteltech-2025/",
+      "https://www.mordorintelligence.com/industry-reports/hospitality-property-management-software-market"
+    ],
+    "oneLiner": "Уборка, дефекты, расходники и гостевые запросы для объектов 20–150 номеров поверх TravelLine/Bnovo.",
+    "targetCustomer": "Независимые отели, базы отдыха и глэмпинги 20–150 номеров.",
+    "buyer": "Управляющий/операционный директор",
+    "users": [
+      "housekeeping",
+      "техслужба",
+      "reception"
+    ],
+    "pain": "PMS знает бронь, но сменные задачи, дефекты и готовность номера ведутся в чатах.",
+    "currentAlternatives": [
+      "TravelLine",
+      "Bnovo",
+      "HRS",
+      "чаты",
+      "Excel"
+    ],
+    "productScope": [
+      "room status",
+      "housekeeping board",
+      "maintenance",
+      "inventory checklist",
+      "guest request"
+    ],
+    "mvp3to6Months": [
+      "PMS webhook/CSV",
+      "mobile PWA",
+      "room board",
+      "photo evidence",
+      "SLA"
+    ],
+    "excludedFromMvp": [
+      "PMS",
+      "channel manager",
+      "оплата",
+      "booking engine",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Рынок РФ вырос на 25%, но лидер контролирует 60%; лучший вход — модуль, а не frontal PMS.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "8 100 млн ₽",
+        "note": "HotelTech РФ, 2024"
+      },
+      {
+        "type": "reported",
+        "value": "25%",
+        "note": "рост РФ"
+      },
+      {
+        "type": "estimate",
+        "value": "≈$3.4B",
+        "note": "global narrow PMS"
+      }
+    ],
+    "competitors": [
+      "TravelLine",
+      "Bnovo",
+      "Hoteza",
+      "HRS",
+      "самописные чаты"
+    ],
+    "differentiation": "Lightweight labor ops для малых объектов, не замена channel stack.",
+    "distribution": [
+      "PMS marketplaces",
+      "hotel consultants",
+      "управляющие компании"
+    ],
+    "salesCycle": "2–8 недель",
+    "pricing": "200–600 ₽ за номер/мес.",
+    "revenueModel": "SaaS",
+    "retentionLoop": "Ежедневная готовность номера и история дефектов.",
+    "requiredIntegrations": [
+      "TravelLine/Bnovo",
+      "messengers"
+    ],
+    "dataNeeds": [
+      "rooms",
+      "bookings status",
+      "staff",
+      "tasks"
+    ],
+    "regulatory": "152-ФЗ; не хранить паспортные данные гостя.",
+    "localization": "Российские PMS и seasonal properties.",
+    "exportPath": "CIS/MENA serviced apartments.",
+    "moat": "Room-operation benchmark и быстрые PMS connectors.",
+    "teamNeeded": [
+      "product/hotel",
+      "2 full-stack",
+      "mobile",
+      "partnerships",
+      "sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5000000,
+      "max": 7500000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "PMS API",
+      "20 properties",
+      "simple onboarding"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "capitalEfficiency": 8,
+      "whitespace": 7,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 7,
+      "exportOption": 7,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 76.5,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: повторяемость/retention 9/10, острота боли 8/10; штрафы: готовность платить 7/10; доступность GTM 7/10; рыночное окно 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "PMS лидеры добавят модуль",
+        "Малый отель чувствителен к цене",
+        "Персонал продолжит чат",
+        "Сезонность повышает churn"
+      ],
+      "failureModes": [
+        "нет PMS access",
+        "tasks дублируются",
+        "низкий staff adoption"
+      ],
+      "hiddenAssumptions": [
+        "PMS открыт",
+        "операции отделимы",
+        "объект платит круглый год"
+      ],
+      "questions": {
+        "problem": [
+          "Сколько room delays?",
+          "Где теряются дефекты?"
+        ],
+        "customer": [
+          "20 или 50 rooms minimum?",
+          "Глэмпинг или hotel?"
+        ],
+        "product": [
+          "Нужен guest chat?",
+          "Как shared devices?"
+        ],
+        "economics": [
+          "ARPA/room?",
+          "Seasonal pricing?"
+        ],
+        "gtm": [
+          "PMS marketplace доступен?",
+          "Consultants channel?"
+        ],
+        "regulation": [
+          "Какие guest data исключить?",
+          "Фото персонала?"
+        ],
+        "data": [
+          "Room status webhook?",
+          "Как sync housekeeping?"
+        ],
+        "team": [
+          "Hotel ops expert?",
+          "24/7 support?"
+        ],
+        "evidence": [
+          "Baseline turnaround?",
+          "Paid pilot?"
+        ]
+      },
+      "killCriteria": [
+        "нет API двух PMS",
+        "staff activation <70%",
+        "ACV <150 тыс. ₽",
+        "room turnaround не улучшается"
+      ],
+      "improvements": [
+        "Начать с housekeeping+maintenance",
+        "Не хранить guest PII",
+        "Seasonal tariff",
+        "PMS partnership"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 76.5; MVP остаётся overlay/HITL в лимите, ключевые ограничения — готовность платить 7/10; доступность GTM 7/10; рыночное окно 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "повторяемость/retention 9/10",
+        "острота боли 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "готовность платить 7/10",
+        "доступность GTM 7/10",
+        "рыночное окно 7/10"
+      ]
+    },
+    "rank": 37
+  },
+  {
+    "id": "B2C-24",
+    "titleRu": "Фото-наблюдение питомца после операции",
+    "originalTerm": "Vet post-op photo follow-up",
+    "segment": "B2B2C PetTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/LatAm"
+    ],
+    "sourceUrls": [
+      "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3"
+    ],
+    "oneLiner": "scheduled photos, checklist, clinic queue через surgical clinics/insurers.",
+    "targetCustomer": "владельцы питомцев в первые 7 дней после конкретной операции",
+    "buyer": "vet clinic",
+    "users": [
+      "pet owners 7 days after surgery и сотрудник партнёра"
+    ],
+    "pain": "chaotic messages delay detection",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "scheduled photos",
+      "checklist",
+      "clinic queue"
+    ],
+    "mvp3to6Months": [
+      "4 месяцев: один workflow — scheduled photos + checklist + clinic queue",
+      "кабинет партнёра surgical clinics/insurers и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «vet liability; human review»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "долгосрочный паспорт здоровья питомца",
+      "диагноз или назначение лечения",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ PetTech ≈3,5 млрд ₽; global $1,5–4,2 млрд; post-op SAM unavailable",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ PetTech ≈3,5 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3"
+      },
+      {
+        "type": "estimate",
+        "value": "global $1,5–4,2 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      },
+      {
+        "type": "estimate",
+        "value": "post-op SAM unavailable",
+        "note": "Узкий SAM не опубликован в source canvas."
+      }
+    ],
+    "competitors": [
+      "clinic messengers",
+      "PetStory"
+    ],
+    "differentiation": "Острый 7-дневный clinic-owned workflow после операции с очередью исключений; не продольный архив здоровья владельца.",
+    "distribution": [
+      "surgical clinics/insurers"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽300–800/surgery",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily prompt→passport upsell",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "vet liability; human review",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 4500000,
+      "max": 6200000
+    },
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "2–5 design partners",
+      "surgical clinics/insurers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 5,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 5
+    },
+    "weightedScore": 76.4,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: повторяемость/retention 5/10; качество evidence 5/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Клиника может считать post-op photo queue функцией своего мессенджера с низким arpu.",
+        "clinic messengers / PetStory могут встроить ключевой workflow «scheduled photos + checklist + clinic queue» и обнулить отдельную готовность платить ₽300–800/surgery.",
+        "Канал surgical clinics/insurers контролирует активацию владельцы питомцев в первые 7 дней после конкретной операции; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «vet liability; human review» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «scheduled photos + checklist + clinic queue» не доводит пользователя до измеримого завершения кейса.",
+        "surgical clinics/insurers подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «vet liability; human review» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "vet clinic действительно имеет отдельный бюджет ₽300–800/surgery именно на этот workflow.",
+        "владельцы питомцев в первые 7 дней после конкретной операции регулярно создают пригодные данные для «scheduled photos + checklist + clinic queue», а не возвращаются к чатам.",
+        "surgical clinics/insurers даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «vet liability; human review» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «chaotic messages delay detection» на 100 пользователей владельцы питомцев в первые 7 дней после конкретной операции за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «scheduled photos + checklist + clinic queue» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри vet clinic владеет бюджетом ₽300–800/surgery и KPI завершения «scheduled photos»?",
+          "Какой под-сегмент «владельцы питомцев в первые 7 дней после конкретной операции» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «scheduled photos + checklist + clinic queue» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «scheduled photos» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽300–800/surgery и 20% ручных исключений?",
+          "Какой CAC payback получается у канала surgical clinics/insurers при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли surgical clinics/insurers не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет vet clinic продвигать «scheduled photos», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «scheduled photos + checklist + clinic queue» запрещены или требуют лицензированного партнёра при режиме «vet liability; human review»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и vet clinic?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «scheduled photos» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор vet clinic мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «scheduled photos + checklist + clinic queue» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «vet liability; human review»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «scheduled photos + checklist + clinic queue», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров surgical clinics/insurers paid pilot по цене ₽300–800/surgery после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «scheduled photos + checklist + clinic queue»: staff time not -20%.",
+        "Для «scheduled photos + checklist + clinic queue»: completion <70%.",
+        "Paid conversion партнёров surgical clinics/insurers ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽300–800/surgery из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «scheduled photos + checklist» и одним сегментом владельцы питомцев в первые 7 дней после конкретной операции.",
+        "Запускать через одного типа партнёра — surgical clinics/insurers — с обязательным activation KPI.",
+        "Оставить human approval для «clinic queue» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 76.4; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 5/10; качество evidence 5/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 5/10",
+        "качество evidence 5/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 38
+  },
+  {
+    "id": "B2C-12",
+    "titleRu": "ОС гастрономических мастер-классов",
+    "originalTerm": "Experiences operator OS",
+    "segment": "B2B2C TravelTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA/SEA"
+    ],
+    "sourceUrls": [
+      "https://gidmark.ru/news/transformacziya-i-razvitie-ryinka-ekskursionnyih-uslug-v-rossii"
+    ],
+    "oneLiner": "inventory, capacity, hotel API, CRM через hotels/DMC.",
+    "targetCustomer": "small workshop operators",
+    "buyer": "operator/hotel",
+    "users": [
+      "small workshop operators и сотрудник партнёра"
+    ],
+    "pain": "slots/refunds manual",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "inventory",
+      "capacity",
+      "hotel API",
+      "CRM"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — inventory + capacity + hotel API",
+      "кабинет партнёра hotels/DMC и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «refunds, permits by operator»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈15 млрд ₽, TAM ≈45 млрд ₽; global $3,5–5 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈15 млрд ₽, TAM ≈45 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://gidmark.ru/news/transformacziya-i-razvitie-ryinka-ekskursionnyih-uslug-v-rossii"
+      },
+      {
+        "type": "estimate",
+        "value": "global $3,5–5 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Tripster",
+      "Viator",
+      "FareHarbor"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: inventory, capacity, hotel API, CRM.",
+    "distribution": [
+      "hotels/DMC"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽3k–12k/month + fee",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "schedule→booking→repeat",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "refunds, permits by operator",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6000000,
+      "max": 8300000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "hotels/DMC",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 6,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 76.0,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: капиталоэффективность 9/10, острота боли 8/10; штрафы: повторяемость/retention 6/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Малые операторы имеют сезонный спрос и не готовы поддерживать точный inventory слотов.",
+        "Tripster / Viator могут встроить ключевой workflow «inventory + capacity + hotel API» и обнулить отдельную готовность платить ₽3k–12k/month + fee.",
+        "Канал hotels/DMC контролирует активацию small workshop operators; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «refunds, permits by operator» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «inventory + capacity + hotel API» не доводит пользователя до измеримого завершения кейса.",
+        "hotels/DMC подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «refunds, permits by operator» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "operator/hotel действительно имеет отдельный бюджет ₽3k–12k/month + fee именно на этот workflow.",
+        "small workshop operators регулярно создают пригодные данные для «inventory + capacity + hotel API», а не возвращаются к чатам.",
+        "hotels/DMC даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «refunds, permits by operator» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «slots/refunds manual» на 100 пользователей small workshop operators за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «inventory + capacity + hotel API» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри operator/hotel владеет бюджетом ₽3k–12k/month + fee и KPI завершения «inventory»?",
+          "Какой под-сегмент «small workshop operators» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «inventory + capacity + hotel API» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «inventory» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽3k–12k/month + fee и 20% ручных исключений?",
+          "Какой CAC payback получается у канала hotels/DMC при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли hotels/DMC не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет operator/hotel продвигать «inventory», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «inventory + capacity + hotel API» запрещены или требуют лицензированного партнёра при режиме «refunds, permits by operator»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и operator/hotel?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «inventory» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор operator/hotel мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «inventory + capacity + hotel API» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «refunds, permits by operator»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «inventory + capacity + hotel API», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров hotels/DMC paid pilot по цене ₽3k–12k/month + fee после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «inventory + capacity + hotel API»: <20 paid ops.",
+        "Для «inventory + capacity + hotel API»: partner share <15%.",
+        "Paid conversion партнёров hotels/DMC ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽3k–12k/month + fee из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «inventory + capacity» и одним сегментом small workshop operators.",
+        "Запускать через одного типа партнёра — hotels/DMC — с обязательным activation KPI.",
+        "Оставить human approval для «CRM» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 76.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 6/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "капиталоэффективность 9/10",
+        "острота боли 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 6/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 39
+  },
+  {
+    "id": "B2C-09",
+    "titleRu": "AI-проверка письменной части ОГЭ",
+    "originalTerm": "OGE writing coach",
+    "segment": "B2B2C EdTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "global-B2C-media-education-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "other exams"
+    ],
+    "sourceUrls": [
+      "https://smartranking.ru/ru/analytics/edtechs/vyruchka-onlajn-shkol-dlya-podgotovki-k-ekzamenam-vyrosla-na-50/"
+    ],
+    "oneLiner": "feedback, error map, parent report через teachers/schools.",
+    "targetCustomer": "ученики 8–9 классов",
+    "buyer": "parent/teacher/school",
+    "users": [
+      "ученики 8–9 классов и сотрудник партнёра"
+    ],
+    "pain": "учителю не хватает rubric feedback",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "feedback",
+      "error map",
+      "parent report"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — feedback + error map + parent report",
+      "кабинет партнёра teachers/schools и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «child data, content IP»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: РФ ≈19 млрд ₽, TAM ≈37,5 млрд ₽; global $2,2–7,7 млрд",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "РФ ≈19 млрд ₽, TAM ≈37,5 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://smartranking.ru/ru/analytics/edtechs/vyruchka-onlajn-shkol-dlya-podgotovki-k-ekzamenam-vyrosla-na-50/"
+      },
+      {
+        "type": "reported",
+        "value": "global $2,2–7,7 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Умскул",
+      "Сотка",
+      "generic AI"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: feedback, error map, parent report.",
+    "distribution": [
+      "teachers/schools"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽390–790/student",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "weekly answer→mastery",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "child data, content IP",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "other exams",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5500000,
+      "max": 7600000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "teachers/schools",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 6,
+      "capitalEfficiency": 9,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 75.7,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: капиталоэффективность 9/10, острота боли 8/10; штрафы: повторяемость/retention 6/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Рубрики огэ меняются, а ложная уверенность ai-feedback влияет на результат экзамена.",
+        "Умскул / Сотка могут встроить ключевой workflow «feedback + error map + parent report» и обнулить отдельную готовность платить ₽390–790/student.",
+        "Канал teachers/schools контролирует активацию ученики 8–9 классов; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «child data, content IP» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «feedback + error map + parent report» не доводит пользователя до измеримого завершения кейса.",
+        "teachers/schools подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «child data, content IP» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "parent/teacher/school действительно имеет отдельный бюджет ₽390–790/student именно на этот workflow.",
+        "ученики 8–9 классов регулярно создают пригодные данные для «feedback + error map + parent report», а не возвращаются к чатам.",
+        "teachers/schools даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «child data, content IP» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «учителю не хватает rubric feedback» на 100 пользователей ученики 8–9 классов за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «feedback + error map + parent report» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри parent/teacher/school владеет бюджетом ₽390–790/student и KPI завершения «feedback»?",
+          "Какой под-сегмент «ученики 8–9 классов» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «feedback + error map + parent report» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «feedback» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽390–790/student и 20% ручных исключений?",
+          "Какой CAC payback получается у канала teachers/schools при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли teachers/schools не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет parent/teacher/school продвигать «feedback», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «feedback + error map + parent report» запрещены или требуют лицензированного партнёра при режиме «child data, content IP»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и parent/teacher/school?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «feedback» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор parent/teacher/school мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «feedback + error map + parent report» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «child data, content IP»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «feedback + error map + parent report», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров teachers/schools paid pilot по цене ₽390–790/student после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «feedback + error map + parent report»: agreement <0.85.",
+        "Для «feedback + error map + parent report»: uplift <5.",
+        "Paid conversion партнёров teachers/schools ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽390–790/student из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «feedback + error map» и одним сегментом ученики 8–9 классов.",
+        "Запускать через одного типа партнёра — teachers/schools — с обязательным activation KPI.",
+        "Оставить human approval для «parent report» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 75.7; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 6/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "капиталоэффективность 9/10",
+        "острота боли 8/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 6/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 40
+  },
+  {
+    "id": "B2C-25",
+    "titleRu": "Навигатор первых 90 дней после рождения",
+    "originalTerm": "Postpartum family handoff OS",
+    "segment": "B2B2C Family Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.thebusinessresearchcompany.com/report/parenting-apps-global-market-report"
+    ],
+    "oneLiner": "shared handoff, docs, visits, tasks через maternity clinics/benefits.",
+    "targetCustomer": "families with newborns",
+    "buyer": "maternity clinic/employer",
+    "users": [
+      "families with newborns и сотрудник партнёра"
+    ],
+    "pain": "sleep, meds and tasks transfer verbally",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "shared handoff",
+      "docs",
+      "visits",
+      "tasks"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — shared handoff + docs + visits",
+      "кабинет партнёра maternity clinics/benefits и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «child/health data; no diagnosis»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ family workflow ≈1,4 млрд ₽, TAM ≈4 млрд ₽; global $4–7 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ family workflow ≈1,4 млрд ₽, TAM ≈4 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.thebusinessresearchcompany.com/report/parenting-apps-global-market-report"
+      },
+      {
+        "type": "estimate",
+        "value": "global $4–7 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Baby.ru",
+      "Ovia",
+      "Cozi"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: shared handoff, docs, visits, tasks.",
+    "distribution": [
+      "maternity clinics/benefits"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1k–3k/family",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily handoff→pediatric visit",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "child/health data; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5800000,
+      "max": 8000000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "maternity clinics/benefits",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 5,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 75.4,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: повторяемость/retention 5/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Эпизод длится 90 дней, после чего retention семьи структурно обрывается.",
+        "Baby.ru / Ovia могут встроить ключевой workflow «shared handoff + docs + visits» и обнулить отдельную готовность платить ₽1k–3k/family.",
+        "Канал maternity clinics/benefits контролирует активацию families with newborns; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «child/health data; no diagnosis» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «shared handoff + docs + visits» не доводит пользователя до измеримого завершения кейса.",
+        "maternity clinics/benefits подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «child/health data; no diagnosis» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "maternity clinic/employer действительно имеет отдельный бюджет ₽1k–3k/family именно на этот workflow.",
+        "families with newborns регулярно создают пригодные данные для «shared handoff + docs + visits», а не возвращаются к чатам.",
+        "maternity clinics/benefits даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «child/health data; no diagnosis» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «sleep, meds and tasks transfer verbally» на 100 пользователей families with newborns за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «shared handoff + docs + visits» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри maternity clinic/employer владеет бюджетом ₽1k–3k/family и KPI завершения «shared handoff»?",
+          "Какой под-сегмент «families with newborns» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «shared handoff + docs + visits» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «shared handoff» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽1k–3k/family и 20% ручных исключений?",
+          "Какой CAC payback получается у канала maternity clinics/benefits при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли maternity clinics/benefits не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет maternity clinic/employer продвигать «shared handoff», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «shared handoff + docs + visits» запрещены или требуют лицензированного партнёра при режиме «child/health data; no diagnosis»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и maternity clinic/employer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «shared handoff» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор maternity clinic/employer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «shared handoff + docs + visits» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «child/health data; no diagnosis»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «shared handoff + docs + visits», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров maternity clinics/benefits paid pilot по цене ₽1k–3k/family после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «shared handoff + docs + visits»: partner use <25%.",
+        "Для «shared handoff + docs + visits»: D30 <40%.",
+        "Paid conversion партнёров maternity clinics/benefits ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽1k–3k/family из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «shared handoff + docs» и одним сегментом families with newborns.",
+        "Запускать через одного типа партнёра — maternity clinics/benefits — с обязательным activation KPI.",
+        "Оставить human approval для «tasks» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 75.4; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 5/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 5/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 41
+  },
+  {
+    "id": "midmarket-esm-faststart",
+    "titleRu": "ESM для среднего бизнеса с запуском за неделю",
+    "originalTerm": "Deploy-in-a-week sovereign ESM",
+    "segment": "IT Ops / Enterprise Service Management",
+    "sourceReports": [
+      "russian-b2b-saas-2025",
+      "russian-saas-entry-opportunities",
+      "global-B2B-horizontal-markets"
+    ],
+    "sourceMarkets": [
+      "ITSM РФ: 10 000–12 000 млн ₽ selected range, 2024; TAM ≈29 300 млн ₽",
+      "Global ITSM: $13.58B reported, 2025; CAGR 15.3%; SAM $1.2–2.4B"
+    ],
+    "sourceUrls": [
+      "https://www.tadviser.ru/index.php/Статья:Российский_рынок_ITSM-систем",
+      "https://globalcio.ru/news/55670/",
+      "https://www.fortunebusinessinsights.com/itsm-market-109485"
+    ],
+    "oneLiner": "Готовые каталоги ИТ/АХО/HR/закупок, discovery активов и private AI triage для компаний 500–3 000 сотрудников.",
+    "targetCustomer": "Среднее производство и сервисные группы без ServiceNow-класса команды.",
+    "buyer": "CIO или директор по цифровизации",
+    "users": [
+      "service desk",
+      "АХО",
+      "HR operations",
+      "сотрудники"
+    ],
+    "pain": "Простой help desk не поддерживает межфункциональные услуги, а enterprise ITSM внедряется месяцами.",
+    "currentAlternatives": [
+      "Naumen",
+      "SimpleOne",
+      "ITSM 365",
+      "1С:ITILIUM",
+      "ELMA365"
+    ],
+    "productScope": [
+      "catalog templates",
+      "requests/incidents",
+      "approvals",
+      "CMDB-lite",
+      "discovery",
+      "AI triage"
+    ],
+    "mvp3to6Months": [
+      "4 каталога",
+      "email/portal",
+      "workflow templates",
+      "CSV/agentless discovery",
+      "private LLM option"
+    ],
+    "excludedFromMvp": [
+      "полный CMDB",
+      "observability",
+      "change automation enterprise",
+      "собственный LLM",
+      "MVP — software overlay: без лицензированного core, custody, собственного флота/склада и тяжёлой hardware-инфраструктуры; рискованные решения только с human approval"
+    ],
+    "whyNow": "Replacement cycle и ESM расширяют рынок; РФ растёт 15–20%, но 90% продаж on-prem и enterprise-heavy оставляют mid-market gap.",
+    "marketEvidence": [
+      {
+        "type": "reported",
+        "value": "10 000–12 000 млн ₽",
+        "note": "выбранная граница ITSM РФ, 2024"
+      },
+      {
+        "type": "estimate",
+        "value": "≈29 300 млн ₽",
+        "note": "TAM РФ"
+      },
+      {
+        "type": "reported",
+        "value": "$13.58B",
+        "note": "global ITSM, 2025"
+      }
+    ],
+    "competitors": [
+      "Naumen",
+      "SimpleOne",
+      "ITSM 365",
+      "ELMA365",
+      "1С:ITILIUM"
+    ],
+    "differentiation": "Предсказуемая комплектация и срок, private AI и mid-market pricing.",
+    "distribution": [
+      "региональные IT-интеграторы",
+      "MSP",
+      "1С-партнёры"
+    ],
+    "salesCycle": "3–6 месяцев",
+    "pricing": "1–4 млн ₽ ARR + partner setup",
+    "revenueModel": "subscription/on-prem license + partner services",
+    "retentionLoop": "Каталог и история активов становятся операционной системой внутренних услуг.",
+    "requiredIntegrations": [
+      "AD/LDAP",
+      "email",
+      "1С/HR export",
+      "inventory APIs"
+    ],
+    "dataNeeds": [
+      "users",
+      "assets",
+      "tickets",
+      "service catalog"
+    ],
+    "regulatory": "152-ФЗ, отраслевые ИБ требования; on-prem/private cloud.",
+    "localization": "Российский стек, LDAP, реестр ПО позже.",
+    "exportPath": "DACH/CEE через local integrators и NIS2 evidence.",
+    "moat": "Deployment automation и каталог шаблонов среднего бизнеса.",
+    "teamNeeded": [
+      "product/ITIL",
+      "3 backend/platform",
+      "frontend",
+      "DevOps/security",
+      "partner sales"
+    ],
+    "estimatedBudgetRub": {
+      "min": 8500000,
+      "max": 10000000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "сильный архитектор",
+      "интегратор",
+      "узкий scope"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 6,
+      "capitalEfficiency": 7,
+      "whitespace": 8,
+      "retention": 9,
+      "growth": 8,
+      "competitionAdvantage": 7,
+      "exportOption": 8,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 75.4,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: повторяемость/retention 9/10, острота боли 8/10; штрафы: доступность GTM 6/10; реализуемость MVP 7/10; капиталоэффективность 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Функциональный baseline ITSM слишком широк для 6 месяцев",
+        "Интеграторы предпочитают продукты с большой услугой",
+        "Лидеры выпустят mid-market пакет",
+        "On-prem умножает поддержку"
+      ],
+      "failureModes": [
+        "не укладывается запуск за неделю",
+        "CMDB неточна",
+        "кастомизация съедает roadmap"
+      ],
+      "hiddenAssumptions": [
+        "клиент принимает стандартизированный каталог",
+        "partner channel доступен",
+        "private AI даёт ценность"
+      ],
+      "questions": {
+        "problem": [
+          "Какие услуги вне IT уже готовы?",
+          "Почему текущий help desk не расширяют?"
+        ],
+        "customer": [
+          "500–3 000 — единый ICP?",
+          "Кто sponsor ESM?"
+        ],
+        "product": [
+          "Какой минимальный CMDB?",
+          "Что генерируется автоматически?"
+        ],
+        "economics": [
+          "Доля партнёра?",
+          "Стоимость on-prem поддержки?"
+        ],
+        "gtm": [
+          "Как привлечь 3 интеграторов?",
+          "Есть replacement trigger?"
+        ],
+        "regulation": [
+          "Нужен ли реестр ПО?",
+          "Какие сертификаты обязательны?"
+        ],
+        "data": [
+          "Как discovery видит активы?",
+          "Как мигрировать tickets?"
+        ],
+        "team": [
+          "Есть ITSM architect?",
+          "Кто поддерживает deployments?"
+        ],
+        "evidence": [
+          "Есть paid design partner?",
+          "Как измерить 7-day launch?"
+        ]
+      },
+      "killCriteria": [
+        "MVP >10 млн ₽",
+        "первый запуск >30 дней",
+        ">30% ARR уходит на поддержку",
+        "sales cycle >9 месяцев"
+      ],
+      "improvements": [
+        "Один ICP и 4 каталога",
+        "CMDB-lite, не CMDB",
+        "Partner-owned implementation",
+        "AI только triage/drafts"
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 75.4; MVP остаётся overlay/HITL в лимите, ключевые ограничения — доступность GTM 6/10; реализуемость MVP 7/10; капиталоэффективность 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "повторяемость/retention 9/10",
+        "острота боли 8/10",
+        "готовность платить 8/10"
+      ],
+      "penalties": [
+        "доступность GTM 6/10",
+        "реализуемость MVP 7/10",
+        "капиталоэффективность 7/10"
+      ]
+    },
+    "rank": 42
+  },
+  {
+    "id": "B2C-14",
+    "titleRu": "Видеодиагностика ремонта техники",
+    "originalTerm": "Appliance repair outcome layer",
+    "segment": "B2B2C Home Services",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.sec.gov/Archives/edgar/data/1705110/000170511025000018/angi-20241231.htm"
+    ],
+    "oneLiner": "video triage, part, quote band, job pack через retailers/warranty.",
+    "targetCustomer": "owners of 3–10-year appliances",
+    "buyer": "retailer/manufacturer",
+    "users": [
+      "owners of 3–10-year appliances и сотрудник партнёра"
+    ],
+    "pain": "master arrives without part",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "video triage",
+      "part",
+      "quote band",
+      "job pack"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — video triage + part + quote band",
+      "кабинет партнёра retailers/warranty и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «consumer law; partner owns repair»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈17 млрд ₽, TAM ≈140 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.sec.gov/Archives/edgar/data/1705110/000170511025000018/angi-20241231.htm"
+      },
+      {
+        "type": "estimate",
+        "value": "global $4–6 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Avito",
+      "Профи",
+      "Angi"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: video triage, part, quote band, job pack.",
+    "distribution": [
+      "retailers/warranty"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽500–1200/job",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "repair→preventive reminder",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "consumer law; partner owns repair",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6600000,
+      "max": 9200000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "retailers/warranty",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 5,
+      "capitalEfficiency": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 75.2,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, реализуемость MVP 8/10; штрафы: повторяемость/retention 5/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Ошибка video triage приводит к повторному выезду и спору о repair liability.",
+        "Avito / Профи могут встроить ключевой workflow «video triage + part + quote band» и обнулить отдельную готовность платить ₽500–1200/job.",
+        "Канал retailers/warranty контролирует активацию owners of 3–10-year appliances; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «consumer law; partner owns repair» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «video triage + part + quote band» не доводит пользователя до измеримого завершения кейса.",
+        "retailers/warranty подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «consumer law; partner owns repair» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "retailer/manufacturer действительно имеет отдельный бюджет ₽500–1200/job именно на этот workflow.",
+        "owners of 3–10-year appliances регулярно создают пригодные данные для «video triage + part + quote band», а не возвращаются к чатам.",
+        "retailers/warranty даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «consumer law; partner owns repair» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «master arrives without part» на 100 пользователей owners of 3–10-year appliances за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «video triage + part + quote band» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри retailer/manufacturer владеет бюджетом ₽500–1200/job и KPI завершения «video triage»?",
+          "Какой под-сегмент «owners of 3–10-year appliances» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «video triage + part + quote band» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «video triage» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽500–1200/job и 20% ручных исключений?",
+          "Какой CAC payback получается у канала retailers/warranty при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли retailers/warranty не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет retailer/manufacturer продвигать «video triage», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «video triage + part + quote band» запрещены или требуют лицензированного партнёра при режиме «consumer law; partner owns repair»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и retailer/manufacturer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «video triage» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор retailer/manufacturer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «video triage + part + quote band» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «consumer law; partner owns repair»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «video triage + part + quote band», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров retailers/warranty paid pilot по цене ₽500–1200/job после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «video triage + part + quote band»: first-fix uplift <15pp.",
+        "Для «video triage + part + quote band»: deviation >25%.",
+        "Paid conversion партнёров retailers/warranty ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽500–1200/job из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «video triage + part» и одним сегментом owners of 3–10-year appliances.",
+        "Запускать через одного типа партнёра — retailers/warranty — с обязательным activation KPI.",
+        "Оставить human approval для «job pack» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 75.2; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 5/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "реализуемость MVP 8/10",
+        "капиталоэффективность 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 5/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 43
+  },
+  {
+    "id": "B2C-16",
+    "titleRu": "Контроль лекарств после выписки",
+    "originalTerm": "Post-discharge medication handoff",
+    "segment": "B2B2C Health Admin",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://rncph.ru/blog/160226/"
+    ],
+    "oneLiner": "OCR exact-copy, caregiver confirm, refill через hospitals/DMS.",
+    "targetCustomer": "patients 55+ with 5+ meds",
+    "buyer": "hospital/DMS/pharmacy",
+    "users": [
+      "patients 55+ with 5+ meds и сотрудник партнёра"
+    ],
+    "pain": "family confuses changed regimen",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "OCR exact-copy",
+      "caregiver confirm",
+      "refill"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — OCR exact-copy + caregiver confirm + refill",
+      "кабинет партнёра hospitals/DMS и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «medical data; human verify»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ e-pharma ≈69,5 млрд ₽, TAM ≈147 млрд ₽; category context",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ e-pharma ≈69,5 млрд ₽, TAM ≈147 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://rncph.ru/blog/160226/"
+      },
+      {
+        "type": "estimate",
+        "value": "category context",
+        "note": "Контекст широкой категории; узкий SAM для гипотезы не опубликован."
+      }
+    ],
+    "competitors": [
+      "pill reminders",
+      "pharmacy apps"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: OCR exact-copy, caregiver confirm, refill.",
+    "distribution": [
+      "hospitals/DMS"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽300–800/discharge",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily confirmation→refill",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "medical data; human verify",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6800000,
+      "max": 9500000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "hospitals/DMS",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 6,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 75.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 8/10; штрафы: реализуемость MVP 6/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Критическая ошибка ocr в схеме лекарств недопустима и требует дорогой human verification.",
+        "pill reminders / pharmacy apps могут встроить ключевой workflow «OCR exact-copy + caregiver confirm + refill» и обнулить отдельную готовность платить ₽300–800/discharge.",
+        "Канал hospitals/DMS контролирует активацию patients 55+ with 5+ meds; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «medical data; human verify» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «OCR exact-copy + caregiver confirm + refill» не доводит пользователя до измеримого завершения кейса.",
+        "hospitals/DMS подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «medical data; human verify» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "hospital/DMS/pharmacy действительно имеет отдельный бюджет ₽300–800/discharge именно на этот workflow.",
+        "patients 55+ with 5+ meds регулярно создают пригодные данные для «OCR exact-copy + caregiver confirm + refill», а не возвращаются к чатам.",
+        "hospitals/DMS даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «medical data; human verify» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «family confuses changed regimen» на 100 пользователей patients 55+ with 5+ meds за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «OCR exact-copy + caregiver confirm + refill» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри hospital/DMS/pharmacy владеет бюджетом ₽300–800/discharge и KPI завершения «OCR exact-copy»?",
+          "Какой под-сегмент «patients 55+ with 5+ meds» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «OCR exact-copy + caregiver confirm + refill» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «OCR exact-copy» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽300–800/discharge и 20% ручных исключений?",
+          "Какой CAC payback получается у канала hospitals/DMS при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли hospitals/DMS не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет hospital/DMS/pharmacy продвигать «OCR exact-copy», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «OCR exact-copy + caregiver confirm + refill» запрещены или требуют лицензированного партнёра при режиме «medical data; human verify»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и hospital/DMS/pharmacy?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «OCR exact-copy» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор hospital/DMS/pharmacy мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «OCR exact-copy + caregiver confirm + refill» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «medical data; human verify»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «OCR exact-copy + caregiver confirm + refill», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров hospitals/DMS paid pilot по цене ₽300–800/discharge после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «OCR exact-copy + caregiver confirm + refill»: any critical error.",
+        "Для «OCR exact-copy + caregiver confirm + refill»: verify >₽300.",
+        "Paid conversion партнёров hospitals/DMS ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽300–800/discharge из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «OCR exact-copy + caregiver confirm» и одним сегментом patients 55+ with 5+ meds.",
+        "Запускать через одного типа партнёра — hospitals/DMS — с обязательным activation KPI.",
+        "Оставить human approval для «refill» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 75.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — реализуемость MVP 6/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 8/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "реализуемость MVP 6/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 44
+  },
+  {
+    "id": "B2C-13",
+    "titleRu": "Гарантия пересадки на региональном автобусе",
+    "originalTerm": "Intercity guarantee layer",
+    "segment": "B2B2C Mobility",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→LatAm/MENA"
+    ],
+    "sourceUrls": [
+      "https://dzen.ru/a/aHFA39l-5Q6KL51Q"
+    ],
+    "oneLiner": "carrier OS, pooled itinerary, bounded guarantee через carriers/stations.",
+    "targetCustomer": "multi-leg bus passengers",
+    "buyer": "carrier/station",
+    "users": [
+      "multi-leg bus passengers и сотрудник партнёра"
+    ],
+    "pain": "delay/connection opaque",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "carrier OS",
+      "pooled itinerary",
+      "bounded guarantee"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — carrier OS + pooled itinerary + bounded guarantee",
+      "кабинет партнёра carriers/stations и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «transport/refund rules»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈3,8 млрд ₽, TAM ≈9 млрд ₽; global $4–6 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈3,8 млрд ₽, TAM ≈9 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://dzen.ru/a/aHFA39l-5Q6KL51Q"
+      },
+      {
+        "type": "estimate",
+        "value": "global $4–6 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "BlaBlaCar",
+      "Tutu",
+      "Flix"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: carrier OS, pooled itinerary, bounded guarantee.",
+    "distribution": [
+      "carriers/stations"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽5k–20k/carrier + fee",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "trip→punctuality graph",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "transport/refund rules",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→LatAm/MENA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6900000,
+      "max": 9600000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "carriers/stations",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 6,
+      "gtmAccessibility": 7,
+      "retention": 6,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 73.7,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 8/10; штрафы: реализуемость MVP 6/10; повторяемость/retention 6/10; качество evidence 6/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Низкий билет перевозчика не покрывает интеграцию и поддержку bounded guarantee.",
+        "BlaBlaCar / Tutu могут встроить ключевой workflow «carrier OS + pooled itinerary + bounded guarantee» и обнулить отдельную готовность платить ₽5k–20k/carrier + fee.",
+        "Канал carriers/stations контролирует активацию multi-leg bus passengers; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «transport/refund rules» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «carrier OS + pooled itinerary + bounded guarantee» не доводит пользователя до измеримого завершения кейса.",
+        "carriers/stations подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «transport/refund rules» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "carrier/station действительно имеет отдельный бюджет ₽5k–20k/carrier + fee именно на этот workflow.",
+        "multi-leg bus passengers регулярно создают пригодные данные для «carrier OS + pooled itinerary + bounded guarantee», а не возвращаются к чатам.",
+        "carriers/stations даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «transport/refund rules» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «delay/connection opaque» на 100 пользователей multi-leg bus passengers за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «carrier OS + pooled itinerary + bounded guarantee» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри carrier/station владеет бюджетом ₽5k–20k/carrier + fee и KPI завершения «carrier OS»?",
+          "Какой под-сегмент «multi-leg bus passengers» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «carrier OS + pooled itinerary + bounded guarantee» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «carrier OS» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽5k–20k/carrier + fee и 20% ручных исключений?",
+          "Какой CAC payback получается у канала carriers/stations при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли carriers/stations не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет carrier/station продвигать «carrier OS», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «carrier OS + pooled itinerary + bounded guarantee» запрещены или требуют лицензированного партнёра при режиме «transport/refund rules»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и carrier/station?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «carrier OS» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор carrier/station мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «carrier OS + pooled itinerary + bounded guarantee» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «transport/refund rules»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «carrier OS + pooled itinerary + bounded guarantee», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров carriers/stations paid pilot по цене ₽5k–20k/carrier + fee после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «carrier OS + pooled itinerary + bounded guarantee»: support >₽80.",
+        "Для «carrier OS + pooled itinerary + bounded guarantee»: coverage <90%.",
+        "Paid conversion партнёров carriers/stations ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽5k–20k/carrier + fee из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «carrier OS + pooled itinerary» и одним сегментом multi-leg bus passengers.",
+        "Запускать через одного типа партнёра — carriers/stations — с обязательным activation KPI.",
+        "Оставить human approval для «bounded guarantee» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 73.7; MVP остаётся overlay/HITL в лимите, ключевые ограничения — реализуемость MVP 6/10; повторяемость/retention 6/10; качество evidence 6/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 8/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "реализуемость MVP 6/10",
+        "повторяемость/retention 6/10",
+        "качество evidence 6/10"
+      ]
+    },
+    "rank": 45
+  },
+  {
+    "id": "B2C-20",
+    "titleRu": "Восстановление после развода",
+    "originalTerm": "Six-week divorce recovery",
+    "segment": "B2B2C Mental Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CEE/LatAm"
+    ],
+    "sourceUrls": [
+      "https://investors.talkspace.com/news-releases/news-release-details/talkspace-announces-fourth-quarter-and-full-year-2024-results"
+    ],
+    "oneLiner": "6-week protocol, actions, group, outcomes через employers/EAPs.",
+    "targetCustomer": "employees after divorce",
+    "buyer": "employer/EAP/user",
+    "users": [
+      "employees after divorce и сотрудник партнёра"
+    ],
+    "pain": "no structure between sessions",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "6-week protocol",
+      "actions",
+      "group",
+      "outcomes"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — 6-week protocol + actions + group",
+      "кабинет партнёра employers/EAPs и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «health data, crisis protocol»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈4,5 млрд ₽, broad TAM ≈126 млрд ₽; global $8–10 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈4,5 млрд ₽, broad TAM ≈126 млрд ₽",
+        "note": "Контекст широкой категории; узкий SAM для гипотезы не опубликован.",
+        "sourceUrl": "https://investors.talkspace.com/news-releases/news-release-details/talkspace-announces-fourth-quarter-and-full-year-2024-results"
+      },
+      {
+        "type": "estimate",
+        "value": "global $8–10 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Ясно",
+      "Alter",
+      "Talkspace"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: 6-week protocol, actions, group, outcomes.",
+    "distribution": [
+      "employers/EAPs"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽6k–12k/participant",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→weekly group",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "health data, crisis protocol",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CEE/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6000000,
+      "max": 8400000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "employers/EAPs",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 5,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 73.6,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 8/10; штрафы: повторяемость/retention 5/10; качество evidence 6/10; готовность платить 7/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Стигма и бесплатный контент снижают activation программы через employer/eap.",
+        "Ясно / Alter могут встроить ключевой workflow «6-week protocol + actions + group» и обнулить отдельную готовность платить ₽6k–12k/participant.",
+        "Канал employers/EAPs контролирует активацию employees after divorce; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «health data, crisis protocol» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «6-week protocol + actions + group» не доводит пользователя до измеримого завершения кейса.",
+        "employers/EAPs подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «health data, crisis protocol» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "employer/EAP/user действительно имеет отдельный бюджет ₽6k–12k/participant именно на этот workflow.",
+        "employees after divorce регулярно создают пригодные данные для «6-week protocol + actions + group», а не возвращаются к чатам.",
+        "employers/EAPs даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «health data, crisis protocol» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «no structure between sessions» на 100 пользователей employees after divorce за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «6-week protocol + actions + group» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри employer/EAP/user владеет бюджетом ₽6k–12k/participant и KPI завершения «6-week protocol»?",
+          "Какой под-сегмент «employees after divorce» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «6-week protocol + actions + group» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «6-week protocol» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽6k–12k/participant и 20% ручных исключений?",
+          "Какой CAC payback получается у канала employers/EAPs при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли employers/EAPs не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет employer/EAP/user продвигать «6-week protocol», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «6-week protocol + actions + group» запрещены или требуют лицензированного партнёра при режиме «health data, crisis protocol»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и employer/EAP/user?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «6-week protocol» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор employer/EAP/user мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «6-week protocol + actions + group» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «health data, crisis protocol»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «6-week protocol + actions + group», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров employers/EAPs paid pilot по цене ₽6k–12k/participant после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «6-week protocol + actions + group»: completion <55%.",
+        "Для «6-week protocol + actions + group»: effect <0.3.",
+        "Paid conversion партнёров employers/EAPs ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽6k–12k/participant из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «6-week protocol + actions» и одним сегментом employees after divorce.",
+        "Запускать через одного типа партнёра — employers/EAPs — с обязательным activation KPI.",
+        "Оставить human approval для «outcomes» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 73.6; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 5/10; качество evidence 6/10; готовность платить 7/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 8/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 5/10",
+        "качество evidence 6/10",
+        "готовность платить 7/10"
+      ]
+    },
+    "rank": 46
+  },
+  {
+    "id": "B2C-19",
+    "titleRu": "Ассистент возвратов после поездки",
+    "originalTerm": "Travel disruption recovery",
+    "segment": "B2C/B2B2C TravelTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/Serbia"
+    ],
+    "sourceUrls": [
+      "https://marketing.rbc.ru/articles/15660/"
+    ],
+    "oneLiner": "itinerary inbox, rules, evidence, escalation через banks/OTAs.",
+    "targetCustomer": "travelers with disruption",
+    "buyer": "travel bank/OTA/user",
+    "users": [
+      "travelers with disruption и сотрудник партнёра"
+    ],
+    "pain": "refund evidence harder than booking",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "itinerary inbox",
+      "rules",
+      "evidence",
+      "escalation"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — itinerary inbox + rules + evidence",
+      "кабинет партнёра banks/OTAs и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «travel law, no payout funding»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ OTA net ≈65 млрд ₽, TAM ≈95 млрд ₽; category context",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ OTA net ≈65 млрд ₽, TAM ≈95 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://marketing.rbc.ru/articles/15660/"
+      },
+      {
+        "type": "estimate",
+        "value": "category context",
+        "note": "Контекст широкой категории; узкий SAM для гипотезы не опубликован."
+      }
+    ],
+    "competitors": [
+      "Tutu",
+      "Ozon Travel",
+      "carriers"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: itinerary inbox, rules, evidence, escalation.",
+    "distribution": [
+      "banks/OTAs"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽490–1990/case",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "trip→disruption→closure",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "travel law, no payout funding",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/Serbia",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 6200000,
+      "max": 8600000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "banks/OTAs",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 6,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 6,
+      "retention": 4,
+      "capitalEfficiency": 9,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 72.5,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: повторяемость/retention 4/10; готовность платить 6/10; доступность GTM 6/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Disruption редок, а пользователь ожидает выплату, хотя продукт не финансирует refund.",
+        "Tutu / Ozon Travel могут встроить ключевой workflow «itinerary inbox + rules + evidence» и обнулить отдельную готовность платить ₽490–1990/case.",
+        "Канал banks/OTAs контролирует активацию travelers with disruption; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «travel law, no payout funding» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «itinerary inbox + rules + evidence» не доводит пользователя до измеримого завершения кейса.",
+        "banks/OTAs подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «travel law, no payout funding» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "travel bank/OTA/user действительно имеет отдельный бюджет ₽490–1990/case именно на этот workflow.",
+        "travelers with disruption регулярно создают пригодные данные для «itinerary inbox + rules + evidence», а не возвращаются к чатам.",
+        "banks/OTAs даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «travel law, no payout funding» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «refund evidence harder than booking» на 100 пользователей travelers with disruption за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «itinerary inbox + rules + evidence» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри travel bank/OTA/user владеет бюджетом ₽490–1990/case и KPI завершения «itinerary inbox»?",
+          "Какой под-сегмент «travelers with disruption» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «itinerary inbox + rules + evidence» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «itinerary inbox» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽490–1990/case и 20% ручных исключений?",
+          "Какой CAC payback получается у канала banks/OTAs при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли banks/OTAs не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет travel bank/OTA/user продвигать «itinerary inbox», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «itinerary inbox + rules + evidence» запрещены или требуют лицензированного партнёра при режиме «travel law, no payout funding»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и travel bank/OTA/user?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «itinerary inbox» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор travel bank/OTA/user мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «itinerary inbox + rules + evidence» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «travel law, no payout funding»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «itinerary inbox + rules + evidence», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров banks/OTAs paid pilot по цене ₽490–1990/case после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «itinerary inbox + rules + evidence»: automation <60%.",
+        "Для «itinerary inbox + rules + evidence»: resolution >90d.",
+        "Paid conversion партнёров banks/OTAs ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽490–1990/case из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «itinerary inbox + rules» и одним сегментом travelers with disruption.",
+        "Запускать через одного типа партнёра — banks/OTAs — с обязательным activation KPI.",
+        "Оставить human approval для «escalation» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 72.5; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 4/10; готовность платить 6/10; доступность GTM 6/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 4/10",
+        "готовность платить 6/10",
+        "доступность GTM 6/10"
+      ]
+    },
+    "rank": 47
+  },
+  {
+    "id": "B2C-07",
+    "titleRu": "Возврат денег за неоказанные услуги",
+    "originalTerm": "Consumer claim autopilot",
+    "segment": "B2C LegalTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "country workflow"
+    ],
+    "sourceUrls": [
+      "https://companies.rbc.ru/news/zlMffo8Qzy/mnenie-eksperta-obzor-ryinka-i-landshafta-legaltech-v-rossii/"
+    ],
+    "oneLiner": "evidence, претензия, сроки, court pack через SEO/banks/unions.",
+    "targetCustomer": "покупатели курсов и абонементов",
+    "buyer": "consumer/bank",
+    "users": [
+      "покупатели курсов и абонементов и сотрудник партнёра"
+    ],
+    "pain": "малые claims дороги для юриста",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "evidence",
+      "претензия",
+      "сроки",
+      "court pack"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — evidence + претензия + сроки",
+      "кабинет партнёра SEO/banks/unions и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «legal boundary, 152-ФЗ»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈4 млрд ₽, TAM ≈15 млрд ₽; global $2–3,5 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈4 млрд ₽, TAM ≈15 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://companies.rbc.ru/news/zlMffo8Qzy/mnenie-eksperta-obzor-ryinka-i-landshafta-legaltech-v-rossii/"
+      },
+      {
+        "type": "estimate",
+        "value": "global $2–3,5 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Правовед",
+      "DestraLegal",
+      "LegalZoom"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: evidence, претензия, сроки, court pack.",
+    "distribution": [
+      "SEO/banks/unions"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽990–2990 + success fee",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "deadline→collection",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "legal boundary, 152-ФЗ",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "country workflow",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5200000,
+      "max": 7200000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "SEO/banks/unions",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 6,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 6,
+      "retention": 5,
+      "capitalEfficiency": 9,
+      "exportOption": 4,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 72.4,
+    "confidence": "High",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: экспортный потенциал 4/10; повторяемость/retention 5/10; готовность платить 6/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Малые claims не покрывают юридическую проверку и долгий цикл взыскания.",
+        "Правовед / DestraLegal могут встроить ключевой workflow «evidence + претензия + сроки» и обнулить отдельную готовность платить ₽990–2990 + success fee.",
+        "Канал SEO/banks/unions контролирует активацию покупатели курсов и абонементов; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «legal boundary, 152-ФЗ» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «evidence + претензия + сроки» не доводит пользователя до измеримого завершения кейса.",
+        "SEO/banks/unions подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «legal boundary, 152-ФЗ» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "consumer/bank действительно имеет отдельный бюджет ₽990–2990 + success fee именно на этот workflow.",
+        "покупатели курсов и абонементов регулярно создают пригодные данные для «evidence + претензия + сроки», а не возвращаются к чатам.",
+        "SEO/banks/unions даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «legal boundary, 152-ФЗ» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «малые claims дороги для юриста» на 100 пользователей покупатели курсов и абонементов за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «evidence + претензия + сроки» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри consumer/bank владеет бюджетом ₽990–2990 + success fee и KPI завершения «evidence»?",
+          "Какой под-сегмент «покупатели курсов и абонементов» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «evidence + претензия + сроки» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «evidence» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽990–2990 + success fee и 20% ручных исключений?",
+          "Какой CAC payback получается у канала SEO/banks/unions при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли SEO/banks/unions не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет consumer/bank продвигать «evidence», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «evidence + претензия + сроки» запрещены или требуют лицензированного партнёра при режиме «legal boundary, 152-ФЗ»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и consumer/bank?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «evidence» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор consumer/bank мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «evidence + претензия + сроки» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «legal boundary, 152-ФЗ»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «evidence + претензия + сроки», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров SEO/banks/unions paid pilot по цене ₽990–2990 + success fee после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «evidence + претензия + сроки»: win <55%.",
+        "Для «evidence + претензия + сроки»: manual >₽1500.",
+        "Paid conversion партнёров SEO/banks/unions ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽990–2990 + success fee из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «evidence + претензия» и одним сегментом покупатели курсов и абонементов.",
+        "Запускать через одного типа партнёра — SEO/banks/unions — с обязательным activation KPI.",
+        "Оставить human approval для «court pack» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 72.4; MVP остаётся overlay/HITL в лимите, ключевые ограничения — экспортный потенциал 4/10; повторяемость/retention 5/10; готовность платить 6/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "реализуемость MVP 8/10"
+      ],
+      "penalties": [
+        "экспортный потенциал 4/10",
+        "повторяемость/retention 5/10",
+        "готовность платить 6/10"
+      ]
+    },
+    "rank": 48
+  },
+  {
+    "id": "B2C-15",
+    "titleRu": "Навигатор ОМС для ЭКО",
+    "originalTerm": "IVF/OMS navigator",
+    "segment": "B2B2C FemTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-finance-health-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CEE private pathways"
+    ],
+    "sourceUrls": [
+      "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html"
+    ],
+    "oneLiner": "regional checklist, OCR, expiry graph через IVF clinics/labs.",
+    "targetCustomer": "пары, собирающие IVF documents",
+    "buyer": "clinic/lab/employer",
+    "users": [
+      "пары",
+      "собирающие IVF documents и сотрудник партнёра"
+    ],
+    "pain": "expiry dates and quotas fragmented",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "regional checklist",
+      "OCR",
+      "expiry graph"
+    ],
+    "mvp3to6Months": [
+      "5 месяцев: один workflow — regional checklist + OCR + expiry graph",
+      "кабинет партнёра IVF clinics/labs и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «health data; no diagnosis»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ FemTech ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; no dedicated SAM",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ FemTech ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html"
+      },
+      {
+        "type": "estimate",
+        "value": "no dedicated SAM",
+        "note": "Узкий SAM не опубликован в source canvas."
+      }
+    ],
+    "competitors": [
+      "Clatch",
+      "Clover",
+      "clinics"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: regional checklist, OCR, expiry graph.",
+    "distribution": [
+      "IVF clinics/labs"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1500–4000/case",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "analysis→next step",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "health data; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CEE private pathways",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 5700000,
+      "max": 7900000
+    },
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "IVF clinics/labs",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 7,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 6,
+      "gtmAccessibility": 7,
+      "retention": 5,
+      "capitalEfficiency": 9,
+      "exportOption": 4,
+      "evidenceConfidence": 5
+    },
+    "weightedScore": 72.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, капиталоэффективность 9/10; штрафы: экспортный потенциал 4/10; повторяемость/retention 5/10; качество evidence 5/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Региональные правила омс и сроки анализов делают expiry graph дорогим в сопровождении.",
+        "Clatch / Clover могут встроить ключевой workflow «regional checklist + OCR + expiry graph» и обнулить отдельную готовность платить ₽1500–4000/case.",
+        "Канал IVF clinics/labs контролирует активацию пары, собирающие IVF documents; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «health data; no diagnosis» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «regional checklist + OCR + expiry graph» не доводит пользователя до измеримого завершения кейса.",
+        "IVF clinics/labs подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «health data; no diagnosis» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "clinic/lab/employer действительно имеет отдельный бюджет ₽1500–4000/case именно на этот workflow.",
+        "пары, собирающие IVF documents регулярно создают пригодные данные для «regional checklist + OCR + expiry graph», а не возвращаются к чатам.",
+        "IVF clinics/labs даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «health data; no diagnosis» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «expiry dates and quotas fragmented» на 100 пользователей пары, собирающие IVF documents за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «regional checklist + OCR + expiry graph» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри clinic/lab/employer владеет бюджетом ₽1500–4000/case и KPI завершения «regional checklist»?",
+          "Какой под-сегмент «пары, собирающие IVF documents» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «regional checklist + OCR + expiry graph» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «regional checklist» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽1500–4000/case и 20% ручных исключений?",
+          "Какой CAC payback получается у канала IVF clinics/labs при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли IVF clinics/labs не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет clinic/lab/employer продвигать «regional checklist», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «regional checklist + OCR + expiry graph» запрещены или требуют лицензированного партнёра при режиме «health data; no diagnosis»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и clinic/lab/employer?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «regional checklist» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор clinic/lab/employer мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «regional checklist + OCR + expiry graph» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «health data; no diagnosis»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «regional checklist + OCR + expiry graph», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров IVF clinics/labs paid pilot по цене ₽1500–4000/case после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «regional checklist + OCR + expiry graph»: wrong deadline >1%.",
+        "Для «regional checklist + OCR + expiry graph»: completion <50%.",
+        "Paid conversion партнёров IVF clinics/labs ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽1500–4000/case из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «regional checklist + OCR» и одним сегментом пары, собирающие IVF documents.",
+        "Запускать через одного типа партнёра — IVF clinics/labs — с обязательным activation KPI.",
+        "Оставить human approval для «expiry graph» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 72.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — экспортный потенциал 4/10; повторяемость/retention 5/10; качество evidence 5/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "капиталоэффективность 9/10",
+        "рыночное окно 8/10"
+      ],
+      "penalties": [
+        "экспортный потенциал 4/10",
+        "повторяемость/retention 5/10",
+        "качество evidence 5/10"
+      ]
+    },
+    "rank": 49
+  },
+  {
+    "id": "B2C-18",
+    "titleRu": "Технический заказчик ремонта квартиры",
+    "originalTerm": "Renovation owner control room",
+    "segment": "B2C/B2B2C HomeTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities",
+      "global-B2C-entry-opportunities",
+      "russia-b2c-digital-markets-2025",
+      "global-B2C-commerce-travel-markets",
+      "russian-saas-entry-opportunities",
+      "global-B2B-entry-opportunities",
+      "russian-vertical-B2B-SaaS-markets",
+      "global-B2B-vertical-markets"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.retail.ru/news/lemana-pro-kazhdyy-vtoroy-pokupatel-privlekaet-masterov-dlya-remonta-i-stroitels-2-aprelya-2025-263015/"
+    ],
+    "oneLiner": "estimate normalization, milestones, expert review через banks/developers/DIY.",
+    "targetCustomer": "families renovating ₽1–5m",
+    "buyer": "homeowner/bank/DIY",
+    "users": [
+      "families renovating ₽1–5m и сотрудник партнёра"
+    ],
+    "pain": "estimate changes hide in chats",
+    "currentAlternatives": [
+      "таблицы",
+      "мессенджеры",
+      "бесплатные приложения",
+      "общий AI и ручная помощь"
+    ],
+    "productScope": [
+      "estimate normalization",
+      "milestones",
+      "expert review"
+    ],
+    "mvp3to6Months": [
+      "6 месяцев: один workflow — estimate normalization + milestones + expert review",
+      "кабинет партнёра banks/developers/DIY и consented export",
+      "web/PWA без hardware, собственного флота, склада или custody",
+      "human-in-the-loop для исключений по правилу «expert liability; no escrow»",
+      "события activation, completion, ручной review и outcome для пилота"
+    ],
+    "excludedFromMvp": [
+      "собственная клиника/банк/страховая",
+      "custody/underwriting",
+      "флот/склад",
+      "фронтальный marketplace",
+      "капиталоёмкий контент",
+      "лицензированный core внутри продукта",
+      "custody/underwriting или финансирование выплат",
+      "собственный флот/склад/hardware-инфраструктура"
+    ],
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд",
+    "marketEvidence": [
+      {
+        "type": "estimate",
+        "value": "РФ ≈17 млрд ₽, TAM ≈140 млрд ₽",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться.",
+        "sourceUrl": "https://www.retail.ru/news/lemana-pro-kazhdyy-vtoroy-pokupatel-privlekaet-masterov-dlya-remonta-i-stroitels-2-aprelya-2025-263015/"
+      },
+      {
+        "type": "estimate",
+        "value": "global $4–6 млрд",
+        "note": "Рыночный ориентир из source canvas; граница уже узкой гипотезы может отличаться."
+      }
+    ],
+    "competitors": [
+      "Петрович.Дом",
+      "Лемана",
+      "Avito"
+    ],
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: estimate normalization, milestones, expert review.",
+    "distribution": [
+      "banks/developers/DIY"
+    ],
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽14900–39900/project",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "milestone→handover referral",
+    "requiredIntegrations": [
+      "identity/consent",
+      "notifications",
+      "partner export/API",
+      "heavy core integrations deferred"
+    ],
+    "dataNeeds": [
+      "minimal case graph",
+      "workflow events",
+      "provenance and outcome labels",
+      "explicit consent"
+    ],
+    "regulatory": "expert liability; no escrow",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": [
+      "2 backend/data",
+      "2 frontend/mobile",
+      "product",
+      "QA",
+      "domain expert part-time",
+      "6–9 человек"
+    ],
+    "estimatedBudgetRub": {
+      "min": 7000000,
+      "max": 9700000
+    },
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "banks/developers/DIY",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 6,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 6,
+      "retention": 4,
+      "capitalEfficiency": 8,
+      "exportOption": 6,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 71.0,
+    "confidence": "Medium",
+    "scoreRationale": "Совместная калибровка B2B/B2C: острота боли 9/10, реализуемость MVP 8/10; штрафы: повторяемость/retention 4/10; готовность платить 6/10; доступность GTM 6/10. TAM отдельно в score не добавлялся.",
+    "critique": {
+      "strongestCaseAgainst": [
+        "Проект одноразовый, а expert review и претензии способны съесть маржу.",
+        "Петрович.Дом / Лемана могут встроить ключевой workflow «estimate normalization + milestones + expert review» и обнулить отдельную готовность платить ₽14900–39900/project.",
+        "Канал banks/developers/DIY контролирует активацию families renovating ₽1–5m; без его операционного участия B2B2C CAC становится consumer-like.",
+        "Ограничение «expert liability; no escrow» требует явного human-in-the-loop и не позволяет обещать полностью автоматический outcome."
+      ],
+      "failureModes": [
+        "Workflow «estimate normalization + milestones + expert review» не доводит пользователя до измеримого завершения кейса.",
+        "banks/developers/DIY подключается к пилоту, но активирует менее 60% целевых пользователей.",
+        "Данные minimal case graph / workflow events неполны, поэтому очередь ручных исключений превышает 20% кейсов.",
+        "Поддержка требований «expert liability; no escrow» снижает gross margin ниже 60%."
+      ],
+      "hiddenAssumptions": [
+        "homeowner/bank/DIY действительно имеет отдельный бюджет ₽14900–39900/project именно на этот workflow.",
+        "families renovating ₽1–5m регулярно создают пригодные данные для «estimate normalization + milestones + expert review», а не возвращаются к чатам.",
+        "banks/developers/DIY даст повторяемый поток без субсидируемого consumer CAC.",
+        "Режим human-in-the-loop достаточен для соблюдения «expert liability; no escrow» без лицензированного core внутри продукта."
+      ],
+      "questions": {
+        "problem": [
+          "Какова частота события «estimate changes hide in chats» на 100 пользователей families renovating ₽1–5m за 90 дней?",
+          "Какой денежный или временной ущерб снимает workflow «estimate normalization + milestones + expert review» по сравнению с таблицы?"
+        ],
+        "customer": [
+          "Кто внутри homeowner/bank/DIY владеет бюджетом ₽14900–39900/project и KPI завершения «estimate normalization»?",
+          "Какой под-сегмент «families renovating ₽1–5m» даёт ≥60% activation без персонального onboarding?"
+        ],
+        "product": [
+          "Какая из функций «estimate normalization + milestones + expert review» одна поднимает completion rate минимум на 15 п.п.?",
+          "На каком шаге «estimate normalization» обязателен human review и какой SLA приемлем пользователю?"
+        ],
+        "economics": [
+          "Сохраняется ли gross margin ≥70% при цене ₽14900–39900/project и 20% ручных исключений?",
+          "Какой CAC payback получается у канала banks/developers/DIY при partner margin 20% и 60% activation?"
+        ],
+        "gtm": [
+          "Даст ли banks/developers/DIY не менее 100 целевых активаций на одного партнёра за квартал?",
+          "Какой trigger заставляет homeowner/bank/DIY продвигать «estimate normalization», а не просто разместить ссылку?"
+        ],
+        "regulation": [
+          "Какие действия в «estimate normalization + milestones + expert review» запрещены или требуют лицензированного партнёра при режиме «expert liability; no escrow»?",
+          "Какой consent/audit trail нужен перед передачей данных minimal case graph / workflow events между пользователем и homeowner/bank/DIY?"
+        ],
+        "data": [
+          "Какова полнота полей minimal case graph / workflow events и critical-error rate для «estimate normalization» на 500 реальных кейсах?",
+          "Какой provenance хранится, чтобы оператор homeowner/bank/DIY мог проверить каждое автоматическое предложение?"
+        ],
+        "team": [
+          "Есть ли у роли 2 backend/data / 2 frontend/mobile компетенция поддерживать «estimate normalization + milestones + expert review» при пяти параллельных партнёрах?",
+          "Кто в команде отвечает за SLA ручной очереди и обновление правил «expert liability; no escrow»?"
+        ],
+        "evidence": [
+          "Какой узкий SAM соответствует именно «estimate normalization + milestones + expert review», а не широкой категории из marketEvidence?",
+          "Подтвердят ли 3 из 5 партнёров banks/developers/DIY paid pilot по цене ₽14900–39900/project после просмотра baseline-метрик?"
+        ]
+      },
+      "killCriteria": [
+        "Для «estimate normalization + milestones + expert review»: margin <50%.",
+        "Для «estimate normalization + milestones + expert review»: claims >8%.",
+        "Paid conversion партнёров banks/developers/DIY ниже 40% после пяти пилотов.",
+        "Gross margin ниже 60% при цене ₽14900–39900/project из-за human review."
+      ],
+      "improvements": [
+        "Ограничить первый релиз функциями «estimate normalization + milestones» и одним сегментом families renovating ₽1–5m.",
+        "Запускать через одного типа партнёра — banks/developers/DIY — с обязательным activation KPI.",
+        "Оставить human approval для «expert review» и показать пользователю provenance каждого результата.",
+        "Встроить holdout и считать completion, D30/episode closure и CAC payback, а не downloads."
+      ],
+      "verdict": "валидировать",
+      "verdictReason": "Валидировать: совместный score 71.0; MVP остаётся overlay/HITL в лимите, ключевые ограничения — повторяемость/retention 4/10; готовность платить 6/10; доступность GTM 6/10."
+    },
+    "rankingFactors": {
+      "drivers": [
+        "острота боли 9/10",
+        "реализуемость MVP 8/10",
+        "капиталоэффективность 8/10"
+      ],
+      "penalties": [
+        "повторяемость/retention 4/10",
+        "готовность платить 6/10",
+        "доступность GTM 6/10"
+      ]
+    },
+    "rank": 50
+  }
+];
+const validation = {
+  "generatedAt": "2026-07-29T14:35:00+04:00",
+  "status": "passed",
+  "summary": {
+    "inputB2B": 25,
+    "inputB2C": 25,
+    "outputIdeas": 50,
+    "checksPassed": 18,
+    "checksTotal": 18
+  },
+  "weights": {
+    "pain": 0.15,
+    "willingnessToPay": 0.13,
+    "feasibility": 0.13,
+    "gtmAccessibility": 0.12,
+    "capitalEfficiency": 0.12,
+    "whitespace": 0.1,
+    "retention": 0.08,
+    "growth": 0.06,
+    "competitionAdvantage": 0.05,
+    "exportOption": 0.03,
+    "evidenceConfidence": 0.03
+  },
+  "checks": {
+    "jsonSerializable": {
+      "passed": true,
+      "detail": "Python json module parsed both inputs and serialized output."
+    },
+    "exactly50": {
+      "passed": true,
+      "detail": "count=50"
+    },
+    "uniqueIds": {
+      "passed": true,
+      "detail": "unique=50"
+    },
+    "uniqueTitles": {
+      "passed": true,
+      "detail": "unique=50"
+    },
+    "ranks1to50": {
+      "passed": true,
+      "detail": "ranks are contiguous"
+    },
+    "sortedDescending": {
+      "passed": true,
+      "detail": "weightedScore descending"
+    },
+    "scores1to10": {
+      "passed": true,
+      "detail": "all 11 weighted dimensions present and integer 1..10"
+    },
+    "weightedFormula": {
+      "passed": true,
+      "detail": "maxDifference=0.000"
+    },
+    "budgetLimit": {
+      "passed": true,
+      "detail": "all min<=max<=10,000,000 RUB"
+    },
+    "mvpMonths": {
+      "passed": true,
+      "detail": "all MVP estimates are 3..6 months"
+    },
+    "critiqueCompleteness": {
+      "passed": true,
+      "detail": "errors=[]"
+    },
+    "urlsHttp": {
+      "passed": true,
+      "detail": "validated=113 URLs"
+    },
+    "noEmptyRequiredValues": {
+      "passed": true,
+      "detail": "empty=[]"
+    },
+    "normalizedArrayTypes": {
+      "passed": true,
+      "detail": "all designated fields are arrays"
+    },
+    "marketEvidenceSchema": {
+      "passed": true,
+      "detail": "all evidence items have type/value/note and optional sourceUrl"
+    },
+    "sourceReportsValid": {
+      "passed": true,
+      "detail": "all references resolve to one of 15 source canvases"
+    },
+    "rankingFactors": {
+      "passed": true,
+      "detail": "exactly 3 drivers and 3 penalties per idea"
+    },
+    "explicitFeasibilityBoundary": {
+      "passed": true,
+      "detail": "Explicit overlay/HITL and licensed-core/hardware exclusions present for all 50; repaired 23 B2B records."
+    }
+  },
+  "detectedIssues": [
+    {
+      "issue": "B2C schema mixed strings and arrays",
+      "repair": "Normalized designated collection fields to arrays and evidence to typed objects."
+    },
+    {
+      "issue": "B2C confidence used Russian labels",
+      "repair": "Mapped to High/Medium/Low."
+    },
+    {
+      "issue": "Budgets mixed scalar and formatted range strings",
+      "repair": "Normalized to {min,max}; capped max at 10m RUB."
+    },
+    {
+      "issue": "B2C critique reused generic boilerplate and one question per group",
+      "repair": "Rebuilt all 25 B2C critiques with 3–5 specific risks/actions and two workflow-specific questions in every group."
+    },
+    {
+      "issue": "B2C scores overstated WTP/GTM/retention relative to consumer CAC, episodic churn, regulation and weak narrow evidence",
+      "repair": "Applied joint caps and idea-specific retention/feasibility penalties, then recomputed exact weighted scores."
+    },
+    {
+      "issue": "vertical-finance-autopilot overlapped restaurant-food-cost-autopilot",
+      "repair": "Separated CFO close/P&L/cash workflow from COO procurement/SKU/tech-card workflow and made mutual MVP exclusions explicit."
+    },
+    {
+      "issue": "B2C-01 overlapped B2C-24 in PetTech",
+      "repair": "Separated longitudinal owner-controlled health passport from acute 7-day clinic-owned post-op exception queue."
+    },
+    {
+      "issue": "Market evidence was sometimes a single compound string and broad category implied narrow opportunity",
+      "repair": "Converted to typed evidence arrays; marked broad context and unavailable narrow SAM explicitly without adding facts."
+    },
+    {
+      "issue": "23 B2B records had feasible scopes but no single machine-checkable overlay/licensed-core/hardware boundary string",
+      "repair": "Added an explicit MVP exclusion boundary without changing product scope."
+    }
+  ],
+  "duplicateRepairs": [
+    {
+      "ideas": [
+        "vertical-finance-autopilot",
+        "restaurant-food-cost-autopilot"
+      ],
+      "resolution": "kept both; distinct buyer/problem/data/MVP"
+    },
+    {
+      "ideas": [
+        "B2C-01",
+        "B2C-24"
+      ],
+      "resolution": "kept both; longitudinal record vs acute post-op workflow"
+    },
+    {
+      "ideas": [
+        "B2C-02",
+        "B2C-25"
+      ],
+      "resolution": "kept both; elder-care coordination vs fixed newborn 90-day handoff"
+    },
+    {
+      "ideas": [
+        "B2C-07",
+        "B2C-19"
+      ],
+      "resolution": "kept both; general service claim-to-court vs travel disruption evidence/escalation"
+    }
+  ],
+  "top10": [
+    {
+      "rank": 1,
+      "id": "vertical-finance-autopilot",
+      "titleRu": "Финансовый автопилот для ресторанных сетей",
+      "segment": "Finance Ops / HoReCa",
+      "weightedScore": 84.0
+    },
+    {
+      "rank": 2,
+      "id": "ar-collections-copilot",
+      "titleRu": "AI-помощник по взысканию дебиторской задолженности",
+      "segment": "Finance Ops / B2B services",
+      "weightedScore": 82.8
+    },
+    {
+      "rank": 3,
+      "id": "frontline-kedo",
+      "titleRu": "Mobile-first КЭДО для распределённого frontline",
+      "segment": "HR Tech / Compliance",
+      "weightedScore": 82.1
+    },
+    {
+      "rank": 4,
+      "id": "restaurant-food-cost-autopilot",
+      "titleRu": "Автопилот себестоимости и закупок ресторана",
+      "segment": "Vertical SaaS / HoReCa",
+      "weightedScore": 81.6
+    },
+    {
+      "rank": 5,
+      "id": "ap-document-to-posting",
+      "titleRu": "AP-автоматизация первички до готовой проводки",
+      "segment": "Finance Ops / Document AI",
+      "weightedScore": 80.9
+    },
+    {
+      "rank": 6,
+      "id": "regulated-field-service-os",
+      "titleRu": "ОС обязательного выездного сервиса",
+      "segment": "Vertical SaaS / FSM",
+      "weightedScore": 80.8
+    },
+    {
+      "rank": 7,
+      "id": "construction-closeout-os",
+      "titleRu": "ОС исполнительной документации для строительного субподрядчика",
+      "segment": "Construction Tech",
+      "weightedScore": 80.6
+    },
+    {
+      "rank": 8,
+      "id": "B2C-17",
+      "titleRu": "Тренажёр беглого чтения 1–2 класса",
+      "segment": "B2B2C K–12",
+      "weightedScore": 80.3
+    },
+    {
+      "rank": 9,
+      "id": "frontline-operational-learning",
+      "titleRu": "Операционное обучение frontline с проверкой навыка",
+      "segment": "HR Tech / LMS",
+      "weightedScore": 80.3
+    },
+    {
+      "rank": 10,
+      "id": "rag-knowledge-reliability",
+      "titleRu": "Контур надёжности корпоративного RAG",
+      "segment": "AI Governance / Knowledge",
+      "weightedScore": 80.2
+    }
+  ],
+  "bottom5": [
+    {
+      "rank": 46,
+      "id": "B2C-20",
+      "titleRu": "Восстановление после развода",
+      "segment": "B2B2C Mental Health",
+      "weightedScore": 73.6
+    },
+    {
+      "rank": 47,
+      "id": "B2C-19",
+      "titleRu": "Ассистент возвратов после поездки",
+      "segment": "B2C/B2B2C TravelTech",
+      "weightedScore": 72.5
+    },
+    {
+      "rank": 48,
+      "id": "B2C-07",
+      "titleRu": "Возврат денег за неоказанные услуги",
+      "segment": "B2C LegalTech",
+      "weightedScore": 72.4
+    },
+    {
+      "rank": 49,
+      "id": "B2C-15",
+      "titleRu": "Навигатор ОМС для ЭКО",
+      "segment": "B2B2C FemTech",
+      "weightedScore": 72.0
+    },
+    {
+      "rank": 50,
+      "id": "B2C-18",
+      "titleRu": "Технический заказчик ремонта квартиры",
+      "segment": "B2C/B2B2C HomeTech",
+      "weightedScore": 71.0
+    }
+  ]
+};
+const factors: Record<string,{label:string,weight:number}> = {
+pain:{label:"Острота боли",weight:15},willingnessToPay:{label:"Готовность платить",weight:13},feasibility:{label:"Реализуемость",weight:13},gtmAccessibility:{label:"Доступность GTM",weight:12},capitalEfficiency:{label:"Капиталоэффективность",weight:12},whitespace:{label:"Незанятое окно",weight:10},retention:{label:"Удержание",weight:8},growth:{label:"Рост категории",weight:6},competitionAdvantage:{label:"Защита от конкурентов",weight:5},exportOption:{label:"Экспортный потенциал",weight:3},evidenceConfidence:{label:"Качество evidence",weight:3}};
+const questionNames: Record<string,string>={problem:"Проблема",customer:"Клиент",product:"Продукт",economics:"Экономика",gtm:"GTM",regulation:"Регулирование",data:"Данные",team:"Команда",evidence:"Evidence"};
+const critiqueIntent="Проведи независимую красную команду идеи: не пересказывай авторское описание и не усиливай его риторически. Сформулируй сильнейший аргумент против, конкретные failure modes и скрытые допущения; задай дополнительные вопросы по проблеме, клиенту, продукту, экономике, GTM, регулированию, данным, команде и evidence; определи измеримые kill criteria, практические улучшения и вынеси итоговый вердикт с причиной.";
+const modes=["Рейтинг 50","Топ-10","Полный паспорт","Критика и вопросы","Методика"] as const; type Mode=typeof modes[number];
+const family=(x:Idea)=>x.segment.includes("B2B2C")?"B2B2C":x.id.startsWith("B2C-")?"B2C":"B2B";
+const budget=(x:Idea)=>`${(x.estimatedBudgetRub.min/1e6).toFixed(1)}–${(x.estimatedBudgetRub.max/1e6).toFixed(1)} млн ₽`;
+const confidence=(x:string)=>({High:"Высокая",Medium:"Средняя",Low:"Низкая"} as Record<string,string>)[x]||x;
+function List({title,items}:{title:string,items:string[]}){if(!items?.length)return null;return <Stack gap={5}><H3>{title}</H3><ul style={{margin:0,paddingLeft:20}}>{items.map((v,n)=><li key={n}><Text as="span">{v}</Text></li>)}</ul></Stack>}
+function Field({title,value}:{title:string,value:string}){if(!value)return null;return <Stack gap={4}><H3>{title}</H3><Text>{value}</Text></Stack>}
+function Head({x}:{x:Idea}){return <Stack gap={6}><Row gap={7} wrap><Pill active>№ {x.rank}</Pill><Pill>{family(x)}</Pill><Pill>{x.segment}</Pill><Pill>{x.weightedScore.toFixed(1)} / 100</Pill></Row><H2>{x.titleRu}</H2><Text tone="secondary" italic>{x.originalTerm}</Text><Text>{x.oneLiner}</Text></Stack>}
+function Nav({x,onSelect}:{x:Idea,onSelect:(id:string)=>void}){const p=ideas[x.rank-2],n=ideas[x.rank];return <Row gap={8} justify="space-between" align="center" wrap><Button variant="secondary" disabled={!p} onClick={()=>p&&onSelect(p.id)}>Предыдущая идея</Button><Text tone="secondary">{x.rank} из 50</Text><Button variant="secondary" disabled={!n} onClick={()=>n&&onSelect(n.id)}>Следующая идея</Button></Row>}
+function Ranking({id,onSelect,onMode}:{id:string,onSelect:(id:string)=>void,onMode:(m:Mode)=>void}){const [q,setQ]=useCanvasState("search","");const [fam,setFam]=useCanvasState("family","all");const [seg,setSeg]=useCanvasState("segment","all");const [ver,setVer]=useCanvasState("verdict","all");const [conf,setConf]=useCanvasState("confidence","all");const [min,setMin]=useCanvasState("threshold","0");const segments=Array.from(new Set(ideas.map(x=>x.segment.split("/")[0].trim()))).sort() as string[];const verdicts=Array.from(new Set(ideas.map(x=>x.critique.verdict))).sort() as string[];const query=q.trim().toLocaleLowerCase("ru");const rows=ideas.filter(x=>(!query||`${x.titleRu} ${x.originalTerm} ${x.segment}`.toLocaleLowerCase("ru").includes(query))&&(fam==="all"||family(x)===fam)&&(seg==="all"||x.segment.startsWith(seg))&&(ver==="all"||x.critique.verdict===ver)&&(conf==="all"||x.confidence===conf)&&x.weightedScore>=Number(min));const x=ideas.find(v=>v.id===id)||ideas[0];return <Stack gap={18}><H2>Рейтинг 50</H2><Grid columns="repeat(auto-fit, minmax(175px, 1fr))" gap={10}><TextInput type="search" value={q} onChange={setQ} placeholder="Поиск RU / original term"/><Select value={fam} onChange={setFam} options={[{value:"all",label:"B2B / B2C / B2B2C"},...['B2B','B2C','B2B2C'].map(v=>({value:v,label:v}))]}/><Select value={seg} onChange={setSeg} options={[{value:"all",label:"Все сегменты"},...segments.map(v=>({value:v,label:v}))]}/><Select value={ver} onChange={setVer} options={[{value:"all",label:"Все вердикты"},...verdicts.map(v=>({value:v,label:v}))]}/><Select value={conf} onChange={setConf} options={[{value:"all",label:"Любая уверенность"},{value:"High",label:"Высокая"},{value:"Medium",label:"Средняя"},{value:"Low",label:"Низкая"}]}/><Select value={min} onChange={setMin} options={["0","70","75","80"].map(v=>({value:v,label:v==="0"?"Любой score":`Score ≥ ${v}`}))}/></Grid><Text tone="secondary">Показано {rows.length} из 50</Text><Table striped stickyHeader headers={["№","Продукт","Сегмент","Score","Бюджет","MVP","Вердикт","Уверенность",""]} rows={rows.map(x=>[x.rank,<Stack gap={2}><Text weight="semibold">{x.titleRu}</Text><Text size="small" tone="tertiary">{x.originalTerm}</Text></Stack>,x.segment,x.weightedScore.toFixed(1),budget(x),`${x.estimatedMvpMonths} мес.`,x.critique.verdict,confidence(x.confidence),<Button variant={x.id===id?"primary":"secondary"} onClick={()=>onSelect(x.id)}>Разбор</Button>])}/><Divider/><Head x={x}/><Grid columns="repeat(auto-fit, minmax(180px, 1fr))" gap={12}><Stat value={x.weightedScore.toFixed(1)} label="score"/><Stat value={budget(x)} label="бюджет"/><Stat value={`${x.estimatedMvpMonths} мес.`} label="MVP"/><Stat value={confidence(x.confidence)} label="уверенность"/></Grid><Callout tone="neutral" title="Краткий вывод критики">{x.critique.verdictReason}</Callout><Button onClick={()=>onMode("Полный паспорт")}>Открыть полный паспорт</Button></Stack>}
+function Top({onSelect,onMode}:{onSelect:(id:string)=>void,onMode:(m:Mode)=>void}){return <Stack gap={18}><H2>Топ-10: компактное сравнение</H2><Callout tone="success" title="Рекомендация shortlist">Начать discovery с первых семи B2B-идей; отдельно проверить B2B2C-дистрибуцию тренажёра чтения. № 1–2 дают лучший баланс боли, WTP и капиталоэффективности.</Callout><Table striped headers={["№","Идея","Score","Драйверы","Штрафы",""]} rows={ideas.slice(0,10).map(x=>[x.rank,<Stack gap={2}><Text weight="semibold">{x.titleRu}</Text><Text size="small" tone="tertiary">{x.originalTerm}</Text></Stack>,x.weightedScore.toFixed(1),<ul style={{margin:0,paddingLeft:18}}>{x.rankingFactors.drivers.map((v:string,n:number)=><li key={n}>{v}</li>)}</ul>,<ul style={{margin:0,paddingLeft:18}}>{x.rankingFactors.penalties.map((v:string,n:number)=><li key={n}>{v}</li>)}</ul>,<Button variant="secondary" onClick={()=>{onSelect(x.id);onMode("Полный паспорт")}}>Паспорт</Button>])}/><Text size="small" tone="tertiary">Источник: ideas-ranked.json · score к 100 · без прямого бонуса за TAM.</Text></Stack>}
+function Passport({x,onSelect}:{x:Idea,onSelect:(id:string)=>void}){return <Stack gap={20}><Nav x={x} onSelect={onSelect}/><Head x={x}/><Grid columns="repeat(auto-fit, minmax(230px, 1fr))" gap={16}><Field title="Целевой клиент" value={x.targetCustomer}/><Field title="Покупатель" value={x.buyer}/><List title="Пользователи" items={x.users}/><Field title="Боль" value={x.pain}/></Grid><Divider/><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={18}><List title="Текущие альтернативы" items={x.currentAlternatives}/><List title="Контур продукта" items={x.productScope}/><List title="MVP за 3–6 месяцев" items={x.mvp3to6Months}/><List title="Исключено из MVP" items={x.excludedFromMvp}/></Grid><Callout tone="info" title="Почему сейчас">{x.whyNow}</Callout><H2>Рынок и позиционирование</H2><Table headers={["Тип","Значение","Комментарий","Источник"]} rows={x.marketEvidence.map((e:any)=>[e.type,e.value,e.note,e.sourceUrl?<Link href={e.sourceUrl}>Открыть</Link>:"—"])}/><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={18}><List title="Рынки из источников" items={x.sourceMarkets}/><List title="Конкуренты" items={x.competitors}/><Field title="Дифференциация" value={x.differentiation}/><List title="Дистрибуция" items={x.distribution}/></Grid><H2>Экономика и удержание</H2><Grid columns="repeat(auto-fit, minmax(220px, 1fr))" gap={16}><Field title="Цикл продаж" value={x.salesCycle}/><Field title="Цена" value={x.pricing}/><Field title="Модель выручки" value={x.revenueModel}/><Field title="Retention loop" value={x.retentionLoop}/><Field title="Бюджет" value={budget(x)}/><Field title="Срок MVP" value={`${x.estimatedMvpMonths} мес.`}/></Grid><H2>Реализация, ограничения и защита</H2><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={18}><List title="Интеграции" items={x.requiredIntegrations}/><List title="Данные" items={x.dataNeeds}/><Field title="Регулирование" value={x.regulatory}/><Field title="Локализация" value={x.localization}/><Field title="Экспорт" value={x.exportPath}/><Field title="Moat" value={x.moat}/><List title="Команда" items={x.teamNeeded}/><List title="Зависимости" items={x.keyDependencies}/></Grid><H2>11 факторов оценки</H2><Table striped headers={["Фактор","Вес","Оценка"]} rows={Object.entries(factors).map(([k,m])=>[m.label,`${m.weight}%`,`${x.scores[k]} / 10`])}/><Callout tone="neutral" title="Обоснование score">{x.scoreRationale}</Callout><H2>Источники</H2><List title="Исходные отчёты" items={x.sourceReports}/><Stack gap={6}>{x.sourceUrls.map((u:string,n:number)=><Link href={u}>{u}</Link>)}</Stack><Nav x={x} onSelect={onSelect}/></Stack>}
+function Critique({x,onSelect}:{x:Idea,onSelect:(id:string)=>void}){return <Stack gap={20}><Nav x={x} onSelect={onSelect}/><Head x={x}/><Callout tone="info" title="Точный intent критического разбора">{critiqueIntent}</Callout><Callout tone="warning" title="Отдельно от авторского паспорта">Ниже — независимый red-team слой, а не описание продукта.</Callout><Grid columns="repeat(auto-fit, minmax(270px, 1fr))" gap={18}><List title="Сильнейший кейс против" items={x.critique.strongestCaseAgainst}/><List title="Сценарии провала" items={x.critique.failureModes}/><List title="Скрытые допущения" items={x.critique.hiddenAssumptions}/></Grid><H2>Дополнительные вопросы</H2><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={12}>{Object.entries(x.critique.questions).map(([g,qs])=><CollapsibleSection title={questionNames[g]||g} trailing={`${(qs as string[]).length} вопроса`} defaultOpen={g==="problem"||g==="customer"}><List title="Проверить" items={qs as string[]}/></CollapsibleSection>)}</Grid><H2>Решение по проверке</H2><Grid columns="repeat(auto-fit, minmax(270px, 1fr))" gap={18}><List title="Измеримые kill criteria" items={x.critique.killCriteria}/><List title="Улучшения" items={x.critique.improvements}/></Grid><Callout tone={x.critique.verdict.includes("топ")?"success":"warning"} title={`Вердикт: ${x.critique.verdict}`}>{x.critique.verdictReason}</Callout><Nav x={x} onSelect={onSelect}/></Stack>}
+function Method(){return <Stack gap={20}><H2>Методика ранжирования</H2><Callout tone="info" title="Профиль компании">Команда 5–15 человек · бюджет ≤10 млн ₽ · MVP 3–6 месяцев · Россия сначала, экспорт вторым этапом.</Callout><Grid columns="repeat(auto-fit, minmax(180px, 1fr))" gap={12}><Stat value="50" label="идей"/><Stat value="25 / 25" label="B2B / B2C исходно"/><Stat value="18 / 18" label="проверок" tone="success"/><Stat value="71.0–84.0" label="диапазон score"/></Grid><H2>11 факторов и точные веса</H2><Table striped headers={["Фактор","Вес"]} rows={Object.values(factors).map(m=>[m.label,`${m.weight}%`])}/><Callout tone="neutral" title="Почему TAM не входит напрямую в score">Широкий TAM не доказывает доступный narrow SAM и может дважды учитывать рост или WTP. TAM оставлен контекстом; score опирается на боль, достижимость и evidence.</Callout><H2>Evidence и caveats</H2><Grid columns="repeat(auto-fit, minmax(240px, 1fr))" gap={16}><Field title="reported" value="Опубликованное значение из названного источника; границы категории требуют проверки."/><Field title="estimate" value="Расчётная оценка или диапазон, не аудированная выручка рынка."/><Field title="proxy" value="Смежная или более широкая категория; контекст, а не прямой SAM."/></Grid><Callout tone="success" title="Validation summary: 18/18">Ровно 50 уникальных идей; rank 1–50; формула score, бюджеты, MVP, критика, URL, массивы, evidence schema и ranking factors проверены.</Callout><Text tone="secondary">Открытые источники неоднородны по датам и категориям; broad evidence не доказывает narrow demand. Нужны customer discovery, технический и юридический due diligence.</Text><Callout tone="warning" title="Скрининг, не инвестиционный совет">Рейтинг задаёт порядок проверки гипотез и не обещает доходность.</Callout><Text size="small" tone="tertiary">Статус: {validation.status}; {validation.summary.checksPassed}/{validation.summary.checksTotal} проверок.</Text></Stack>}
+export default function RankedProductIdeas(){const theme=useHostTheme();const [mode,setMode]=useCanvasState<Mode>("main-mode","Рейтинг 50");const [id,setId]=useCanvasState("selected-idea-id",ideas[0].id);const x=ideas.find(v=>v.id===id)||ideas[0];const counts=ideas.reduce((a:Record<string,number>,v)=>{a[v.critique.verdict]=(a[v.critique.verdict]||0)+1;return a},{});return <Stack gap={24} style={{padding:24,maxWidth:1500,margin:"0 auto",color:theme.text.primary}}><Stack gap={8}><Text size="small" tone="tertiary">ФИНАЛЬНЫЙ АНАЛИТИЧЕСКИЙ ОТЧЁТ</Text><H1>50 продуктовых идей: рейтинг и критика</H1><Text tone="secondary">Команда 5–15 · бюджет ≤10 млн ₽ · MVP 3–6 месяцев · Россия first / export second.</Text></Stack><Grid columns="repeat(auto-fit, minmax(170px, 1fr))" gap={12}><Stat value="50" label="идей"/><Stat value="25 / 25" label="B2B / B2C исходно"/><Stat value="71.0–84.0" label="диапазон score"/><Stat value={Object.entries(counts).map(([k,v])=>`${k}: ${v}`).join(" · ")} label="вердикты"/></Grid><Row gap={8} wrap>{modes.map(m=><Pill active={mode===m} onClick={()=>setMode(m)}>{m}</Pill>)}</Row><Divider/>{mode==="Рейтинг 50"&&<Ranking id={x.id} onSelect={setId} onMode={setMode}/>} {mode==="Топ-10"&&<Top onSelect={setId} onMode={setMode}/>} {mode==="Полный паспорт"&&<Passport x={x} onSelect={setId}/>} {mode==="Критика и вопросы"&&<Critique x={x} onSelect={setId}/>} {mode==="Методика"&&<Method/>}</Stack>}

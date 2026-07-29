@@ -1,0 +1,275 @@
+{
+  "generatedAt": "2026-07-29T14:35:00+04:00",
+  "status": "passed",
+  "summary": {
+    "inputB2B": 25,
+    "inputB2C": 25,
+    "outputIdeas": 50,
+    "checksPassed": 18,
+    "checksTotal": 18
+  },
+  "weights": {
+    "pain": 0.15,
+    "willingnessToPay": 0.13,
+    "feasibility": 0.13,
+    "gtmAccessibility": 0.12,
+    "capitalEfficiency": 0.12,
+    "whitespace": 0.1,
+    "retention": 0.08,
+    "growth": 0.06,
+    "competitionAdvantage": 0.05,
+    "exportOption": 0.03,
+    "evidenceConfidence": 0.03
+  },
+  "checks": {
+    "jsonSerializable": {
+      "passed": true,
+      "detail": "Python json module parsed both inputs and serialized output."
+    },
+    "exactly50": {
+      "passed": true,
+      "detail": "count=50"
+    },
+    "uniqueIds": {
+      "passed": true,
+      "detail": "unique=50"
+    },
+    "uniqueTitles": {
+      "passed": true,
+      "detail": "unique=50"
+    },
+    "ranks1to50": {
+      "passed": true,
+      "detail": "ranks are contiguous"
+    },
+    "sortedDescending": {
+      "passed": true,
+      "detail": "weightedScore descending"
+    },
+    "scores1to10": {
+      "passed": true,
+      "detail": "all 11 weighted dimensions present and integer 1..10"
+    },
+    "weightedFormula": {
+      "passed": true,
+      "detail": "maxDifference=0.000"
+    },
+    "budgetLimit": {
+      "passed": true,
+      "detail": "all min<=max<=10,000,000 RUB"
+    },
+    "mvpMonths": {
+      "passed": true,
+      "detail": "all MVP estimates are 3..6 months"
+    },
+    "critiqueCompleteness": {
+      "passed": true,
+      "detail": "errors=[]"
+    },
+    "urlsHttp": {
+      "passed": true,
+      "detail": "validated=113 URLs"
+    },
+    "noEmptyRequiredValues": {
+      "passed": true,
+      "detail": "empty=[]"
+    },
+    "normalizedArrayTypes": {
+      "passed": true,
+      "detail": "all designated fields are arrays"
+    },
+    "marketEvidenceSchema": {
+      "passed": true,
+      "detail": "all evidence items have type/value/note and optional sourceUrl"
+    },
+    "sourceReportsValid": {
+      "passed": true,
+      "detail": "all references resolve to one of 15 source canvases"
+    },
+    "rankingFactors": {
+      "passed": true,
+      "detail": "exactly 3 drivers and 3 penalties per idea"
+    },
+    "explicitFeasibilityBoundary": {
+      "passed": true,
+      "detail": "Explicit overlay/HITL and licensed-core/hardware exclusions present for all 50; repaired 23 B2B records."
+    }
+  },
+  "detectedIssues": [
+    {
+      "issue": "B2C schema mixed strings and arrays",
+      "repair": "Normalized designated collection fields to arrays and evidence to typed objects."
+    },
+    {
+      "issue": "B2C confidence used Russian labels",
+      "repair": "Mapped to High/Medium/Low."
+    },
+    {
+      "issue": "Budgets mixed scalar and formatted range strings",
+      "repair": "Normalized to {min,max}; capped max at 10m RUB."
+    },
+    {
+      "issue": "B2C critique reused generic boilerplate and one question per group",
+      "repair": "Rebuilt all 25 B2C critiques with 3–5 specific risks/actions and two workflow-specific questions in every group."
+    },
+    {
+      "issue": "B2C scores overstated WTP/GTM/retention relative to consumer CAC, episodic churn, regulation and weak narrow evidence",
+      "repair": "Applied joint caps and idea-specific retention/feasibility penalties, then recomputed exact weighted scores."
+    },
+    {
+      "issue": "vertical-finance-autopilot overlapped restaurant-food-cost-autopilot",
+      "repair": "Separated CFO close/P&L/cash workflow from COO procurement/SKU/tech-card workflow and made mutual MVP exclusions explicit."
+    },
+    {
+      "issue": "B2C-01 overlapped B2C-24 in PetTech",
+      "repair": "Separated longitudinal owner-controlled health passport from acute 7-day clinic-owned post-op exception queue."
+    },
+    {
+      "issue": "Market evidence was sometimes a single compound string and broad category implied narrow opportunity",
+      "repair": "Converted to typed evidence arrays; marked broad context and unavailable narrow SAM explicitly without adding facts."
+    },
+    {
+      "issue": "23 B2B records had feasible scopes but no single machine-checkable overlay/licensed-core/hardware boundary string",
+      "repair": "Added an explicit MVP exclusion boundary without changing product scope."
+    }
+  ],
+  "duplicateRepairs": [
+    {
+      "ideas": [
+        "vertical-finance-autopilot",
+        "restaurant-food-cost-autopilot"
+      ],
+      "resolution": "kept both; distinct buyer/problem/data/MVP"
+    },
+    {
+      "ideas": [
+        "B2C-01",
+        "B2C-24"
+      ],
+      "resolution": "kept both; longitudinal record vs acute post-op workflow"
+    },
+    {
+      "ideas": [
+        "B2C-02",
+        "B2C-25"
+      ],
+      "resolution": "kept both; elder-care coordination vs fixed newborn 90-day handoff"
+    },
+    {
+      "ideas": [
+        "B2C-07",
+        "B2C-19"
+      ],
+      "resolution": "kept both; general service claim-to-court vs travel disruption evidence/escalation"
+    }
+  ],
+  "top10": [
+    {
+      "rank": 1,
+      "id": "vertical-finance-autopilot",
+      "titleRu": "Финансовый автопилот для ресторанных сетей",
+      "segment": "Finance Ops / HoReCa",
+      "weightedScore": 84.0
+    },
+    {
+      "rank": 2,
+      "id": "ar-collections-copilot",
+      "titleRu": "AI-помощник по взысканию дебиторской задолженности",
+      "segment": "Finance Ops / B2B services",
+      "weightedScore": 82.8
+    },
+    {
+      "rank": 3,
+      "id": "frontline-kedo",
+      "titleRu": "Mobile-first КЭДО для распределённого frontline",
+      "segment": "HR Tech / Compliance",
+      "weightedScore": 82.1
+    },
+    {
+      "rank": 4,
+      "id": "restaurant-food-cost-autopilot",
+      "titleRu": "Автопилот себестоимости и закупок ресторана",
+      "segment": "Vertical SaaS / HoReCa",
+      "weightedScore": 81.6
+    },
+    {
+      "rank": 5,
+      "id": "ap-document-to-posting",
+      "titleRu": "AP-автоматизация первички до готовой проводки",
+      "segment": "Finance Ops / Document AI",
+      "weightedScore": 80.9
+    },
+    {
+      "rank": 6,
+      "id": "regulated-field-service-os",
+      "titleRu": "ОС обязательного выездного сервиса",
+      "segment": "Vertical SaaS / FSM",
+      "weightedScore": 80.8
+    },
+    {
+      "rank": 7,
+      "id": "construction-closeout-os",
+      "titleRu": "ОС исполнительной документации для строительного субподрядчика",
+      "segment": "Construction Tech",
+      "weightedScore": 80.6
+    },
+    {
+      "rank": 8,
+      "id": "B2C-17",
+      "titleRu": "Тренажёр беглого чтения 1–2 класса",
+      "segment": "B2B2C K–12",
+      "weightedScore": 80.3
+    },
+    {
+      "rank": 9,
+      "id": "frontline-operational-learning",
+      "titleRu": "Операционное обучение frontline с проверкой навыка",
+      "segment": "HR Tech / LMS",
+      "weightedScore": 80.3
+    },
+    {
+      "rank": 10,
+      "id": "rag-knowledge-reliability",
+      "titleRu": "Контур надёжности корпоративного RAG",
+      "segment": "AI Governance / Knowledge",
+      "weightedScore": 80.2
+    }
+  ],
+  "bottom5": [
+    {
+      "rank": 46,
+      "id": "B2C-20",
+      "titleRu": "Восстановление после развода",
+      "segment": "B2B2C Mental Health",
+      "weightedScore": 73.6
+    },
+    {
+      "rank": 47,
+      "id": "B2C-19",
+      "titleRu": "Ассистент возвратов после поездки",
+      "segment": "B2C/B2B2C TravelTech",
+      "weightedScore": 72.5
+    },
+    {
+      "rank": 48,
+      "id": "B2C-07",
+      "titleRu": "Возврат денег за неоказанные услуги",
+      "segment": "B2C LegalTech",
+      "weightedScore": 72.4
+    },
+    {
+      "rank": 49,
+      "id": "B2C-15",
+      "titleRu": "Навигатор ОМС для ЭКО",
+      "segment": "B2B2C FemTech",
+      "weightedScore": 72.0
+    },
+    {
+      "rank": 50,
+      "id": "B2C-18",
+      "titleRu": "Технический заказчик ремонта квартиры",
+      "segment": "B2C/B2B2C HomeTech",
+      "weightedScore": 71.0
+    }
+  ]
+}

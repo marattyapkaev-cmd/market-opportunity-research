@@ -1,0 +1,3123 @@
+[
+  {
+    "id": "B2C-08",
+    "titleRu": "Компаньон трудового мигранта",
+    "originalTerm": "Migrant compliance companion",
+    "segment": "B2B2C GovTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "GCC reverse corridor"
+    ],
+    "sourceUrls": [
+      "https://raexpert.ru/researches/regions/migration_regions_2024/"
+    ],
+    "oneLiner": "multilingual checklist, OCR, deadlines через HoReCa/logistics employers.",
+    "targetCustomer": "работники Central Asia→Russia",
+    "buyer": "employer/staffing/bank",
+    "users": "работники Central Asia→Russia и сотрудник партнёра",
+    "pain": "просрочки документов ведут к штрафам",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "multilingual checklist, OCR, deadlines",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈4,5 млрд ₽, TAM ≈20 млрд ₽; global $0,8–1,4 млрд",
+    "marketEvidence": "estimate: РФ ≈4,5 млрд ₽, TAM ≈20 млрд ₽; global $0,8–1,4 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Госуслуги, МВД, Localyze",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: multilingual checklist, OCR, deadlines.",
+    "distribution": "HoReCa/logistics employers",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽150–400/worker",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "monthly renewals",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "migration law, 152-ФЗ",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "GCC reverse corridor",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8800000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "HoReCa/logistics employers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 10,
+      "willingnessToPay": 9,
+      "growth": 8,
+      "whitespace": 9,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 9,
+      "retention": 10,
+      "capitalEfficiency": 9,
+      "exportOption": 9,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 89.0,
+    "confidence": "средняя",
+    "scoreRationale": "89.0/100: pain 10, WTP 9, feasibility 8, GTM 9, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "policy change breaks promise",
+      "failureModes": [
+        "policy change breaks promise",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«employer/staffing/bank» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «работники Central Asia→Russia» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «employer/staffing/bank»?"
+        ],
+        "product": [
+          "Какой один шаг в «multilingual checklist, OCR, deadlines» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽150–400/worker ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «HoReCa/logistics employers» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: migration law, 152-ФЗ?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «multilingual checklist, OCR, deadlines»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈4,5 млрд ₽, TAM ≈20 млрд ₽; global $0,8–1,4 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "error >0.5%",
+        "activation <60%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-24",
+    "titleRu": "Фото-наблюдение питомца после операции",
+    "originalTerm": "Vet post-op photo follow-up",
+    "segment": "B2B2C PetTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/LatAm"
+    ],
+    "sourceUrls": [
+      "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3"
+    ],
+    "oneLiner": "scheduled photos, checklist, clinic queue через surgical clinics/insurers.",
+    "targetCustomer": "pet owners 7 days after surgery",
+    "buyer": "vet clinic",
+    "users": "pet owners 7 days after surgery и сотрудник партнёра",
+    "pain": "chaotic messages delay detection",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "scheduled photos, checklist, clinic queue",
+    "mvp3to6Months": "4 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ PetTech ≈3,5 млрд ₽; global $1,5–4,2 млрд; post-op SAM unavailable",
+    "marketEvidence": "estimate: РФ PetTech ≈3,5 млрд ₽; global $1,5–4,2 млрд; post-op SAM unavailable; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "clinic messengers, PetStory",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: scheduled photos, checklist, clinic queue.",
+    "distribution": "surgical clinics/insurers",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽300–800/surgery",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily prompt→passport upsell",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "vet liability; human review",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 6200000,
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "2–5 design partners",
+      "surgical clinics/insurers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 10,
+      "willingnessToPay": 9,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 9,
+      "gtmAccessibility": 9,
+      "retention": 8,
+      "capitalEfficiency": 10,
+      "exportOption": 9,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 88.9,
+    "confidence": "средняя",
+    "scoreRationale": "88.9/100: pain 10, WTP 9, feasibility 9, GTM 9, capital efficiency 10; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "low-ARPU messenger feature",
+      "failureModes": [
+        "low-ARPU messenger feature",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«vet clinic» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «pet owners 7 days after surgery» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «vet clinic»?"
+        ],
+        "product": [
+          "Какой один шаг в «scheduled photos, checklist, clinic queue» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽300–800/surgery ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «surgical clinics/insurers» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: vet liability; human review?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «scheduled photos, checklist, clinic queue»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ PetTech ≈3,5 млрд ₽; global $1,5–4,2 млрд; post-op SAM unavailable?"
+        ]
+      },
+      "killCriteria": [
+        "staff time not -20%",
+        "completion <70%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-06",
+    "titleRu": "Семейный антискам",
+    "originalTerm": "Family anti-scam response",
+    "segment": "B2B2C Cyber Safety",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "global-B2C-media-education-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "global-B2B-horizontal-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA"
+    ],
+    "sourceUrls": [
+      "https://www.giiresearch.com/report/go1644138-parental-control-software.html"
+    ],
+    "oneLiner": "share check, family alert, recovery через банки/telcos.",
+    "targetCustomer": "семьи с подростками и пожилыми",
+    "buyer": "bank/telco/insurer",
+    "users": "семьи с подростками и пожилыми и сотрудник партнёра",
+    "pain": "непонятно как проверить угрозу",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "share check, family alert, recovery",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: parental control $1,5 млрд 2024, forecast $3 млрд",
+    "marketEvidence": "reported: parental control $1,5 млрд 2024, forecast $3 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Kaspersky, Bark, Qustodio",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: share check, family alert, recovery.",
+    "distribution": "банки/telcos",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽50–150/family B2B",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "checks→threat graph",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "child privacy, consent",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9800000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "банки/telcos",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 10,
+      "willingnessToPay": 8,
+      "growth": 9,
+      "whitespace": 9,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 86.6,
+    "confidence": "высокая",
+    "scoreRationale": "86.6/100: pain 10, WTP 8, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "OS/bank can bundle free",
+      "failureModes": [
+        "OS/bank can bundle free",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«bank/telco/insurer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «семьи с подростками и пожилыми» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «bank/telco/insurer»?"
+        ],
+        "product": [
+          "Какой один шаг в «share check, family alert, recovery» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽50–150/family B2B ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «банки/telcos» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: child privacy, consent?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «share check, family alert, recovery»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: reported: parental control $1,5 млрд 2024, forecast $3 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "precision <90%",
+        "no loss reduction",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-02",
+    "titleRu": "Семейный штаб ухода за пожилым",
+    "originalTerm": "Remote eldercare workspace",
+    "segment": "B2B2C Family Care",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CEE→India/SEA"
+    ],
+    "sourceUrls": [
+      "https://www.sec.gov/Archives/edgar/data/1800227/000180022725000031/R36.htm"
+    ],
+    "oneLiner": "роли, задачи, лекарства, документы через HR benefits/private banking.",
+    "targetCustomer": "взрослые дети удалённо ухаживают за родителем",
+    "buyer": "employer/bank/family",
+    "users": "взрослые дети удалённо ухаживают за родителем и сотрудник партнёра",
+    "pain": "handoff и лекарства теряются",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "роли, задачи, лекарства, документы",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: global $4–7 млрд; SAM $1–2 млрд",
+    "marketEvidence": "estimate: global $4–7 млрд; SAM $1–2 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Care.com, Cozi, чаты",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: роли, задачи, лекарства, документы.",
+    "distribution": "HR benefits/private banking",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽490–1490/семью",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily handoff→weekly report",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "согласия, минимум медданных",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CEE→India/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 7800000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "HR benefits/private banking",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 9,
+      "competitionAdvantage": 8,
+      "feasibility": 9,
+      "gtmAccessibility": 8,
+      "retention": 10,
+      "capitalEfficiency": 9,
+      "exportOption": 9,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 86.6,
+    "confidence": "высокая",
+    "scoreRationale": "86.6/100: pain 9, WTP 8, feasibility 9, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "Telegram бесплатен, employer ROI неясен",
+      "failureModes": [
+        "Telegram бесплатен, employer ROI неясен",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«employer/bank/family» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «взрослые дети удалённо ухаживают за родителем» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «employer/bank/family»?"
+        ],
+        "product": [
+          "Какой один шаг в «роли, задачи, лекарства, документы» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽490–1490/семью ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «HR benefits/private banking» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: согласия, минимум медданных?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «роли, задачи, лекарства, документы»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: global $4–7 млрд; SAM $1–2 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "WAU <45%",
+        "<2 users/family",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-10",
+    "titleRu": "Английский для собеседований caregivers",
+    "originalTerm": "Profession-specific AI speaking",
+    "segment": "B2B2C Language EdTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "global-B2C-media-education-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "L1 packs for GCC"
+    ],
+    "sourceUrls": [
+      "https://www.grandviewresearch.com/industry-analysis/online-language-learning-market-report"
+    ],
+    "oneLiner": "voice role-play and assessor calibration через recruiters/colleges.",
+    "targetCustomer": "русскоязычные caregivers/nurses",
+    "buyer": "recruiter/employer/candidate",
+    "users": "русскоязычные caregivers/nurses и сотрудник партнёра",
+    "pain": "general apps miss role scenarios",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "voice role-play and assessor calibration",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: online language $22,1 млрд, self-learning SAM $14,2 млрд",
+    "marketEvidence": "reported: online language $22,1 млрд, self-learning SAM $14,2 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Duolingo, Skyeng, Speak",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: voice role-play and assessor calibration.",
+    "distribution": "recruiters/colleges",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽2500–7000/cohort",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→assessment→interview",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "voice consent, no rank",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "L1 packs for GCC",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8700000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "recruiters/colleges",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 9,
+      "growth": 9,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 10,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 86.0,
+    "confidence": "высокая",
+    "scoreRationale": "86.0/100: pain 9, WTP 9, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "niche small/recruiter trains free",
+      "failureModes": [
+        "niche small/recruiter trains free",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«recruiter/employer/candidate» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «русскоязычные caregivers/nurses» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «recruiter/employer/candidate»?"
+        ],
+        "product": [
+          "Какой один шаг в «voice role-play and assessor calibration» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽2500–7000/cohort ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «recruiters/colleges» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: voice consent, no rank?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «voice role-play and assessor calibration»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: reported: online language $22,1 млрд, self-learning SAM $14,2 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "pass uplift <15pp",
+        "completion <60%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-05",
+    "titleRu": "Паспорт обслуживания автомобиля",
+    "originalTerm": "Digital maintenance passport",
+    "segment": "B2B2C AutoTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA/LatAm"
+    ],
+    "sourceUrls": [
+      "https://dvizhok.su/business/put-na-servis-lezhit-cherez-czifru-rossijskij-ryinok-posleprodazhnogo-obsluzhivaniya-v-i-kvartale-2024-goda"
+    ],
+    "oneLiner": "works, parts, reminders, evidence через СТО/dealers/insurers.",
+    "targetCustomer": "владельцы авто 3–10 лет",
+    "buyer": "СТО/dealer/insurer",
+    "users": "владельцы авто 3–10 лет и сотрудник партнёра",
+    "pain": "нет переносимой истории",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "works, parts, reminders, evidence",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈25 млрд ₽, TAM ≈100 млрд ₽; global SAM $2–4 млрд",
+    "marketEvidence": "estimate: РФ ≈25 млрд ₽, TAM ≈100 млрд ₽; global SAM $2–4 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "FIT Service, Uremont, Auto.ru",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: works, parts, reminders, evidence.",
+    "distribution": "СТО/dealers/insurers",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽299/owner или B2B PMPM",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "mileage→service→resale",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "ПДн; no repair liability",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9500000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "СТО/dealers/insurers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 9,
+      "growth": 8,
+      "whitespace": 9,
+      "competitionAdvantage": 9,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 10,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 85.9,
+    "confidence": "высокая",
+    "scoreRationale": "85.9/100: pain 9, WTP 9, feasibility 8, GTM 8, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "СТО невыгодна переносимость",
+      "failureModes": [
+        "СТО невыгодна переносимость",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«СТО/dealer/insurer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «владельцы авто 3–10 лет» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «СТО/dealer/insurer»?"
+        ],
+        "product": [
+          "Какой один шаг в «works, parts, reminders, evidence» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽299/owner или B2B PMPM ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «СТО/dealers/insurers» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: ПДн; no repair liability?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «works, parts, reminders, evidence»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈25 млрд ₽, TAM ≈100 млрд ₽; global SAM $2–4 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "repeat <30%",
+        "<5 paid STO",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-17",
+    "titleRu": "Тренажёр беглого чтения 1–2 класса",
+    "originalTerm": "Reading fluency copilot",
+    "segment": "B2B2C K–12",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "Kazakh/Spanish corpora"
+    ],
+    "sourceUrls": [
+      "https://smartranking.ru/ru/analytics/edtechs/detskoe-onlajn-obrazovanie-obognalo-vzrosloe-po-vyruchke/"
+    ],
+    "oneLiner": "voice assessment, 10-min practice, report через teachers/centers.",
+    "targetCustomer": "дети 7–9 с отставанием",
+    "buyer": "teacher/center/school",
+    "users": "дети 7–9 с отставанием и сотрудник партнёра",
+    "pain": "teacher cannot measure frequently",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "voice assessment, 10-min practice, report",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: РФ ≈49,1 млрд ₽, TAM ≈150 млрд ₽; global $7,8–10,6 млрд",
+    "marketEvidence": "reported: РФ ≈49,1 млрд ₽, TAM ≈150 млрд ₽; global $7,8–10,6 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Учи.ру, Фоксфорд",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: voice assessment, 10-min practice, report.",
+    "distribution": "teachers/centers",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽300–700/child",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→weekly measure",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "child voice consent",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "Kazakh/Spanish corpora",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8800000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "teachers/centers",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 9,
+      "retention": 10,
+      "capitalEfficiency": 9,
+      "exportOption": 9,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 85.5,
+    "confidence": "высокая",
+    "scoreRationale": "85.5/100: pain 9, WTP 8, feasibility 8, GTM 9, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "child ASR inaccurate",
+      "failureModes": [
+        "child ASR inaccurate",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«teacher/center/school» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «дети 7–9 с отставанием» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «teacher/center/school»?"
+        ],
+        "product": [
+          "Какой один шаг в «voice assessment, 10-min practice, report» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽300–700/child ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «teachers/centers» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: child voice consent?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «voice assessment, 10-min practice, report»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: reported: РФ ≈49,1 млрд ₽, TAM ≈150 млрд ₽; global $7,8–10,6 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "F1 <0.9",
+        "uplift <15%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-11",
+    "titleRu": "CRM подписчиков Telegram-эксперта",
+    "originalTerm": "Creator membership CRM",
+    "segment": "B2B2C Creator Economy",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "global-B2C-media-education-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-product-software-companies.canvas.tsx",
+      "russian-b2b-saas-2025.canvas.tsx",
+      "russian-b2b-saas-markets-2025.canvas.tsx",
+      "global-B2B-SMB-commerce-markets.canvas.tsx",
+      "global-B2B-horizontal-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→LatAm/SEA"
+    ],
+    "sourceUrls": [
+      "https://vk.com/press/content-2024"
+    ],
+    "oneLiner": "audience import, CRM, receipts/export через creator agencies.",
+    "targetCustomer": "эксперты с 5k–100k followers",
+    "buyer": "creator/producer",
+    "users": "эксперты с 5k–100k followers и сотрудник партнёра",
+    "pain": "payments/churn fragmented",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "audience import, CRM, receipts/export",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ net ≈0,75 млрд ₽, TAM ≈2,85 млрд ₽; global $1–2 млрд",
+    "marketEvidence": "estimate: РФ net ≈0,75 млрд ₽, TAM ≈2,85 млрд ₽; global $1–2 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Boosty, VK Donut, Patreon",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: audience import, CRM, receipts/export.",
+    "distribution": "creator agencies",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1990–9990/month",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "segment→campaign→retained revenue",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "54-ФЗ, PII, moderation",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→LatAm/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8200000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "creator agencies",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 9,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 9,
+      "gtmAccessibility": 9,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 9,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 85.3,
+    "confidence": "высокая",
+    "scoreRationale": "85.3/100: pain 8, WTP 9, feasibility 9, GTM 9, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "platform adds CRM",
+      "failureModes": [
+        "platform adds CRM",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«creator/producer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «эксперты с 5k–100k followers» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «creator/producer»?"
+        ],
+        "product": [
+          "Какой один шаг в «audience import, CRM, receipts/export» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽1990–9990/month ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «creator agencies» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: 54-ФЗ, PII, moderation?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «audience import, CRM, receipts/export»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ net ≈0,75 млрд ₽, TAM ≈2,85 млрд ₽; global $1–2 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "churn reduction <10%",
+        "logo churn >5%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-15",
+    "titleRu": "Навигатор ОМС для ЭКО",
+    "originalTerm": "IVF/OMS navigator",
+    "segment": "B2B2C FemTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CEE private pathways"
+    ],
+    "sourceUrls": [
+      "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html"
+    ],
+    "oneLiner": "regional checklist, OCR, expiry graph через IVF clinics/labs.",
+    "targetCustomer": "пары, собирающие IVF documents",
+    "buyer": "clinic/lab/employer",
+    "users": "пары, собирающие IVF documents и сотрудник партнёра",
+    "pain": "expiry dates and quotas fragmented",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "regional checklist, OCR, expiry graph",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ FemTech ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; no dedicated SAM",
+    "marketEvidence": "estimate: РФ FemTech ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; no dedicated SAM; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Clatch, Clover, clinics",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: regional checklist, OCR, expiry graph.",
+    "distribution": "IVF clinics/labs",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1500–4000/case",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "analysis→next step",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "health data; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CEE private pathways",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 7900000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "IVF clinics/labs",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 10,
+      "willingnessToPay": 9,
+      "growth": 7,
+      "whitespace": 9,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 4,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 84.9,
+    "confidence": "средняя",
+    "scoreRationale": "84.9/100: pain 10, WTP 9, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "rules change/coordinator free",
+      "failureModes": [
+        "rules change/coordinator free",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«clinic/lab/employer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «пары, собирающие IVF documents» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «clinic/lab/employer»?"
+        ],
+        "product": [
+          "Какой один шаг в «regional checklist, OCR, expiry graph» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽1500–4000/case ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «IVF clinics/labs» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: health data; no diagnosis?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «regional checklist, OCR, expiry graph»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ FemTech ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; no dedicated SAM?"
+        ]
+      },
+      "killCriteria": [
+        "wrong deadline >1%",
+        "completion <50%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-01",
+    "titleRu": "Паспорт здоровья питомца",
+    "originalTerm": "Pet health record copilot",
+    "segment": "B2B2C PetTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→LatAm"
+    ],
+    "sourceUrls": [
+      "https://trends.rbc.ru/trends/innovation/67d3bc0a9a7947655e7cf3c3",
+      "https://www.researchandmarkets.com/reports/6254952/pet-health-records-apps-market-report"
+    ],
+    "oneLiner": "OCR, timeline, reminders и brief врачу через клиники и страховые.",
+    "targetCustomer": "владельцы питомцев с несколькими клиниками",
+    "buyer": "ветклиника/insurer",
+    "users": "владельцы питомцев с несколькими клиниками и сотрудник партнёра",
+    "pain": "медистория разбросана",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "OCR, timeline, reminders и brief врачу",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈3,5 млрд ₽; TAM ≈78,75 млрд ₽; global $1,5–4,2 млрд",
+    "marketEvidence": "estimate: РФ ≈3,5 млрд ₽; TAM ≈78,75 млрд ₽; global $1,5–4,2 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "PetStory, PetDesk, Tractive",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: OCR, timeline, reminders и brief врачу.",
+    "distribution": "клиники и страховые",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽249–499/мес",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "document→visit→record",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "152-ФЗ; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8500000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "клиники и страховые",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 9,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 9,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 84.5,
+    "confidence": "высокая",
+    "scoreRationale": "84.5/100: pain 9, WTP 8, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "клиника оставит данные в МИС",
+      "failureModes": [
+        "клиника оставит данные в МИС",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«ветклиника/insurer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «владельцы питомцев с несколькими клиниками» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «ветклиника/insurer»?"
+        ],
+        "product": [
+          "Какой один шаг в «OCR, timeline, reminders и brief врачу» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽249–499/мес ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «клиники и страховые» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: 152-ФЗ; no diagnosis?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «OCR, timeline, reminders и brief врачу»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈3,5 млрд ₽; TAM ≈78,75 млрд ₽; global $1,5–4,2 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "D90 <25%",
+        "errors >2%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-21",
+    "titleRu": "Автоповтор заказов ресторанов",
+    "originalTerm": "Direct reorder loyalty",
+    "segment": "B2B2C FoodTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-product-software-companies.canvas.tsx",
+      "russian-b2b-saas-2025.canvas.tsx",
+      "russian-b2b-saas-markets-2025.canvas.tsx",
+      "global-B2B-SMB-commerce-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA"
+    ],
+    "sourceUrls": [
+      "https://www.vedomosti.ru/business/articles/2024/06/14/1043711-rinok-softa-dlya-restorannogo-biznesa-viros"
+    ],
+    "oneLiner": "reorder, margin triggers, holdouts через POS integrators/franchises.",
+    "targetCustomer": "guests of chains 3–30 locations",
+    "buyer": "restaurant chain",
+    "users": "guests of chains 3–30 locations и сотрудник партнёра",
+    "pain": "repeat stays with aggregator",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "reorder, margin triggers, holdouts",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ delivery ≈76,5 млрд ₽, TAM ≈145 млрд ₽; software ≈6,75 млрд ₽",
+    "marketEvidence": "estimate: РФ delivery ≈76,5 млрд ₽, TAM ≈145 млрд ₽; software ≈6,75 млрд ₽; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "iiko, r_keeper, Mindbox",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: reorder, margin triggers, holdouts.",
+    "distribution": "POS integrators/franchises",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽8k–30k/location",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "order→repeat→holdout",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "consent, ad marking; no fleet",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9000000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "POS integrators/franchises",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 9,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 10,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 84.1,
+    "confidence": "высокая",
+    "scoreRationale": "84.1/100: pain 8, WTP 9, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "incumbents bundle",
+      "failureModes": [
+        "incumbents bundle",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«restaurant chain» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «guests of chains 3–30 locations» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «restaurant chain»?"
+        ],
+        "product": [
+          "Какой один шаг в «reorder, margin triggers, holdouts» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽8k–30k/location ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «POS integrators/franchises» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: consent, ad marking; no fleet?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «reorder, margin triggers, holdouts»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ delivery ≈76,5 млрд ₽, TAM ≈145 млрд ₽; software ≈6,75 млрд ₽?"
+        ]
+      },
+      "killCriteria": [
+        "contribution <3x fee",
+        "uplift <5pp",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-09",
+    "titleRu": "AI-проверка письменной части ОГЭ",
+    "originalTerm": "OGE writing coach",
+    "segment": "B2B2C EdTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "global-B2C-media-education-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "other exams"
+    ],
+    "sourceUrls": [
+      "https://smartranking.ru/ru/analytics/edtechs/vyruchka-onlajn-shkol-dlya-podgotovki-k-ekzamenam-vyrosla-na-50/"
+    ],
+    "oneLiner": "feedback, error map, parent report через teachers/schools.",
+    "targetCustomer": "ученики 8–9 классов",
+    "buyer": "parent/teacher/school",
+    "users": "ученики 8–9 классов и сотрудник партнёра",
+    "pain": "учителю не хватает rubric feedback",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "feedback, error map, parent report",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: РФ ≈19 млрд ₽, TAM ≈37,5 млрд ₽; global $2,2–7,7 млрд",
+    "marketEvidence": "reported: РФ ≈19 млрд ₽, TAM ≈37,5 млрд ₽; global $2,2–7,7 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Умскул, Сотка, generic AI",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: feedback, error map, parent report.",
+    "distribution": "teachers/schools",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽390–790/student",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "weekly answer→mastery",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "child data, content IP",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "other exams",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 7600000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "teachers/schools",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "growth": 9,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 9,
+      "gtmAccessibility": 9,
+      "retention": 8,
+      "capitalEfficiency": 9,
+      "exportOption": 7,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 84.0,
+    "confidence": "высокая",
+    "scoreRationale": "84.0/100: pain 8, WTP 8, feasibility 9, GTM 9, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "free AI copies feature",
+      "failureModes": [
+        "free AI copies feature",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«parent/teacher/school» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «ученики 8–9 классов» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «parent/teacher/school»?"
+        ],
+        "product": [
+          "Какой один шаг в «feedback, error map, parent report» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽390–790/student ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «teachers/schools» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: child data, content IP?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «feedback, error map, parent report»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: reported: РФ ≈19 млрд ₽, TAM ≈37,5 млрд ₽; global $2,2–7,7 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "agreement <0.85",
+        "uplift <5",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-22",
+    "titleRu": "Депозит и повторная запись массажиста",
+    "originalTerm": "Massage booking deposit OS",
+    "segment": "B2B2C Local Services",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-product-software-companies.canvas.tsx",
+      "russian-b2b-saas-2025.canvas.tsx",
+      "russian-b2b-saas-markets-2025.canvas.tsx",
+      "global-B2B-SMB-commerce-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→GCC/SEA"
+    ],
+    "sourceUrls": [
+      "https://www.cnews.ru/news/top/2024-03-22_vk_potratil_39_milliarda_na"
+    ],
+    "oneLiner": "course plan, deposit, waitlist, reminder через massage schools/acquiring.",
+    "targetCustomer": "self-employed massage therapists",
+    "buyer": "therapist/studio",
+    "users": "self-employed massage therapists и сотрудник партнёра",
+    "pain": "no-shows destroy course revenue",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "course plan, deposit, waitlist, reminder",
+    "mvp3to6Months": "4 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ booking ≈2,5 млрд ₽, TAM ≈18 млрд ₽; global $1,2–1,9 млрд",
+    "marketEvidence": "estimate: РФ booking ≈2,5 млрд ₽, TAM ≈18 млрд ₽; global $1,2–1,9 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "YClients, Dikidi, Fresha",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: course plan, deposit, waitlist, reminder.",
+    "distribution": "massage schools/acquiring",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1490–3990/month",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "next session→deposit→attendance",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "receipts, PII, no medical claims",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→GCC/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 6500000,
+    "estimatedMvpMonths": 4,
+    "keyDependencies": [
+      "2–5 design partners",
+      "massage schools/acquiring",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 7,
+      "competitionAdvantage": 7,
+      "feasibility": 9,
+      "gtmAccessibility": 9,
+      "retention": 9,
+      "capitalEfficiency": 10,
+      "exportOption": 8,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 83.9,
+    "confidence": "высокая",
+    "scoreRationale": "83.9/100: pain 8, WTP 8, feasibility 9, GTM 9, capital efficiency 10; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "incumbents copy",
+      "failureModes": [
+        "incumbents copy",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«therapist/studio» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «self-employed massage therapists» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «therapist/studio»?"
+        ],
+        "product": [
+          "Какой один шаг в «course plan, deposit, waitlist, reminder» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽1490–3990/month ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «massage schools/acquiring» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: receipts, PII, no medical claims?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «course plan, deposit, waitlist, reminder»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ booking ≈2,5 млрд ₽, TAM ≈18 млрд ₽; global $1,2–1,9 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "no-show reduction <30%",
+        "paid <8%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-12",
+    "titleRu": "ОС гастрономических мастер-классов",
+    "originalTerm": "Experiences operator OS",
+    "segment": "B2B2C TravelTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA/SEA"
+    ],
+    "sourceUrls": [
+      "https://gidmark.ru/news/transformacziya-i-razvitie-ryinka-ekskursionnyih-uslug-v-rossii"
+    ],
+    "oneLiner": "inventory, capacity, hotel API, CRM через hotels/DMC.",
+    "targetCustomer": "small workshop operators",
+    "buyer": "operator/hotel",
+    "users": "small workshop operators и сотрудник партнёра",
+    "pain": "slots/refunds manual",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "inventory, capacity, hotel API, CRM",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈15 млрд ₽, TAM ≈45 млрд ₽; global $3,5–5 млрд",
+    "marketEvidence": "estimate: РФ ≈15 млрд ₽, TAM ≈45 млрд ₽; global $3,5–5 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Tripster, Viator, FareHarbor",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: inventory, capacity, hotel API, CRM.",
+    "distribution": "hotels/DMC",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽3k–12k/month + fee",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "schedule→booking→repeat",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "refunds, permits by operator",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA/SEA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8300000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "hotels/DMC",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 8,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 9,
+      "gtmAccessibility": 8,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 9,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 83.6,
+    "confidence": "высокая",
+    "scoreRationale": "83.6/100: pain 8, WTP 8, feasibility 9, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "OTA gives tools free",
+      "failureModes": [
+        "OTA gives tools free",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«operator/hotel» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «small workshop operators» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «operator/hotel»?"
+        ],
+        "product": [
+          "Какой один шаг в «inventory, capacity, hotel API, CRM» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽3k–12k/month + fee ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «hotels/DMC» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: refunds, permits by operator?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «inventory, capacity, hotel API, CRM»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈15 млрд ₽, TAM ≈45 млрд ₽; global $3,5–5 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "<20 paid ops",
+        "partner share <15%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-25",
+    "titleRu": "Навигатор первых 90 дней после рождения",
+    "originalTerm": "Postpartum family handoff OS",
+    "segment": "B2B2C Family Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.thebusinessresearchcompany.com/report/parenting-apps-global-market-report"
+    ],
+    "oneLiner": "shared handoff, docs, visits, tasks через maternity clinics/benefits.",
+    "targetCustomer": "families with newborns",
+    "buyer": "maternity clinic/employer",
+    "users": "families with newborns и сотрудник партнёра",
+    "pain": "sleep, meds and tasks transfer verbally",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "shared handoff, docs, visits, tasks",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ family workflow ≈1,4 млрд ₽, TAM ≈4 млрд ₽; global $4–7 млрд",
+    "marketEvidence": "estimate: РФ family workflow ≈1,4 млрд ₽, TAM ≈4 млрд ₽; global $4–7 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Baby.ru, Ovia, Cozi",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: shared handoff, docs, visits, tasks.",
+    "distribution": "maternity clinics/benefits",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽1k–3k/family",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily handoff→pediatric visit",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "child/health data; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8000000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "maternity clinics/benefits",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 82.9,
+    "confidence": "средняя",
+    "scoreRationale": "82.9/100: pain 9, WTP 8, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "parents overloaded/free trackers",
+      "failureModes": [
+        "parents overloaded/free trackers",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«maternity clinic/employer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «families with newborns» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «maternity clinic/employer»?"
+        ],
+        "product": [
+          "Какой один шаг в «shared handoff, docs, visits, tasks» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽1k–3k/family ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «maternity clinics/benefits» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: child/health data; no diagnosis?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «shared handoff, docs, visits, tasks»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ family workflow ≈1,4 млрд ₽, TAM ≈4 млрд ₽; global $4–7 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "partner use <25%",
+        "D30 <40%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-23",
+    "titleRu": "Мониторинг мигрени между визитами",
+    "originalTerm": "Migraine between-visit tracker",
+    "segment": "B2B2C Digital Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE→Spanish"
+    ],
+    "sourceUrls": [
+      "https://businesstat.ru/images/demo/telemedicine_russia_demo_businesstat.pdf"
+    ],
+    "oneLiner": "60-sec log, exact-copy meds, visit brief через neurologists/DMS.",
+    "targetCustomer": "patients with 4+ migraine days",
+    "buyer": "neurology clinic/DMS",
+    "users": "patients with 4+ migraine days и сотрудник партнёра",
+    "pain": "paper diary incomplete",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "60-sec log, exact-copy meds, visit brief",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ telemedicine ≈16,5 млрд ₽, +17%; global broad $90–130 млрд",
+    "marketEvidence": "estimate: РФ telemedicine ≈16,5 млрд ₽, +17%; global broad $90–130 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "headache diaries, clinic portals",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: 60-sec log, exact-copy meds, visit brief.",
+    "distribution": "neurologists/DMS",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽400–900 PMPM",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "episode→trend→review",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "health data; no dosage advice",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE→Spanish",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 7600000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "neurologists/DMS",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 10,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 82.8,
+    "confidence": "высокая",
+    "scoreRationale": "82.8/100: pain 9, WTP 8, feasibility 8, GTM 7, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "free diary enough",
+      "failureModes": [
+        "free diary enough",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«neurology clinic/DMS» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «patients with 4+ migraine days» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «neurology clinic/DMS»?"
+        ],
+        "product": [
+          "Какой один шаг в «60-sec log, exact-copy meds, visit brief» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽400–900 PMPM ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «neurologists/DMS» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: health data; no dosage advice?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «60-sec log, exact-copy meds, visit brief»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ telemedicine ≈16,5 млрд ₽, +17%; global broad $90–130 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "D90 <35%",
+        "doctor use <60%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-07",
+    "titleRu": "Возврат денег за неоказанные услуги",
+    "originalTerm": "Consumer claim autopilot",
+    "segment": "B2C LegalTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "country workflow"
+    ],
+    "sourceUrls": [
+      "https://companies.rbc.ru/news/zlMffo8Qzy/mnenie-eksperta-obzor-ryinka-i-landshafta-legaltech-v-rossii/"
+    ],
+    "oneLiner": "evidence, претензия, сроки, court pack через SEO/banks/unions.",
+    "targetCustomer": "покупатели курсов и абонементов",
+    "buyer": "consumer/bank",
+    "users": "покупатели курсов и абонементов и сотрудник партнёра",
+    "pain": "малые claims дороги для юриста",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "evidence, претензия, сроки, court pack",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈4 млрд ₽, TAM ≈15 млрд ₽; global $2–3,5 млрд",
+    "marketEvidence": "estimate: РФ ≈4 млрд ₽, TAM ≈15 млрд ₽; global $2–3,5 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Правовед, DestraLegal, LegalZoom",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: evidence, претензия, сроки, court pack.",
+    "distribution": "SEO/banks/unions",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽990–2990 + success fee",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "deadline→collection",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "legal boundary, 152-ФЗ",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "country workflow",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 7200000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "SEO/banks/unions",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 9,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 9,
+      "gtmAccessibility": 8,
+      "retention": 7,
+      "capitalEfficiency": 9,
+      "exportOption": 4,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 82.4,
+    "confidence": "высокая",
+    "scoreRationale": "82.4/100: pain 9, WTP 9, feasibility 9, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "free templates/ChatGPT",
+      "failureModes": [
+        "free templates/ChatGPT",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«consumer/bank» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «покупатели курсов и абонементов» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «consumer/bank»?"
+        ],
+        "product": [
+          "Какой один шаг в «evidence, претензия, сроки, court pack» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽990–2990 + success fee ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «SEO/banks/unions» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: legal boundary, 152-ФЗ?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «evidence, претензия, сроки, court pack»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈4 млрд ₽, TAM ≈15 млрд ₽; global $2–3,5 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "win <55%",
+        "manual >₽1500",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-14",
+    "titleRu": "Видеодиагностика ремонта техники",
+    "originalTerm": "Appliance repair outcome layer",
+    "segment": "B2B2C Home Services",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.sec.gov/Archives/edgar/data/1705110/000170511025000018/angi-20241231.htm"
+    ],
+    "oneLiner": "video triage, part, quote band, job pack через retailers/warranty.",
+    "targetCustomer": "owners of 3–10-year appliances",
+    "buyer": "retailer/manufacturer",
+    "users": "owners of 3–10-year appliances и сотрудник партнёра",
+    "pain": "master arrives without part",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "video triage, part, quote band, job pack",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд",
+    "marketEvidence": "estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Avito, Профи, Angi",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: video triage, part, quote band, job pack.",
+    "distribution": "retailers/warranty",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽500–1200/job",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "repair→preventive reminder",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "consumer law; partner owns repair",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9200000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "retailers/warranty",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 9,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 8,
+      "capitalEfficiency": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 82.2,
+    "confidence": "высокая",
+    "scoreRationale": "82.2/100: pain 9, WTP 9, feasibility 8, GTM 8, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "diagnosis inaccurate",
+      "failureModes": [
+        "diagnosis inaccurate",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«retailer/manufacturer» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «owners of 3–10-year appliances» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «retailer/manufacturer»?"
+        ],
+        "product": [
+          "Какой один шаг в «video triage, part, quote band, job pack» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽500–1200/job ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «retailers/warranty» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: consumer law; partner owns repair?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «video triage, part, quote band, job pack»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "first-fix uplift <15pp",
+        "deviation >25%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-03",
+    "titleRu": "Навигатор перименопаузы",
+    "originalTerm": "Perimenopause care-prep",
+    "segment": "B2B2C FemTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "diaspora→MENA/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.buro247.ru/business/technologies/25-mar-2025-femtech-industry-overview.html"
+    ],
+    "oneLiner": "timeline, forms, visit brief через клиники/employer wellbeing.",
+    "targetCustomer": "женщины 40–52 с длительными симптомами",
+    "buyer": "clinic/DMS/user",
+    "users": "женщины 40–52 с длительными симптомами и сотрудник партнёра",
+    "pain": "симптомы непригодны врачу",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "timeline, forms, visit brief",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; global $4–7 млрд",
+    "marketEvidence": "estimate: РФ ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; global $4–7 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Flo, Clue, Maven",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: timeline, forms, visit brief.",
+    "distribution": "клиники/employer wellbeing",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽590–1190/мес",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "check-in→visit→trend",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "health data; no diagnosis",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "diaspora→MENA/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 7200000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "клиники/employer wellbeing",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 9,
+      "capitalEfficiency": 9,
+      "exportOption": 8,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 82.0,
+    "confidence": "высокая",
+    "scoreRationale": "82.0/100: pain 9, WTP 8, feasibility 8, GTM 7, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "free trackers заменяют продукт",
+      "failureModes": [
+        "free trackers заменяют продукт",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«clinic/DMS/user» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «женщины 40–52 с длительными симптомами» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «clinic/DMS/user»?"
+        ],
+        "product": [
+          "Какой один шаг в «timeline, forms, visit brief» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽590–1190/мес ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «клиники/employer wellbeing» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: health data; no diagnosis?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «timeline, forms, visit brief»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈2,25 млрд ₽, TAM ≈37,2 млрд ₽; global $4–7 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "D30 <35%",
+        "doctor use <50%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-04",
+    "titleRu": "Компаньон сохранения мышц при терапии ожирения",
+    "originalTerm": "GLP-1 adherence companion",
+    "segment": "B2B2C Digital Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→MENA/LatAm"
+    ],
+    "sourceUrls": [
+      "https://www.grandviewresearch.com/industry-analysis/diet-nutrition-apps-market-report"
+    ],
+    "oneLiner": "protein, symptoms, training, clinician report через obesity clinics/DMS.",
+    "targetCustomer": "пациенты на назначенной терапии",
+    "buyer": "clinic/DMS/patient",
+    "users": "пациенты на назначенной терапии и сотрудник партнёра",
+    "pain": "side effects и потеря мышц снижают adherence",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "protein, symptoms, training, clinician report",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; reported: apps $2,14 млрд; TAM $2,4–4 млрд; SAM $0,9–1,5 млрд",
+    "marketEvidence": "reported: apps $2,14 млрд; TAM $2,4–4 млрд; SAM $0,9–1,5 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "MyFitnessPal, Noom, Yazio",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: protein, symptoms, training, clinician report.",
+    "distribution": "obesity clinics/DMS",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽990–1990/мес",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→weekly→review",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "no prescribing; ED safety",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→MENA/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9000000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "obesity clinics/DMS",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 9,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 9,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 81.7,
+    "confidence": "высокая",
+    "scoreRationale": "81.7/100: pain 9, WTP 8, feasibility 8, GTM 7, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "drug access volatile, post-course churn",
+      "failureModes": [
+        "drug access volatile, post-course churn",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«clinic/DMS/patient» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «пациенты на назначенной терапии» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «clinic/DMS/patient»?"
+        ],
+        "product": [
+          "Какой один шаг в «protein, symptoms, training, clinician report» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽990–1990/мес ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «obesity clinics/DMS» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: no prescribing; ED safety?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «protein, symptoms, training, clinician report»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: reported: apps $2,14 млрд; TAM $2,4–4 млрд; SAM $0,9–1,5 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "lift <10 pp",
+        "D90 <30%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "приоритет",
+      "verdictReason": "Приоритет: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-18",
+    "titleRu": "Технический заказчик ремонта квартиры",
+    "originalTerm": "Renovation owner control room",
+    "segment": "B2C/B2B2C HomeTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://www.retail.ru/news/lemana-pro-kazhdyy-vtoroy-pokupatel-privlekaet-masterov-dlya-remonta-i-stroitels-2-aprelya-2025-263015/"
+    ],
+    "oneLiner": "estimate normalization, milestones, expert review через banks/developers/DIY.",
+    "targetCustomer": "families renovating ₽1–5m",
+    "buyer": "homeowner/bank/DIY",
+    "users": "families renovating ₽1–5m и сотрудник партнёра",
+    "pain": "estimate changes hide in chats",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "estimate normalization, milestones, expert review",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд",
+    "marketEvidence": "estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Петрович.Дом, Лемана, Avito",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: estimate normalization, milestones, expert review.",
+    "distribution": "banks/developers/DIY",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽14900–39900/project",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "milestone→handover referral",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "expert liability; no escrow",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9700000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "banks/developers/DIY",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 10,
+      "willingnessToPay": 9,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 8,
+      "capitalEfficiency": 8,
+      "exportOption": 6,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 81.3,
+    "confidence": "средняя",
+    "scoreRationale": "81.3/100: pain 10, WTP 9, feasibility 8, GTM 7, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "one-off and claims heavy",
+      "failureModes": [
+        "one-off and claims heavy",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«homeowner/bank/DIY» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «families renovating ₽1–5m» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «homeowner/bank/DIY»?"
+        ],
+        "product": [
+          "Какой один шаг в «estimate normalization, milestones, expert review» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽14900–39900/project ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «banks/developers/DIY» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: expert liability; no escrow?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «estimate normalization, milestones, expert review»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈17 млрд ₽, TAM ≈140 млрд ₽; global $4–6 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "margin <50%",
+        "claims >8%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-16",
+    "titleRu": "Контроль лекарств после выписки",
+    "originalTerm": "Post-discharge medication handoff",
+    "segment": "B2B2C Health Admin",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/CEE"
+    ],
+    "sourceUrls": [
+      "https://rncph.ru/blog/160226/"
+    ],
+    "oneLiner": "OCR exact-copy, caregiver confirm, refill через hospitals/DMS.",
+    "targetCustomer": "patients 55+ with 5+ meds",
+    "buyer": "hospital/DMS/pharmacy",
+    "users": "patients 55+ with 5+ meds и сотрудник партнёра",
+    "pain": "family confuses changed regimen",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "OCR exact-copy, caregiver confirm, refill",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ e-pharma ≈69,5 млрд ₽, TAM ≈147 млрд ₽; category context",
+    "marketEvidence": "estimate: РФ e-pharma ≈69,5 млрд ₽, TAM ≈147 млрд ₽; category context; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "pill reminders, pharmacy apps",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: OCR exact-copy, caregiver confirm, refill.",
+    "distribution": "hospitals/DMS",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽300–800/discharge",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily confirmation→refill",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "medical data; human verify",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/CEE",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9500000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "hospitals/DMS",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 10,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 10,
+      "capitalEfficiency": 8,
+      "exportOption": 7,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 81.2,
+    "confidence": "средняя",
+    "scoreRationale": "81.2/100: pain 10, WTP 8, feasibility 7, GTM 7, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "zero-error cost too high",
+      "failureModes": [
+        "zero-error cost too high",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«hospital/DMS/pharmacy» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «patients 55+ with 5+ meds» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «hospital/DMS/pharmacy»?"
+        ],
+        "product": [
+          "Какой один шаг в «OCR exact-copy, caregiver confirm, refill» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽300–800/discharge ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «hospitals/DMS» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: medical data; human verify?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «OCR exact-copy, caregiver confirm, refill»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ e-pharma ≈69,5 млрд ₽, TAM ≈147 млрд ₽; category context?"
+        ]
+      },
+      "killCriteria": [
+        "any critical error",
+        "verify >₽300",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-13",
+    "titleRu": "Гарантия пересадки на региональном автобусе",
+    "originalTerm": "Intercity guarantee layer",
+    "segment": "B2B2C Mobility",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS→LatAm/MENA"
+    ],
+    "sourceUrls": [
+      "https://dzen.ru/a/aHFA39l-5Q6KL51Q"
+    ],
+    "oneLiner": "carrier OS, pooled itinerary, bounded guarantee через carriers/stations.",
+    "targetCustomer": "multi-leg bus passengers",
+    "buyer": "carrier/station",
+    "users": "multi-leg bus passengers и сотрудник партнёра",
+    "pain": "delay/connection opaque",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "carrier OS, pooled itinerary, bounded guarantee",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈3,8 млрд ₽, TAM ≈9 млрд ₽; global $4–6 млрд",
+    "marketEvidence": "estimate: РФ ≈3,8 млрд ₽, TAM ≈9 млрд ₽; global $4–6 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "BlaBlaCar, Tutu, Flix",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: carrier OS, pooled itinerary, bounded guarantee.",
+    "distribution": "carriers/stations",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽5k–20k/carrier + fee",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "trip→punctuality graph",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "transport/refund rules",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS→LatAm/MENA",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 9600000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "carriers/stations",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 8,
+      "whitespace": 9,
+      "competitionAdvantage": 8,
+      "feasibility": 7,
+      "gtmAccessibility": 7,
+      "retention": 9,
+      "capitalEfficiency": 8,
+      "exportOption": 10,
+      "evidenceConfidence": 6
+    },
+    "weightedScore": 80.8,
+    "confidence": "средняя",
+    "scoreRationale": "80.8/100: pain 9, WTP 8, feasibility 7, GTM 7, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "low ticket/integration cost",
+      "failureModes": [
+        "low ticket/integration cost",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«carrier/station» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «multi-leg bus passengers» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «carrier/station»?"
+        ],
+        "product": [
+          "Какой один шаг в «carrier OS, pooled itinerary, bounded guarantee» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽5k–20k/carrier + fee ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «carriers/stations» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: transport/refund rules?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «carrier OS, pooled itinerary, bounded guarantee»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈3,8 млрд ₽, TAM ≈9 млрд ₽; global $4–6 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "support >₽80",
+        "coverage <90%",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-19",
+    "titleRu": "Ассистент возвратов после поездки",
+    "originalTerm": "Travel disruption recovery",
+    "segment": "B2C/B2B2C TravelTech",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-commerce-travel-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx",
+      "russian-vertical-B2B-SaaS-markets.canvas.tsx",
+      "global-B2B-vertical-markets.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CIS/Serbia"
+    ],
+    "sourceUrls": [
+      "https://marketing.rbc.ru/articles/15660/"
+    ],
+    "oneLiner": "itinerary inbox, rules, evidence, escalation через banks/OTAs.",
+    "targetCustomer": "travelers with disruption",
+    "buyer": "travel bank/OTA/user",
+    "users": "travelers with disruption и сотрудник партнёра",
+    "pain": "refund evidence harder than booking",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "itinerary inbox, rules, evidence, escalation",
+    "mvp3to6Months": "6 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ OTA net ≈65 млрд ₽, TAM ≈95 млрд ₽; category context",
+    "marketEvidence": "estimate: РФ OTA net ≈65 млрд ₽, TAM ≈95 млрд ₽; category context; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Tutu, Ozon Travel, carriers",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: itinerary inbox, rules, evidence, escalation.",
+    "distribution": "banks/OTAs",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽490–1990/case",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "trip→disruption→closure",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "travel law, no payout funding",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CIS/Serbia",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8600000,
+    "estimatedMvpMonths": 6,
+    "keyDependencies": [
+      "2–5 design partners",
+      "banks/OTAs",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 8,
+      "feasibility": 8,
+      "gtmAccessibility": 8,
+      "retention": 6,
+      "capitalEfficiency": 9,
+      "exportOption": 7,
+      "evidenceConfidence": 7
+    },
+    "weightedScore": 79.9,
+    "confidence": "высокая",
+    "scoreRationale": "79.9/100: pain 9, WTP 8, feasibility 8, GTM 8, capital efficiency 9; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "rare events, payout expectation",
+      "failureModes": [
+        "rare events, payout expectation",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«travel bank/OTA/user» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «travelers with disruption» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «travel bank/OTA/user»?"
+        ],
+        "product": [
+          "Какой один шаг в «itinerary inbox, rules, evidence, escalation» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽490–1990/case ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «banks/OTAs» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: travel law, no payout funding?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «itinerary inbox, rules, evidence, escalation»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ OTA net ≈65 млрд ₽, TAM ≈95 млрд ₽; category context?"
+        ]
+      },
+      "killCriteria": [
+        "automation <60%",
+        "resolution >90d",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  },
+  {
+    "id": "B2C-20",
+    "titleRu": "Восстановление после развода",
+    "originalTerm": "Six-week divorce recovery",
+    "segment": "B2B2C Mental Health",
+    "sourceReports": [
+      "russian-b2c-entry-opportunities.canvas.tsx",
+      "global-B2C-entry-opportunities.canvas.tsx",
+      "russia-b2c-digital-markets-2025.canvas.tsx",
+      "global-B2C-finance-health-markets.canvas.tsx",
+      "russian-saas-entry-opportunities.canvas.tsx",
+      "global-B2B-entry-opportunities.canvas.tsx"
+    ],
+    "sourceMarkets": [
+      "Россия",
+      "глобальный benchmark",
+      "CEE/LatAm"
+    ],
+    "sourceUrls": [
+      "https://investors.talkspace.com/news-releases/news-release-details/talkspace-announces-fourth-quarter-and-full-year-2024-results"
+    ],
+    "oneLiner": "6-week protocol, actions, group, outcomes через employers/EAPs.",
+    "targetCustomer": "employees after divorce",
+    "buyer": "employer/EAP/user",
+    "users": "employees after divorce и сотрудник партнёра",
+    "pain": "no structure between sessions",
+    "currentAlternatives": "таблицы, мессенджеры, бесплатные приложения, общий AI и ручная помощь",
+    "productScope": "6-week protocol, actions, group, outcomes",
+    "mvp3to6Months": "5 месяцев: один workflow, 2–5 design partners, web/mobile и human-in-the-loop.",
+    "excludedFromMvp": "собственная клиника/банк/страховая, custody/underwriting, флот/склад, фронтальный marketplace, капиталоёмкий контент",
+    "whyNow": "Canvas-источники фиксируют workflow gap и B2B2C-канал; estimate: РФ ≈4,5 млрд ₽, broad TAM ≈126 млрд ₽; global $8–10 млрд",
+    "marketEvidence": "estimate: РФ ≈4,5 млрд ₽, broad TAM ≈126 млрд ₽; global $8–10 млрд; labels reported/estimate/proxy сохранены, точный SOM не подразумевается.",
+    "competitors": "Ясно, Alter, Talkspace",
+    "differentiation": "Одна аудитория, одна задача и измеримый outcome: 6-week protocol, actions, group, outcomes.",
+    "distribution": "employers/EAPs",
+    "salesCycle": "self-serve 0–2 недели; pilot 1–4 месяца; enterprise до 6 месяцев",
+    "pricing": "₽6k–12k/participant",
+    "revenueModel": "B2B2C SaaS/PMPM или case fee; regulated transaction только через лицензированного партнёра",
+    "retentionLoop": "daily→weekly group",
+    "requiredIntegrations": "identity/consent, notifications, partner export/API; heavy core integrations deferred",
+    "dataNeeds": "minimal case graph, workflow events, provenance and outcome labels; explicit consent",
+    "regulatory": "health data, crisis protocol",
+    "localization": "русский UX, local documents/dictionaries/channels, accessibility and support scripts",
+    "exportPath": "CEE/LatAm",
+    "moat": "permissioned longitudinal workflow data, outcomes, partner integrations and trusted distribution",
+    "teamNeeded": "2 backend/data, 2 frontend/mobile, product, QA, domain expert part-time; 6–9 человек",
+    "estimatedBudgetRub": 8400000,
+    "estimatedMvpMonths": 5,
+    "keyDependencies": [
+      "2–5 design partners",
+      "employers/EAPs",
+      "domain/privacy review"
+    ],
+    "scores": {
+      "pain": 9,
+      "willingnessToPay": 8,
+      "growth": 7,
+      "whitespace": 8,
+      "competitionAdvantage": 7,
+      "feasibility": 8,
+      "gtmAccessibility": 7,
+      "retention": 7,
+      "capitalEfficiency": 8,
+      "exportOption": 8,
+      "evidenceConfidence": 8
+    },
+    "weightedScore": 78.4,
+    "confidence": "высокая",
+    "scoreRationale": "78.4/100: pain 9, WTP 8, feasibility 8, GTM 7, capital efficiency 8; broad TAM не повышал score автоматически.",
+    "critique": {
+      "strongestCaseAgainst": "stigma and free substitutes",
+      "failureModes": [
+        "stigma and free substitutes",
+        "partner distribution не активирует пользователей",
+        "ручные исключения снижают gross margin ниже 60%"
+      ],
+      "hiddenAssumptions": [
+        "«employer/EAP/user» имеет бюджет",
+        "пользователь даст минимальное согласие",
+        "workflow повторяется достаточно часто"
+      ],
+      "questions": {
+        "problem": [
+          "Как часто у «employees after divorce» возникает боль и каков ущерб за 90 дней?"
+        ],
+        "customer": [
+          "Кто активирует продукт, если платит «employer/EAP/user»?"
+        ],
+        "product": [
+          "Какой один шаг в «6-week protocol, actions, group, outcomes» даёт ценность отдельно?"
+        ],
+        "economics": [
+          "Выдержит ли цена ₽6k–12k/participant ручные исключения и partner margin?"
+        ],
+        "gtm": [
+          "Даст ли канал «employers/EAPs» ≥100 activations/partner без paid CAC?"
+        ],
+        "regulation": [
+          "Где scope пересекает границу: health data, crisis protocol?"
+        ],
+        "data": [
+          "Как измерить completeness и critical-error rate для «6-week protocol, actions, group, outcomes»?"
+        ],
+        "team": [
+          "Справится ли команда 6–9 человек с SLA и интеграциями?"
+        ],
+        "evidence": [
+          "Какая часть broad category относится к узкому pool: estimate: РФ ≈4,5 млрд ₽, broad TAM ≈126 млрд ₽; global $8–10 млрд?"
+        ]
+      },
+      "killCriteria": [
+        "completion <55%",
+        "effect <0.3",
+        "CAC payback >9 месяцев после двух pilots"
+      ],
+      "improvements": [
+        "сузить MVP до одного события/коридора/состояния",
+        "price against avoided cost or uplift",
+        "human review только для high-risk exceptions"
+      ],
+      "verdict": "тестировать",
+      "verdictReason": "Тестировать: fit ≤10 млн ₽ и 3–6 месяцев; запуск зависит от channel activation, WTP и kill criteria."
+    }
+  }
+]

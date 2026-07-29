@@ -7,10 +7,17 @@ import re
 import shutil
 from pathlib import Path
 
-DEFAULT_SOURCE = Path("/Users/tyapkaev.marat/.cursor/projects/empty-window/canvases")
 ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_SOURCE = ROOT / "canvas-sources"
 
 REPORTS = [
+    {
+        "file": "ranked-product-ideas.canvas.tsx",
+        "slug": "ranked-product-ideas",
+        "title": "50 продуктовых идей: рейтинг и критика",
+        "geo": "Россия / мир", "segment": "B2B/B2C", "status": "Итоговый", "group": "Итоговые карты",
+        "description": "Рейтинг 50 гипотез: полный продуктовый паспорт и отдельная критика с вопросами и kill criteria для каждой идеи.",
+    },
     {
         "file": "global-B2B-entry-opportunities.canvas.tsx",
         "slug": "global-b2b-entry-opportunities",
@@ -251,10 +258,10 @@ def index_html():
     <div class="container">
       <p class="eyebrow">Market Opportunity Research</p>
       <h1 class="site-title">Карта рынков для запуска и локализации цифровых продуктов</h1>
-      <p class="site-lead">15 исследований рынков России и мира: от исходных обзоров до итоговых карт входа с оценкой ёмкости, конкуренции и реалистичных продуктовых клиньев.</p>
+      <p class="site-lead">16 исследований рынков России и мира: от исходных обзоров до итоговых карт входа и рейтинга 50 продуктовых гипотез с отдельной критикой.</p>
       <div class="header-stats">
-        <div class="header-stat"><strong>15</strong><span>исследований</span></div>
-        <div class="header-stat"><strong>4</strong><span>итоговые карты</span></div>
+        <div class="header-stat"><strong>16</strong><span>исследований</span></div>
+        <div class="header-stat"><strong>5</strong><span>итоговых карт</span></div>
         <div class="header-stat"><strong>2</strong><span>географии</span></div>
         <div class="header-stat"><strong>B2B + B2C</strong><span>сегменты</span></div>
       </div>
@@ -340,7 +347,8 @@ def main():
     for report in REPORTS:
         source_path = source_dir / report["file"]
         copied_path = canvas_dir / report["file"]
-        shutil.copyfile(source_path, copied_path)
+        if source_path != copied_path:
+            shutil.copyfile(source_path, copied_path)
         source = copied_path.read_text(encoding="utf-8")
         transformed, component = transform(source)
         output_dir = reports_dir / report["slug"]

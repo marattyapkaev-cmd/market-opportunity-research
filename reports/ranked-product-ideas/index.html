@@ -11483,7 +11483,235 @@ function List({title,items}:{title:string,items:string[]}){if(!items?.length)ret
 function Field({title,value}:{title:string,value:string}){if(!value)return null;return <Stack gap={4}><H3>{title}</H3><Text>{value}</Text></Stack>}
 function Head({x}:{x:Idea}){return <Stack gap={6}><Row gap={7} wrap><Pill active>№ {x.rank}</Pill><Pill>{family(x)}</Pill><Pill>{x.segment}</Pill><Pill>{x.weightedScore.toFixed(1)} / 100</Pill></Row><H2>{x.titleRu}</H2><Text tone="secondary" italic>{x.originalTerm}</Text><Text>{x.oneLiner}</Text></Stack>}
 function Nav({x,onSelect}:{x:Idea,onSelect:(id:string)=>void}){const p=ideas[x.rank-2],n=ideas[x.rank];return <Row gap={8} justify="space-between" align="center" wrap><Button variant="secondary" disabled={!p} onClick={()=>p&&onSelect(p.id)}>Предыдущая идея</Button><Text tone="secondary">{x.rank} из 50</Text><Button variant="secondary" disabled={!n} onClick={()=>n&&onSelect(n.id)}>Следующая идея</Button></Row>}
-function Ranking({id,onSelect,onMode}:{id:string,onSelect:(id:string)=>void,onMode:(m:Mode)=>void}){const [q,setQ]=useCanvasState("search","");const [fam,setFam]=useCanvasState("family","all");const [seg,setSeg]=useCanvasState("segment","all");const [ver,setVer]=useCanvasState("verdict","all");const [conf,setConf]=useCanvasState("confidence","all");const [min,setMin]=useCanvasState("threshold","0");const segments=Array.from(new Set(ideas.map(x=>x.segment.split("/")[0].trim()))).sort() as string[];const verdicts=Array.from(new Set(ideas.map(x=>x.critique.verdict))).sort() as string[];const query=q.trim().toLocaleLowerCase("ru");const rows=ideas.filter(x=>(!query||`${x.titleRu} ${x.originalTerm} ${x.segment}`.toLocaleLowerCase("ru").includes(query))&&(fam==="all"||family(x)===fam)&&(seg==="all"||x.segment.startsWith(seg))&&(ver==="all"||x.critique.verdict===ver)&&(conf==="all"||x.confidence===conf)&&x.weightedScore>=Number(min));const x=ideas.find(v=>v.id===id)||ideas[0];return <Stack gap={18}><H2>Рейтинг 50</H2><Grid columns="repeat(auto-fit, minmax(175px, 1fr))" gap={10}><TextInput type="search" value={q} onChange={setQ} placeholder="Поиск RU / original term"/><Select value={fam} onChange={setFam} options={[{value:"all",label:"B2B / B2C / B2B2C"},...['B2B','B2C','B2B2C'].map(v=>({value:v,label:v}))]}/><Select value={seg} onChange={setSeg} options={[{value:"all",label:"Все сегменты"},...segments.map(v=>({value:v,label:v}))]}/><Select value={ver} onChange={setVer} options={[{value:"all",label:"Все вердикты"},...verdicts.map(v=>({value:v,label:v}))]}/><Select value={conf} onChange={setConf} options={[{value:"all",label:"Любая уверенность"},{value:"High",label:"Высокая"},{value:"Medium",label:"Средняя"},{value:"Low",label:"Низкая"}]}/><Select value={min} onChange={setMin} options={["0","70","75","80"].map(v=>({value:v,label:v==="0"?"Любой score":`Score ≥ ${v}`}))}/></Grid><Text tone="secondary">Показано {rows.length} из 50</Text><Table striped stickyHeader headers={["№","Продукт","Сегмент","Score","Бюджет","MVP","Вердикт","Уверенность",""]} rows={rows.map(x=>[x.rank,<Stack gap={2}><Text weight="semibold">{x.titleRu}</Text><Text size="small" tone="tertiary">{x.originalTerm}</Text></Stack>,x.segment,x.weightedScore.toFixed(1),budget(x),`${x.estimatedMvpMonths} мес.`,x.critique.verdict,confidence(x.confidence),<Button variant={x.id===id?"primary":"secondary"} onClick={()=>onSelect(x.id)}>Разбор</Button>])}/><Divider/><Head x={x}/><Grid columns="repeat(auto-fit, minmax(180px, 1fr))" gap={12}><Stat value={x.weightedScore.toFixed(1)} label="score"/><Stat value={budget(x)} label="бюджет"/><Stat value={`${x.estimatedMvpMonths} мес.`} label="MVP"/><Stat value={confidence(x.confidence)} label="уверенность"/></Grid><Callout tone="neutral" title="Краткий вывод критики">{x.critique.verdictReason}</Callout><Button onClick={()=>onMode("Полный паспорт")}>Открыть полный паспорт</Button></Stack>}
+function RankingDetail({
+  x,
+  onClose,
+  onMode,
+}: {
+  x: Idea;
+  onClose: () => void;
+  onMode: (m: Mode) => void;
+}) {
+  return (
+    <Card size="lg">
+      <CardHeader>Разбор идеи</CardHeader>
+      <CardBody>
+        <Stack gap={16}>
+          <Row gap={8} justify="space-between" align="center" wrap>
+            <Row gap={7} wrap>
+              <Pill active>№ {x.rank}</Pill>
+              <Pill>{family(x)}</Pill>
+            </Row>
+            <Button variant="secondary" onClick={onClose}>× Закрыть</Button>
+          </Row>
+          <Stack gap={6}>
+            <H2>{x.titleRu}</H2>
+            <Text tone="secondary" italic>{x.originalTerm}</Text>
+            <Text>{x.oneLiner}</Text>
+          </Stack>
+          <Grid columns="repeat(auto-fit, minmax(130px, 1fr))" gap={10}>
+            <Stat value={x.weightedScore.toFixed(1)} label="score"/>
+            <Stat value={budget(x)} label="бюджет"/>
+            <Stat value={`${x.estimatedMvpMonths} мес.`} label="MVP"/>
+            <Stat value={confidence(x.confidence)} label="уверенность"/>
+          </Grid>
+          <Grid columns="repeat(auto-fit, minmax(220px, 1fr))" gap={16}>
+            <List title="Драйверы score" items={x.rankingFactors.drivers}/>
+            <List title="Штрафы score" items={x.rankingFactors.penalties}/>
+          </Grid>
+          <Callout
+            tone={x.critique.verdict.includes("топ") ? "success" : "warning"}
+            title={`Вердикт: ${x.critique.verdict}`}
+          >
+            {x.critique.verdictReason}
+          </Callout>
+          <Row gap={8} wrap>
+            <Button onClick={() => onMode("Полный паспорт")}>Полный паспорт</Button>
+            <Button variant="secondary" onClick={() => onMode("Критика и вопросы")}>
+              Критика и вопросы
+            </Button>
+          </Row>
+        </Stack>
+      </CardBody>
+    </Card>
+  );
+}
+
+function Ranking({
+  id,
+  onSelect,
+  onMode,
+}: {
+  id: string;
+  onSelect: (id: string) => void;
+  onMode: (m: Mode) => void;
+}) {
+  const [q, setQ] = useCanvasState("search", "");
+  const [fam, setFam] = useCanvasState("family", "all");
+  const [seg, setSeg] = useCanvasState("segment", "all");
+  const [ver, setVer] = useCanvasState("verdict", "all");
+  const [conf, setConf] = useCanvasState("confidence", "all");
+  const [min, setMin] = useCanvasState("threshold", "0");
+  const [panelOpen, setPanelOpen] = useCanvasState(
+    "ranking-detail-panel-open-v1",
+    false,
+  );
+
+  const segments = Array.from(
+    new Set(ideas.map(x => x.segment.split("/")[0].trim())),
+  ).sort() as string[];
+  const verdicts = Array.from(
+    new Set(ideas.map(x => x.critique.verdict)),
+  ).sort() as string[];
+  const query = q.trim().toLocaleLowerCase("ru");
+  const rows = ideas.filter(x =>
+    (!query ||
+      `${x.titleRu} ${x.originalTerm} ${x.segment}`
+        .toLocaleLowerCase("ru")
+        .includes(query)) &&
+    (fam === "all" || family(x) === fam) &&
+    (seg === "all" || x.segment.startsWith(seg)) &&
+    (ver === "all" || x.critique.verdict === ver) &&
+    (conf === "all" || x.confidence === conf) &&
+    x.weightedScore >= Number(min)
+  );
+  const selected = rows.find(x => x.id === id) || rows[0];
+  const showPanel = panelOpen && Boolean(selected);
+
+  const openDetail = (ideaId: string) => {
+    onSelect(ideaId);
+    setPanelOpen(true);
+  };
+
+  return (
+    <Stack gap={18}>
+      <H2>Рейтинг 50</H2>
+      <Grid columns="repeat(auto-fit, minmax(175px, 1fr))" gap={10}>
+        <TextInput
+          type="search"
+          value={q}
+          onChange={setQ}
+          placeholder="Поиск RU / original term"
+        />
+        <Select
+          value={fam}
+          onChange={setFam}
+          options={[
+            {value: "all", label: "B2B / B2C / B2B2C"},
+            ...["B2B", "B2C", "B2B2C"].map(value => ({value, label: value})),
+          ]}
+        />
+        <Select
+          value={seg}
+          onChange={setSeg}
+          options={[
+            {value: "all", label: "Все сегменты"},
+            ...segments.map(value => ({value, label: value})),
+          ]}
+        />
+        <Select
+          value={ver}
+          onChange={setVer}
+          options={[
+            {value: "all", label: "Все вердикты"},
+            ...verdicts.map(value => ({value, label: value})),
+          ]}
+        />
+        <Select
+          value={conf}
+          onChange={setConf}
+          options={[
+            {value: "all", label: "Любая уверенность"},
+            {value: "High", label: "Высокая"},
+            {value: "Medium", label: "Средняя"},
+            {value: "Low", label: "Низкая"},
+          ]}
+        />
+        <Select
+          value={min}
+          onChange={setMin}
+          options={["0", "70", "75", "80"].map(value => ({
+            value,
+            label: value === "0" ? "Любой score" : `Score ≥ ${value}`,
+          }))}
+        />
+      </Grid>
+      <Text tone="secondary">Показано {rows.length} из 50</Text>
+
+      {!showPanel && (
+        <Table
+          striped
+          stickyHeader
+          headers={[
+            "№",
+            "Продукт",
+            "Сегмент",
+            "Score",
+            "Бюджет",
+            "MVP",
+            "Вердикт",
+            "Уверенность",
+            "",
+          ]}
+          rows={rows.map(x => [
+            x.rank,
+            <Stack gap={2}>
+              <Text weight="semibold">{x.titleRu}</Text>
+              <Text size="small" tone="tertiary">{x.originalTerm}</Text>
+            </Stack>,
+            x.segment,
+            x.weightedScore.toFixed(1),
+            budget(x),
+            `${x.estimatedMvpMonths} мес.`,
+            x.critique.verdict,
+            confidence(x.confidence),
+            <Button variant="secondary" onClick={() => openDetail(x.id)}>
+              Разбор
+            </Button>,
+          ])}
+        />
+      )}
+
+      {showPanel && selected && (
+        <Grid
+          columns="repeat(auto-fit, minmax(min(100%, 420px), 1fr))"
+          gap={18}
+          align="start"
+        >
+          <Stack gap={8} style={{maxHeight: 720, overflowY: "auto"}}>
+            <Table
+              striped
+              stickyHeader
+              headers={["№", "Продукт", ""]}
+              rows={rows.map(x => [
+                x.rank,
+                <Stack gap={2}>
+                  <Text weight={x.id === selected.id ? "bold" : "semibold"}>
+                    {x.titleRu}
+                  </Text>
+                  <Text size="small" tone="tertiary">
+                    Score {x.weightedScore.toFixed(1)}
+                  </Text>
+                </Stack>,
+                <Button
+                  variant={x.id === selected.id ? "primary" : "secondary"}
+                  onClick={() => openDetail(x.id)}
+                >
+                  {x.id === selected.id ? "Открыто" : "Разбор"}
+                </Button>,
+              ])}
+            />
+          </Stack>
+          <RankingDetail
+            x={selected}
+            onClose={() => setPanelOpen(false)}
+            onMode={onMode}
+          />
+        </Grid>
+      )}
+    </Stack>
+  );
+}
 function Top({onSelect,onMode}:{onSelect:(id:string)=>void,onMode:(m:Mode)=>void}){return <Stack gap={18}><H2>Топ-10: компактное сравнение</H2><Callout tone="success" title="Рекомендация shortlist">Начать discovery с первых семи B2B-идей; отдельно проверить B2B2C-дистрибуцию тренажёра чтения. № 1–2 дают лучший баланс боли, WTP и капиталоэффективности.</Callout><Table striped headers={["№","Идея","Score","Драйверы","Штрафы",""]} rows={ideas.slice(0,10).map(x=>[x.rank,<Stack gap={2}><Text weight="semibold">{x.titleRu}</Text><Text size="small" tone="tertiary">{x.originalTerm}</Text></Stack>,x.weightedScore.toFixed(1),<ul style={{margin:0,paddingLeft:18}}>{x.rankingFactors.drivers.map((v:string,n:number)=><li key={n}>{v}</li>)}</ul>,<ul style={{margin:0,paddingLeft:18}}>{x.rankingFactors.penalties.map((v:string,n:number)=><li key={n}>{v}</li>)}</ul>,<Button variant="secondary" onClick={()=>{onSelect(x.id);onMode("Полный паспорт")}}>Паспорт</Button>])}/><Text size="small" tone="tertiary">Источник: ideas-ranked.json · score к 100 · без прямого бонуса за TAM.</Text></Stack>}
 function Passport({x,onSelect}:{x:Idea,onSelect:(id:string)=>void}){return <Stack gap={20}><Nav x={x} onSelect={onSelect}/><Head x={x}/><Grid columns="repeat(auto-fit, minmax(230px, 1fr))" gap={16}><Field title="Целевой клиент" value={x.targetCustomer}/><Field title="Покупатель" value={x.buyer}/><List title="Пользователи" items={x.users}/><Field title="Боль" value={x.pain}/></Grid><Divider/><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={18}><List title="Текущие альтернативы" items={x.currentAlternatives}/><List title="Контур продукта" items={x.productScope}/><List title="MVP за 3–6 месяцев" items={x.mvp3to6Months}/><List title="Исключено из MVP" items={x.excludedFromMvp}/></Grid><Callout tone="info" title="Почему сейчас">{x.whyNow}</Callout><H2>Рынок и позиционирование</H2><Table headers={["Тип","Значение","Комментарий","Источник"]} rows={x.marketEvidence.map((e:any)=>[e.type,e.value,e.note,e.sourceUrl?<Link href={e.sourceUrl}>Открыть</Link>:"—"])}/><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={18}><List title="Рынки из источников" items={x.sourceMarkets}/><List title="Конкуренты" items={x.competitors}/><Field title="Дифференциация" value={x.differentiation}/><List title="Дистрибуция" items={x.distribution}/></Grid><H2>Экономика и удержание</H2><Grid columns="repeat(auto-fit, minmax(220px, 1fr))" gap={16}><Field title="Цикл продаж" value={x.salesCycle}/><Field title="Цена" value={x.pricing}/><Field title="Модель выручки" value={x.revenueModel}/><Field title="Retention loop" value={x.retentionLoop}/><Field title="Бюджет" value={budget(x)}/><Field title="Срок MVP" value={`${x.estimatedMvpMonths} мес.`}/></Grid><H2>Реализация, ограничения и защита</H2><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={18}><List title="Интеграции" items={x.requiredIntegrations}/><List title="Данные" items={x.dataNeeds}/><Field title="Регулирование" value={x.regulatory}/><Field title="Локализация" value={x.localization}/><Field title="Экспорт" value={x.exportPath}/><Field title="Moat" value={x.moat}/><List title="Команда" items={x.teamNeeded}/><List title="Зависимости" items={x.keyDependencies}/></Grid><H2>11 факторов оценки</H2><Table striped headers={["Фактор","Вес","Оценка"]} rows={Object.entries(factors).map(([k,m])=>[m.label,`${m.weight}%`,`${x.scores[k]} / 10`])}/><Callout tone="neutral" title="Обоснование score">{x.scoreRationale}</Callout><H2>Источники</H2><List title="Исходные отчёты" items={x.sourceReports}/><Stack gap={6}>{x.sourceUrls.map((u:string,n:number)=><Link href={u}>{u}</Link>)}</Stack><Nav x={x} onSelect={onSelect}/></Stack>}
 function Critique({x,onSelect}:{x:Idea,onSelect:(id:string)=>void}){return <Stack gap={20}><Nav x={x} onSelect={onSelect}/><Head x={x}/><Callout tone="info" title="Точный intent критического разбора">{critiqueIntent}</Callout><Callout tone="warning" title="Отдельно от авторского паспорта">Ниже — независимый red-team слой, а не описание продукта.</Callout><Grid columns="repeat(auto-fit, minmax(270px, 1fr))" gap={18}><List title="Сильнейший кейс против" items={x.critique.strongestCaseAgainst}/><List title="Сценарии провала" items={x.critique.failureModes}/><List title="Скрытые допущения" items={x.critique.hiddenAssumptions}/></Grid><H2>Дополнительные вопросы</H2><Grid columns="repeat(auto-fit, minmax(250px, 1fr))" gap={12}>{Object.entries(x.critique.questions).map(([g,qs])=><CollapsibleSection title={questionNames[g]||g} trailing={`${(qs as string[]).length} вопроса`} defaultOpen={g==="problem"||g==="customer"}><List title="Проверить" items={qs as string[]}/></CollapsibleSection>)}</Grid><H2>Решение по проверке</H2><Grid columns="repeat(auto-fit, minmax(270px, 1fr))" gap={18}><List title="Измеримые kill criteria" items={x.critique.killCriteria}/><List title="Улучшения" items={x.critique.improvements}/></Grid><Callout tone={x.critique.verdict.includes("топ")?"success":"warning"} title={`Вердикт: ${x.critique.verdict}`}>{x.critique.verdictReason}</Callout><Nav x={x} onSelect={onSelect}/></Stack>}

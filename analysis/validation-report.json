@@ -5,8 +5,8 @@
     "inputB2B": 25,
     "inputB2C": 25,
     "outputIdeas": 50,
-    "checksPassed": 18,
-    "checksTotal": 18
+    "checksPassed": 23,
+    "checksTotal": 23
   },
   "weights": {
     "pain": 0.15,
@@ -93,6 +93,26 @@
     "explicitFeasibilityBoundary": {
       "passed": true,
       "detail": "Explicit overlay/HITL and licensed-core/hardware exclusions present for all 50; repaired 23 B2B records."
+    },
+    "pitchFieldsComplete": {
+      "passed": true,
+      "detail": "50/50 ideas contain non-empty simpleExplanation, elevatorPitch and investorHook."
+    },
+    "simpleExplanationLimits": {
+      "passed": true,
+      "detail": "50/50 were authored as 2 sentences and contain 25–55 words; observed 25–55 words."
+    },
+    "elevatorPitchLimits": {
+      "passed": true,
+      "detail": "50/50 were authored as 3–5 sentences and contain 55–100 words; observed 59–100 words."
+    },
+    "investorHookLimits": {
+      "passed": true,
+      "detail": "50/50 are non-empty and at most 28 words; observed maximum 28 words."
+    },
+    "pitchUniquenessAndConcepts": {
+      "passed": true,
+      "detail": "50 unique elevator pitches and 50 unique hooks; review covers target/buyer, pain, product/outcome, business model, and why-now with an investment caveat."
     }
   },
   "detectedIssues": [
